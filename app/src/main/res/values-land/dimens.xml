@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="fab_margin">48dp</dimen>
+    <dimen name="item_height">180dp</dimen>
+    <dimen name="item_mid_height">90dp</dimen>
+    <dimen name="main_margin">15dp</dimen>
+    <dimen name="item_height_big_text_size">75sp</dimen>
+    <dimen name="item_height_mid_text_size">54sp</dimen>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFragment.FragmentRepeatTaskList">
+    <LinearLayout
+        android:padding="@dimen/main_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:gravity="center"
+            android:textSize="@dimen/item_height_mid_text_size"
+            style="@style/TextView1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            tools:text="Routine Task" />
+        <View
+            style="@style/LineView1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+    </LinearLayout>
+</FrameLayout>
