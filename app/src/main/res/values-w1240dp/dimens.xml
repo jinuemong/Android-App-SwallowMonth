@@ -1,11 +1,15 @@
 <resources>
     <dimen name="fab_margin">200dp</dimen>
+    <dimen name="item_height_big">1500dp</dimen>
+    <dimen name="item_height_double_big">3000dp</dimen>
     <dimen name="item_height">750dp</dimen>
     <dimen name="item_mid_height">375dp</dimen>
     <dimen name="item_mid_2_height">625dp</dimen>
     <dimen name="main_margin">62.5dp</dimen>
     <dimen name="item_height_big_text_size">312.5sp</dimen>
     <dimen name="item_height_mid_text_size">225sp</dimen>
+    <dimen name="item_height_small_text_size">150sp</dimen>
+    <dimen name="item_height_small_up_text_size">175sp</dimen>
 
 </resources>
 

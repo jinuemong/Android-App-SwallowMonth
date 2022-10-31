@@ -37,7 +37,13 @@
         <item name="android:textColor">@color/strong_color</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+    
     <style name="LineView1">
         <item name="android:background">@color/strong_color</item>
+    </style>
+    
+    <style name="progressBar">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 </resources>
