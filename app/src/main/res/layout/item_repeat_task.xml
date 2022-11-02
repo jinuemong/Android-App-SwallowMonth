@@ -87,24 +87,13 @@
                 style="@style/TextView1"
                 android:layout_width="@dimen/item_mid_height"
                 android:layout_height="match_parent"/>
-            <LinearLayout
-                android:layout_marginStart="@dimen/main_margin"
-                android:gravity="end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+
                 <ImageView
                     android:src="@drawable/ic_iconmonstr_wrench_25"
                     android:layout_gravity="center"
                     android:layout_width="@dimen/item_mid_height"
                     android:layout_height="@dimen/item_mid_height"/>
-                <ImageView
 
-                    android:src="@drawable/ic_garbage"
-                    android:layout_gravity="center"
-                    android:layout_width="@dimen/item_mid_height"
-                    android:layout_height="@dimen/item_mid_height"/>
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

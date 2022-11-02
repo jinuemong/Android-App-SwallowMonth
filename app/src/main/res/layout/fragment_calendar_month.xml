@@ -1,98 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Calendar.CalendarMonthFragment">
 
-
-    <LinearLayout
-        android:padding="@dimen/main_margin"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:gravity="bottom"
+        app:umanoDragView="@id/slide_layout"
+        app:umanoOverlay="true"
+        app:umanoPanelHeight="0dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/frag_calender_YYYY_XX"
-            android:textSize="@dimen/item_height_mid_text_size"
-            style="@style/TextView1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            tools:text="xxxx년 x월" />
-        <View
-            style="@style/LineView1"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"/>
-        <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_weight="1"
-                android:text="SUN"
-                android:textSize="@dimen/item_height_mid_text_size"
-                style="@style/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_weight="1"
-                android:text="MON"
-                android:textSize="@dimen/item_height_mid_text_size"
-                style="@style/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_weight="1"
-                android:text="TUE"
-                android:textSize="@dimen/item_height_mid_text_size"
-                style="@style/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_weight="1"
-                android:text="WED"
-                android:textSize="@dimen/item_height_mid_text_size"
-                style="@style/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_weight="1"
-                android:text="THU"
-                android:textSize="@dimen/item_height_mid_text_size"
-                style="@style/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_weight="1"
-                android:text="FRI"
-                android:textSize="@dimen/item_height_mid_text_size"
-                style="@style/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_weight="1"
-                android:text="SAT"
-                android:textSize="@dimen/item_height_mid_text_size"
-                style="@style/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/frag_calender_linear"
+            android:id="@+id/main_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/frag_calender_recycler"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/main_margin">
+
+            <TextView
+                android:id="@+id/frag_calender_YYYY_XX"
+                style="@style/TextView1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:spanCount="7"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                android:adjustViewBounds="true"
-                app:layout_constrainedHeight="true"
-                tools:listitem="@layout/item_calendar" />
+                android:layout_height="@dimen/item_height"
+                android:textSize="@dimen/item_height_mid_text_size"
+                tools:text="xxxx년 x월" />
+
+            <View
+                style="@style/LineView1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sun"
+                    android:textSize="@dimen/item_height_mid_text_size" />
+
+                <TextView
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/mon"
+                    android:textSize="@dimen/item_height_mid_text_size" />
+
+                <TextView
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tue"
+                    android:textSize="@dimen/item_height_mid_text_size" />
+
+                <TextView
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/wed"
+                    android:textSize="@dimen/item_height_mid_text_size" />
+
+                <TextView
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tue"
+                    android:textSize="@dimen/item_height_mid_text_size" />
+
+                <TextView
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/fri"
+                    android:textSize="@dimen/item_height_mid_text_size" />
+
+                <TextView
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sat"
+                    android:textSize="@dimen/item_height_mid_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/frag_calender_linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/frag_calender_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constrainedHeight="true"
+                    app:spanCount="7"
+                    tools:listitem="@layout/item_calendar" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+        
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/slide_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </FrameLayout>
