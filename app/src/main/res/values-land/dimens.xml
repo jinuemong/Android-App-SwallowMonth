@@ -3,9 +3,11 @@
     <dimen name="item_height_big">360dp</dimen>
     <dimen name="item_height_big_180">540dp</dimen>
     <dimen name="item_height_big_100">300dp</dimen>
+    <dimen name="item_height_big_80">240dp</dimen>
     <dimen name="item_height_double_big">720dp</dimen>
     <dimen name="item_height">180dp</dimen>
-    <dimen name="item_mid_height">90dp</dimen>
+    <dimen name="item_mid_height_30">90dp</dimen>
+    <dimen name="item_mid_height_20dp">60dp</dimen>
     <dimen name="main_margin">15dp</dimen>
     <dimen name="item_mid_2_height">150dp</dimen>
     <dimen name="item_height_double_big_text_size">150sp</dimen>

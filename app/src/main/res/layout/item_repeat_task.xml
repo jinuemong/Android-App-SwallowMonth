@@ -55,8 +55,8 @@
                         android:layout_margin="@dimen/main_margin"
                         android:src="@drawable/ic_baseline_image_search_24"
                         android:layout_gravity="center_vertical"
-                        android:layout_width="@dimen/item_mid_height"
-                        android:layout_height="@dimen/item_mid_height"/>
+                        android:layout_width="@dimen/item_mid_height_30"
+                        android:layout_height="@dimen/item_mid_height_30"/>
                     <TextView
                         android:textSize="@dimen/item_height_small_up_text_size"
                         style="@style/TextView1"
@@ -74,7 +74,7 @@
             android:layout_marginEnd="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_mid_height">
+            android:layout_height="@dimen/item_mid_height_30">
             <androidx.core.widget.ContentLoadingProgressBar
                 android:background="@drawable/round_border"
                 style="@style/progressBar"
@@ -85,14 +85,14 @@
                 android:textSize="@dimen/item_height_small_text_size"
                 tools:text="100%"
                 style="@style/TextView1"
-                android:layout_width="@dimen/item_mid_height"
+                android:layout_width="@dimen/item_mid_height_30"
                 android:layout_height="match_parent"/>
 
                 <ImageView
                     android:src="@drawable/ic_iconmonstr_wrench_25"
                     android:layout_gravity="center"
-                    android:layout_width="@dimen/item_mid_height"
-                    android:layout_height="@dimen/item_mid_height"/>
+                    android:layout_width="@dimen/item_mid_height_30"
+                    android:layout_height="@dimen/item_mid_height_30"/>
 
         </LinearLayout>
     </LinearLayout>

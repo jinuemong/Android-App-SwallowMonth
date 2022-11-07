@@ -14,7 +14,7 @@
             android:textSize="@dimen/item_height_mid_text_size"
             style="@style/TextView1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_mid_height"
+            android:layout_height="@dimen/item_mid_height_30"
             tools:text="Routine Task" />
         <View
             style="@style/LineView1"

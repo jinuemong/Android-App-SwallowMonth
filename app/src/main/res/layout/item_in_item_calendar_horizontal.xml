@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/item_height_big_100"
     android:background="@drawable/round_border"
     android:layout_margin="@dimen/main_margin"
+    android:gravity="center"
+    android:orientation="vertical"
     android:layout_height="@dimen/item_height_big_100">
-    <!--여기서 text 뷰와 작은 이미지로 체크  -->
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:gravity="end"
+        android:layout_margin="@dimen/main_margin"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_mid_height_20dp">
+        <ImageView
+            android:layout_marginEnd="@dimen/main_margin"
+            android:visibility="visible"
+            android:src="@drawable/ic_iconmonstr_tiles_list_lined"
+            android:layout_width="@dimen/item_mid_height_20dp"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_marginEnd="@dimen/main_margin"
+            android:visibility="gone"
+            android:src="@drawable/ic_iconmonstr_refresh_7"
+            android:layout_width="@dimen/item_mid_height_20dp"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="@dimen/item_mid_height_20dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:src="@drawable/ic_iconmonstr_check_mark_13" />
+    </LinearLayout>
+
+    <TextView
+        android:textColor="@color/strong_color"
+        android:gravity="center"
+        tools:text="여기는 일정 관리 텍스트 "
+        android:padding="@dimen/main_margin"
+        android:layout_width="@dimen/item_height_big_100"
+        android:layout_height="@dimen/item_height" />
+
+</LinearLayout>

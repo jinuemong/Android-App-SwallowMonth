@@ -25,11 +25,10 @@
     <ImageView
         android:src="@drawable/ic_iconmonstr_arrow_down_alt_lined"
         android:layout_marginTop="10dp"
-        android:layout_width="@dimen/item_mid_height"
-        android:layout_height="@dimen/item_mid_height"/>
+        android:layout_width="@dimen/item_mid_height_30"
+        android:layout_height="@dimen/item_mid_height_30"/>
 
     <androidx.recyclerview.widget.RecyclerView
-
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_in_item_calendar_horizontal" />
