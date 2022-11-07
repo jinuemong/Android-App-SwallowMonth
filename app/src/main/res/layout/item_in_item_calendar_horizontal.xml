@@ -4,5 +4,5 @@
     android:background="@drawable/round_border"
     android:layout_margin="@dimen/main_margin"
     android:layout_height="@dimen/item_height_big_100">
-
+    <!--여기서 text 뷰와 작은 이미지로 체크  -->
 </androidx.constraintlayout.widget.ConstraintLayout>

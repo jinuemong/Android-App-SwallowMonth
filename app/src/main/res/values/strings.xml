@@ -22,4 +22,7 @@
     <string name="thu">THU</string>
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
+
+    <string name="edit_profile">편집</string>
+    <string name="logout_profile">로그아웃</string>
 </resources>
