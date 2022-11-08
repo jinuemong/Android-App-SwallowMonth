@@ -12,9 +12,8 @@ import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
-//각 캘린더의 어댑터 (날짜 )
+//각 캘린더의 어댑터 (날짜 - 일모음 )
 class CalendarAdapter(
     val context:Context,
     private val calendarLayout:LinearLayout,

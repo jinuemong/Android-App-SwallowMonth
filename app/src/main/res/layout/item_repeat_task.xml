@@ -61,7 +61,7 @@
                         android:textSize="@dimen/item_height_small_up_text_size"
                         style="@style/TextView1"
                         android:padding="@dimen/main_margin"
-                        tools:text="테스트 텍스트"
+                        tools:text="반복 루틴 텍스트"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </LinearLayout>

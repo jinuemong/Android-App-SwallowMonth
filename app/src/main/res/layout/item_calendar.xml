@@ -25,14 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/fab_margin">
         <ImageView
-            android:visibility="visible"
+            android:visibility="invisible"
             android:src="@drawable/ic_iconmonstr_tiles_list_lined"
             android:layout_marginStart="5dp"
             android:id="@+id/is_it_todo"
             android:layout_width="@dimen/fab_margin"
             android:layout_height="match_parent"/>
         <ImageView
-            android:visibility="visible"
+            android:visibility="invisible"
             android:src="@drawable/ic_iconmonstr_refresh_7"
             android:layout_marginStart="5dp"
             android:id="@+id/is_repeat"

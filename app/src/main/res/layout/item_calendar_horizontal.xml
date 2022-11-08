@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:backgroundTint="@color/color_type3"
+    android:background="@drawable/round_border"
     android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/main_margin"
