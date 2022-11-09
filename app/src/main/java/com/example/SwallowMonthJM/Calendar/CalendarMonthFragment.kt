@@ -2,7 +2,6 @@ package com.example.SwallowMonthJM.Calendar
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -71,22 +70,18 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
         binding.fragCalenderRecycler.apply {
             adapter = calendarAdapter
 
-            val state = binding.slideFrame.panelState
             addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-
-                    val child = rv.findChildViewUnder(e.x, e.y)
-                    if (child != null) {
-                        val position = rv.getChildAdapterPosition(child)
-                        Log.d("position","$position")
-                        val view = rv.layoutManager?.findViewByPosition(position)
-                        view?.setOnClickListener {
-                            if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
-                                binding.slideFrame.panelState =
-                                    SlidingUpPanelLayout.PanelState.ANCHORED
-                            } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) { //닫기
-                                binding.slideFrame.panelState =
-                                    SlidingUpPanelLayout.PanelState.COLLAPSED
+                    if (e.action == MotionEvent.ACTION_DOWN &&
+                        binding.slideFrame.panelState==SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        val child = rv.findChildViewUnder(e.x, e.y)
+                        if (child != null) {
+                            val position = rv.getChildAdapterPosition(child)
+                            val view = rv.layoutManager?.findViewByPosition(position)
+                            view?.setOnClickListener {
+                                if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
+                                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                                }
                             }
                         }
                     }

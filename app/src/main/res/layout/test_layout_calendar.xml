@@ -20,6 +20,16 @@
             android:layout_marginVertical="15dp"
             android:layout_marginTop="10dp"
             android:background="#777" />
+        <TextView
+            android:layout_marginStart="@dimen/item_mid_height_20dp"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="@dimen/item_height_big_text_size"
+            tools:text="xx년 x월 x일 일정"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:orientation="horizontal"/>
         <LinearLayout
             android:layout_margin="@dimen/fab_margin"
             android:layout_width="match_parent"
