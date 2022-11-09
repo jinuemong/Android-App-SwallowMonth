@@ -41,7 +41,6 @@ class CalendarAdapter(
 
         //각 아이템의 높이 지정
         holder.binding.root.layoutParams.height = calendarLayout.height/6
-
         //오늘 날짜는 진하게
         val dateDay : String = SimpleDateFormat("dd",Locale.KOREA).format(date)
         val dateMonth : Int = SimpleDateFormat("MM",Locale.KOREA).format(date).toInt()
