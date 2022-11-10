@@ -116,47 +116,11 @@
         </LinearLayout>
 
         <!-- sldie 레이아웃 -->
-        <LinearLayout
+        <include
+            layout="@layout/slide_layout_calendar"
             android:id="@+id/slide_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/round_border_two"
-            >
-            <View
-                android:layout_width="30dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="15dp"
-                android:layout_marginTop="10dp"
-                android:background="#777" />
-            <LinearLayout
-                android:layout_margin="@dimen/fab_margin"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height"
-                android:orientation="horizontal">
-                <EditText
-                    android:padding="@dimen/main_margin"
-                    android:hint="할 일을 작성하세요"
-                    android:background="@drawable/round_border"
-                    android:id="@+id/edit_text"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/item_height"
-                    android:layout_weight="5" />
+            android:layout_height="wrap_content"/>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/add_button"
-                        android:layout_width="@dimen/item_height"
-                        android:layout_height="@dimen/item_height"
-                        android:src="@drawable/ic_add_box_24" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </FrameLayout>

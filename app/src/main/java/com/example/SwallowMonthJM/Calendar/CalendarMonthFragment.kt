@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentCalendarMonthBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
@@ -78,9 +80,11 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
                         if (child != null) {
                             val position = rv.getChildAdapterPosition(child)
                             val view = rv.layoutManager?.findViewByPosition(position)
+                            val day = view?.findViewById<TextView>(R.id.calendar_text)
                             view?.setOnClickListener {
                                 if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
                                     binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                                    binding.slideLayout
                                 }
                             }
                         }
