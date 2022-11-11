@@ -2,9 +2,8 @@ package com.example.SwallowMonthJM
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
@@ -20,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     lateinit var frManger :FragmentManager
     lateinit var fragmentPageAdapter:FragmentAdapter
+    lateinit var viewPager : ViewPager2
     //click tab
     private val tintColor = ColorStateList(
         arrayOf(intArrayOf(android.R.attr.state_selected), intArrayOf(-android.R.attr.state_selected)),
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainTopLayout.apply {
             //상단 적용
         }
+        viewPager = binding.mainMidViewpager
         initFragmentAdapter()
         initViewPager()
         initTabLayout()
@@ -57,19 +58,19 @@ class MainActivity : AppCompatActivity() {
         fragmentPageAdapter.addFragment(FragmentUserUI())
     }
     private fun initViewPager(){
-        binding.mainMidViewpager.adapter = fragmentPageAdapter
-        binding.mainMidViewpager.registerOnPageChangeCallback(object :
+        viewPager.adapter = fragmentPageAdapter
+        viewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
             }
         })
-        binding.mainMidViewpager.isUserInputEnabled = false
+        viewPager.isUserInputEnabled = false
         //스크롤 금지
     }
     private fun initTabLayout(){
         binding.mainBottomTabLayout.tabIconTint = tintColor
-        TabLayoutMediator(binding.mainBottomTabLayout,binding.mainMidViewpager)
+        TabLayoutMediator(binding.mainBottomTabLayout,viewPager)
         { tab, position->
             tab.setIcon(iconView[position])
         }.attach()

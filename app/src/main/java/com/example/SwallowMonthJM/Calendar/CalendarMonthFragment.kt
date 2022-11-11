@@ -22,13 +22,13 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
     // 상하 슬라이드 동작 제어
     private var _binding: FragmentCalendarMonthBinding?= null
     private val binding get()=_binding!!
-    lateinit var mContext: Context
+    lateinit var mainActivity: MainActivity
     lateinit var currentDate: Date
     lateinit var calendarAdapter: CalendarAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mContext = context as MainActivity
+        mainActivity = context as MainActivity
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
         ).format(date.time)
 
         binding.fragCalenderYYYYXX.text = dateTime
-        calendarAdapter = CalendarAdapter(mContext,binding.fragCalenderLinear
+        calendarAdapter = CalendarAdapter(mainActivity,binding.fragCalenderLinear
             ,currentDate,dateMonth)
         binding.fragCalenderRecycler.apply {
             adapter = calendarAdapter
@@ -80,11 +80,14 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
                         if (child != null) {
                             val position = rv.getChildAdapterPosition(child)
                             val view = rv.layoutManager?.findViewByPosition(position)
-                            val day = view?.findViewById<TextView>(R.id.calendar_text)
+                            val day = view?.findViewById<TextView>(R.id.calendar_text)?.text.toString()
                             view?.setOnClickListener {
                                 if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
                                     binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-                                    binding.slideLayout
+                                    val slideLayout = binding.slideLayout
+                                    val calendarSlider = CalendarSlider(slideLayout,mainActivity)
+                                    calendarSlider.initView(dateTime,day)
+                                    calendarSlider.setUpListener()
                                 }
                             }
                         }
