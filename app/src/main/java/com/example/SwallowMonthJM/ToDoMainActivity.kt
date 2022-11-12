@@ -3,13 +3,11 @@ package com.example.SwallowMonthJM
 import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
-import androidx.lifecycle.LiveData
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -110,7 +108,7 @@ class ToDoAdapter(
 }
 
 class ToDoMainViewModel : ViewModel(){
-    //라이브 데이터를 사용하면 notify를 사용할 필요가 없음
+
     var todoLiveData = MutableLiveData<ArrayList<Todo>>()
     //데이터를 여기서 관리함 - 뷰모델은 액티비티가 종료될때 종료
     private var todoData = ArrayList<Todo>()
