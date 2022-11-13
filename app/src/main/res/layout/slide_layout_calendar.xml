@@ -98,7 +98,7 @@
                 android:layout_height="@dimen/item_height"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/todo_recently_list"
-                tools:listitem="@layout/item_to_do"
+                tools:listitem="@layout/item_to_do_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>
