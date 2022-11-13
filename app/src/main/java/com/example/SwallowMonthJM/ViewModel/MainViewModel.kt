@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Unit.Profile
@@ -9,11 +10,15 @@ import com.example.SwallowMonthJM.Unit.Todo
 class MainViewModel : ViewModel(){
     private val userProfile: Profile? = null
 
-    private var recentlyAddData = MutableLiveData<HashMap<String,ArrayList<Todo>>>()
-    private var todoData = HashMap<String, ArrayList<Todo>>()
+    var recentlyAddData = MutableLiveData<HashMap<String,ArrayList<Todo>>>()
+    var todoData = HashMap<String, ArrayList<Todo>>()
+
+    ///////////arrayList에서 key로 받는것이 중요 !
 
     fun addTodoData(key:String,text:String){
-        todoData[key]?.add(Todo(null,key,text,false))
+        todoData.put(key,Todo(null,key,text,false))
+        Log.d("recentlyAddData",key+"   "+text)
+        Log.d("recentlyAddData",todoData.toString())
         recentlyAddData.value = todoData
     }
 
@@ -22,7 +27,7 @@ class MainViewModel : ViewModel(){
         recentlyAddData.value = todoData
     }
 
-    fun idDoneData(todo:Todo){
+    fun doneData(todo:Todo){
         todo.isDone = !todo.isDone
         recentlyAddData.value = todoData
     }

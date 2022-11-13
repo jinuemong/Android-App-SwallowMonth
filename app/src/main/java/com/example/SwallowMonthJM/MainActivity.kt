@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,11 +13,13 @@ import com.example.SwallowMonthJM.MainFragment.FragmentCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
+import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
+    val viewModel : MainViewModel by viewModels()
     lateinit var frManger :FragmentManager
     lateinit var fragmentPageAdapter:FragmentAdapter
     lateinit var viewPager : ViewPager2

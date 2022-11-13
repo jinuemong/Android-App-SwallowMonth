@@ -1,10 +1,14 @@
 package com.example.SwallowMonthJM.Calendar
 
+import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toDrawable
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
@@ -17,6 +21,7 @@ class CalendarSlider(
     slideLayout: SlideLayoutCalendarBinding,
     private val mainActivity: MainActivity
 ) {
+    private lateinit var keyDay:String
     private val topTextView = slideLayout.todoTopText
     private val editTypingView = slideLayout.todoEditText
     private val addButton = slideLayout.todoAddButton
@@ -25,26 +30,62 @@ class CalendarSlider(
     private val recentlyListRecycler = slideLayout.todoRecentlyList
 
     fun initView(dateTime: String,day: String){
-        val topText = dateTime+" "+ day + "일 일정"
+        keyDay = dateTime+" "+ day+"일"
+        val topText = "$keyDay 일정"
         topTextView.text = topText
+
+        setUpListener()
+        initRecyclerView()
+        updateUI()
     }
 
-    fun setUpListener(){
+    private fun setUpListener(){
         goAllGoalsButton.setOnClickListener {
             mainActivity.viewPager.currentItem= 1
         }
         goAddRoutineButton.setOnClickListener {
             mainActivity.viewPager.currentItem = 2
         }
+
+        addButton.setOnClickListener {
+            mainActivity.viewModel.addTodoData(keyDay,editTypingView.text.toString())
+        }
+    }
+
+    private fun initRecyclerView(){
+        recentlyListRecycler.apply {
+            layoutManager = LinearLayoutManager(mainActivity)
+            adapter = mainActivity.viewModel.todoData[keyDay]?.let {keyData->
+                ToDoCalendarAdapter(
+                    keyData,
+                    onClickDeleteButton = {
+                        mainActivity.viewModel.delTodoData(keyDay,it)
+                    },
+                    onClickItem = {
+                        mainActivity.viewModel.doneData(it)
+                    }
+                )
+            }
+        }
+    }
+
+    //observer 등록
+    private fun updateUI(){
+        mainActivity.viewModel.recentlyAddData.observe(mainActivity, Observer {
+            Log.d("recentlyAddData",mainActivity.viewModel.recentlyAddData.value.toString())
+            it[keyDay]?.let { keyData ->
+                (recentlyListRecycler.adapter as ToDoCalendarAdapter).setData(keyData)
+            }
+        })
     }
 }
 
 class ToDoCalendarAdapter(
+    private var dataSet: ArrayList<Todo>,
     val onClickDeleteButton:(todo: Todo)->Unit,
     val onClickItem : (todo:Todo)->Unit,
     //return 값이 없는 Unit을 넘겨줌 외부로 position 넘겨주는 동작
 ):RecyclerView.Adapter<ToDoCalendarAdapter.ToDoCalendarViewHolder>(){
-    private val dataSet =  ArrayList<Todo>()
 
     class ToDoCalendarViewHolder(val binding: ItemToDoCalendarBinding):RecyclerView.ViewHolder(binding.root)
 
@@ -81,5 +122,10 @@ class ToDoCalendarAdapter(
 
     override fun getItemCount(): Int = dataSet.size
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newData:ArrayList<Todo>){
+        dataSet = newData
+        notifyDataSetChanged()
+    }
 
 }

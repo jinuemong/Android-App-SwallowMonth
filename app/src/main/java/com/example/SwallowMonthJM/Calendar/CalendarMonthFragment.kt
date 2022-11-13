@@ -87,7 +87,6 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
                                     val slideLayout = binding.slideLayout
                                     val calendarSlider = CalendarSlider(slideLayout,mainActivity)
                                     calendarSlider.initView(dateTime,day)
-                                    calendarSlider.setUpListener()
                                 }
                             }
                         }
