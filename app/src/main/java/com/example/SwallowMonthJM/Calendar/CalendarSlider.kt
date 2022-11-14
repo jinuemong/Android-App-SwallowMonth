@@ -3,10 +3,8 @@ package com.example.SwallowMonthJM.Calendar
 import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.graphics.Typeface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,24 +53,25 @@ class CalendarSlider(
     private fun initRecyclerView(){
         recentlyListRecycler.apply {
             layoutManager = LinearLayoutManager(mainActivity)
-            adapter = mainActivity.viewModel.todoData[keyDay]?.let {keyData->
-                ToDoCalendarAdapter(
-                    keyData,
-                    onClickDeleteButton = {
-                        mainActivity.viewModel.delTodoData(keyDay,it)
-                    },
-                    onClickItem = {
-                        mainActivity.viewModel.doneData(it)
-                    }
-                )
-            }
+            val keyData =
+                if(mainActivity.viewModel.todoData[keyDay]==null) ArrayList<Todo>()
+                else mainActivity.viewModel.todoData[keyDay]!!
+
+            adapter = ToDoCalendarAdapter(
+                keyData,
+                onClickDeleteButton = {
+                    mainActivity.viewModel.delTodoData(keyDay, it)
+                },
+                onClickItem = {
+                    mainActivity.viewModel.doneData(it)
+                }
+            )
         }
     }
 
     //observer 등록
     private fun updateUI(){
         mainActivity.viewModel.recentlyAddData.observe(mainActivity, Observer {
-            Log.d("recentlyAddData",mainActivity.viewModel.recentlyAddData.value.toString())
             it[keyDay]?.let { keyData ->
                 (recentlyListRecycler.adapter as ToDoCalendarAdapter).setData(keyData)
             }
@@ -97,7 +96,7 @@ class ToDoCalendarAdapter(
 
     override fun onBindViewHolder(holder: ToDoCalendarViewHolder, position: Int) {
         holder.binding.calendarItemText.text = dataSet[position].text
-        holder.binding.calendarItemIcon.setImageDrawable(calendarIcon[0].toDrawable())
+        holder.binding.calendarItemIcon.setImageResource(calendarIcon[dataSet[position].iconType])
 
         //onClickItem : unit = position 보내주기
         holder.binding.calendarItemText.setOnClickListener {
