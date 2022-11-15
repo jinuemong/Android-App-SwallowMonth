@@ -11,8 +11,8 @@
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/calendar_item_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/item_mid_height_30"
+            android:layout_height="@dimen/item_mid_height_30"
             android:src="@drawable/ic_iconmonstr_calendar_9" />
     </LinearLayout>
     <TextView
@@ -33,9 +33,9 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/calendar_item_setting"
+            android:id="@+id/calendar_item_del"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_iconmonstr_wrench_25" />
+            android:src="@drawable/ic_garbage" />
     </LinearLayout>
 </LinearLayout>

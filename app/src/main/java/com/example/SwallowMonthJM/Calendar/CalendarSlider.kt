@@ -1,15 +1,19 @@
 package com.example.SwallowMonthJM.Calendar
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.Unit.SelectIconDialog
 import com.example.SwallowMonthJM.Unit.Todo
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemToDoCalendarBinding
@@ -45,11 +49,29 @@ class CalendarSlider(
             mainActivity.viewPager.currentItem = 2
         }
 
-        addButton.setOnClickListener {
-            mainActivity.viewModel.addTodoData(keyDay,editTypingView.text.toString())
+        //버튼 리스너
+
+        editTypingView.setOnKeyListener { v, keyCode, event ->
+            var handled = false
+
+            if(event.action== KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                addTypeData()
+                handled = true
+            }
+            addButton.setOnClickListener {
+                addTypeData()
+                handled = true
+            }
+            handled
         }
     }
 
+    private fun addTypeData(){
+        mainActivity.viewModel.addTodoData(keyDay,editTypingView.text.toString())
+        editTypingView.setText("")
+        val imm = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(mainActivity.currentFocus?.windowToken,0)
+    }
     private fun initRecyclerView(){
         recentlyListRecycler.apply {
             layoutManager = LinearLayoutManager(mainActivity)
@@ -58,12 +80,16 @@ class CalendarSlider(
                 else mainActivity.viewModel.todoData[keyDay]!!
 
             adapter = ToDoCalendarAdapter(
+                mainActivity,
                 keyData,
                 onClickDeleteButton = {
                     mainActivity.viewModel.delTodoData(keyDay, it)
                 },
                 onClickItem = {
                     mainActivity.viewModel.doneData(it)
+                },
+                onClickChangeIcon = { todo,index->
+                    mainActivity.viewModel.setIcon(todo,index)
                 }
             )
         }
@@ -80,9 +106,11 @@ class CalendarSlider(
 }
 
 class ToDoCalendarAdapter(
+    private val mainActivity : MainActivity,
     private var dataSet: ArrayList<Todo>,
     val onClickDeleteButton:(todo: Todo)->Unit,
     val onClickItem : (todo:Todo)->Unit,
+    val onClickChangeIcon : (todo:Todo,index:Int)->Unit,
     //return 값이 없는 Unit을 넘겨줌 외부로 position 넘겨주는 동작
 ):RecyclerView.Adapter<ToDoCalendarAdapter.ToDoCalendarViewHolder>(){
 
@@ -97,6 +125,21 @@ class ToDoCalendarAdapter(
     override fun onBindViewHolder(holder: ToDoCalendarViewHolder, position: Int) {
         holder.binding.calendarItemText.text = dataSet[position].text
         holder.binding.calendarItemIcon.setImageResource(calendarIcon[dataSet[position].iconType])
+
+        //icon 변경
+       holder.binding.calendarItemIcon.setOnClickListener {
+           val dig = SelectIconDialog(mainActivity)
+           dig.showDig()
+
+           dig.setOnClickedListener(object :SelectIconDialog.ButtonClickListener{
+               override fun onClicked(index: Int?) {
+                   if (index!=null){
+                       onClickChangeIcon.invoke(dataSet[holder.bindingAdapterPosition],index)
+                   }
+               }
+
+           })
+        }
 
         //onClickItem : unit = position 보내주기
         holder.binding.calendarItemText.setOnClickListener {
@@ -114,6 +157,11 @@ class ToDoCalendarAdapter(
                 paintFlags = 0 //기존 값으로 변경
                 setTypeface(null,Typeface.NORMAL)
             }
+        }
+
+        //삭제
+        holder.binding.calendarItemDel.setOnClickListener {
+            onClickDeleteButton.invoke(dataSet[position])
         }
 
 

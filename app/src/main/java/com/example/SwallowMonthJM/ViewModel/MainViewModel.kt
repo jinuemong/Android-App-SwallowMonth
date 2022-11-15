@@ -35,4 +35,9 @@ class MainViewModel : ViewModel(){
         todo.isDone = !todo.isDone
         recentlyAddData.value = todoData
     }
+
+    fun setIcon(todo:Todo,index:Int){
+        todo.iconType = index
+        recentlyAddData.value = todoData
+    }
 }
