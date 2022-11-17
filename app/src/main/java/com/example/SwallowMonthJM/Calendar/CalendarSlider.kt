@@ -21,7 +21,7 @@ import com.example.SwallowMonthJM.databinding.SlideLayoutCalendarBinding
 
 class CalendarSlider(
     slideLayout: SlideLayoutCalendarBinding,
-    private val mainActivity: MainActivity
+    private val mainActivity: MainActivity,
 ) {
     private lateinit var keyDay:String
     private val topTextView = slideLayout.todoTopText

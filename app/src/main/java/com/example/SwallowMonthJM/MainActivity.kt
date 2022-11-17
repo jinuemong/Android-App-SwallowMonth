@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     val viewModel : MainViewModel by viewModels()
     lateinit var frManger :FragmentManager
-    lateinit var fragmentPageAdapter:FragmentAdapter
+    private lateinit var fragmentPageAdapter:FragmentAdapter
     lateinit var viewPager : ViewPager2
     //click tab
     private val tintColor = ColorStateList(

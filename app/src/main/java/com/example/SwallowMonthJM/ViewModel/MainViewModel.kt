@@ -40,4 +40,9 @@ class MainViewModel : ViewModel(){
         todo.iconType = index
         recentlyAddData.value = todoData
     }
+
+    //서버의 기존 데이터를 불러옴
+    fun roadAllData(){
+
+    }
 }

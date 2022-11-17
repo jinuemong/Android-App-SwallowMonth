@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -17,11 +18,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //각 달을 표시하는 fragment (월 모음)
-class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
+class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
     var pageIndex = 0
+
     // 상하 슬라이드 동작 제어
-    private var _binding: FragmentCalendarMonthBinding?= null
-    private val binding get()=_binding!!
+    private var _binding: FragmentCalendarMonthBinding? = null
+    private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     lateinit var currentDate: Date
     lateinit var calendarAdapter: CalendarAdapter
@@ -30,6 +32,7 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,7 +42,7 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCalendarMonthBinding.inflate(inflater,container,false)
+        _binding = FragmentCalendarMonthBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -47,46 +50,55 @@ class CalendarMonthFragment(private val dateMonth:Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-        _binding=null
+        _binding = null
     }
-    private fun initView(){
 
-        pageIndex -=(Int.MAX_VALUE/2)
+    private fun initView() {
+
+        pageIndex -= (Int.MAX_VALUE / 2)
         val date = Calendar.getInstance().run {
-            add(Calendar.MONTH,pageIndex)
+            add(Calendar.MONTH, pageIndex)
             time
         }
         currentDate = date
 
         //상단 데이터 적용
-        val dateTime:String = SimpleDateFormat(
-            "yyyy년 MM월",Locale.KOREA
+        val dateTime: String = SimpleDateFormat(
+            "yyyy년 MM월", Locale.KOREA
         ).format(date.time)
 
         binding.fragCalenderYYYYXX.text = dateTime
-        calendarAdapter = CalendarAdapter(mainActivity,binding.fragCalenderLinear
-            ,currentDate,dateMonth)
+        calendarAdapter = CalendarAdapter(
+            mainActivity, binding.fragCalenderLinear, currentDate, dateTime, dateMonth
+        )
         binding.fragCalenderRecycler.apply {
             adapter = calendarAdapter
 
-            addOnItemTouchListener(object : RecyclerView.OnItemTouchListener{
+            addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                     if (e.action == MotionEvent.ACTION_DOWN &&
-                        binding.slideFrame.panelState==SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED
+                    ) {
                         val child = rv.findChildViewUnder(e.x, e.y)
                         if (child != null) {
                             val position = rv.getChildAdapterPosition(child)
                             val view = rv.layoutManager?.findViewByPosition(position)
-                            val day = view?.findViewById<TextView>(R.id.calendar_text)?.text.toString()
+                            val day =
+                                view?.findViewById<TextView>(R.id.calendar_text)?.text.toString()
+                            //icon 추가 시 icon 이미지 변경
+                            val todoIcon = view?.findViewById<ImageView>(R.id.is_it_todo)
                             view?.setOnClickListener {
                                 if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
-                                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                                    binding.slideFrame.panelState =
+                                        SlidingUpPanelLayout.PanelState.ANCHORED
                                     val slideLayout = binding.slideLayout
-                                    val calendarSlider = CalendarSlider(slideLayout,mainActivity)
-                                    calendarSlider.initView(dateTime,day)
+                                    val calendarSlider =
+                                        CalendarSlider(slideLayout, mainActivity)
+                                    calendarSlider.initView(dateTime, day)
                                 }
                             }
                         }
