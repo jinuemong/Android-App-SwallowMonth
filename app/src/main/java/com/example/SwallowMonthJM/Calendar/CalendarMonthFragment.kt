@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -89,8 +88,7 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
                             val view = rv.layoutManager?.findViewByPosition(position)
                             val day =
                                 view?.findViewById<TextView>(R.id.calendar_text)?.text.toString()
-                            //icon 추가 시 icon 이미지 변경
-                            val todoIcon = view?.findViewById<ImageView>(R.id.is_it_todo)
+
                             view?.setOnClickListener {
                                 if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
                                     binding.slideFrame.panelState =
