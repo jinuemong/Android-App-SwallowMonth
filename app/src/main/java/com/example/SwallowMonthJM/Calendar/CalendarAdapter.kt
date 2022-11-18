@@ -17,19 +17,22 @@ import java.util.*
 
 //각 캘린더의 어댑터 (날짜 - 일모음 )
 class CalendarAdapter(
-    val mainActivity: MainActivity,
+    private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
     private val date: Date,
     private val dateTime: String,
     private val currentMonth: Int,
 ) : RecyclerView.Adapter<CalendarAdapter.CalenderItemHolder>() {
     private var dataSet: ArrayList<Int> = arrayListOf()
-    private var customCalendar: CustomCalendar = CustomCalendar(date)
+    var customCalendar: CustomCalendar = CustomCalendar(date)
 
     init {
         customCalendar.initBaseCalendar()
         dataSet = customCalendar.dateList
     }
+
+    private val firstDateIndex = customCalendar.prevTail
+    private val lastDateIndex = dataSet.size - customCalendar.nextHead - 1
 
     inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -60,9 +63,6 @@ class CalendarAdapter(
         }
 
 
-        val firstDateIndex = customCalendar.prevTail
-        val lastDateIndex = dataSet.size - customCalendar.nextHead - 1
-
         //다른 달인 경우 회색으로 표시
         if (position < firstDateIndex || position > lastDateIndex) {
             holder.binding.calendarText.apply {
@@ -70,14 +70,39 @@ class CalendarAdapter(
             }
         }
 
-        //달력에 일정 아이콘 표시 여부
-        val key = dateTime + " " + dataSet[position] + "일"
-        Log.d("key",key)
-        if (mainActivity.viewModel.todoData[key] != null) {
-            holder.binding.isItTodo.visibility = View.VISIBLE
+        if (mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position))!=null){
+            if (mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position))!!.size>0){
+                Log.d("position@@-visibility1",
+                    makeKeyData(position))
+                Log.d("position@@-visibility1",
+                    mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position))!![0].text)
+                Log.d("position@@-visibility2",position.toString())
+                holder.binding.isItTodo.visibility = View.VISIBLE
+            }else{
+                holder.binding.isItTodo.visibility = View.INVISIBLE
+            }
         }
+
     }
 
     override fun getItemCount(): Int = dataSet.size
 
+    fun makeKeyData(position: Int) : String{
+
+        return if (position<firstDateIndex){
+            val month = dateTime.replace("[^\\d]".toRegex(),"").substring(4)
+            dateTime.replace(month,(month.toInt()-1).toString()) + " " + dataSet[position]+"일"
+        } else if(position>lastDateIndex){
+            val month = dateTime.replace("[^\\d]".toRegex(),"").substring(4)
+            dateTime.replace(month,(month.toInt()+1).toString()) + " " + dataSet[position]+"일"
+        }else{
+            dateTime + " " + dataSet[position] + "일"
+        }
+
+    }
+
+    fun dataReset(position:Int){
+        Log.d("position@@-data",position.toString())
+        notifyItemChanged(position)
+    }
 }

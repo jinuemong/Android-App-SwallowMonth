@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentCalendarMonthBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
@@ -77,6 +75,7 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
         binding.fragCalenderRecycler.apply {
             adapter = calendarAdapter
 
+            //슬라이드가 닫힌 경우에만 실행
             addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                     if (e.action == MotionEvent.ACTION_DOWN &&
@@ -86,17 +85,18 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
                         if (child != null) {
                             val position = rv.getChildAdapterPosition(child)
                             val view = rv.layoutManager?.findViewByPosition(position)
-                            val day =
-                                view?.findViewById<TextView>(R.id.calendar_text)?.text.toString()
-
+                            val keyData = (adapter as CalendarAdapter).makeKeyData(position)
                             view?.setOnClickListener {
                                 if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
-                                    binding.slideFrame.panelState =
-                                        SlidingUpPanelLayout.PanelState.ANCHORED
+                                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
                                     val slideLayout = binding.slideLayout
                                     val calendarSlider =
-                                        CalendarSlider(slideLayout, mainActivity)
-                                    calendarSlider.initView(dateTime, day)
+                                        CalendarSlider(slideLayout, mainActivity, changeData = {
+                                            (adapter as CalendarAdapter).dataReset(position)
+
+                                        })
+
+                                    calendarSlider.initView(keyData)
                                 }
                             }
                         }
@@ -107,6 +107,7 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
                 override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
                 override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
             })
+
         }
     }
 }
