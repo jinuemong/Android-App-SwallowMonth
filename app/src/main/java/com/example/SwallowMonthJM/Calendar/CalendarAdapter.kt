@@ -2,7 +2,6 @@ package com.example.SwallowMonthJM.Calendar
 
 import android.graphics.Typeface
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,6 @@ class CalendarAdapter(
 ) : RecyclerView.Adapter<CalendarAdapter.CalenderItemHolder>() {
     private var dataSet: ArrayList<Int> = arrayListOf()
     var customCalendar: CustomCalendar = CustomCalendar(date)
-
     init {
         customCalendar.initBaseCalendar()
         dataSet = customCalendar.dateList
@@ -70,18 +68,14 @@ class CalendarAdapter(
             }
         }
 
-        if (mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position))!=null){
-            if (mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position))!!.size>0){
-                Log.d("position@@-visibility1",
-                    makeKeyData(position))
-                Log.d("position@@-visibility1",
-                    mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position))!![0].text)
-                Log.d("position@@-visibility2",position.toString())
+        if (mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position)) != null) {
+            if (mainActivity.viewModel.recentlyAddData.value?.get(makeKeyData(position))!!.size > 0) {
                 holder.binding.isItTodo.visibility = View.VISIBLE
-            }else{
+            } else {
                 holder.binding.isItTodo.visibility = View.INVISIBLE
             }
         }
+
 
     }
 
@@ -101,8 +95,8 @@ class CalendarAdapter(
 
     }
 
-    fun dataReset(position:Int){
-        Log.d("position@@-data",position.toString())
+
+    fun dataReset(position: Int){
         notifyItemChanged(position)
     }
 }

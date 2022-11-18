@@ -69,6 +69,8 @@ class CalendarSlider(
     private fun addTypeData(){
         mainActivity.viewModel.addTodoData(keyDay,editTypingView.text.toString())
         editTypingView.setText("")
+
+        //바 내리기
         val imm = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mainActivity.currentFocus?.windowToken,0)
 

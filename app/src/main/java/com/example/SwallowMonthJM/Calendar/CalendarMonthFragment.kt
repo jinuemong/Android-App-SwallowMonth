@@ -17,7 +17,7 @@ import java.util.*
 //각 달을 표시하는 fragment (월 모음)
 class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
     var pageIndex = 0
-
+    var changeData = false
     // 상하 슬라이드 동작 제어
     private var _binding: FragmentCalendarMonthBinding? = null
     private val binding get() = _binding!!
@@ -93,9 +93,7 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
                                     val calendarSlider =
                                         CalendarSlider(slideLayout, mainActivity, changeData = {
                                             (adapter as CalendarAdapter).dataReset(position)
-
                                         })
-
                                     calendarSlider.initView(keyData)
                                 }
                             }
@@ -107,7 +105,6 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
                 override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
                 override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
             })
-
         }
     }
 }
