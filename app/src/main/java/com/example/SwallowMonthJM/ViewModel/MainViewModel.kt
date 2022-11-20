@@ -14,9 +14,7 @@ class MainViewModel : ViewModel(){
 
     fun addTodoData(key:String,text:String){
 
-        currentMonthArr =
-            if (todoData[key] !=null){ todoData[key]!! }
-            else{ ArrayList() }
+        currentMonthArr = if (todoData[key] !=null){ todoData[key]!! } else{ ArrayList() }
 
         currentMonthArr.add(Todo(null,key,text,false))
         todoData[key] = currentMonthArr

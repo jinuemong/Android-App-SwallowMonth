@@ -22,7 +22,6 @@ import com.example.SwallowMonthJM.databinding.SlideLayoutCalendarBinding
 class CalendarSlider(
     slideLayout: SlideLayoutCalendarBinding,
     private val mainActivity: MainActivity,
-    private val changeData:()->Unit
 ) {
     private lateinit var keyDay:String
     private val topTextView = slideLayout.todoTopText
@@ -74,7 +73,6 @@ class CalendarSlider(
         val imm = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mainActivity.currentFocus?.windowToken,0)
 
-        changeData()
     }
     private fun initRecyclerView(){
         recentlyListRecycler.apply {
@@ -88,7 +86,6 @@ class CalendarSlider(
                 keyData,
                 onClickDeleteButton = {
                     mainActivity.viewModel.delTodoData(keyDay, it)
-                    changeData()
                 },
                 onClickItem = {
                     mainActivity.viewModel.doneData(it)

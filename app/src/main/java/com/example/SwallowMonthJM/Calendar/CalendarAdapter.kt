@@ -32,8 +32,7 @@ class CalendarAdapter(
     private val firstDateIndex = customCalendar.prevTail
     private val lastDateIndex = dataSet.size - customCalendar.nextHead - 1
 
-    inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class CalenderItemHolder(val binding: ItemCalendarBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalenderItemHolder {
         val view = LayoutInflater.from(parent.context)

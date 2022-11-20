@@ -90,10 +90,7 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
                                 if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
                                     binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
                                     val slideLayout = binding.slideLayout
-                                    val calendarSlider =
-                                        CalendarSlider(slideLayout, mainActivity, changeData = {
-                                            (adapter as CalendarAdapter).dataReset(position)
-                                        })
+                                    val calendarSlider = CalendarSlider(slideLayout, mainActivity)
                                     calendarSlider.initView(keyData)
                                 }
                             }
