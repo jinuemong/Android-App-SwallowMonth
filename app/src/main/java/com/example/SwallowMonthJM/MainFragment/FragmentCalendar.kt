@@ -1,13 +1,11 @@
 package com.example.SwallowMonthJM.MainFragment
 
 import android.os.Bundle
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.Calendar.CalendarStateAdapter
-import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentCalendarBinding
 
 class FragmentCalendar : Fragment() {
@@ -15,6 +13,7 @@ class FragmentCalendar : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var calendarStateAdapter : CalendarStateAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

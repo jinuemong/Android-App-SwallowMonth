@@ -22,6 +22,8 @@ import com.example.SwallowMonthJM.databinding.SlideLayoutCalendarBinding
 class CalendarSlider(
     slideLayout: SlideLayoutCalendarBinding,
     private val mainActivity: MainActivity,
+    val addData:()->Unit,
+    val delData:()->Unit
 ) {
     private lateinit var keyDay:String
     private val topTextView = slideLayout.todoTopText
@@ -30,7 +32,6 @@ class CalendarSlider(
     private val goAllGoalsButton = slideLayout.todoViewAllGoals
     private val goAddRoutineButton = slideLayout.todoAddRoutine
     private val recentlyListRecycler = slideLayout.todoRecentlyList
-
     fun initView(keyData: String){
         keyDay = keyData
         val topText = "$keyDay 일정"
@@ -53,7 +54,7 @@ class CalendarSlider(
         editTypingView.setOnKeyListener { v, keyCode, event ->
             var handled = false
 
-            if(event.action== KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 addTypeData()
                 handled = true
             }
@@ -63,16 +64,19 @@ class CalendarSlider(
             }
             handled
         }
+
     }
 
     private fun addTypeData(){
-        mainActivity.viewModel.addTodoData(keyDay,editTypingView.text.toString())
-        editTypingView.setText("")
-
+        if (editTypingView.text!=null && editTypingView.text.toString()!="") {
+            mainActivity.viewModel.addTodoData(keyDay, editTypingView.text.toString())
+            editTypingView.setText("")
+            addData()
+        }
         //바 내리기
-        val imm = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(mainActivity.currentFocus?.windowToken,0)
-
+        val imm =
+            mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(mainActivity.currentFocus?.windowToken, 0)
     }
     private fun initRecyclerView(){
         recentlyListRecycler.apply {
@@ -86,6 +90,11 @@ class CalendarSlider(
                 keyData,
                 onClickDeleteButton = {
                     mainActivity.viewModel.delTodoData(keyDay, it)
+
+                    if(mainActivity.viewModel.todoData[keyDay]!!.size==0){
+                        mainActivity.viewModel.todoData.remove(keyDay)
+                        delData()
+                    }
                 },
                 onClickItem = {
                     mainActivity.viewModel.doneData(it)

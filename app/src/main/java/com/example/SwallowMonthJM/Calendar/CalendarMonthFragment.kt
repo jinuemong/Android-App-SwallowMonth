@@ -3,11 +3,9 @@ package com.example.SwallowMonthJM.Calendar
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.databinding.FragmentCalendarMonthBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -17,13 +15,12 @@ import java.util.*
 //각 달을 표시하는 fragment (월 모음)
 class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
     var pageIndex = 0
-    var changeData = false
     // 상하 슬라이드 동작 제어
     private var _binding: FragmentCalendarMonthBinding? = null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     lateinit var currentDate: Date
-    lateinit var calendarAdapter: CalendarAdapter
+    private lateinit var calendarAdapter: CalendarAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,7 +29,6 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -69,39 +65,25 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
         ).format(date.time)
 
         binding.fragCalenderYYYYXX.text = dateTime
-        calendarAdapter = CalendarAdapter(
-            mainActivity, binding.fragCalenderLinear, currentDate, dateTime, dateMonth
-        )
+
         binding.fragCalenderRecycler.apply {
+            calendarAdapter = CalendarAdapter(
+                binding.fragCalenderLinear, dateTime,currentDate, dateMonth,
+                viewSlide = { position,keyData ->
+                    val state = binding.slideFrame.panelState
+                    if (state==SlidingUpPanelLayout.PanelState.COLLAPSED){
+                        binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                        val calendarSlider = CalendarSlider(binding.slideLayout, mainActivity,
+                            addData = { (adapter as CalendarAdapter).dataReset(1,position) },
+                            delData = { (adapter as CalendarAdapter).dataReset(2,position) }
+                        )
+                        calendarSlider.initView(keyData)
+                    }
+
+                }
+            )
             adapter = calendarAdapter
 
-            //슬라이드가 닫힌 경우에만 실행
-            addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    if (e.action == MotionEvent.ACTION_DOWN &&
-                        binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED
-                    ) {
-                        val child = rv.findChildViewUnder(e.x, e.y)
-                        if (child != null) {
-                            val position = rv.getChildAdapterPosition(child)
-                            val view = rv.layoutManager?.findViewByPosition(position)
-                            val keyData = (adapter as CalendarAdapter).makeKeyData(position)
-                            view?.setOnClickListener {
-                                if (binding.slideFrame.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) { //열기
-                                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-                                    val slideLayout = binding.slideLayout
-                                    val calendarSlider = CalendarSlider(slideLayout, mainActivity)
-                                    calendarSlider.initView(keyData)
-                                }
-                            }
-                        }
-                    }
-                    return false
-                }
-
-                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
-                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-            })
         }
     }
 }

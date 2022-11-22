@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.MainFragment
+package com.example.SwallowMonthJM.SupportFragment
 
 import android.content.Context
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.SupportFragment.AddRoutineFragment
-import com.example.SwallowMonthJM.databinding.FragmentRepeatTaskListBinding
+import com.example.SwallowMonthJM.databinding.FragmentAddRoutineBinding
 
-class FragmentRepeatTaskList : Fragment() {
-    private var _binding:FragmentRepeatTaskListBinding?=null
+
+class AddRoutineFragment : Fragment() {
+    private var _binding:FragmentAddRoutineBinding?= null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
 
@@ -19,7 +19,6 @@ class FragmentRepeatTaskList : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,8 +27,7 @@ class FragmentRepeatTaskList : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentRepeatTaskListBinding.inflate(inflater,container,false)
+        _binding = FragmentAddRoutineBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -39,17 +37,12 @@ class FragmentRepeatTaskList : Fragment() {
         setUpListener()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding=null
-    }
-
     private fun initView(){
 
     }
+
     private fun setUpListener(){
-        binding.routineAddButton.setOnClickListener {
-            mainActivity.onFragmentChange(AddRoutineFragment())
-        }
+
     }
+
 }
