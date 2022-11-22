@@ -79,7 +79,6 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
                         )
                         calendarSlider.initView(keyData)
                     }
-
                 }
             )
             adapter = calendarAdapter

@@ -1,14 +1,12 @@
 package com.example.SwallowMonthJM.Unit
 
 import android.app.Dialog
-import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.ViewGroup
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.databinding.ItemIconBinding
 import com.example.SwallowMonthJM.databinding.SelectIconDialogBinding
 
 class SelectIconDialog(private val context: AppCompatActivity) {
@@ -57,23 +55,4 @@ class SelectIconDialog(private val context: AppCompatActivity) {
     fun setOnClickedListener(listener: ButtonClickListener) {
         onClickedListener = listener
     }
-}
-
-private class IconAdapter(
-) :RecyclerView.Adapter<IconAdapter.IconViewHolder>(){
-    class IconViewHolder(val binding: ItemIconBinding):RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_icon,parent,false)
-        return IconViewHolder(ItemIconBinding.bind(view))
-    }
-
-    override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
-
-        holder.binding.itemIconImage.setImageResource(calendarIcon[position])
-    }
-
-    override fun getItemCount(): Int = calendarIcon.size
-
 }
