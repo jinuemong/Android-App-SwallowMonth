@@ -69,6 +69,7 @@
             </LinearLayout>
         </LinearLayout>
         <TextView
+            android:id="@+id/user_ui_goals_button"
             style="@style/ButtonText_big"
             android:text="goals"
             android:layout_margin="@dimen/fab_margin"

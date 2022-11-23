@@ -6,5 +6,4 @@ class Profile(
     val userName : String,
     val nickName : String,
     val userImage : String,
-
 ) : Serializable

@@ -3,6 +3,8 @@ package com.example.SwallowMonthJM
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentPageAdapter:FragmentAdapter
     lateinit var viewPager : ViewPager2
     //click tab
-    private val tintColor = ColorStateList(
+    val tintColor = ColorStateList(
         arrayOf(intArrayOf(android.R.attr.state_selected), intArrayOf(-android.R.attr.state_selected)),
         intArrayOf(Color.parseColor("#629CD1"),Color.parseColor("#2C608F"))
     )
@@ -35,11 +37,20 @@ class MainActivity : AppCompatActivity() {
         R.drawable.ic_iconmonstr_refresh_7,
         R.drawable.ic_iconmonstr_user_male_thin
     )
+    lateinit var aniList: Array<Animation>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        aniList = arrayOf(
+            AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_left),
+            AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_up),
+            AnimationUtils.loadAnimation(this@MainActivity,R.anim.wave)
+        )
+
         initView()
     }
 
@@ -68,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                 super.onPageSelected(position)
             }
         })
+        //스크롤 막기
         viewPager.isUserInputEnabled = false
-        //스크롤 금지
     }
     private fun initTabLayout(){
         binding.mainBottomTabLayout.tabIconTint = tintColor
@@ -79,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
     fun onFragmentChange(goFragment: Fragment){
-        frManger.beginTransaction().replace(R.id.main_view_container,goFragment)
+        frManger.beginTransaction().replace(R.id.view_container_in_main, goFragment)
             .addToBackStack(null)
             .commit()
     }

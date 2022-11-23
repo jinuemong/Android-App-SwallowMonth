@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.R
 
-
-class RoutineFragmentTwo : Fragment() {
+class RoutineFragmentThree : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +18,8 @@ class RoutineFragmentTwo : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_routine_two, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_routine_three, container, false)
     }
 
 }

@@ -9,5 +9,10 @@ val calendarIcon :List<Int> = listOf(
     R.drawable.ic_baseline_sports_tennis_24,
     R.drawable.ic_iconmonstr_check_mark_13,
     R.drawable.ic_iconmonstr_pin_1,
-    R.drawable.ic_iconmonstr_text_ckeck_lined
+    R.drawable.ic_iconmonstr_text_ckeck_lined,
+    R.drawable.ic_baseline_hotel_class_24,
+    R.drawable.ic_baseline_hiking_24,
+    R.drawable.ic_baseline_groups_2_24,
+    R.drawable.ic_baseline_directions_walk_24
+
 )
