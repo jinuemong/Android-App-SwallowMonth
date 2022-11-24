@@ -25,7 +25,7 @@ class AddRoutineFragment : Fragment() {
     private lateinit var fragmentPagerAdapter:FragmentAdapter
 
     private val tabText = arrayOf(
-        "one", "two", "three"
+        "시작일", "주기", "내용"
     )
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,7 +56,10 @@ class AddRoutineFragment : Fragment() {
         initView()
         setUpListener()
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     private fun initView(){
         binding.addRoutineSelectIcon.apply {
             adapter = IconAdapter()
