@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.Calendar.CalendarAdapter
 import com.example.SwallowMonthJM.databinding.FragmentRoutineOneBinding
 
+//시작일
+
 class RoutineFragmentOne : Fragment() {
     private var _binding:FragmentRoutineOneBinding? = null
     private val binding get() = _binding!!

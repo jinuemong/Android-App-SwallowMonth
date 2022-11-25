@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.databinding.FragmentRoutineTwoBinding
 
+//주기
+
 class RoutineFragmentTwo : Fragment() {
     private var _binding: FragmentRoutineTwoBinding? = null
     private val binding get() = _binding!!

@@ -57,13 +57,14 @@
                         android:layout_gravity="center_vertical"
                         android:layout_width="@dimen/item_mid_height_30"
                         android:layout_height="@dimen/item_mid_height_30"/>
+
                     <TextView
-                        android:textSize="@dimen/item_height_small_up_text_size"
                         style="@style/TextView1"
-                        android:padding="@dimen/main_margin"
-                        tools:text="반복 루틴 텍스트"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/main_margin"
+                        android:textSize="@dimen/item_height_small_up_text_size"
+                        tools:text="반복 루틴 텍스트" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

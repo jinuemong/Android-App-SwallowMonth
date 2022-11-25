@@ -6,8 +6,8 @@
     android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/main_margin"
-    android:layout_width="@dimen/item_height_big"
-    android:layout_height="match_parent">
+    android:layout_width="@dimen/item_height_big_100"
+    android:layout_height="@dimen/item_height_big">
     <TextView
         tools:text="01"
         android:textStyle="bold"
@@ -24,14 +24,5 @@
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <ImageView
-        android:src="@drawable/ic_iconmonstr_arrow_down_alt_lined"
-        android:layout_marginTop="10dp"
-        android:layout_width="@dimen/item_mid_height_30"
-        android:layout_height="@dimen/item_mid_height_30"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_in_item_calendar_horizontal" />
 </LinearLayout>
