@@ -27,4 +27,7 @@
     <string name="logout_profile">로그아웃</string>
     <string name="add_routine">add Routine</string>
     <string name="commit">commit</string>
+    <string name="day_tasks">Day Tasks</string>
+    <string name="todo">Todo</string>
+    <string name="done">Done</string>
 </resources>

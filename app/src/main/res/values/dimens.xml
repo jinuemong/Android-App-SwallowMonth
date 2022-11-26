@@ -12,6 +12,7 @@
     <dimen name="item_mid_height_20dp">20dp</dimen>
     <dimen name="main_margin">5dp</dimen>
     <dimen name="item_height_double_big_text_size">50sp</dimen>
+    <dimen name="item_height_big_text_size_35">35sp</dimen>
     <dimen name="item_height_big_text_size">25sp</dimen>
     <dimen name="item_height_mid_text_size">18sp</dimen>
     <dimen name="item_height_small_up_text_size">14sp</dimen>

@@ -12,6 +12,7 @@
     <dimen name="main_margin">15dp</dimen>
     <dimen name="item_mid_2_height">150dp</dimen>
     <dimen name="item_height_double_big_text_size">150sp</dimen>
+    <dimen name="item_height_big_text_size_35">105sp</dimen>
     <dimen name="item_height_big_text_size">75sp</dimen>
     <dimen name="item_height_mid_text_size">54sp</dimen>
     <dimen name="item_height_small_text_size">36sp</dimen>
