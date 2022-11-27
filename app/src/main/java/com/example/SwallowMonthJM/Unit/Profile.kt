@@ -4,6 +4,6 @@ import java.io.Serializable
 
 class Profile(
     val userName : String,
-    val nickName : String,
+    val goal : String,
     val userImage : String,
 ) : Serializable

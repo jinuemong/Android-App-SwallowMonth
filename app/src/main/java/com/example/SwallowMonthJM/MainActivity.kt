@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
+import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
@@ -18,6 +19,8 @@ import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
@@ -32,8 +35,8 @@ class MainActivity : AppCompatActivity() {
     )
     //tab Icon
     private val iconView = arrayOf(
+        R.drawable.ic_baseline_home_24,
         R.drawable.ic_iconmonstr_calendar_9,
-        R.drawable.ic_iconmonstr_tiles_list_lined,
         R.drawable.ic_iconmonstr_refresh_7,
         R.drawable.ic_iconmonstr_user_male_thin
     )
@@ -45,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        //애니메이션 설정
         aniList = arrayOf(
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_left),
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_up),
@@ -60,14 +64,23 @@ class MainActivity : AppCompatActivity() {
             //상단 적용
         }
         viewPager = binding.mainMidViewpager
+        initCurrentDate()
         initFragmentAdapter()
         initViewPager()
         initTabLayout()
     }
+    private fun initCurrentDate(){
+        val date = Calendar.getInstance().time
+        val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
+        val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
+        viewModel.currentDate = CustomCalendar(date,dateDay,dateMonth,dateMonth)
+        viewModel.currentDate.initBaseCalendar()
+        viewModel.currentDate
+    }
     private fun initFragmentAdapter(){
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
-        fragmentPageAdapter.addFragment(FragmentCalendar())
         fragmentPageAdapter.addFragment(FragmentTaskList())
+        fragmentPageAdapter.addFragment(FragmentCalendar())
         fragmentPageAdapter.addFragment(FragmentRepeatTaskList())
         fragmentPageAdapter.addFragment(FragmentUserUI())
     }
@@ -88,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         { tab, position->
             tab.setIcon(iconView[position])
         }.attach()
+
     }
     fun onFragmentChange(goFragment: Fragment){
         frManger.beginTransaction().replace(R.id.view_container_in_main, goFragment)

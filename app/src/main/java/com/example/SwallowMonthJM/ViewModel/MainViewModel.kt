@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.ViewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.Unit.Todo
 
 //유저 프로필, 리스트 관리
@@ -10,6 +11,8 @@ class MainViewModel : ViewModel(){
     var recentlyAddData = MutableLiveData<HashMap<String,ArrayList<Todo>>>()
     var todoData = HashMap<String, ArrayList<Todo>>()
     var currentMonthArr = ArrayList<Todo>()
+
+    lateinit var currentDate : CustomCalendar
 
     fun addTodoData(key:String,text:String){
 

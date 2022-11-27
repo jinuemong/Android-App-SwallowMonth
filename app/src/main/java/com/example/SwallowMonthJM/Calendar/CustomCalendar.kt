@@ -15,7 +15,7 @@ class CustomCalendar(
         const val DAYS_OF_WEEK= 7
         const val LOW_OF_CALENDAR =6
     }
-
+    var todayIndex = 0
     private val calendar: Calendar = Calendar.getInstance()
     var prevTail = 0 //이전달 끝부분
     var nextHead = 0 //다음달 앞부분
@@ -74,6 +74,9 @@ class CustomCalendar(
                 isToday = isToday,
                 isOtherMonth = false
             ))
+            if(isToday){
+                todayIndex = dateList.lastIndex
+            }
         }
     }
 
