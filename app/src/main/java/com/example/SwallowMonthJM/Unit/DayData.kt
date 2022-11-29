@@ -2,10 +2,10 @@ package com.example.SwallowMonthJM.Unit
 
 import java.io.Serializable
 
-class CustomDayData(
+class DayData(
     var day :Int,
-    var isTodoData :Boolean,
     var isToday : Boolean,
+    var monthIndex : Int,
     var routineList : ArrayList<Routine>?,
     var todoList : ArrayList<Todo>?
 ):Serializable

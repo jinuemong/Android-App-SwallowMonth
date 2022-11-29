@@ -1,6 +1,6 @@
 package com.example.SwallowMonthJM.Calendar
 
-import com.example.SwallowMonthJM.Unit.CustomDayData
+import com.example.SwallowMonthJM.Unit.DayData
 import java.util.*
 
 //각 달의 일수 표현
@@ -16,11 +16,11 @@ class CustomCalendar(
         const val LOW_OF_CALENDAR =6
     }
     var todayIndex = 0
-    private val calendar: Calendar = Calendar.getInstance()
+    val calendar: Calendar = Calendar.getInstance()
     var prevTail = 0 //이전달 끝부분
     var nextHead = 0 //다음달 앞부분
     var currentMaxDate = 0 //현재 달
-    var dateList = ArrayList<CustomDayData>()
+    var dateList = ArrayList<DayData>()
 
     init {
         calendar.time=date
@@ -56,9 +56,9 @@ class CustomCalendar(
         val maxDate = calendar.getActualMaximum(Calendar.DATE)
         var maxOffsetDate = maxDate-prevTail
         for (i in 1..prevTail){
-            dateList.add(CustomDayData(++maxOffsetDate,
-                isTodoData = false,
+            dateList.add(DayData(++maxOffsetDate,
                 isToday = false,
+                monthIndex = -1,
                 null,
                 null
             ))
@@ -68,9 +68,9 @@ class CustomCalendar(
     private fun makeCurrentMonth(calendar: Calendar){
         for (i in 1..calendar.getActualMaximum(Calendar.DATE)) {
             val isToday = (currentDay==i && currentMonth==dateMonth)
-            dateList.add(CustomDayData(i,
-                isTodoData = false,
+            dateList.add(DayData(i,
                 isToday = isToday,
+                monthIndex = 0,
                 null,
                 null
             ))
@@ -83,9 +83,9 @@ class CustomCalendar(
     private fun makeNextHead(){
         var date = 1
         for (i in 1..nextHead){
-            dateList.add(CustomDayData(date++,
-                isTodoData = false,
+            dateList.add(DayData(date++,
                 isToday = false,
+                monthIndex = 1,
                 null,
                 null
             ))

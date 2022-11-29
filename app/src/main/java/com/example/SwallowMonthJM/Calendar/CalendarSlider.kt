@@ -32,6 +32,7 @@ class CalendarSlider(
     private val goAllGoalsButton = slideLayout.todoViewAllGoals
     private val goAddRoutineButton = slideLayout.todoAddRoutine
     private val recentlyListRecycler = slideLayout.todoRecentlyList
+
     fun initView(keyData: String){
         keyDay = keyData
         val topText = "$keyDay 일정"
@@ -78,6 +79,7 @@ class CalendarSlider(
             mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mainActivity.currentFocus?.windowToken, 0)
     }
+
     private fun initRecyclerView(){
         recentlyListRecycler.apply {
             layoutManager = LinearLayoutManager(mainActivity)

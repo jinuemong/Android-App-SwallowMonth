@@ -5,20 +5,22 @@ import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.Unit.Todo
 
-//유저 프로필, 리스트 관리
+//일정 리스트 관리
 class MainViewModel : ViewModel(){
-
+    var totalPer = 0
     var recentlyAddData = MutableLiveData<HashMap<String,ArrayList<Todo>>>()
     var todoData = HashMap<String, ArrayList<Todo>>()
     var currentMonthArr = ArrayList<Todo>()
 
     lateinit var currentDate : CustomCalendar
+
+    lateinit var dateTime:String
     var currentMonth=0
     fun addTodoData(key:String,text:String){
 
         currentMonthArr = if (todoData[key] !=null){ todoData[key]!! } else{ ArrayList() }
 
-        currentMonthArr.add(Todo(null,key,text,false))
+        currentMonthArr.add(Todo(null,text,false))
         todoData[key] = currentMonthArr
 
         recentlyAddData.value = todoData
@@ -43,5 +45,10 @@ class MainViewModel : ViewModel(){
     //서버의 기존 데이터를 불러옴
     fun roadAllData(){
 
+    }
+
+    fun getKeyData(monthIndex:Int,day:String) : String{
+        dateTime.replace(currentMonth.toString(),(currentMonth+monthIndex).toString())
+        return dateTime +" "+day+"일"
     }
 }

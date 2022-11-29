@@ -1,14 +1,11 @@
 package com.example.SwallowMonthJM.Calendar
 
-import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Unit.CustomDayData
+import com.example.SwallowMonthJM.Unit.DayData
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,7 +22,7 @@ class CalendarAdapter(
     //오늘 데이터 얻어옴
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
-    private var dataSet: ArrayList<CustomDayData> = arrayListOf()
+    private var dataSet: ArrayList<DayData> = arrayListOf()
     var customCalendar: CustomCalendar = CustomCalendar(date,dateDay,currentMonth,dateMonth)
     init {
         customCalendar.initBaseCalendar()
@@ -43,7 +40,7 @@ class CalendarAdapter(
         return CalenderItemHolder(ItemCalendarBinding.bind(view))
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+
     override fun onBindViewHolder(holder: CalenderItemHolder, position: Int) {
 
         //텍스트 표시
@@ -71,13 +68,13 @@ class CalendarAdapter(
 //
 //        }
         // 나중에 해결하기 !
-
-        //일정 존재
-        if (dataSet[position].isTodoData){
-            holder.binding.isItTodo.visibility = View.VISIBLE
-        }else{
-            holder.binding.isItTodo.visibility = View.INVISIBLE
-        }
+//
+//        //일정 존재
+//        if (dataSet[position].isTodoData){
+//            holder.binding.isItTodo.visibility = View.VISIBLE
+//        }else{
+//            holder.binding.isItTodo.visibility = View.INVISIBLE
+//        }
 
 
     }
@@ -99,11 +96,12 @@ class CalendarAdapter(
     }
 
     fun dataReset(changeType:Int,position:Int){
-        if (changeType==1){
-            dataSet[position].isTodoData = true
-        }else if (changeType==2){
-            dataSet[position].isTodoData = false
-        }
+        //다시 해주야 햄!
+//        if (changeType==1){
+//            dataSet[position].isTodoData = true
+//        }else if (changeType==2){
+//            dataSet[position].isTodoData = false
+//        }
         notifyItemChanged(position)
     }
 

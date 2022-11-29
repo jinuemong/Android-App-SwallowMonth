@@ -77,6 +77,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.currentDate = CustomCalendar(date,dateDay,dateMonth,dateMonth)
         viewModel.currentDate.initBaseCalendar()
         viewModel.currentDate
+        viewModel.dateTime = SimpleDateFormat(
+            "yyyy년 MM월", Locale.KOREA
+        ).format(viewModel.currentDate.calendar.time)
+
     }
     private fun initFragmentAdapter(){
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
