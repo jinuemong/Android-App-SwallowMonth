@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.Unit.CustomDayData
 import com.example.SwallowMonthJM.Unit.dayOfWeek
 import com.example.SwallowMonthJM.databinding.FragmentTaskListBinding
 import com.example.SwallowMonthJM.databinding.ItemCalendarHorizontalBinding
@@ -46,6 +47,7 @@ class FragmentTaskList : Fragment() {
     }
 
     private fun initView(){
+        binding.taskListPerText.text = "0%"
         initRecyclerView()
     }
 
@@ -54,19 +56,16 @@ class FragmentTaskList : Fragment() {
     }
 
     private fun initRecyclerView(){
-        val todayIndex = mainActivity.viewModel.currentDate.todayIndex
         binding.taskListHoCalendar.apply {
-            adapter = CalendarListAdapter(mainActivity,todayIndex)
-            smoothScrollToPosition(todayIndex)
+            adapter = CalendarListAdapter(mainActivity.viewModel.currentDate.dateList)
+            smoothScrollToPosition(mainActivity.viewModel.currentDate.todayIndex)
         }
     }
 }
 
 class CalendarListAdapter(
-    mainActivity: MainActivity,
-    private val todayIndex:Int
+    private val dataSet : ArrayList<CustomDayData>
 ):RecyclerView.Adapter<CalendarListAdapter.CalendarListItemHolder>(){
-    private val dataSet = mainActivity.viewModel.currentDate.dateList
 
     class CalendarListItemHolder(val binding : ItemCalendarHorizontalBinding)
         :RecyclerView.ViewHolder(binding.root)
@@ -81,8 +80,10 @@ class CalendarListAdapter(
     override fun onBindViewHolder(holder: CalendarListItemHolder, position: Int) {
         holder.binding.itemHoDayNum.text = dataSet[position].day.toString()
         holder.binding.itemHoDayText.setText(dayOfWeek[(position%7)])
-        if (position==todayIndex){
-            holder.binding.root.setBackgroundColor(R.color.color_type1)
+
+        //오늘
+        if (dataSet[position].isToday){
+            holder.binding.root.setBackgroundColor(R.color.color_type3)
         }
     }
 

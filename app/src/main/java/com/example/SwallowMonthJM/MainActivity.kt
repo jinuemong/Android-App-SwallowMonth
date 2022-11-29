@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView(){
         frManger = this@MainActivity.supportFragmentManager
         binding.mainTopLayout.apply {
-            //상단 적용
+            binding.mainTopLayout
         }
         viewPager = binding.mainMidViewpager
         initCurrentDate()
@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         val date = Calendar.getInstance().time
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
+        viewModel.currentMonth =dateMonth
         viewModel.currentDate = CustomCalendar(date,dateDay,dateMonth,dateMonth)
         viewModel.currentDate.initBaseCalendar()
         viewModel.currentDate

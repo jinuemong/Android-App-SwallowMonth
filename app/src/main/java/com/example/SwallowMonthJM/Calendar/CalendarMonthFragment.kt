@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //각 달을 표시하는 fragment (월 모음)
-class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
+class CalendarMonthFragment() : Fragment() {
     var pageIndex = 0
     // 상하 슬라이드 동작 제어
     private var _binding: FragmentCalendarMonthBinding? = null
@@ -68,7 +68,7 @@ class CalendarMonthFragment(private val dateMonth: Int) : Fragment() {
 
         binding.fragCalenderRecycler.apply {
             calendarAdapter = CalendarAdapter(
-                binding.fragCalenderLinear, dateTime,currentDate, dateMonth,
+                binding.fragCalenderLinear, dateTime,currentDate,mainActivity.viewModel.currentMonth,
                 viewSlide = { position,keyData ->
                     val state = binding.slideFrame.panelState
                     if (state==SlidingUpPanelLayout.PanelState.COLLAPSED){

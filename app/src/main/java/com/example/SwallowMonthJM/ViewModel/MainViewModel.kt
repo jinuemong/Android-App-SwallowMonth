@@ -13,7 +13,7 @@ class MainViewModel : ViewModel(){
     var currentMonthArr = ArrayList<Todo>()
 
     lateinit var currentDate : CustomCalendar
-
+    var currentMonth=0
     fun addTodoData(key:String,text:String){
 
         currentMonthArr = if (todoData[key] !=null){ todoData[key]!! } else{ ArrayList() }

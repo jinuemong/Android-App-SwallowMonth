@@ -58,9 +58,9 @@ class CustomCalendar(
         for (i in 1..prevTail){
             dateList.add(CustomDayData(++maxOffsetDate,
                 isTodoData = false,
-                inRepeatData = false,
                 isToday = false,
-                isOtherMonth = true
+                null,
+                null
             ))
         }
     }
@@ -70,9 +70,9 @@ class CustomCalendar(
             val isToday = (currentDay==i && currentMonth==dateMonth)
             dateList.add(CustomDayData(i,
                 isTodoData = false,
-                inRepeatData = false,
                 isToday = isToday,
-                isOtherMonth = false
+                null,
+                null
             ))
             if(isToday){
                 todayIndex = dateList.lastIndex
@@ -85,9 +85,9 @@ class CustomCalendar(
         for (i in 1..nextHead){
             dateList.add(CustomDayData(date++,
                 isTodoData = false,
-                inRepeatData = false,
                 isToday = false,
-                isOtherMonth = true
+                null,
+                null
             ))
         }
     }

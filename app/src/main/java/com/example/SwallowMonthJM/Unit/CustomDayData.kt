@@ -5,7 +5,7 @@ import java.io.Serializable
 class CustomDayData(
     var day :Int,
     var isTodoData :Boolean,
-    var inRepeatData : Boolean,
     var isToday : Boolean,
-    var isOtherMonth : Boolean
+    var routineList : ArrayList<Routine>?,
+    var todoList : ArrayList<Todo>?
 ):Serializable
