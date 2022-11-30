@@ -3,8 +3,10 @@ package com.example.SwallowMonthJM
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,6 +18,7 @@ import com.example.SwallowMonthJM.MainFragment.FragmentCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
+import com.example.SwallowMonthJM.SupportFragment.AddRoutineFragment
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private val iconView = arrayOf(
         R.drawable.ic_baseline_home_24,
         R.drawable.ic_iconmonstr_calendar_9,
+        R.drawable.ic_add_box_24,
         R.drawable.ic_iconmonstr_refresh_7,
         R.drawable.ic_iconmonstr_user_male_thin
     )
@@ -54,8 +58,8 @@ class MainActivity : AppCompatActivity() {
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_up),
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.wave)
         )
-
         initView()
+
     }
 
     private fun initView(){
@@ -86,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
         fragmentPageAdapter.addFragment(FragmentTaskList())
         fragmentPageAdapter.addFragment(FragmentCalendar())
+        fragmentPageAdapter.addFragment(AddRoutineFragment())
         fragmentPageAdapter.addFragment(FragmentRepeatTaskList())
         fragmentPageAdapter.addFragment(FragmentUserUI())
     }
@@ -104,9 +109,19 @@ class MainActivity : AppCompatActivity() {
         binding.mainBottomTabLayout.tabIconTint = tintColor
         TabLayoutMediator(binding.mainBottomTabLayout,viewPager)
         { tab, position->
-            tab.setIcon(iconView[position])
+            if (position!=2) {
+                tab.setIcon(iconView[position])
+            }
         }.attach()
 
+        //3번째 icon만 따로 설정
+        val tabs = binding.mainBottomTabLayout.getChildAt(0) as ViewGroup
+        val tabView = tabs.getChildAt(2)
+        val lp = tabView.layoutParams as LinearLayout.LayoutParams
+        lp.marginEnd = 10
+        lp.marginStart = 10
+        tabView.layoutParams = lp
+        tabView.setBackgroundResource(iconView[2])
     }
     fun onFragmentChange(goFragment: Fragment){
         frManger.beginTransaction().replace(R.id.view_container_in_main, goFragment)

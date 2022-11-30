@@ -100,15 +100,11 @@ class CalendarListAdapter(
     inner class CalendarListItemHolder(val binding: ItemCalendarHorizontalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DayData) {
-//            binding.itemHoDayNum.text = dataSet[absoluteAdapterPosition].day.toString()
-//            binding.itemHoDayText.setText(dayOfWeek[absoluteAdapterPosition%7])
-
             if(selectedPosition==absoluteAdapterPosition){
                 binding.setChecked()
             }else{
                 binding.setUnchecked()
             }
-
             if(onItemClickListener!=null){
                 binding.root.setOnClickListener {
                     onItemClickListener?.onItemClick(item, position = absoluteAdapterPosition)
@@ -132,13 +128,6 @@ class CalendarListAdapter(
         holder.bind(dataSet[position])
         holder.binding.itemHoDayNum.text = dataSet[position].day.toString()
         holder.binding.itemHoDayText.setText(dayOfWeek[(position%7)])
-
-//        holder.binding.root.setOnClickListener {
-//            val k = mainActivity.viewModel
-//                .getKeyData(dataSet[holder.absoluteAdapterPosition].monthIndex,
-//                    dataSet[holder.absoluteAdapterPosition].day.toString())
-//            Log.d("k",k)
-//        }
     }
 
     override fun getItemCount(): Int =dataSet.size
