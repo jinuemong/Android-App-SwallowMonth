@@ -84,7 +84,7 @@ class CalendarListAdapter(
     private val dataSet : ArrayList<DayData>,
     private val todayIndex:Int
 ):RecyclerView.Adapter<CalendarListAdapter.CalendarListItemHolder>(){
-    var selectedPosition = todayIndex
+    private var selectedPosition = todayIndex
 
     private lateinit var binding: ItemCalendarHorizontalBinding
     private var onItemClickListener: OnItemClickListener?=null
@@ -100,8 +100,8 @@ class CalendarListAdapter(
     inner class CalendarListItemHolder(val binding: ItemCalendarHorizontalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DayData) {
-            binding.itemHoDayNum.text = dataSet[absoluteAdapterPosition].day.toString()
-            binding.itemHoDayText.setText(dayOfWeek[absoluteAdapterPosition%7])
+//            binding.itemHoDayNum.text = dataSet[absoluteAdapterPosition].day.toString()
+//            binding.itemHoDayText.setText(dayOfWeek[absoluteAdapterPosition%7])
 
             if(selectedPosition==absoluteAdapterPosition){
                 binding.setChecked()
@@ -130,6 +130,8 @@ class CalendarListAdapter(
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: CalendarListItemHolder, position: Int) {
         holder.bind(dataSet[position])
+        holder.binding.itemHoDayNum.text = dataSet[position].day.toString()
+        holder.binding.itemHoDayText.setText(dayOfWeek[(position%7)])
 
 //        holder.binding.root.setOnClickListener {
 //            val k = mainActivity.viewModel
