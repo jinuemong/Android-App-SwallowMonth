@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:backgroundTint="@color/color_type3"
     android:background="@drawable/round_border"
-    android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/main_margin"
     android:layout_width="@dimen/item_height_big_80"
     android:layout_height="@dimen/item_height_big_100">
-    <TextView
-        android:id="@+id/item_ho_day_num"
-        tools:text="01"
-        android:textStyle="bold"
-        style="@style/TextView1"
-        android:layout_marginEnd="5dp"
-        android:textSize="@dimen/item_height_big_text_size_35"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/item_ho_day_text"
-        android:textSize="@dimen/item_height_mid_text_size"
-        tools:text="mon"
-        style="@style/TextView1"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/item_back"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/item_ho_day_num"
+            tools:text="01"
+            android:textStyle="bold"
+            style="@style/TextView1"
+            android:layout_marginEnd="5dp"
+            android:textSize="@dimen/item_height_big_text_size_35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/item_ho_day_text"
+            android:textSize="@dimen/item_height_mid_text_size"
+            tools:text="mon"
+            style="@style/TextView1"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </LinearLayout>

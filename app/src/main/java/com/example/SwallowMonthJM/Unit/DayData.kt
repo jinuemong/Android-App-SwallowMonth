@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class DayData(
     var day :Int,
-    var isToday : Boolean,
+    var isSelected : Boolean,
     var monthIndex : Int,
     var routineList : ArrayList<Routine>?,
     var todoList : ArrayList<Todo>?

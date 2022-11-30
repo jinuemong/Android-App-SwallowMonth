@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
@@ -60,45 +61,91 @@ class FragmentTaskList : Fragment() {
     }
 
     private fun initRecyclerView(){
+        val todayIndex = mainActivity.viewModel.currentDate.todayIndex
+
         binding.taskListHoCalendar.apply {
-            adapter = CalendarListAdapter(mainActivity,mainActivity.viewModel.currentDate.dateList)
-            smoothScrollToPosition(mainActivity.viewModel.currentDate.todayIndex)
+            setHasFixedSize(true)
+            adapter = CalendarListAdapter(mainActivity,mainActivity.viewModel.currentDate.dateList,todayIndex).apply {
+                setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
+                    override fun onItemClick(item: DayData, position: Int) {
+                        Log.d("item",position.toString()+":"+item.day)
+                    }
+
+                })
+            }
+
+            smoothScrollToPosition(todayIndex)
         }
     }
 }
 
 class CalendarListAdapter(
     private val mainActivity: MainActivity,
-    private val dataSet : ArrayList<DayData>
+    private val dataSet : ArrayList<DayData>,
+    private val todayIndex:Int
 ):RecyclerView.Adapter<CalendarListAdapter.CalendarListItemHolder>(){
+    var selectedPosition = todayIndex
 
-    class CalendarListItemHolder(val binding : ItemCalendarHorizontalBinding)
-        :RecyclerView.ViewHolder(binding.root)
+    private lateinit var binding: ItemCalendarHorizontalBinding
+    private var onItemClickListener: OnItemClickListener?=null
+
+
+    interface OnItemClickListener{
+        fun onItemClick(item : DayData,position: Int)
+    }
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.onItemClickListener = listener
+    }
+
+    inner class CalendarListItemHolder(val binding: ItemCalendarHorizontalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: DayData) {
+            binding.itemHoDayNum.text = dataSet[absoluteAdapterPosition].day.toString()
+            binding.itemHoDayText.setText(dayOfWeek[absoluteAdapterPosition%7])
+
+            if(selectedPosition==absoluteAdapterPosition){
+                binding.setChecked()
+            }else{
+                binding.setUnchecked()
+            }
+
+            if(onItemClickListener!=null){
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(item, position = absoluteAdapterPosition)
+                    if (selectedPosition!=absoluteAdapterPosition){
+                        binding.setChecked()
+                        notifyItemChanged(selectedPosition)
+                        selectedPosition = absoluteAdapterPosition
+                    }
+                }
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarListItemHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_calendar_horizontal,parent,false)
-        return CalendarListItemHolder(ItemCalendarHorizontalBinding.bind(view))
+        binding = ItemCalendarHorizontalBinding.inflate(LayoutInflater.from(mainActivity),parent,false)
+        return CalendarListItemHolder(binding)
     }
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: CalendarListItemHolder, position: Int) {
-        holder.binding.itemHoDayNum.text = dataSet[position].day.toString()
-        holder.binding.itemHoDayText.setText(dayOfWeek[(position%7)])
+        holder.bind(dataSet[position])
 
-        //오늘
-        if (dataSet[holder.absoluteAdapterPosition].isToday){
-            Log.d("dd",holder.absoluteAdapterPosition.toString())
-            holder.binding.root.setBackgroundColor(R.color.color_type3)
-        }
-
-        holder.binding.root.setOnClickListener {
-            val k = mainActivity.viewModel
-                .getKeyData(dataSet[holder.absoluteAdapterPosition].monthIndex,
-                    dataSet[holder.absoluteAdapterPosition].day.toString())
-            Log.d("k",k)
-        }
+//        holder.binding.root.setOnClickListener {
+//            val k = mainActivity.viewModel
+//                .getKeyData(dataSet[holder.absoluteAdapterPosition].monthIndex,
+//                    dataSet[holder.absoluteAdapterPosition].day.toString())
+//            Log.d("k",k)
+//        }
     }
 
     override fun getItemCount(): Int =dataSet.size
+
+    @SuppressLint("ResourceAsColor")
+    private fun ItemCalendarHorizontalBinding.setChecked() =
+        itemBack.setBackgroundColor(ContextCompat.getColor(mainActivity, R.color.color_type1))
+
+    @SuppressLint("ResourceAsColor")
+    private fun ItemCalendarHorizontalBinding.setUnchecked() =
+        itemBack.setBackgroundColor(ContextCompat.getColor(mainActivity, R.color.color_type3))
 }
