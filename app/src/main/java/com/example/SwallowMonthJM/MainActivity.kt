@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         aniList = arrayOf(
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_left),
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_up),
+            AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_down),
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.wave)
         )
         initView()

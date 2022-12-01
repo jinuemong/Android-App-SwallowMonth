@@ -1,5 +1,6 @@
 <resources>
     <dimen name="fab_margin">200dp</dimen>
+    <dimen name="fab_margin_12dp">150dp</dimen>
     <dimen name="item_height_big">1500dp</dimen>
     <dimen name="item_height_big_180">2250dp</dimen>
     <dimen name="item_height_big_150">1875dp</dimen>

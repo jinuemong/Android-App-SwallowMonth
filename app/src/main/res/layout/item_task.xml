@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height_big">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/main_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/fab_margin">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/item_height_big_100"
+                android:layout_height="@dimen/item_height_big_100">
+
+                <ProgressBar
+                    android:id="@+id/task_per"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/fab_margin_12dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progressDrawable="@drawable/circle_progressbar"
+                    android:progressTint="@color/color_type1" />
+
+                <TextView
+                    android:id="@+id/task_per_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/strong_color"
+                    android:textSize="@dimen/item_height_mid_text_size"
+                    android:textStyle="bold"
+                    tools:text="100%" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/main_margin"
+                tools:text="your task"
+                android:textSize="@dimen/item_height_mid_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/task_icon"
+                android:src="@drawable/ic_baseline_add_circle_24"
+                android:layout_width="@dimen/item_mid_2_height"
+                android:layout_height="@dimen/item_mid_2_height"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.SelectIconDialog
-import com.example.SwallowMonthJM.Unit.Todo
+import com.example.SwallowMonthJM.Unit.Task
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemToDoCalendarBinding
 import com.example.SwallowMonthJM.databinding.SlideLayoutCalendarBinding
@@ -70,7 +70,7 @@ class CalendarSlider(
 
     private fun addTypeData(){
         if (editTypingView.text!=null && editTypingView.text.toString()!="") {
-            mainActivity.viewModel.addTodoData(keyDay, editTypingView.text.toString())
+            mainActivity.viewModel.addTodoData(keyDay, editTypingView.text.toString(),0)
             editTypingView.setText("")
             addData()
         }
@@ -84,7 +84,7 @@ class CalendarSlider(
         recentlyListRecycler.apply {
             layoutManager = LinearLayoutManager(mainActivity)
             val keyData =
-                if(mainActivity.viewModel.todoData[keyDay]==null) ArrayList<Todo>()
+                if(mainActivity.viewModel.todoData[keyDay]==null) ArrayList<Task>()
                 else mainActivity.viewModel.todoData[keyDay]!!
 
             adapter = ToDoCalendarAdapter(
@@ -120,10 +120,10 @@ class CalendarSlider(
 
 class ToDoCalendarAdapter(
     private val mainActivity : MainActivity,
-    private var dataSet: ArrayList<Todo>,
-    val onClickDeleteButton:(todo: Todo)->Unit,
-    val onClickItem : (todo:Todo)->Unit,
-    val onClickChangeIcon : (todo:Todo,index:Int)->Unit,
+    private var dataSet: ArrayList<Task>,
+    val onClickDeleteButton:(todo: Task)->Unit,
+    val onClickItem : (todo:Task)->Unit,
+    val onClickChangeIcon : (todo:Task, index:Int)->Unit,
     //return 값이 없는 Unit을 넘겨줌 외부로 position 넘겨주는 동작
 ):RecyclerView.Adapter<ToDoCalendarAdapter.ToDoCalendarViewHolder>(){
 
@@ -183,7 +183,7 @@ class ToDoCalendarAdapter(
     override fun getItemCount(): Int = dataSet.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newData:ArrayList<Todo>){
+    fun setData(newData:ArrayList<Task>){
         dataSet = newData
         notifyDataSetChanged()
     }
