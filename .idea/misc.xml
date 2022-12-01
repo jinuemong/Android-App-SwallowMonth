@@ -56,6 +56,8 @@
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/drawable/round_border_three.xml" value="0.1935" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/drawable/round_border_two.xml" value="0.1225" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/drawable/select_tab_background.xml" value="0.1775" />
+        <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/drawable/tab_layout_round_back.xml" value="0.179" />
+        <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/drawable/tab_layout_selector.xml" value="0.179" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/activity_inseart.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/activity_insert.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/activity_login.xml" value="0.2477355072463768" />
@@ -63,6 +65,7 @@
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/activity_to_do_main.xml" value="0.2" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/content_main.xml" value="0.2477355072463768" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_add_routine.xml" value="0.2" />
+        <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_add_task.xml" value="0.16" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_calendar_month.xml" value="0.12" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_first.xml" value="0.2477355072463768" />
@@ -71,7 +74,7 @@
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_routine_three.xml" value="0.1" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_routine_two.xml" value="0.1" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_second.xml" value="0.2477355072463768" />
-        <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_task_list.xml" value="0.2" />
+        <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_task_list.xml" value="0.264" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/fragment_user_u_i.xml" value="0.19597989949748743" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/icon_layout.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/jinwo/desktopss/codingJM/AndroidStudioProjects/SwallowMonthJM/app/src/main/res/layout/item_calendar.xml" value="0.17624521072796934" />

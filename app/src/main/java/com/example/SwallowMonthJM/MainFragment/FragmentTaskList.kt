@@ -56,11 +56,11 @@ class FragmentTaskList : Fragment() {
         initRecyclerView()
     }
     private fun initAni(){
-        //1. 메인 모델 애니메이션
         binding.topInTaskList.animation = mainActivity.aniList[2]
         binding.bottomInTaskList.animation = mainActivity.aniList[1]
         binding.taskListHoCalendar.animation = mainActivity.aniList[0]
     }
+
     private fun setUpListener(){
 
     }

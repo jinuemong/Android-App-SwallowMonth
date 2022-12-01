@@ -26,6 +26,7 @@
     <string name="edit_profile">편집</string>
     <string name="logout_profile">로그아웃</string>
     <string name="add_routine">add Routine</string>
+    <string name="add_task">add Task</string>
     <string name="commit">commit</string>
     <string name="day_tasks">Day Tasks</string>
     <string name="todo">Todo</string>

@@ -164,15 +164,14 @@
                     android:layout_width="@dimen/item_height_big_180"
                     android:layout_height="@dimen/item_height">
                     <com.google.android.material.tabs.TabLayout
-
                         android:id="@+id/tab_in_task_list"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/round_border_three"
-                        android:backgroundTint="@color/color_type2"
+                        app:tabBackground="@drawable/tab_layout_selector"
+                        android:background ="@drawable/tab_layout_round_back"
                         app:tabSelectedTextColor="@color/white"
-                        app:tabTextColor="@color/color_type1"
-                        app:tabIndicatorColor="#00000000">
+                        app:tabTextColor="@color/black"
+                        app:tabIndicatorHeight="0dp">
                         <com.google.android.material.tabs.TabItem
                             android:text="@string/todo"
                             android:layout_margin="@dimen/main_margin"
