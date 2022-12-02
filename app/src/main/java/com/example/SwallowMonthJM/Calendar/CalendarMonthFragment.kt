@@ -2,11 +2,13 @@ package com.example.SwallowMonthJM.Calendar
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Unit.DayData
 import com.example.SwallowMonthJM.databinding.FragmentCalendarMonthBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
@@ -68,19 +70,16 @@ class CalendarMonthFragment() : Fragment() {
 
         binding.fragCalenderRecycler.apply {
             calendarAdapter = CalendarAdapter(
-                binding.fragCalenderLinear, dateTime,currentDate,mainActivity.viewModel.currentMonth,
-                viewSlide = { position,keyData ->
-                    val state = binding.slideFrame.panelState
-                    if (state==SlidingUpPanelLayout.PanelState.COLLAPSED){
-                        binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-                        val calendarSlider = CalendarSlider(binding.slideLayout, mainActivity,
-                            addData = { (adapter as CalendarAdapter).dataReset(1,position) },
-                            delData = { (adapter as CalendarAdapter).dataReset(2,position) }
-                        )
-                        calendarSlider.initView(keyData)
+                mainActivity,binding.fragCalenderLinear,
+                dateTime,currentDate,mainActivity.viewModel.currentMonth,
+            ).apply {
+                setOnItemClickListener(object : CalendarAdapter.OnItemClickListener{
+                    override fun onItemClick(item: DayData, position: Int) {
+                        Log.d("item",position.toString()+":"+item.day)
                     }
-                }
-            )
+
+                })
+            }
             adapter = calendarAdapter
 
         }

@@ -18,7 +18,7 @@ import com.example.SwallowMonthJM.MainFragment.FragmentCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
-import com.example.SwallowMonthJM.SupportFragment.AddRoutineFragment
+import com.example.SwallowMonthJM.SupportFragment.AddTaskFragment
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
         fragmentPageAdapter.addFragment(FragmentTaskList())
         fragmentPageAdapter.addFragment(FragmentCalendar())
-        fragmentPageAdapter.addFragment(AddRoutineFragment())
+        fragmentPageAdapter.addFragment(AddTaskFragment())
         fragmentPageAdapter.addFragment(FragmentRepeatTaskList())
         fragmentPageAdapter.addFragment(FragmentUserUI())
     }

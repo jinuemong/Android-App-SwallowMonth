@@ -50,7 +50,7 @@ class AddTaskFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.startAnimation(mainActivity.aniList[0])
+        view.startAnimation(mainActivity.aniList[1])
         initView()
         setUpListener()
     }

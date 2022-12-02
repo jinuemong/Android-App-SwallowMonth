@@ -36,6 +36,7 @@
                 android:layout_height="2dp" />
 
             <LinearLayout
+                android:layout_marginStart="@dimen/main_margin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
                 android:gravity="center_vertical"
