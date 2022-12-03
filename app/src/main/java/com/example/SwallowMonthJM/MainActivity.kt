@@ -124,6 +124,7 @@ class MainActivity : AppCompatActivity() {
         tabView.layoutParams = lp
         tabView.setBackgroundResource(iconView[2])
     }
+
     fun onFragmentChange(goFragment: Fragment){
         frManger.beginTransaction().replace(R.id.view_container_in_main, goFragment)
             .addToBackStack(null)

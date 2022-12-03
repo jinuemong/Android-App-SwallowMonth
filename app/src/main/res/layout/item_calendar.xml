@@ -33,12 +33,5 @@
             android:layout_height="@dimen/fab_margin"
             android:background="@drawable/task_line_mid"
             android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/item_line"
-            android:layout_width="@dimen/fab_margin"
-            android:layout_height="@dimen/fab_margin"
-            android:background="@drawable/task_line_circle"
-            android:visibility="gone" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

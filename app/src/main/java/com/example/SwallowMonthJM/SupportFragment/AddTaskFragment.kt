@@ -38,7 +38,6 @@ class AddTaskFragment : Fragment() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -64,13 +63,16 @@ class AddTaskFragment : Fragment() {
         initTabLayout()
     }
     private fun setUpListener(){
-
+        binding.addTaskBack.setOnClickListener {
+            mainActivity.onFragmentGoBack(this@AddTaskFragment)
+        }
     }
     private fun initFragmentAdapter(){
         fragmentPagerAdapter= FragmentAdapter(mainActivity)
         fragmentPagerAdapter.addFragment(TaskFragmentOne())
         fragmentPagerAdapter.addFragment(TaskFragmentTwo())
     }
+
     private fun initViewPager(){
         binding.addTaskViewpager.adapter = fragmentPagerAdapter
         binding.addTaskViewpager.registerOnPageChangeCallback(object :
@@ -79,6 +81,8 @@ class AddTaskFragment : Fragment() {
                 super.onPageSelected(position)
             }
         })
+        //스크롤 막기
+        binding.addTaskViewpager.isUserInputEnabled = false
     }
 
     private fun initTabLayout(){

@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.Calendar
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
@@ -21,68 +22,104 @@ class CalendarAdapter(
     date: Date,
     currentMonth: Int,
 ) : RecyclerView.Adapter<CalendarAdapter.CalenderItemHolder>() {
-    private lateinit var binding:ItemCalendarBinding
+    private lateinit var binding: ItemCalendarBinding
+    private var dataSet: ArrayList<DayData> = arrayListOf()
 
     //오늘 데이터 얻어옴
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
-    private var dataSet: ArrayList<DayData> = arrayListOf()
-    var customCalendar: CustomCalendar = CustomCalendar(date,dateDay,currentMonth,dateMonth)
+
+    // init calendar
+    var customCalendar: CustomCalendar = CustomCalendar(date, dateDay, currentMonth, dateMonth)
     init {
         customCalendar.initBaseCalendar()
         dataSet = customCalendar.dateList
     }
 
-    private var onItemClickListener: OnItemClickListener?=null
-    interface OnItemClickListener{
+    private var onItemClickListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
         fun onItemClick(item: DayData, position: Int)
     }
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         this.onItemClickListener = listener
     }
-    private var selectedNum = ArrayList<Int>()
 
-    inner class CalenderItemHolder(val binding: ItemCalendarBinding)
-        : RecyclerView.ViewHolder(binding.root){
-            fun bind(item: DayData){
-                //텍스트 표시
-                binding.calendarText.text = dataSet[absoluteAdapterPosition].day.toString()
-                //각 아이템의 높이 지정
-                val params  = LinearLayout.LayoutParams(calendarLayout.width / 7,calendarLayout.height / 6)
-                binding.root.layoutParams = params
+    var startNum = -1
+    var endNum = -1
 
-                //오늘 날짜
-                if (dataSet[absoluteAdapterPosition].isSelected){
-                    binding.calendarText.apply {
-                        setTypeface(this.typeface, Typeface.BOLD_ITALIC)
-                    }
+    inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("NotifyDataSetChanged")
+        fun bind(item: DayData) {
+
+            //텍스트 표시
+            binding.calendarText.text = dataSet[absoluteAdapterPosition].day.toString()
+            //각 아이템의 높이 지정
+            val params =
+                LinearLayout.LayoutParams(calendarLayout.width / 7, calendarLayout.height / 6)
+            binding.root.layoutParams = params
+
+            //클릭 조건
+            if (startNum==-1 && endNum==-1) {
+                binding.reset()
+            }
+            if (startNum==absoluteAdapterPosition){
+                if (endNum==-1) {
+                    binding.setOneSelected()
+                }else{
+                    binding.setHead()
                 }
-                //다른 달 회색
-                if(dataSet[absoluteAdapterPosition].monthIndex!=0){
-                    binding.calendarText.apply {
-                        setTextAppearance(R.style.grayColorText)
-                    }
-                }
-                //클릭 이벤트
-                if(onItemClickListener!=null){
-                    binding.root.setOnClickListener {
-                        onItemClickListener?.onItemClick(item, position = absoluteAdapterPosition)
+            }else{
+                binding.reset()
+            }
 
-                        if(selectedNum.size==0){
-                            //first click
-                            binding.setOneSelected()
-                            selectedNum.add(absoluteAdapterPosition)
-                        } else if (selectedNum.size==1){
-                            //second Click
-                            binding.setTwoSelected()
-                            selectedNum.add(absoluteAdapterPosition)
-                        }else{
-                            binding.reset()
+            if (endNum==absoluteAdapterPosition){
+                binding.setTail()
+            }
+            if (endNum!=-1 && startNum!=-1 &&
+                absoluteAdapterPosition>startNum && absoluteAdapterPosition<endNum){
+                binding.setMid()
+            }
+            //오늘 날짜
+            if (dataSet[absoluteAdapterPosition].isSelected) {
+                binding.setToday()
+            }else{
+                binding.setUnToday()
+            }
+
+            //다른 달 회색
+            if (dataSet[absoluteAdapterPosition].monthIndex != 0) {
+                binding.setOtherMonth()
+            }else{
+                binding.setUnOtherMonth()
+            }
+
+            //클릭 이벤트
+            if (onItemClickListener != null) {
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onItemClick(item, position = absoluteAdapterPosition)
+
+                    if (startNum!=-1 && endNum!=-1){
+                        startNum = -1
+                        endNum = -1
+                    }else{
+                        if (startNum==-1){
+                            startNum = absoluteAdapterPosition
+                        }else if ( startNum!=-1 && endNum==-1){
+                            endNum = absoluteAdapterPosition
+                            if (startNum>endNum){
+                                val temp = startNum
+                                startNum = endNum
+                                endNum = temp
+                            }
                         }
                     }
+                    notifyDataSetChanged()
                 }
             }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalenderItemHolder {
@@ -96,22 +133,36 @@ class CalendarAdapter(
 
     override fun getItemCount(): Int = dataSet.size
 
-    private fun ItemCalendarBinding.setOneSelected(){
-        itemLine.visibility = View.VISIBLE
-        itemLine.setBackgroundResource(R.drawable.task_line_circle)
+    private fun ItemCalendarBinding.setOneSelected() {
+        itemLineMid.visibility = View.VISIBLE
+        itemLineMid.setBackgroundResource(R.drawable.task_line_circle)
     }
 
-    private fun ItemCalendarBinding.setTwoSelected(){
-        itemLine.visibility = View.VISIBLE
-        itemLine.setBackgroundResource(R.drawable.task_line_end)
+    private fun ItemCalendarBinding.setHead() {
+        itemLineMid.visibility = View.VISIBLE
+        itemLineMid.setBackgroundResource(R.drawable.task_line_start)
     }
 
-    private fun ItemCalendarBinding.reset(){
-        selectedNum.clear()
-    }
-    private fun ItemCalendarBinding.setMid(){
+    private fun ItemCalendarBinding.setMid() {
         itemLineMid.visibility = View.VISIBLE
         itemLineMid.setBackgroundResource(R.drawable.task_line_mid)
     }
+    private fun ItemCalendarBinding.setTail() {
+        itemLineMid.visibility = View.VISIBLE
+        itemLineMid.setBackgroundResource(R.drawable.task_line_end)
+    }
 
+    private fun ItemCalendarBinding.reset() {
+        itemLineMid.visibility = View.GONE
+    }
+
+    private fun ItemCalendarBinding.setToday() =
+        calendarText.apply { setTypeface(this.typeface, Typeface.BOLD_ITALIC) }
+    private fun ItemCalendarBinding.setUnToday() =
+        calendarText.apply { setTypeface(this.typeface, Typeface.NORMAL) }
+
+    private fun ItemCalendarBinding.setOtherMonth() =
+        calendarText.apply { setTextAppearance(R.style.grayColorText) }
+    private fun ItemCalendarBinding.setUnOtherMonth() =
+        calendarText.apply { setTextAppearance(R.style.strongColorText) }
 }
