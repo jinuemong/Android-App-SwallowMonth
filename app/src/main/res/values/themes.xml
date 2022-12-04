@@ -28,6 +28,16 @@
 
     <style name="Theme.SwallowMonthJM.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="todayText">
+        <item name="android:textStyle">italic|bold</item>
+        <item name="android:textColor">@color/color_type1</item>
+    </style>
+
+    <style name="unTodayText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/strong_color</item>
+    </style>
+
     <style name="grayColorText">
         <item name="android:textColor">@color/gray</item>
     </style>
@@ -66,5 +76,17 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/round_border</item>
+    </style>
+
+    <!-- set level-->
+    <style name="level_big">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/item_height_big_text_size</item>
+        <item name="android:textColor">@color/normal_color</item>
+    </style>
+    <style name="level_small">
+        <item name="android:textSize">@dimen/item_height_mid_text_size</item>
+        <item name="android:textColor">@color/strong_color</item>
     </style>
 </resources>

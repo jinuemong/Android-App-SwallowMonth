@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
+import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.databinding.FragmentAddTaskBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -58,6 +59,16 @@ class AddTaskFragment : Fragment() {
         _binding = null
     }
     private fun initView(){
+        binding.addTaskSelectIcon.apply {
+            adapter = IconAdapter(mainActivity).apply {
+                setOnItemClickListener(object :IconAdapter.OnItemClickListener{
+                    override fun onItemClick(iconIndex: Int) {
+                        //아이템 인덱스 받아옴
+                    }
+
+                })
+            }
+        }
         initFragmentAdapter()
         initViewPager()
         initTabLayout()

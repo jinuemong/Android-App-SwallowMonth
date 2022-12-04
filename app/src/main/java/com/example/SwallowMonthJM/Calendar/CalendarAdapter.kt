@@ -1,7 +1,6 @@
 package com.example.SwallowMonthJM.Calendar
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -108,11 +107,13 @@ class CalendarAdapter(
                         if (startNum==-1){
                             startNum = absoluteAdapterPosition
                         }else if ( startNum!=-1 && endNum==-1){
-                            endNum = absoluteAdapterPosition
-                            if (startNum>endNum){
-                                val temp = startNum
-                                startNum = endNum
-                                endNum = temp
+                            if (absoluteAdapterPosition != startNum) {
+                                endNum = absoluteAdapterPosition
+                                if (startNum > endNum) {
+                                    val temp = startNum
+                                    startNum = endNum
+                                    endNum = temp
+                                }
                             }
                         }
                     }
@@ -157,9 +158,11 @@ class CalendarAdapter(
     }
 
     private fun ItemCalendarBinding.setToday() =
-        calendarText.apply { setTypeface(this.typeface, Typeface.BOLD_ITALIC) }
+        calendarText.apply { setTextAppearance(R.style.todayText) }
+
     private fun ItemCalendarBinding.setUnToday() =
-        calendarText.apply { setTypeface(this.typeface, Typeface.NORMAL) }
+        calendarText.apply { setTextAppearance(R.style.unTodayText) }
+
 
     private fun ItemCalendarBinding.setOtherMonth() =
         calendarText.apply { setTextAppearance(R.style.grayColorText) }

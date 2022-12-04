@@ -62,7 +62,14 @@ class AddRoutineFragment : Fragment() {
     }
     private fun initView(){
         binding.addRoutineSelectIcon.apply {
-            adapter = IconAdapter()
+            adapter = IconAdapter(mainActivity).apply {
+                setOnItemClickListener(object :IconAdapter.OnItemClickListener{
+                    override fun onItemClick(iconIndex: Int) {
+                        //아이템 인덱스 받아옴
+                    }
+
+                })
+            }
         }
         initFragmentAdapter()
         initViewPager()

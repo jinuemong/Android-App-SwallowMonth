@@ -6,10 +6,13 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.Adapter.IconAdapter
+import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.SelectIconDialogBinding
 
-class SelectIconDialog(private val context: AppCompatActivity) {
+class SelectIconDialog(
+    private val context: AppCompatActivity
+) {
 
     private lateinit var binding: SelectIconDialogBinding
     private val dig = Dialog(context)
@@ -22,7 +25,7 @@ class SelectIconDialog(private val context: AppCompatActivity) {
         dig.window?.setBackgroundDrawableResource(R.drawable.round_border)
 
         binding.iconSelectRecycler.apply {
-            adapter = IconAdapter()
+            adapter = IconAdapter(context as MainActivity)
             addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                     val child = rv.findChildViewUnder(e.x, e.y)

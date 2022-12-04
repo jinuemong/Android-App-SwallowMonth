@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/fab_margin"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -30,7 +30,7 @@
         <ImageView
             android:id="@+id/item_line_mid"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fab_margin"
+            android:layout_height="@dimen/item_mid_height_30"
             android:background="@drawable/task_line_mid"
             android:visibility="gone" />
     </LinearLayout>
