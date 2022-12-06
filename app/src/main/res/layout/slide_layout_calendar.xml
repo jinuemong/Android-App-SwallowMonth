@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/slide_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/round_border_two"
         android:orientation="vertical">
 
@@ -61,7 +61,7 @@
                 android:id="@+id/todo_add_button"
                 android:layout_width="@dimen/item_height"
                 android:layout_height="@dimen/item_height"
-                android:src="@drawable/ic_iconmonstr_check_mark_13" />
+                android:src="@drawable/ic_add_box_24" />
         </LinearLayout>
     </LinearLayout>
 

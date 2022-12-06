@@ -65,7 +65,7 @@ class AddRoutineFragment : Fragment() {
             adapter = IconAdapter(mainActivity).apply {
                 setOnItemClickListener(object :IconAdapter.OnItemClickListener{
                     override fun onItemClick(iconIndex: Int) {
-                        //아이템 인덱스 받아옴
+                        mainActivity.addViewModel.iconType=iconIndex
                     }
 
                 })

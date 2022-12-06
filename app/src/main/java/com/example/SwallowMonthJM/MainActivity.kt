@@ -19,6 +19,7 @@ import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.SupportFragment.AddTaskFragment
+import com.example.SwallowMonthJM.ViewModel.AddTaskViewModel
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -28,6 +29,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     val viewModel : MainViewModel by viewModels()
+    val addViewModel: AddTaskViewModel by viewModels()
     lateinit var frManger :FragmentManager
     private lateinit var fragmentPageAdapter:FragmentAdapter
     lateinit var viewPager : ViewPager2
@@ -78,22 +80,25 @@ class MainActivity : AppCompatActivity() {
         val date = Calendar.getInstance().time
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
-        viewModel.currentMonth =dateMonth
-        viewModel.currentDate = CustomCalendar(date,dateDay,dateMonth,dateMonth)
-        viewModel.currentDate.initBaseCalendar()
-        viewModel.currentDate
-        viewModel.dateTime = SimpleDateFormat(
-            "yyyy년 MM월", Locale.KOREA
-        ).format(viewModel.currentDate.calendar.time)
-
+        viewModel.apply {
+            currentMonth =dateMonth
+            dateTime = SimpleDateFormat(
+                "yyyy.MM", Locale.KOREA
+            ).format(date)
+            currentDate = CustomCalendar(date,dateDay,dateMonth,dateMonth,dateTime)
+            currentDate.initBaseCalendar()
+            currentMonthArr = currentDate.dateList
+        }
     }
     private fun initFragmentAdapter(){
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
-        fragmentPageAdapter.addFragment(FragmentTaskList())
-        fragmentPageAdapter.addFragment(FragmentCalendar())
-        fragmentPageAdapter.addFragment(AddTaskFragment())
-        fragmentPageAdapter.addFragment(FragmentRepeatTaskList())
-        fragmentPageAdapter.addFragment(FragmentUserUI())
+        fragmentPageAdapter.apply {
+            addFragment(FragmentTaskList())
+            addFragment(FragmentCalendar())
+            addFragment(AddTaskFragment())
+            addFragment(FragmentRepeatTaskList())
+            addFragment(FragmentUserUI())
+        }
     }
     private fun initViewPager(){
         viewPager.adapter = fragmentPageAdapter
@@ -115,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
-        //3번째 icon만 따로 설정
+        //3번째 icon 따로 설정
         val tabs = binding.mainBottomTabLayout.getChildAt(0) as ViewGroup
         val tabView = tabs.getChildAt(2)
         val lp = tabView.layoutParams as LinearLayout.LayoutParams

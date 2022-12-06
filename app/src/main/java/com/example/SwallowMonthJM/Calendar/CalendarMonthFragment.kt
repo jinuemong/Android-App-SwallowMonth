@@ -2,13 +2,11 @@ package com.example.SwallowMonthJM.Calendar
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Unit.DayData
 import com.example.SwallowMonthJM.databinding.FragmentCalendarMonthBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
@@ -71,13 +69,10 @@ class CalendarMonthFragment() : Fragment() {
         binding.fragCalenderRecycler.apply {
             calendarAdapter = CalendarAdapter(
                 mainActivity,binding.fragCalenderLinear,
-                dateTime,currentDate,mainActivity.viewModel.currentMonth,
+                currentDate,mainActivity.viewModel.currentMonth,
             ).apply {
                 setOnItemClickListener(object : CalendarAdapter.OnItemClickListener{
-                    override fun onItemClick(item: DayData, position: Int) {
-                        Log.d("item",position.toString()+":"+item.day)
-                    }
-
+                    override fun onItemClick() {}
                 })
             }
             adapter = calendarAdapter

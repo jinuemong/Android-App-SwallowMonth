@@ -12,6 +12,7 @@ class TaskFragmentOne : Fragment() {
     private var _binding:FragmentTaskOneBinding?=null
     private val binding get() = _binding!!
     private lateinit var calendarStateAdapter : CalendarStateAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +29,7 @@ class TaskFragmentOne : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+
     }
 
     override fun onDestroyView() {

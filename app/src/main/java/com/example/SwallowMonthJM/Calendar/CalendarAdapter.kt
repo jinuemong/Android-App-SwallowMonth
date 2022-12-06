@@ -17,19 +17,18 @@ import java.util.*
 class CalendarAdapter(
     private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
-    private val dateTime: String,
     date: Date,
     currentMonth: Int,
+
 ) : RecyclerView.Adapter<CalendarAdapter.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
     private var dataSet: ArrayList<DayData> = arrayListOf()
 
-    //오늘 데이터 얻어옴
+    //현재 캘린더 데이터 얻어옴
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
-
     // init calendar
-    var customCalendar: CustomCalendar = CustomCalendar(date, dateDay, currentMonth, dateMonth)
+    var customCalendar: CustomCalendar = CustomCalendar(date, dateDay, currentMonth, dateMonth,mainActivity.viewModel.dateTime)
     init {
         customCalendar.initBaseCalendar()
         dataSet = customCalendar.dateList
@@ -38,7 +37,7 @@ class CalendarAdapter(
     private var onItemClickListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
-        fun onItemClick(item: DayData, position: Int)
+        fun onItemClick()
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -51,7 +50,7 @@ class CalendarAdapter(
     inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("NotifyDataSetChanged")
-        fun bind(item: DayData) {
+        fun bind() {
 
             //텍스트 표시
             binding.calendarText.text = dataSet[absoluteAdapterPosition].day.toString()
@@ -63,6 +62,8 @@ class CalendarAdapter(
             //클릭 조건
             if (startNum==-1 && endNum==-1) {
                 binding.reset()
+                mainActivity.addViewModel.startNum=-1
+                mainActivity.addViewModel.endNum=-1
             }
             if (startNum==absoluteAdapterPosition){
                 if (endNum==-1) {
@@ -70,12 +71,14 @@ class CalendarAdapter(
                 }else{
                     binding.setHead()
                 }
+                mainActivity.addViewModel.startNum=startNum
             }else{
                 binding.reset()
             }
 
             if (endNum==absoluteAdapterPosition){
                 binding.setTail()
+                mainActivity.addViewModel.endNum=endNum
             }
             if (endNum!=-1 && startNum!=-1 &&
                 absoluteAdapterPosition>startNum && absoluteAdapterPosition<endNum){
@@ -98,7 +101,7 @@ class CalendarAdapter(
             //클릭 이벤트
             if (onItemClickListener != null) {
                 binding.root.setOnClickListener {
-                    onItemClickListener?.onItemClick(item, position = absoluteAdapterPosition)
+                    onItemClickListener?.onItemClick()
 
                     if (startNum!=-1 && endNum!=-1){
                         startNum = -1
@@ -129,7 +132,7 @@ class CalendarAdapter(
     }
 
     override fun onBindViewHolder(holder: CalenderItemHolder, position: Int) {
-        holder.bind(dataSet[position])
+        holder.bind()
     }
 
     override fun getItemCount(): Int = dataSet.size

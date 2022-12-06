@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.SupportFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class AddTaskFragment : Fragment() {
     private val tabText = arrayOf(
         "step1", "step2"
     )
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
@@ -63,9 +65,8 @@ class AddTaskFragment : Fragment() {
             adapter = IconAdapter(mainActivity).apply {
                 setOnItemClickListener(object :IconAdapter.OnItemClickListener{
                     override fun onItemClick(iconIndex: Int) {
-                        //아이템 인덱스 받아옴
+                        mainActivity.addViewModel.iconType = iconIndex
                     }
-
                 })
             }
         }
@@ -76,6 +77,13 @@ class AddTaskFragment : Fragment() {
     private fun setUpListener(){
         binding.addTaskBack.setOnClickListener {
             mainActivity.onFragmentGoBack(this@AddTaskFragment)
+        }
+        binding.addTaskCommit.setOnClickListener {
+            val data = mainActivity.addViewModel.getTaskData()
+            if (data!=null){
+                Log.d("data",data.toString())
+                Log.d("data",data.text)
+            }
         }
     }
     private fun initFragmentAdapter(){

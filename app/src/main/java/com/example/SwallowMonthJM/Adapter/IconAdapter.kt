@@ -24,7 +24,7 @@ class IconAdapter(
         this.onItemClickListener = listener
     }
     inner class IconViewHolder(val binding: ItemIconBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(iconIndex :Int){
+        fun bind(){
             binding.itemIconImage.setImageResource(calendarIcon[absoluteAdapterPosition])
 
             if (selectedPosition==absoluteAdapterPosition){
@@ -35,7 +35,7 @@ class IconAdapter(
 
             if (onItemClickListener!=null){
                 binding.root.setOnClickListener {
-                    onItemClickListener?.onItemClick(iconIndex=iconIndex)
+                    onItemClickListener?.onItemClick(iconIndex=absoluteAdapterPosition)
                     if (selectedPosition!=absoluteAdapterPosition){
                         binding.setSelected()
                         notifyItemChanged(selectedPosition)
@@ -52,7 +52,7 @@ class IconAdapter(
     }
 
     override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
-        holder.bind(calendarIcon[position])
+        holder.bind()
     }
 
     override fun getItemCount(): Int = calendarIcon.size
