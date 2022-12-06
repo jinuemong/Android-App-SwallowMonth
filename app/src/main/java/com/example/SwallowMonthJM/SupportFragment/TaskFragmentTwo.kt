@@ -62,21 +62,27 @@ class TaskFragmentTwo : Fragment() {
         val slideLayout = binding.slideLayout
         taskSlide = TaskSlider(slideLayout,mainActivity, addData = {text ->
             mainActivity.addViewModel.text = text
+            binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         })
         state = binding.slideFrame.panelState
+        binding.slideFrame.isTouchEnabled = true
     }
 
     private fun setUpListener(){
         for (i in 0 until layoutList.size){
             layoutList[i].setOnClickListener {
-                if (selectedNum != -1) {
-                    layoutList[selectedNum].setBackgroundResource(R.drawable.round_border)
-                }
-                layoutList[i].setBackgroundResource(R.color.color_type3)
-                selectedNum = i
-                mainActivity.addViewModel.level = selectedNum
+                if (binding.slideFrame.panelState != SlidingUpPanelLayout.PanelState.ANCHORED) {
+                    if (selectedNum != -1) {
+                        layoutList[selectedNum].setBackgroundResource(R.drawable.round_border)
+                    }
+                    layoutList[i].setBackgroundResource(R.color.color_type3)
+                    selectedNum = i
+                    mainActivity.addViewModel.level = selectedNum
 
-                binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+
+                }
+
             }
         }
 

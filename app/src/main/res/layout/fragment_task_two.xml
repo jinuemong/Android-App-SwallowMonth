@@ -9,11 +9,11 @@
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/slide_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="bottom"
         app:umanoDragView="@id/main_layout"
         app:umanoOverlay="false"
-        app:umanoPanelHeight="@dimen/item_mid_height_20dp">
+        app:umanoPanelHeight="0dp">
     <LinearLayout
         android:id="@+id/main_layout"
         android:padding="@dimen/main_margin"
