@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".SupportFragment.AddTaskFragment">
 
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slide_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        app:umanoDragView="@id/slide_layout"
+        app:umanoOverlay="true"
+        app:umanoPanelHeight="0dp">
+
         <LinearLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
@@ -57,6 +66,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
+                android:id="@+id/frag_add_left"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height_big_80"
                 android:background="@drawable/round_border"
@@ -74,6 +84,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/frag_add_right"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/fab_margin"
@@ -99,4 +110,11 @@
 
             </LinearLayout>
         </LinearLayout>
+    <!-- sldie 레이아웃 -->
+    <include
+        android:id="@+id/slide_layout"
+        layout="@layout/slide_layout_add_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </FrameLayout>

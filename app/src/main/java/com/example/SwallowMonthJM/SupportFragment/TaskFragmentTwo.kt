@@ -9,9 +9,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Unit.TaskSlider
 import com.example.SwallowMonthJM.databinding.FragmentTaskTwoBinding
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
 class TaskFragmentTwo : Fragment() {
@@ -20,8 +18,6 @@ class TaskFragmentTwo : Fragment() {
     private var selectedNum = -1
     private var layoutList = ArrayList<LinearLayout>()
     private lateinit var mainActivity: MainActivity
-    private lateinit var taskSlide : TaskSlider
-    private lateinit var state: SlidingUpPanelLayout.PanelState
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity =  context as MainActivity
@@ -59,33 +55,18 @@ class TaskFragmentTwo : Fragment() {
             add(binding.level5)
         }
 
-        val slideLayout = binding.slideLayout
-        taskSlide = TaskSlider(slideLayout,mainActivity, addData = {text ->
-            mainActivity.addViewModel.text = text
-            binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-        })
-        state = binding.slideFrame.panelState
-        binding.slideFrame.isTouchEnabled = true
     }
 
     private fun setUpListener(){
-        for (i in 0 until layoutList.size){
+            for (i in 0 until layoutList.size){
             layoutList[i].setOnClickListener {
-                if (binding.slideFrame.panelState != SlidingUpPanelLayout.PanelState.ANCHORED) {
-                    if (selectedNum != -1) {
-                        layoutList[selectedNum].setBackgroundResource(R.drawable.round_border)
-                    }
-                    layoutList[i].setBackgroundResource(R.color.color_type3)
-                    selectedNum = i
-                    mainActivity.addViewModel.level = selectedNum
-
-                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
+                if (selectedNum != -1) {
+                    layoutList[selectedNum].setBackgroundResource(R.drawable.round_border)
                 }
-
+                layoutList[i].setBackgroundResource(R.color.color_type3)
+                selectedNum = i
+                mainActivity.addViewModel.level = selectedNum
             }
         }
-
-        taskSlide.setUpListener()
     }
 }

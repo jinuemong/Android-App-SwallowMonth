@@ -4,10 +4,10 @@ import android.content.Context
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.databinding.SlideLayoutCalendarBinding
+import com.example.SwallowMonthJM.databinding.SlideLayoutAddTaskBinding
 
 class TaskSlider(
-    slideLayout: SlideLayoutCalendarBinding,
+    slideLayout: SlideLayoutAddTaskBinding,
     private val mainActivity: MainActivity,
     val addData:(text:String)->Unit
 ) {

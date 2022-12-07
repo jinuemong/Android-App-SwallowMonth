@@ -3,10 +3,8 @@ package com.example.SwallowMonthJM
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -27,17 +25,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityMainBinding
-    val viewModel : MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    val viewModel: MainViewModel by viewModels()
     val addViewModel: AddTaskViewModel by viewModels()
-    lateinit var frManger :FragmentManager
-    private lateinit var fragmentPageAdapter:FragmentAdapter
-    lateinit var viewPager : ViewPager2
+    lateinit var frManger: FragmentManager
+    private lateinit var fragmentPageAdapter: FragmentAdapter
+    lateinit var viewPager: ViewPager2
+
     //click tab
     val tintColor = ColorStateList(
-        arrayOf(intArrayOf(android.R.attr.state_selected), intArrayOf(-android.R.attr.state_selected)),
-        intArrayOf(Color.parseColor("#629CD1"),Color.parseColor("#2C608F"))
+        arrayOf(
+            intArrayOf(android.R.attr.state_selected),
+            intArrayOf(-android.R.attr.state_selected)
+        ),
+        intArrayOf(Color.parseColor("#629CD1"), Color.parseColor("#2C608F"))
     )
+
     //tab Icon
     private val iconView = arrayOf(
         R.drawable.ic_baseline_home_24,
@@ -56,16 +59,18 @@ class MainActivity : AppCompatActivity() {
 
         //애니메이션 설정
         aniList = arrayOf(
-            AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_left),
-            AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_up),
-            AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_down),
-            AnimationUtils.loadAnimation(this@MainActivity,R.anim.wave)
+            AnimationUtils.loadAnimation(this@MainActivity, R.anim.enter_left),
+            AnimationUtils.loadAnimation(this@MainActivity, R.anim.enter_up),
+            AnimationUtils.loadAnimation(this@MainActivity, R.anim.enter_down),
+            AnimationUtils.loadAnimation(this@MainActivity, R.anim.wave),
+            AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_right)
         )
         initView()
+        setUpListener()
 
     }
 
-    private fun initView(){
+    private fun initView() {
         frManger = this@MainActivity.supportFragmentManager
         binding.mainTopLayout.apply {
             binding.mainTopLayout
@@ -76,31 +81,39 @@ class MainActivity : AppCompatActivity() {
         initViewPager()
         initTabLayout()
     }
-    private fun initCurrentDate(){
+
+    private fun setUpListener(){
+        binding.addTaskButton.setOnClickListener {
+            onFragmentChange(AddTaskFragment())
+        }
+    }
+
+    private fun initCurrentDate() {
         val date = Calendar.getInstance().time
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
         viewModel.apply {
-            currentMonth =dateMonth
+            currentMonth = dateMonth
             dateTime = SimpleDateFormat(
                 "yyyy.MM", Locale.KOREA
             ).format(date)
-            currentDate = CustomCalendar(date,dateDay,dateMonth,dateMonth,dateTime)
+            currentDate = CustomCalendar(date, dateDay, dateMonth, dateMonth, dateTime)
             currentDate.initBaseCalendar()
             currentMonthArr = currentDate.dateList
         }
     }
-    private fun initFragmentAdapter(){
+
+    private fun initFragmentAdapter() {
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
         fragmentPageAdapter.apply {
             addFragment(FragmentTaskList())
             addFragment(FragmentCalendar())
-            addFragment(AddTaskFragment())
             addFragment(FragmentRepeatTaskList())
             addFragment(FragmentUserUI())
         }
     }
-    private fun initViewPager(){
+
+    private fun initViewPager() {
         viewPager.adapter = fragmentPageAdapter
         viewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
@@ -111,32 +124,23 @@ class MainActivity : AppCompatActivity() {
         //스크롤 막기
         viewPager.isUserInputEnabled = false
     }
-    private fun initTabLayout(){
+
+    private fun initTabLayout() {
         binding.mainBottomTabLayout.tabIconTint = tintColor
-        TabLayoutMediator(binding.mainBottomTabLayout,viewPager)
-        { tab, position->
-            if (position!=2) {
-                tab.setIcon(iconView[position])
-            }
+        TabLayoutMediator(binding.mainBottomTabLayout, viewPager)
+        { tab, position ->
+            tab.setIcon(iconView[position])
         }.attach()
 
-        //3번째 icon 따로 설정
-        val tabs = binding.mainBottomTabLayout.getChildAt(0) as ViewGroup
-        val tabView = tabs.getChildAt(2)
-        val lp = tabView.layoutParams as LinearLayout.LayoutParams
-        lp.marginEnd = 10
-        lp.marginStart = 10
-        tabView.layoutParams = lp
-        tabView.setBackgroundResource(iconView[2])
     }
 
-    fun onFragmentChange(goFragment: Fragment){
+    fun onFragmentChange(goFragment: Fragment) {
         frManger.beginTransaction().replace(R.id.view_container_in_main, goFragment)
             .addToBackStack(null)
             .commit()
     }
 
-    fun onFragmentGoBack(fragment: Fragment){
+    fun onFragmentGoBack(fragment: Fragment) {
         frManger.beginTransaction().remove(fragment).commit()
         frManger.popBackStack()
     }

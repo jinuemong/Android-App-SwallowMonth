@@ -18,7 +18,7 @@
     <dimen name="item_height_mid_text_size">225sp</dimen>
     <dimen name="item_height_small_text_size">150sp</dimen>
     <dimen name="item_height_small_up_text_size">175sp</dimen>
-
+    <dimen name="max_layout">7500dp</dimen>
 </resources>
 
 <!-- * 12.5 dp -->

@@ -18,4 +18,5 @@
     <dimen name="item_height_mid_text_size">18sp</dimen>
     <dimen name="item_height_small_up_text_size">14sp</dimen>
     <dimen name="item_height_small_text_size">12sp</dimen>
+    <dimen name="max_layout">600dp</dimen>
 </resources>

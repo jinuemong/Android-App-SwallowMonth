@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
@@ -15,14 +16,18 @@ class MainViewModel : ViewModel(){
     lateinit var dateTime:String
     var currentMonth=0
 
-    fun addTaskData(position: Int,task: Task){
-        currentMonthArr[position].apply {
-            if (this.taskList == null) {
-                this.taskList = ArrayList()
+    fun addTaskData(startNum:Int,endNum:Int,task: Task){
+        for (i in startNum..endNum){
+            currentMonthArr[i].apply {
+                if (this.taskList == null) {
+                    this.taskList = ArrayList()
+                }
+                this.taskList!!.add(task)
             }
-            this.taskList!!.add(task)
         }
         taskLiveData.value = currentMonthArr
+        Log.d("taskLiveData",taskLiveData.toString())
+        Log.d("currentMonthArr",currentMonthArr.toString())
     }
     fun delTaskData(position: Int,task: Task){
         currentMonthArr[position].taskList?.remove(task)

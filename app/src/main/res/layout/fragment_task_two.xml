@@ -6,16 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".SupportFragment.TaskFragmentTwo">
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/slide_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        app:umanoDragView="@id/main_layout"
-        app:umanoOverlay="false"
-        app:umanoPanelHeight="0dp">
+
     <LinearLayout
-        android:id="@+id/main_layout"
         android:padding="@dimen/main_margin"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -132,13 +124,6 @@
                 android:layout_height="@dimen/item_mid_height_30"/>
         </LinearLayout>
 
-
     </LinearLayout>
-    <!-- sldie 레이아웃 -->
-    <include
-        android:id="@+id/slide_layout"
-        layout="@layout/slide_layout_calendar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
 </FrameLayout>

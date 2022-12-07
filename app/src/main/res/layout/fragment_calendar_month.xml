@@ -118,7 +118,7 @@
 
         <!-- sldie 레이아웃 -->
         <include
-            layout="@layout/slide_layout_calendar"
+            layout="@layout/slide_layout_add_task"
             android:id="@+id/slide_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
