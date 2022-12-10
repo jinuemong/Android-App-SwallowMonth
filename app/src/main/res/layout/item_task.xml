@@ -74,8 +74,8 @@
             <ImageView
                 android:id="@+id/task_icon"
                 android:src="@drawable/ic_baseline_add_circle_24"
-                android:layout_width="@dimen/item_mid_2_height"
-                android:layout_height="@dimen/item_mid_2_height"/>
+                android:layout_width="@dimen/item_mid_height_30"
+                android:layout_height="@dimen/item_mid_height_30"/>
         </LinearLayout>
 
     </LinearLayout>

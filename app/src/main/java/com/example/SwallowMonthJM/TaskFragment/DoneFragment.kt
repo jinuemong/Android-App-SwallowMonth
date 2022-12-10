@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.databinding.FragmentDoneBinding
@@ -41,10 +42,15 @@ class DoneFragment : Fragment() {
         _binding = null
     }
     private fun initView(){
+        val day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition]
         binding.doneView.apply {
-            val day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition]
             adapter = TaskListAdapter(mainActivity,day.taskList,"done")
         }
+        mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
+            day.taskList?.let {
+                (binding.doneView.adapter as TaskListAdapter).setData(it)
+            }
+        })
     }
 
 }

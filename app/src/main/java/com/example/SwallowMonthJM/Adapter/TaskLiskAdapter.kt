@@ -44,12 +44,14 @@ class TaskListAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskListItemHolder, position: Int) {
-        if (type=="done") {
-            if (itemList[position].isDone) holder.bind(itemList[position])
-        }else{
-            if (!itemList[position].isDone) holder.bind(itemList[position])
-        }
+        holder.bind(itemList[position])
     }
 
     override fun getItemCount(): Int =itemList.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(dataSet: ArrayList<Task>){
+        itemList = dataSet
+        notifyDataSetChanged()
+    }
 }
