@@ -8,4 +8,5 @@ class Task(
     var isDone : Boolean,
     var iconType :Int=0,
     var level : Int,
+    var per : Int,
 ):Serializable

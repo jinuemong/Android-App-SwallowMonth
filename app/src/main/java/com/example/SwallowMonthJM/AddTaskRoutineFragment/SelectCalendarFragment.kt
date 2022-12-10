@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.SupportFragment
+package com.example.SwallowMonthJM.AddTaskRoutineFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.Calendar.CalendarStateAdapter
 import com.example.SwallowMonthJM.databinding.FragmentTaskOneBinding
 
-class TaskFragmentOne : Fragment() {
+class SelectCalendarFragment : Fragment() {
     private var _binding:FragmentTaskOneBinding?=null
     private val binding get() = _binding!!
     private lateinit var calendarStateAdapter : CalendarStateAdapter

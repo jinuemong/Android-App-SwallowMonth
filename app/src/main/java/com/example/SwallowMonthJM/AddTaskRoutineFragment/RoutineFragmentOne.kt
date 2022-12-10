@@ -1,17 +1,19 @@
-package com.example.SwallowMonthJM.SupportFragment
+package com.example.SwallowMonthJM.AddTaskRoutineFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.SwallowMonthJM.databinding.FragmentRoutineThreeBinding
+import com.example.SwallowMonthJM.Calendar.CalendarAdapter
+import com.example.SwallowMonthJM.databinding.FragmentRoutineOneBinding
 
-//내용
+//시작일
 
-class RoutineFragmentThree : Fragment() {
-    private var _binding: FragmentRoutineThreeBinding? = null
+class RoutineFragmentOne : Fragment() {
+    private var _binding:FragmentRoutineOneBinding? = null
     private val binding get() = _binding!!
+    private lateinit var calendarAdapter: CalendarAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +23,13 @@ class RoutineFragmentThree : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRoutineThreeBinding.inflate(inflater,container,false)
+        _binding = FragmentRoutineOneBinding.inflate(inflater,container,false)
         return binding.root
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }

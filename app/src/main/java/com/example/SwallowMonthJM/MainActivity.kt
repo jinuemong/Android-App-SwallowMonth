@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
+import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
-import com.example.SwallowMonthJM.SupportFragment.AddTaskFragment
 import com.example.SwallowMonthJM.ViewModel.AddTaskViewModel
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding

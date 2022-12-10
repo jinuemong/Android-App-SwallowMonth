@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.SupportFragment
+package com.example.SwallowMonthJM.AddTaskRoutineFragment
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentTaskTwoBinding
 
 
-class TaskFragmentTwo : Fragment() {
+class SelectLevelFragment : Fragment() {
     private var _binding:FragmentTaskTwoBinding?=null
     private val binding get() = _binding!!
     private var selectedNum = -1

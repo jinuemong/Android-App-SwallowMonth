@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.MainFragment
+package com.example.SwallowMonthJM.TaskFragment
 
 import android.content.Context
 import android.os.Bundle
@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddRoutineFragment
+import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.databinding.FragmentRepeatTaskListBinding
+import com.example.SwallowMonthJM.databinding.FragmentTaskBinding
 
-class FragmentRepeatTaskList : Fragment() {
-    private var _binding:FragmentRepeatTaskListBinding?=null
+
+class TaskFragment : Fragment() {
+    private var _binding: FragmentTaskBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
 
@@ -19,37 +20,31 @@ class FragmentRepeatTaskList : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentRepeatTaskListBinding.inflate(inflater,container,false)
+        _binding = FragmentTaskBinding.inflate(inflater,container,false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        setUpListener()
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding=null
+        _binding = null
     }
 
     private fun initView(){
-
-    }
-    private fun setUpListener(){
-        binding.routineAddButton.setOnClickListener {
-            mainActivity.onFragmentChange(AddRoutineFragment())
+        binding.taskView.apply {
+            val day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition]
+            adapter = TaskListAdapter(mainActivity,day.taskList,"task")
         }
     }
 }

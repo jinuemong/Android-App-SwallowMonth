@@ -185,9 +185,8 @@
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                tools:listitem="@layout/item_task"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/task_list_view_pager"
                 android:layout_margin="@dimen/fab_margin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

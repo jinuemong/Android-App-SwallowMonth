@@ -15,7 +15,7 @@ class MainViewModel : ViewModel(){
     lateinit var currentMonthArr : ArrayList<DayData>
     lateinit var dateTime:String
     var currentMonth=0
-
+    var currentDayPosition=0
     fun addTaskData(startNum:Int,endNum:Int,task: Task){
         for (i in startNum..endNum){
             currentMonthArr[i].apply {

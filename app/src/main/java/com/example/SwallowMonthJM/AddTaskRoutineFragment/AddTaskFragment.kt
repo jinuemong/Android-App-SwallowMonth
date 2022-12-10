@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.SupportFragment
+package com.example.SwallowMonthJM.AddTaskRoutineFragment
 
 import android.content.Context
 import android.os.Bundle
@@ -104,8 +104,8 @@ class AddTaskFragment : Fragment() {
     }
     private fun initFragmentAdapter(){
         fragmentPagerAdapter= FragmentAdapter(mainActivity)
-        fragmentPagerAdapter.addFragment(TaskFragmentTwo())
-        fragmentPagerAdapter.addFragment(TaskFragmentOne())
+        fragmentPagerAdapter.addFragment(SelectLevelFragment())
+        fragmentPagerAdapter.addFragment(SelectCalendarFragment())
     }
 
     private fun initViewPager(){

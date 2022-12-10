@@ -22,7 +22,7 @@ class AddTaskViewModel : ViewModel(){
         } else if (startNum == -1 && endNum == -1) {
             null
         } else {
-            Task(null, text, false, iconType, level)
+            Task(null, text, false, iconType, level,0)
         }
     }
 }
