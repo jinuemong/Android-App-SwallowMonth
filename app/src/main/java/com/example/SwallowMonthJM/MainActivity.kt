@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
     private val iconView = arrayOf(
         R.drawable.ic_baseline_home_24,
         R.drawable.ic_iconmonstr_calendar_9,
-        R.drawable.ic_add_box_24,
         R.drawable.ic_iconmonstr_refresh_7,
         R.drawable.ic_iconmonstr_user_male_thin
     )
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
         viewModel.apply {
-            currentMonth = dateMonth
+            setCurrentMonth(dateMonth)
             dateTime = SimpleDateFormat(
                 "yyyy.MM", Locale.KOREA
             ).format(date)

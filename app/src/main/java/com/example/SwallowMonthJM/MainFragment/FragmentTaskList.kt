@@ -3,7 +3,6 @@ package com.example.SwallowMonthJM.MainFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,9 +49,12 @@ class FragmentTaskList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAni()
         initView()
         setUpListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     @SuppressLint("SetTextI18n")
@@ -62,6 +64,7 @@ class FragmentTaskList : Fragment() {
         binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
         initRecyclerView()
         initPager()
+        initAni()
     }
     private fun initAni(){
         binding.topInTaskList.animation = mainActivity.aniList[2]
@@ -75,16 +78,16 @@ class FragmentTaskList : Fragment() {
 
     private fun initRecyclerView(){
         val todayIndex = mainActivity.viewModel.currentDate.todayIndex
-        mainActivity.viewModel.currentDayPosition = todayIndex
+        mainActivity.viewModel.setCurrentDayPosition(todayIndex)
         binding.taskListHoCalendar.apply {
             setHasFixedSize(true)
             adapter = CalendarListAdapter(mainActivity,mainActivity.viewModel.currentDate.dateList,todayIndex).apply {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
-                        mainActivity.viewModel.currentDayPosition = position
-                        Log.d("item",position.toString()+":"+item.day)
+                        mainActivity.viewModel.setCurrentDayPosition(position)
+                        binding.bottomInTaskList.animation = mainActivity.aniList[1]
+                        binding.bottomInTaskList.animation.start()
                     }
-
                 })
             }
 

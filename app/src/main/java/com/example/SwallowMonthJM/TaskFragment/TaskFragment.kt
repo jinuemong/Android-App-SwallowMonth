@@ -43,13 +43,20 @@ class TaskFragment : Fragment() {
     }
 
     private fun initView(){
-        val day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition]
+        var day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
         binding.taskView.apply {
-            adapter = TaskListAdapter(mainActivity,day.taskList,"task")
+            adapter = TaskListAdapter(mainActivity,day.taskList,false)
         }
         mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
             day.taskList?.let {
                 (binding.taskView.adapter as TaskListAdapter).setData(it)
+            }
+        })
+
+        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
+            day = mainActivity.viewModel.currentMonthArr[dayIndex]
+            binding.taskView.apply {
+                adapter = TaskListAdapter(mainActivity,day.taskList,false)
             }
         })
     }

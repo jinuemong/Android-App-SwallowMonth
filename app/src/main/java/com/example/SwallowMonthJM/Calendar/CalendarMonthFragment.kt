@@ -69,7 +69,7 @@ class CalendarMonthFragment() : Fragment() {
         binding.fragCalenderRecycler.apply {
             calendarAdapter = CalendarAdapter(
                 mainActivity,binding.fragCalenderLinear,
-                currentDate,mainActivity.viewModel.currentMonth,
+                currentDate,mainActivity.viewModel.currentMonth.value!!,
             ).apply {
                 setOnItemClickListener(object : CalendarAdapter.OnItemClickListener{
                     override fun onItemClick() {}
