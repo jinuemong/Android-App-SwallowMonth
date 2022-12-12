@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.CalendarListAdapter
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
+import com.example.SwallowMonthJM.Calendar.MonthPickerDialog
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.TaskFragment.DoneFragment
 import com.example.SwallowMonthJM.TaskFragment.TaskFragment
@@ -23,6 +25,7 @@ class FragmentTaskList : Fragment() {
     private var _binding : FragmentTaskListBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
+    private lateinit var fm : FragmentManager
     private lateinit var fragmentPageAdapter: FragmentAdapter
 
     private var tabText = arrayOf(
@@ -32,6 +35,7 @@ class FragmentTaskList : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        fm = (activity as MainActivity).supportFragmentManager
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +66,7 @@ class FragmentTaskList : Fragment() {
         binding.taskListCalendar.text = mainActivity.viewModel.dateTime
         binding.taskListPer.progress = mainActivity.viewModel.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
+
         initRecyclerView()
         initPager()
         initAni()
@@ -70,10 +75,21 @@ class FragmentTaskList : Fragment() {
         binding.topInTaskList.animation = mainActivity.aniList[2]
         binding.bottomInTaskList.animation = mainActivity.aniList[1]
         binding.taskListHoCalendar.animation = mainActivity.aniList[0]
+        binding.topInTaskList.animation.start()
+        binding.bottomInTaskList.animation.start()
+        binding.taskListHoCalendar.animation.start()
     }
 
     private fun setUpListener(){
-
+        binding.taskListCalendar.setOnClickListener {
+            val dig = MonthPickerDialog(mainActivity.viewModel.currentYear.value!!,mainActivity.viewModel.currentMonth.value!!)
+            dig.show(fm,null)
+            dig.setOnClickedListener(object : MonthPickerDialog.ButtonClickListener{
+                override fun onClicked(year: Int, month: Int) {
+                    changeCalendar(year,month)
+                }
+            })
+        }
     }
 
     private fun initRecyclerView(){
@@ -115,6 +131,17 @@ class FragmentTaskList : Fragment() {
         { tab,position->
             tab.text = tabText[position]
         }.attach()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun changeCalendar(year:Int, month:Int){
+        mainActivity.viewModel.apply {
+            initCurrentData(getDate(year,month))
+            binding.taskListCalendar.text = this.dateTime
+        }
+
+        initRecyclerView()
+        initAni()
     }
 }
 

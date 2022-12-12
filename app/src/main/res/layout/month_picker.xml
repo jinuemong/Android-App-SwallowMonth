@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/item_height_double_big"
+    android:layout_height="@dimen/item_height_double_big"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/round_border">
+    <LinearLayout
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/month_picker_bottom"
+        android:layout_width="@dimen/item_height_big_180"
+        android:layout_height="@dimen/item_height_big_150">
+        <NumberPicker
+
+            android:id="@+id/year_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <NumberPicker
+            android:id="@+id/month_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/month_picker_bottom"
+        android:layout_marginBottom="@dimen/main_margin"
+        android:padding="@dimen/main_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height">
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:text ="Cancel"
+            android:backgroundTint="@color/color_type2"
+            android:src="@drawable/round_border"
+            android:padding="@dimen/main_margin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/item_height"/>
+        <Button
+            android:id="@+id/btn_set"
+            android:text ="Set"
+            android:backgroundTint="@color/color_type2"
+            android:src="@drawable/round_border"
+            android:padding="@dimen/main_margin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/item_height"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

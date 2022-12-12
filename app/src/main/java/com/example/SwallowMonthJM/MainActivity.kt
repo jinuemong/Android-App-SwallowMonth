@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
-import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentCalendar
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
@@ -89,16 +88,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initCurrentDate() {
         val date = Calendar.getInstance().time
-        val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
         viewModel.apply {
-            setCurrentMonth(dateMonth)
-            dateTime = SimpleDateFormat(
-                "yyyy.MM", Locale.KOREA
-            ).format(date)
-            currentDate = CustomCalendar(date, dateDay, dateMonth, dateMonth, dateTime)
-            currentDate.initBaseCalendar()
-            currentMonthArr = currentDate.dateList
+            todayMonth = dateMonth
+            initCurrentData(date)
         }
     }
 

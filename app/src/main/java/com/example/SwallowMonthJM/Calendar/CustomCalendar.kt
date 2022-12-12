@@ -22,6 +22,7 @@ class CustomCalendar(
     var nextHead = 0 //다음달 앞부분
     var currentMaxDate = 0 //현재 달
     var dateList = ArrayList<DayData>()
+
     init {
         calendar.time=date
     }
