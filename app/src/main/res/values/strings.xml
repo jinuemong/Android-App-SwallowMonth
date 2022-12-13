@@ -33,4 +33,5 @@
     <string name="done">Done</string>
     <string name="select_level">Select Level</string>
     <string name="typing_in_your_task">Typing in your task</string>
+    <string name="complete">Complete</string>
 </resources>

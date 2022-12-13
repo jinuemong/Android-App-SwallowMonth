@@ -117,6 +117,7 @@ class FragmentTaskList : Fragment() {
             addFragment(TaskFragment())
             addFragment(DoneFragment())
         }
+
         binding.taskListViewPager.apply {
             adapter = fragmentPageAdapter
             registerOnPageChangeCallback(object :
@@ -139,7 +140,6 @@ class FragmentTaskList : Fragment() {
             initCurrentData(getDate(year,month))
             binding.taskListCalendar.text = this.dateTime
         }
-
         initRecyclerView()
         initAni()
     }

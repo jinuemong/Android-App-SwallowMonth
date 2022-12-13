@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Unit.TaskSlider
+import com.example.SwallowMonthJM.Unit.TaskAddSlider
 import com.example.SwallowMonthJM.databinding.FragmentAddTaskBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -24,7 +24,7 @@ class AddTaskFragment : Fragment() {
     private lateinit var callback : OnBackPressedCallback
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPagerAdapter: FragmentAdapter
-    private lateinit var taskSlide : TaskSlider
+    private lateinit var taskSlide : TaskAddSlider
     private val tabText = arrayOf(
         "step1", "step2"
     )
@@ -59,6 +59,7 @@ class AddTaskFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mainActivity.addViewModel.reset()
     }
     private fun initView(){
         binding.addTaskSelectIcon.apply {
@@ -76,7 +77,7 @@ class AddTaskFragment : Fragment() {
         initTabLayout()
         binding.fragAddLeft.animation = mainActivity.aniList[0]
         val slideLayout = binding.slideLayout
-        taskSlide = TaskSlider(slideLayout,mainActivity, addData = {text ->
+        taskSlide = TaskAddSlider(slideLayout,mainActivity, addData = { text ->
             mainActivity.addViewModel.text = text
             binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         })
@@ -88,6 +89,9 @@ class AddTaskFragment : Fragment() {
         }
 
         binding.addTaskCommit.setOnClickListener {
+            if(mainActivity.addViewModel.getTextData()==""){
+                binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+            }
             val data = mainActivity.addViewModel.getTaskData()
             val startNum = mainActivity.addViewModel.startNum
             var endNum = mainActivity.addViewModel.endNum

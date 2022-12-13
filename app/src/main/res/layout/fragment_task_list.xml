@@ -6,191 +6,197 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainFragment.FragmentTaskList">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_big">
-
-            <LinearLayout
-                android:id="@+id/top_in_task_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/main_margin"
-                android:background="@drawable/round_border"
-                android:backgroundTint="@color/color_type3"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/fab_margin">
-
-
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/item_height"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextView1"
-                        android:layout_width="@dimen/item_height_big"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/main_margin"
-                        android:text="Month"
-                        android:textSize="@dimen/item_height_mid_text_size"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/TextView1"
-                        android:layout_width="@dimen/item_height_big"
-                        android:layout_height="wrap_content"
-                        android:text="Completed"
-                        android:textSize="@dimen/item_height_mid_text_size"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginEnd="@dimen/fab_margin"
-                    android:gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="@dimen/item_height_big_100"
-                        android:layout_height="@dimen/item_height_big_100">
-
-                        <ProgressBar
-                            android:layout_margin="@dimen/fab_margin_12dp"
-                            android:id="@+id/task_list_per"
-                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:indeterminate="false"
-                            android:max="100"
-                            android:progressDrawable="@drawable/circle_progressbar"
-                            android:progressTint="@color/color_type1" />
-
-                        <TextView
-                            android:id="@+id/task_list_per_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:textColor="@color/strong_color"
-                            android:textSize="@dimen/item_height_mid_text_size"
-                            android:textStyle="bold"
-                            tools:text="100%" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/task_list_calendar"
-                        style="@style/TextView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/item_mid_2_height"
-                        android:layout_margin="@dimen/fab_margin"
-                        android:backgroundTint="@color/color_type2"
-                        android:drawableLeft="@drawable/ic_iconmonstr_calendar_6"
-                        android:padding="@dimen/main_margin"
-                        android:src="@drawable/round_border"
-                        tools:text="22.11" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </FrameLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/task_list_ho_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_calendar_horizontal" />
-
         <LinearLayout
-            android:id="@+id/bottom_in_task_list"
-            android:padding="@dimen/main_margin"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/main_margin"
-            android:background="@drawable/round_border_two"
-            android:backgroundTint="@color/color_type3">
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_margin="@dimen/fab_margin"
-                android:orientation="horizontal"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height_big_80">
+                android:layout_height="@dimen/item_height_big">
 
                 <LinearLayout
-                    android:layout_marginStart="@dimen/fab_margin"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/top_in_task_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/main_margin"
+                    android:background="@drawable/round_border"
+                    android:backgroundTint="@color/color_type3"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:textSize="@dimen/item_height_big_text_size"
-                        android:textStyle="bold"
-                        android:text="@string/day_tasks"
-                        style="@style/TextView1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/total_task"
-                        android:textSize="@dimen/item_height_mid_text_size"
-                        style="@style/TextView1"
-                        tools:text="total : 0/10"
-                        android:layout_marginTop="@dimen/main_margin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:gravity="center"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginEnd="@dimen/fab_margin"
-                    android:layout_width="@dimen/item_height_big_180"
-                    android:layout_height="@dimen/item_height">
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tab_in_task_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:tabBackground="@drawable/tab_layout_selector"
-                        android:background ="@drawable/tab_layout_round_back"
-                        app:tabSelectedTextColor="@color/white"
-                        app:tabTextColor="@color/black"
-                        app:tabIndicatorHeight="0dp">
-                        <com.google.android.material.tabs.TabItem
-                            android:text="@string/todo"
-                            android:layout_margin="@dimen/main_margin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"/>
-                        <com.google.android.material.tabs.TabItem
-                            android:text="@string/done"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"/>
-                    </com.google.android.material.tabs.TabLayout>
-                </LinearLayout>
+                    android:padding="@dimen/fab_margin">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/task_list_view_pager"
-                android:layout_margin="@dimen/fab_margin"
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/item_height"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextView1"
+                            android:layout_width="@dimen/item_height_big"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/main_margin"
+                            android:text="Month"
+                            android:textSize="@dimen/item_height_mid_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            style="@style/TextView1"
+                            android:layout_width="@dimen/item_height_big"
+                            android:layout_height="wrap_content"
+                            android:text="Completed"
+                            android:textSize="@dimen/item_height_mid_text_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/fab_margin"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="@dimen/item_height_big_100"
+                            android:layout_height="@dimen/item_height_big_100">
+
+                            <ProgressBar
+                                android:id="@+id/task_list_per"
+                                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/fab_margin_12dp"
+                                android:indeterminate="false"
+                                android:max="100"
+                                android:progressDrawable="@drawable/circle_progressbar"
+                                android:progressTint="@color/color_type1" />
+
+                            <TextView
+                                android:id="@+id/task_list_per_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:textColor="@color/strong_color"
+                                android:textSize="@dimen/item_height_mid_text_size"
+                                android:textStyle="bold"
+                                tools:text="100%" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <Button
+                            android:id="@+id/task_list_calendar"
+                            style="@style/TextView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/item_mid_2_height"
+                            android:layout_margin="@dimen/fab_margin"
+                            android:backgroundTint="@color/color_type2"
+                            android:drawableLeft="@drawable/ic_iconmonstr_calendar_6"
+                            android:padding="@dimen/main_margin"
+                            android:src="@drawable/round_border"
+                            tools:text="22.11" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/task_list_ho_calendar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_calendar_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/bottom_in_task_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/main_margin"
+                android:background="@drawable/round_border_two"
+                android:backgroundTint="@color/color_type3"
+                android:orientation="vertical"
+                android:padding="@dimen/main_margin">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/item_height_big_80"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/fab_margin"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            style="@style/TextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/day_tasks"
+                            android:textSize="@dimen/item_height_big_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_task"
+                            style="@style/TextView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/main_margin"
+                            android:textSize="@dimen/item_height_mid_text_size"
+                            tools:text="total : 0/10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/item_height_big_180"
+                        android:layout_height="@dimen/item_height"
+                        android:layout_marginEnd="@dimen/fab_margin"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_in_task_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/tab_layout_round_back"
+                            app:tabBackground="@drawable/tab_layout_selector"
+                            app:tabIndicatorHeight="0dp"
+                            app:tabSelectedTextColor="@color/white"
+                            app:tabTextColor="@color/black">
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/main_margin"
+                                android:text="@string/todo" />
+
+                            <com.google.android.material.tabs.TabItem
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="@string/done" />
+                        </com.google.android.material.tabs.TabLayout>
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/task_list_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 </FrameLayout>

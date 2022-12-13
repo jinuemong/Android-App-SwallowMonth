@@ -9,13 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Unit.DayData
+import com.example.SwallowMonthJM.Unit.TaskSlider
 import com.example.SwallowMonthJM.databinding.FragmentTaskBinding
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
 class TaskFragment : Fragment() {
     private var _binding: FragmentTaskBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
+    private lateinit var taskListAdapter:TaskListAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,9 +48,9 @@ class TaskFragment : Fragment() {
 
     private fun initView(){
         var day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
-        binding.taskView.apply {
-            adapter = TaskListAdapter(mainActivity,day.taskList,false)
-        }
+        initAdapter(day)
+        binding.taskView.adapter  =taskListAdapter
+
         mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
             day.taskList?.let {
                 (binding.taskView.adapter as TaskListAdapter).setData(it)
@@ -55,9 +59,23 @@ class TaskFragment : Fragment() {
 
         mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
             day = mainActivity.viewModel.currentMonthArr[dayIndex]
-            binding.taskView.apply {
-                adapter = TaskListAdapter(mainActivity,day.taskList,false)
-            }
+            initAdapter(day)
+            binding.taskView.adapter  =taskListAdapter
         })
+    }
+
+    private fun initAdapter(day : DayData){
+        taskListAdapter = TaskListAdapter(mainActivity,day.taskList,false)
+        taskListAdapter.apply {
+            setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
+                override fun onItemClick(position: Int) {
+                    val task = day.taskList!![position]
+                    val slideLayout = binding.slideLayout
+                    val taskSlide = TaskSlider(slideLayout,mainActivity,task)
+                    taskSlide.initSlide()
+                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                }
+            })
+        }
     }
 }

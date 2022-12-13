@@ -19,7 +19,7 @@ class TaskListAdapter(
     private var itemList = dataSet ?: ArrayList<Task>()
     private var onItemClickListener: OnItemClickListener?=null
     interface OnItemClickListener{
-        fun onItemClick(item:Task,position: Int)
+        fun onItemClick(position: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener){
@@ -37,6 +37,11 @@ class TaskListAdapter(
                     binding.taskIcon.setImageResource(calendarIcon[item.iconType])
                     binding.taskText.text = item.text
                     binding.isView()
+                    if (onItemClickListener!=null) {
+                        binding.root.setOnClickListener {
+                            onItemClickListener?.onItemClick(position=absoluteAdapterPosition)
+                        }
+                    }
                 }else{
                     binding.isUnView()
                 }

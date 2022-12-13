@@ -22,7 +22,17 @@ class AddTaskViewModel : ViewModel(){
         } else if (startNum == -1 && endNum == -1) {
             null
         } else {
-            Task(null, text, false, iconType, level,0)
+            Task(null, text, false, iconType, level+1,0)
         }
+    }
+    fun getTextData():String{
+        return text
+    }
+    fun reset(){
+        iconType =-1
+        level= -1
+        text  = ""
+        startNum = -1
+        endNum = -1
     }
 }

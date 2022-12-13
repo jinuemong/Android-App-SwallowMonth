@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/main_margin"
     tools:context=".TaskFragment.DoneFragment">
 
-    <LinearLayout
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/slide_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        app:umanoDragView="@id/slide_layout"
+        app:umanoOverlay="true"
+        app:umanoPanelHeight="0dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/done_view"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <LinearLayout
+            android:id="@+id/task_main_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_task" />
-    </LinearLayout>
+            android:layout_height="match_parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/done_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_task" />
+        </LinearLayout>
+        <include
+            android:id="@+id/slide_layout"
+            layout="@layout/slide_layout_task_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </FrameLayout>
