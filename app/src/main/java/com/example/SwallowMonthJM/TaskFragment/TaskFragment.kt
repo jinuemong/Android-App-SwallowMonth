@@ -12,10 +12,14 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Unit.DayData
 import com.example.SwallowMonthJM.Unit.TaskSlider
 import com.example.SwallowMonthJM.databinding.FragmentTaskBinding
+import com.example.SwallowMonthJM.databinding.SlideLayoutTaskViewBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
-class TaskFragment : Fragment() {
+class TaskFragment(
+    private val slideFrame : SlidingUpPanelLayout,
+    private val slideLayout: SlideLayoutTaskViewBinding
+) : Fragment() {
     private var _binding: FragmentTaskBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
@@ -62,6 +66,7 @@ class TaskFragment : Fragment() {
             initAdapter(day)
             binding.taskView.adapter  =taskListAdapter
         })
+
     }
 
     private fun initAdapter(day : DayData){
@@ -70,10 +75,10 @@ class TaskFragment : Fragment() {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int) {
                     val task = day.taskList!![position]
-                    val slideLayout = binding.slideLayout
+                    val slideLayout = slideLayout
                     val taskSlide = TaskSlider(slideLayout,mainActivity,task)
                     taskSlide.initSlide()
-                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
                 }
             })
         }

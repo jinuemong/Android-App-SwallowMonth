@@ -11,11 +11,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.CalendarListAdapter
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
-import com.example.SwallowMonthJM.Calendar.MonthPickerDialog
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.TaskFragment.DoneFragment
 import com.example.SwallowMonthJM.TaskFragment.TaskFragment
 import com.example.SwallowMonthJM.Unit.DayData
+import com.example.SwallowMonthJM.Unit.MonthPickerDialog
 import com.example.SwallowMonthJM.databinding.FragmentTaskListBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -36,6 +36,7 @@ class FragmentTaskList : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
         fm = (activity as MainActivity).supportFragmentManager
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,8 +115,8 @@ class FragmentTaskList : Fragment() {
     private fun initPager(){
         fragmentPageAdapter = FragmentAdapter(mainActivity)
         fragmentPageAdapter.apply {
-            addFragment(TaskFragment())
-            addFragment(DoneFragment())
+            addFragment(TaskFragment(binding.slideFrame,binding.slideLayout))
+            addFragment(DoneFragment(binding.slideFrame,binding.slideLayout))
         }
 
         binding.taskListViewPager.apply {

@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.Unit
 
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.SlideLayoutTaskViewBinding
 
 class TaskSlider(
@@ -21,5 +22,18 @@ class TaskSlider(
         icon.setImageResource(calendarIcon[task.iconType])
         perText.text = "0%"
 
+        if (task.isDone){
+            completeButton.setBackgroundResource(R.color.gray)
+        }
+
+        setUpListener()
+    }
+
+    fun setUpListener(){
+        completeButton.setOnClickListener {
+            if (!task.isDone){
+                mainActivity.viewModel.doneTaskData(task)
+            }
+        }
     }
 }
