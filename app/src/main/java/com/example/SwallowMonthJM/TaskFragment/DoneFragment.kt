@@ -70,12 +70,13 @@ class DoneFragment(
 
     private fun initAdapter(day : DayData){
         taskListAdapter = TaskListAdapter(mainActivity,day.taskList,true)
+        mainActivity.viewModel.taskCount.value= if (day.taskList==null) 0 else day.taskList!!.size
         taskListAdapter.apply {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int) {
                     val task = day.taskList!![position]
                     val slideLayout = slideLayout
-                    val taskSlide = TaskSlider(slideLayout,mainActivity,task)
+                    val taskSlide = TaskSlider(slideLayout,slideFrame,mainActivity,task)
                     taskSlide.initSlide()
                     slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
                 }

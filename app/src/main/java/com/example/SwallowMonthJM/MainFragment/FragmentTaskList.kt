@@ -3,11 +3,13 @@ package com.example.SwallowMonthJM.MainFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.CalendarListAdapter
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
@@ -67,7 +69,14 @@ class FragmentTaskList : Fragment() {
         binding.taskListCalendar.text = mainActivity.viewModel.dateTime
         binding.taskListPer.progress = mainActivity.viewModel.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
-
+        binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+        mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
+            binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+        })
+        mainActivity.viewModel.taskCount.observe(mainActivity, Observer {
+            binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+            Log.d("taskCount main0","ob")
+        })
         initRecyclerView()
         initPager()
         initAni()
@@ -102,12 +111,12 @@ class FragmentTaskList : Fragment() {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
                         mainActivity.viewModel.setCurrentDayPosition(position)
+                        binding.totalTask.text = mainActivity.viewModel.getTotalTask()
                         binding.bottomInTaskList.animation = mainActivity.aniList[1]
                         binding.bottomInTaskList.animation.start()
                     }
                 })
             }
-
             smoothScrollToPosition(todayIndex)
         }
     }

@@ -18,6 +18,8 @@ class TaskListAdapter(
     private lateinit var binding : ItemTaskBinding
     private var itemList = dataSet ?: ArrayList<Task>()
     private var onItemClickListener: OnItemClickListener?=null
+    var taskCount = 0
+
     interface OnItemClickListener{
         fun onItemClick(position: Int)
     }
@@ -43,7 +45,17 @@ class TaskListAdapter(
                         }
                     }
                 }else{
+                    binding.root.layoutParams.height = 0
                     binding.isUnView()
+                }
+
+                if(!isDone){
+                    if(!item.isDone){
+                        taskCount+=1
+                    }
+                    if (absoluteAdapterPosition==itemList.size-1){
+                        mainActivity.viewModel.taskCount.value = taskCount
+                    }
                 }
             }
         }
