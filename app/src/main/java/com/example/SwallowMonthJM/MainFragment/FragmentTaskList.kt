@@ -3,7 +3,6 @@ package com.example.SwallowMonthJM.MainFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,13 +69,14 @@ class FragmentTaskList : Fragment() {
         binding.taskListPer.progress = mainActivity.viewModel.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
         binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+
         mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
             binding.totalTask.text = mainActivity.viewModel.getTotalTask()
         })
         mainActivity.viewModel.taskCount.observe(mainActivity, Observer {
             binding.totalTask.text = mainActivity.viewModel.getTotalTask()
-            Log.d("taskCount main0","ob")
         })
+
         initRecyclerView()
         initPager()
         initAni()

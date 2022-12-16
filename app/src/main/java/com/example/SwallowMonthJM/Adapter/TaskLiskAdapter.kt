@@ -44,6 +44,7 @@ class TaskListAdapter(
                             onItemClickListener?.onItemClick(position=absoluteAdapterPosition)
                         }
                     }
+
                 }else{
                     binding.root.layoutParams.height = 0
                     binding.isUnView()
@@ -72,7 +73,7 @@ class TaskListAdapter(
     override fun getItemCount(): Int =itemList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(dataSet: ArrayList<Task>){
+    fun setData(dataSet:ArrayList<Task>){
         itemList = dataSet
         notifyDataSetChanged()
     }

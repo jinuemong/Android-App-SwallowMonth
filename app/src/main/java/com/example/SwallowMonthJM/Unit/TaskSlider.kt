@@ -43,6 +43,7 @@ class TaskSlider(
                 override fun onClicked(index: Int?) {
                     if (index != null) {
                         mainActivity.viewModel.setTaskICon(task,index)
+                        icon.setImageResource(calendarIcon[index])
                     }
                 }
 

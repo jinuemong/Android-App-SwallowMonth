@@ -54,8 +54,6 @@ class MainViewModel : ViewModel(){
         task.isDone = !task.isDone
         task.per = 100
         taskLiveData.value = currentMonthArr
-        taskCount.value = taskCount.value!!-1
-        Log.d("taskCount main0",taskCount.value.toString())
     }
     fun setTaskICon(task:Task,iconIndex:Int){
         task.iconType = iconIndex
