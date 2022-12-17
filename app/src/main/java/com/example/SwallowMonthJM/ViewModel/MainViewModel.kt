@@ -1,10 +1,10 @@
 package com.example.SwallowMonthJM.ViewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.Unit.DayData
+import com.example.SwallowMonthJM.Unit.SampleClass
 import com.example.SwallowMonthJM.Unit.Task
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,57 +22,64 @@ class MainViewModel : ViewModel(){
     var currentYear = MutableLiveData<Int>()
     var currentMonth=MutableLiveData<Int>()
     var currentDayPosition= MutableLiveData<Int>()
-    var taskCount = MutableLiveData<Int>()
     // 단순 초기화
     init {
         currentYear.value = 2022
         currentMonth.value = 1
         currentDayPosition.value = 1
-        taskCount.value = 0
-
     }
 
-    fun addTaskData(startNum:Int,endNum:Int,task: Task){
 
+    fun addTaskData(startNum:Int,endNum:Int,task: Task){
         for (i in startNum..endNum){
+            val newTask = SampleClass(task).deepCopy()
             currentMonthArr[i].apply {
                 if (this.taskList == null) {
                     this.taskList = ArrayList()
                 }
-                this.taskList!!.add(task)
+                this.taskList!!.add(newTask.task)
             }
+
         }
-
         taskLiveData.value = currentMonthArr
 
     }
-    fun delTaskData(position: Int,task: Task){
-        currentMonthArr[position].taskList?.remove(task)
+
+    fun delTaskData(task: Task){
+        currentMonthArr[currentDayPosition.value!!].taskList?.remove(task)
         taskLiveData.value = currentMonthArr
     }
-    fun doneTaskData(task:Task){
-        task.isDone = !task.isDone
+
+    fun doneTaskData(task : Task){
+        task.isDone = true
         task.per = 100
         taskLiveData.value = currentMonthArr
     }
-    fun setTaskICon(task:Task,iconIndex:Int){
+
+    fun setTaskICon(iconIndex:Int,task:Task){
         task.iconType = iconIndex
         taskLiveData.value = currentMonthArr
     }
 
-    fun setCurrentYear(year:Int){
+    fun setPerTask(task:Task,p:Int){
+        task.per = p
+        taskLiveData.value = currentMonthArr
+    }
+
+    private fun setCurrentYear(year:Int){
         currentYear.value = year
     }
-    fun setCurrentMonth(month:Int){
+    private fun setCurrentMonth(month:Int){
         currentMonth.value = month
     }
+    private fun setDateTime(year:Int, month:Int){
+        dateTime = "$year.$month"
+    }
+
     fun setCurrentDayPosition(dayPosition:Int){
         currentDayPosition.value = dayPosition
     }
 
-    fun setDateTime(year:Int,month:Int){
-        dateTime = "$year.$month"
-    }
 
     fun getDate(year: Int,month :Int): Date{
         return Calendar.getInstance().run {
@@ -94,11 +101,20 @@ class MainViewModel : ViewModel(){
     }
 
     fun getTotalTask(): String{
-        val totalCount= currentMonthArr[currentDayPosition.value!!]
-            .taskList?.size.let { it ?: 0 }
-        Log.d("taskCount main0","totalCount")
-        Log.d("taskCount main0","${taskCount.value} / $totalCount")
-        return "${taskCount.value} / $totalCount"
+        val taskList = currentMonthArr[currentDayPosition.value!!].taskList
 
+        return if (taskList==null){
+            "0 / 0"
+        }else {
+            val totalCount = taskList.size
+            var taskCount = 0
+            for (t in taskList){
+                if (!t.isDone){
+                    taskCount+=1
+                }
+            }
+            "$taskCount / $totalCount"
+        }
     }
+
 }

@@ -73,9 +73,6 @@ class FragmentTaskList : Fragment() {
         mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
             binding.totalTask.text = mainActivity.viewModel.getTotalTask()
         })
-        mainActivity.viewModel.taskCount.observe(mainActivity, Observer {
-            binding.totalTask.text = mainActivity.viewModel.getTotalTask()
-        })
 
         initRecyclerView()
         initPager()

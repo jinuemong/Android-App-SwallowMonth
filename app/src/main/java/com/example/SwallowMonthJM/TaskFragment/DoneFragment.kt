@@ -70,7 +70,6 @@ class DoneFragment(
 
     private fun initAdapter(day : DayData){
         taskListAdapter = TaskListAdapter(mainActivity,day.taskList,true)
-        mainActivity.viewModel.taskCount.value= if (day.taskList==null) 0 else day.taskList!!.size
         taskListAdapter.apply {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int) {

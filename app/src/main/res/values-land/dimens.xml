@@ -9,6 +9,7 @@
     <dimen name="item_height_double_big">720dp</dimen>
     <dimen name="item_height">180dp</dimen>
     <dimen name="item_mid_height_30">90dp</dimen>
+    <dimen name="item_mid_40_height">120dp</dimen>
     <dimen name="item_mid_height_20dp">60dp</dimen>
     <dimen name="main_margin">15dp</dimen>
     <dimen name="item_mid_2_height">150dp</dimen>

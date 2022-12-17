@@ -10,6 +10,7 @@
     <dimen name="item_height">750dp</dimen>
     <dimen name="item_mid_height_30">375dp</dimen>
     <dimen name="item_mid_height_20dp">250dp</dimen>
+    <dimen name="item_mid_40_height">500dp</dimen>
     <dimen name="item_mid_2_height">625dp</dimen>
     <dimen name="main_margin">62.5dp</dimen>
     <dimen name="item_height_double_big_text_size">6sp</dimen>
