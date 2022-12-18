@@ -14,13 +14,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //각 캘린더의 어댑터 (날짜 - 일모음 )
-class CalendarAdapter(
+class CalendarAdapterAddTask(
     private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
     date: Date,
     currentMonth: Int,
 
-) : RecyclerView.Adapter<CalendarAdapter.CalenderItemHolder>() {
+) : RecyclerView.Adapter<CalendarAdapterAddTask.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
     private var dataSet: ArrayList<DayData> = arrayListOf()
 
@@ -99,7 +99,7 @@ class CalendarAdapter(
             }
 
             //클릭 이벤트
-            if (onItemClickListener != null) {
+            if (onItemClickListener != null && dataSet[absoluteAdapterPosition].monthIndex==0) {
                 binding.root.setOnClickListener {
                     onItemClickListener?.onItemClick()
 

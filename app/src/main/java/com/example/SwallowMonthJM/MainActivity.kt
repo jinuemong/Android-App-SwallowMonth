@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     //tab Icon
     private val iconView = arrayOf(
         R.drawable.ic_baseline_home_24,
-        R.drawable.ic_iconmonstr_calendar_9,
+        R.drawable.ic_iconmonstr_bar_chart_thin,
         R.drawable.ic_iconmonstr_refresh_7,
         R.drawable.ic_iconmonstr_user_male_thin
     )

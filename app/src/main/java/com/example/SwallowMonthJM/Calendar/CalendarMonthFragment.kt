@@ -20,7 +20,6 @@ class CalendarMonthFragment() : Fragment() {
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     lateinit var currentDate: Date
-    private lateinit var calendarAdapter: CalendarAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -67,15 +66,27 @@ class CalendarMonthFragment() : Fragment() {
         binding.fragCalenderYYYYXX.text = dateTime
 
         binding.fragCalenderRecycler.apply {
-            calendarAdapter = CalendarAdapter(
-                mainActivity,binding.fragCalenderLinear,
-                currentDate,mainActivity.viewModel.currentMonth.value!!,
-            ).apply {
-                setOnItemClickListener(object : CalendarAdapter.OnItemClickListener{
-                    override fun onItemClick() {}
-                })
+            if (mainActivity.addViewModel.addType=="task") {
+                val calendarAdapter = CalendarAdapterAddTask(
+                    mainActivity, binding.fragCalenderLinear,
+                    currentDate, mainActivity.viewModel.currentMonth.value!!,
+                ).apply {
+                    setOnItemClickListener(object : CalendarAdapterAddTask.OnItemClickListener {
+                        override fun onItemClick() {}
+                    })
+                }
+                adapter = calendarAdapter
+            }else{
+                val calendarAdapter = CalendarAdapterAddRoutine(
+                    mainActivity, binding.fragCalenderLinear,
+                    currentDate, mainActivity.viewModel.currentMonth.value!!,
+                ).apply {
+                    setOnItemClickListener(object : CalendarAdapterAddRoutine.OnItemClickListener {
+                        override fun onItemClick() {}
+                    })
+                }
+                adapter = calendarAdapter
             }
-            adapter = calendarAdapter
 
         }
     }

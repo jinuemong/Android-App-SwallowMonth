@@ -30,6 +30,7 @@ class AddRoutineFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        mainActivity.addViewModel.addType = "routine"
         fm = (activity as MainActivity).supportFragmentManager
         callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
@@ -58,6 +59,7 @@ class AddRoutineFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        mainActivity.addViewModel.reset()
         _binding = null
     }
     private fun initView(){

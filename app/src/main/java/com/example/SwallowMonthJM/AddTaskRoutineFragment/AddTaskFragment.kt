@@ -31,6 +31,7 @@ class AddTaskFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        mainActivity.addViewModel.addType = "task"
         fm = (activity as MainActivity).supportFragmentManager
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
