@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Unit.DayData
+import com.example.SwallowMonthJM.Unit.CyclePickerDialog
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,21 +19,26 @@ import java.util.*
 class CalendarAdapterAddRoutine(
     private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
+    private val fm: FragmentManager,
     date: Date,
     currentMonth: Int,
 
-) : RecyclerView.Adapter<CalendarAdapterAddRoutine.CalenderItemHolder>() {
+    ) : RecyclerView.Adapter<CalendarAdapterAddRoutine.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
     private var dataSet: ArrayList<DayData> = arrayListOf()
 
     //현재 캘린더 데이터 얻어옴
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
+
     // init calendar
-    var customCalendar: CustomCalendar = CustomCalendar(date, dateDay, currentMonth, dateMonth,mainActivity.viewModel.dateTime)
+    var customCalendar: CustomCalendar =
+        CustomCalendar(date, dateDay, currentMonth, dateMonth, mainActivity.viewModel.dateTime)
+
     init {
         customCalendar.initBaseCalendar()
         dataSet = customCalendar.dateList
+
     }
 
     private var onItemClickListener: OnItemClickListener? = null
@@ -45,6 +52,7 @@ class CalendarAdapterAddRoutine(
     }
 
     var selectedNum = -1
+    var currentMonthDay = customCalendar.currentMaxDate + customCalendar.prevTail
 
     inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -59,55 +67,64 @@ class CalendarAdapterAddRoutine(
             binding.root.layoutParams = params
 
             //클릭 조건
-            if (selectedNum==-1) {
+            if (selectedNum == -1) {
                 binding.reset()
-                mainActivity.addViewModel.startNum=-1
+                mainActivity.addViewModel.startNum = -1
             }
 
-            if (selectedNum==absoluteAdapterPosition){
-                    binding.setOneSelected()
-                mainActivity.addViewModel.startNum=selectedNum
-            }else{
+            if (selectedNum == absoluteAdapterPosition) {
+                binding.setOneSelected()
+                mainActivity.addViewModel.startNum = selectedNum
+            } else {
                 binding.reset()
+            }
+
+            if (selectedNum!=-1 && mainActivity.addViewModel.cycle!=99) {
+                if (absoluteAdapterPosition in selectedNum until currentMonthDay) {
+
+                    if ((absoluteAdapterPosition - selectedNum) % mainActivity.addViewModel.cycle == 0) {
+                        binding.setCheck()
+                    } else {
+                        binding.reset()
+                    }
+                }
+
             }
 
             //오늘 날짜
             if (dataSet[absoluteAdapterPosition].isSelected) {
                 binding.setToday()
-            }else{
+            } else {
                 binding.setUnToday()
             }
 
             //다른 달 회색
             if (dataSet[absoluteAdapterPosition].monthIndex != 0) {
                 binding.setOtherMonth()
-            }else{
+            } else {
                 binding.setUnOtherMonth()
             }
 
             //클릭 이벤트
-            if (onItemClickListener != null && dataSet[absoluteAdapterPosition].monthIndex==0) {
+            if (onItemClickListener != null && dataSet[absoluteAdapterPosition].monthIndex == 0) {
                 binding.root.setOnClickListener {
                     onItemClickListener?.onItemClick()
-
-                    if (startNum!=-1 && endNum!=-1){
-                        startNum = -1
-                        endNum = -1
-                    }else{
-                        if (startNum==-1){
-                            startNum = absoluteAdapterPosition
-                        }else if ( startNum!=-1 && endNum==-1){
-                            if (absoluteAdapterPosition != startNum) {
-                                endNum = absoluteAdapterPosition
-                                if (startNum > endNum) {
-                                    val temp = startNum
-                                    startNum = endNum
-                                    endNum = temp
-                                }
+                    if(selectedNum==-1) {
+                        selectedNum = absoluteAdapterPosition
+                        val remainingDays = currentMonthDay - absoluteAdapterPosition
+                        val dig = CyclePickerDialog(mainActivity,remainingDays)
+                        dig.show(fm, null)
+                        dig.setOnClickedListener(object : CyclePickerDialog.ButtonClickListener {
+                            override fun onClicked() {
+                                notifyDataSetChanged()
                             }
-                        }
+                        })
+                    }else{
+                        selectedNum = -1
+                        mainActivity.addViewModel.cycle = 99
+                        mainActivity.addViewModel.totalRoutine = -1
+                        notifyDataSetChanged()
                     }
-                    notifyDataSetChanged()
                 }
             }
         }
@@ -125,17 +142,17 @@ class CalendarAdapterAddRoutine(
     override fun getItemCount(): Int = dataSet.size
 
     private fun ItemCalendarBinding.setOneSelected() {
-        itemLineMid.visibility = View.VISIBLE
-        itemLineMid.setBackgroundResource(R.drawable.task_line_circle)
+        itemLineNormal.visibility = View.VISIBLE
+        itemLineNormal.setBackgroundResource(R.drawable.task_line_circle)
     }
 
     private fun ItemCalendarBinding.setCheck() {
-        itemLineMid.visibility = View.VISIBLE
-        itemLineMid.setBackgroundResource(R.drawable.task_line_start)
+        itemLineNormal.visibility = View.VISIBLE
+        itemLineNormal.setBackgroundResource(R.drawable.ic_iconmonstr_check_mark_3)
     }
 
     private fun ItemCalendarBinding.reset() {
-        itemLineMid.visibility = View.GONE
+        itemLineNormal.visibility = View.GONE
     }
 
     private fun ItemCalendarBinding.setToday() =
@@ -147,6 +164,7 @@ class CalendarAdapterAddRoutine(
 
     private fun ItemCalendarBinding.setOtherMonth() =
         calendarText.apply { setTextAppearance(R.style.grayColorText) }
+
     private fun ItemCalendarBinding.setUnOtherMonth() =
         calendarText.apply { setTextAppearance(R.style.strongColorText) }
 }

@@ -25,7 +25,7 @@ class AddRoutineFragment : Fragment() {
     private lateinit var fragmentPagerAdapter:FragmentAdapter
 
     private val tabText = arrayOf(
-        "step1", "step2", "step3"
+        "step1", "step2"
     )
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -86,9 +86,8 @@ class AddRoutineFragment : Fragment() {
 
     private fun initFragmentAdapter(){
         fragmentPagerAdapter= FragmentAdapter(mainActivity)
-        fragmentPagerAdapter.addFragment(RoutineFragmentOne())
-        fragmentPagerAdapter.addFragment(RoutineFragmentTwo())
-        fragmentPagerAdapter.addFragment(RoutineFragmentThree())
+        fragmentPagerAdapter.addFragment(SelectCalendarFragment())
+        fragmentPagerAdapter.addFragment(RoutineFragment())
     }
 
     private fun initViewPager(){

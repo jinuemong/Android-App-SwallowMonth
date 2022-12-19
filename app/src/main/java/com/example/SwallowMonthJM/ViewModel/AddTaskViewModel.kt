@@ -1,21 +1,21 @@
 package com.example.SwallowMonthJM.ViewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.SwallowMonthJM.Unit.Routine
-import com.example.SwallowMonthJM.Unit.Task
+import com.example.SwallowMonthJM.Model.Routine
+import com.example.SwallowMonthJM.Model.Task
 
 class AddTaskViewModel : ViewModel(){
     var addType = "task"
     var iconType :Int=-1
     var level :Int = -1
     var text : String = ""
-    var period:Int = -1
+    var cycle:Int = 99
     var totalRoutine : Int = -1
     // 범위
     var startNum = -1
     var endNum = -1
 
-    fun getTaskData():Task? {
+    fun getTaskData(): Task? {
 
         return if (iconType == -1) {
             null
@@ -33,18 +33,18 @@ class AddTaskViewModel : ViewModel(){
         return text
     }
 
-    fun getRoutineData():Routine?{
+    fun getRoutineData(): Routine?{
 
         return if (iconType== -1){
             null
-        } else if (period== -1){
+        } else if (cycle== 99){
             null
         } else if (text==""){
             null
         } else if (totalRoutine==-1){
             null
         }else{
-            Routine(null,text,period,totalRoutine,0,iconType)
+            Routine(null,text,cycle,totalRoutine,0,iconType)
         }
     }
     fun reset(){

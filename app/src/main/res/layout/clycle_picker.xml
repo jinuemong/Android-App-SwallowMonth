@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/item_height_double_big"
+    android:layout_height="@dimen/item_height_double_big"
+    android:background="@drawable/round_border">
+
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="@dimen/item_height_big_100"
+        android:layout_height="@dimen/item_height_big"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/mid_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <NumberPicker
+            android:id="@+id/circle_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mid_text"
+        style="@style/TextView1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/main_margin"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_layout"
+        app:layout_constraintTop_toBottomOf="@+id/top_layout"
+        tools:text="@string/routine_sample" />
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginBottom="@dimen/main_margin"
+        android:orientation="horizontal"
+        android:padding="@dimen/main_margin"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/color_type2"
+            android:padding="@dimen/main_margin"
+            android:src="@drawable/round_border"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/btn_set"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_height"
+            android:layout_weight="1"
+            android:backgroundTint="@color/color_type2"
+            android:padding="@dimen/main_margin"
+            android:src="@drawable/round_border"
+            android:text="Set" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

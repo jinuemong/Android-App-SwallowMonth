@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM.Unit
 import android.annotation.SuppressLint
 import android.widget.SeekBar
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.databinding.SlideLayoutTaskViewBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 class TaskSlider(

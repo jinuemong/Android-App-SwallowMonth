@@ -33,5 +33,11 @@
             android:layout_height="@dimen/item_mid_height_30"
             android:background="@drawable/task_line_mid"
             android:visibility="gone" />
+        <ImageView
+            android:id="@+id/item_line_normal"
+            android:layout_width="@dimen/item_mid_height_30"
+            android:layout_height="@dimen/item_mid_height_30"
+            android:background="@drawable/task_line_mid"
+            android:visibility="gone" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

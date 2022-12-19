@@ -3,9 +3,9 @@ package com.example.SwallowMonthJM.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
-import com.example.SwallowMonthJM.Unit.DayData
+import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Unit.SampleClass
-import com.example.SwallowMonthJM.Unit.Task
+import com.example.SwallowMonthJM.Model.Task
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,12 +56,12 @@ class MainViewModel : ViewModel(){
         taskLiveData.value = currentMonthArr
     }
 
-    fun setTaskICon(iconIndex:Int,task:Task){
+    fun setTaskICon(iconIndex:Int,task: Task){
         task.iconType = iconIndex
         taskLiveData.value = currentMonthArr
     }
 
-    fun setPerTask(task:Task,p:Int){
+    fun setPerTask(task: Task, p:Int){
         task.per = p
         taskLiveData.value = currentMonthArr
     }

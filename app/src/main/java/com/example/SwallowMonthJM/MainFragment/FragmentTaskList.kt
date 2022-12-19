@@ -13,9 +13,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.CalendarListAdapter
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.TaskFragment.DoneFragment
 import com.example.SwallowMonthJM.TaskFragment.TaskFragment
-import com.example.SwallowMonthJM.Unit.DayData
 import com.example.SwallowMonthJM.Unit.MonthPickerDialog
 import com.example.SwallowMonthJM.databinding.FragmentTaskListBinding
 import com.google.android.material.tabs.TabLayoutMediator

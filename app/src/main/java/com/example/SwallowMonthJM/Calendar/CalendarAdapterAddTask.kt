@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Unit.DayData
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
 import java.text.SimpleDateFormat
 import java.util.*

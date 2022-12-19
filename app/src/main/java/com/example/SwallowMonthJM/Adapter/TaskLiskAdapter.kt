@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Unit.Task
+import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemTaskBinding
 
@@ -30,7 +30,7 @@ class TaskListAdapter(
     inner class TaskListItemHolder(val binding: ItemTaskBinding)
         : RecyclerView.ViewHolder(binding.root){
             @SuppressLint("SetTextI18n")
-            fun bind(item:Task){
+            fun bind(item: Task){
                 if(item.isDone==isDone){
                     val per = item.per
                     binding.taskPer.progress = per

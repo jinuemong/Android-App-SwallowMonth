@@ -1,6 +1,6 @@
 package com.example.SwallowMonthJM.Calendar
 
-import com.example.SwallowMonthJM.Unit.DayData
+import com.example.SwallowMonthJM.Model.DayData
 import java.util.*
 
 //각 달의 일수 표현
@@ -58,26 +58,30 @@ class CustomCalendar(
         val maxDate = calendar.getActualMaximum(Calendar.DATE)
         var maxOffsetDate = maxDate-prevTail
         for (i in 1..prevTail){
-            dateList.add(DayData(dateTime,
+            dateList.add(
+                DayData(dateTime,
                 ++maxOffsetDate,
                 isSelected = false,
                 monthIndex = -1,
                 null,
                 null
-            ))
+            )
+            )
         }
     }
 
     private fun makeCurrentMonth(calendar: Calendar){
         for (i in 1..calendar.getActualMaximum(Calendar.DATE)) {
             val isToday = (currentDay==i && currentMonth==dateMonth)
-            dateList.add(DayData(dateTime,
+            dateList.add(
+                DayData(dateTime,
                 i,
                 isSelected = isToday,
                 monthIndex = 0,
                 null,
                 null
-            ))
+            )
+            )
             if(isToday){
                 todayIndex = dateList.lastIndex
             }
@@ -87,13 +91,15 @@ class CustomCalendar(
     private fun makeNextHead(){
         var date = 1
         for (i in 1..nextHead){
-            dateList.add(DayData(dateTime,
+            dateList.add(
+                DayData(dateTime,
                 date++,
                 isSelected = false,
                 monthIndex = 1,
                 null,
                 null
-            ))
+            )
+            )
         }
     }
 }

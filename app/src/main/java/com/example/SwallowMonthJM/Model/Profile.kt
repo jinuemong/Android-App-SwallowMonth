@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Unit
+package com.example.SwallowMonthJM.Model
 
 import java.io.Serializable
 

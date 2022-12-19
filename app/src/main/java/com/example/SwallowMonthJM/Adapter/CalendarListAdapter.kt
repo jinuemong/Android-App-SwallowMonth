@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Unit.DayData
 import com.example.SwallowMonthJM.Unit.dayOfWeek
 import com.example.SwallowMonthJM.databinding.ItemCalendarHorizontalBinding
 

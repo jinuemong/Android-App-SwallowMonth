@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Unit.DayData
+import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Unit.TaskSlider
 import com.example.SwallowMonthJM.databinding.FragmentTaskBinding
 import com.example.SwallowMonthJM.databinding.SlideLayoutTaskViewBinding

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.databinding.FragmentCalendarMonthBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -20,10 +21,12 @@ class CalendarMonthFragment() : Fragment() {
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     lateinit var currentDate: Date
+    lateinit var fm : FragmentManager
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        fm = mainActivity.frManger
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +81,7 @@ class CalendarMonthFragment() : Fragment() {
                 adapter = calendarAdapter
             }else{
                 val calendarAdapter = CalendarAdapterAddRoutine(
-                    mainActivity, binding.fragCalenderLinear,
+                    mainActivity, binding.fragCalenderLinear, fm,
                     currentDate, mainActivity.viewModel.currentMonth.value!!,
                 ).apply {
                     setOnItemClickListener(object : CalendarAdapterAddRoutine.OnItemClickListener {
