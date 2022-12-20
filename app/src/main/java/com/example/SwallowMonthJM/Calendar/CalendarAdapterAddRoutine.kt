@@ -123,6 +123,7 @@ class CalendarAdapterAddRoutine(
                         selectedNum = -1
                         mainActivity.addViewModel.cycle = 99
                         mainActivity.addViewModel.totalRoutine = -1
+                        mainActivity.addViewModel.topText = ""
                         notifyDataSetChanged()
                     }
                 }

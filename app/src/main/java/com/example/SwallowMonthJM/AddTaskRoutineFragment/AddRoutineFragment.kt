@@ -68,6 +68,8 @@ class AddRoutineFragment : Fragment() {
                 setOnItemClickListener(object :IconAdapter.OnItemClickListener{
                     override fun onItemClick(iconIndex: Int) {
                         mainActivity.addViewModel.iconType=iconIndex
+                        mainActivity.addViewModel.routineChange.value =
+                            mainActivity.addViewModel.routineChange.value != true
                     }
 
                 })
@@ -82,12 +84,19 @@ class AddRoutineFragment : Fragment() {
         binding.addRoutineBack.setOnClickListener {
             mainActivity.onFragmentGoBack(this@AddRoutineFragment)
         }
+        binding.routineCommit.setOnClickListener {
+            val data = mainActivity.addViewModel.getRoutineData()
+            if (data!=null){
+                mainActivity.routineViewModel.addRoutineData(data)
+                mainActivity.onFragmentGoBack(this@AddRoutineFragment)
+            }
+        }
     }
 
     private fun initFragmentAdapter(){
         fragmentPagerAdapter= FragmentAdapter(mainActivity)
         fragmentPagerAdapter.addFragment(SelectCalendarFragment())
-        fragmentPagerAdapter.addFragment(RoutineFragment())
+        fragmentPagerAdapter.addFragment(RoutineSupportFragment())
     }
 
     private fun initViewPager(){

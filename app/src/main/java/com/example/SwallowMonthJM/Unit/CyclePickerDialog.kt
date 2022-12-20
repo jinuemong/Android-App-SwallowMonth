@@ -16,7 +16,7 @@ class CyclePickerDialog(
     private val mainActivity: MainActivity,
     private val  remainingDays:Int
 ) :DialogFragment(){
-
+    var topTextInPicker = ""
     var btnSet: Button? = null
     var btnCancel: Button? = null
     var cyclePicker: NumberPicker? = null
@@ -34,9 +34,14 @@ class CyclePickerDialog(
         }
         btnSet?.setOnClickListener{
             onClickedListener.onClicked()
-            val cycle = cyclePicker!!.value
-            mainActivity.addViewModel.cycle = cycle
-            mainActivity.addViewModel.totalRoutine = remainingDays / cycle
+            val cycleInPic = cyclePicker!!.value
+
+            mainActivity.addViewModel.apply {
+                cycle = cycleInPic
+                totalRoutine = remainingDays / cycleInPic
+                topText = topTextInPicker
+                routineChange.value =routineChange.value != true
+            }
             dismiss()
         }
         btnCancel?.setOnClickListener {
@@ -49,7 +54,8 @@ class CyclePickerDialog(
         }
         cyclePicker?.setOnValueChangedListener{_,_,i2->
             val routineDay = remainingDays/i2
-            text?.text = "total of $remainingDays days and $routineDay routines"
+            topTextInPicker = "total of $remainingDays days and $routineDay routines"
+            text?.text = topTextInPicker
         }
         builder.setView(dialog)
         return builder.create()

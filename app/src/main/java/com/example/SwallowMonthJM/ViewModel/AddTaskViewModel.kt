@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Model.Task
@@ -11,9 +12,11 @@ class AddTaskViewModel : ViewModel(){
     var text : String = ""
     var cycle:Int = 99
     var totalRoutine : Int = -1
+    var topText :String = ""
     // 범위
     var startNum = -1
     var endNum = -1
+    var routineChange = MutableLiveData<Boolean>(false)
 
     fun getTaskData(): Task? {
 
@@ -53,5 +56,8 @@ class AddTaskViewModel : ViewModel(){
         text  = ""
         startNum = -1
         endNum = -1
+        cycle = 99
+        totalRoutine = -1
+        topText = ""
     }
 }

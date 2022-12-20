@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddTaskRoutineFragment.RoutineFragment">
+    tools:context=".AddTaskRoutineFragment.RoutineSupportFragment">
     <LinearLayout
         android:layout_margin="@dimen/main_margin"
         android:orientation="vertical"
@@ -69,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <include
+                android:id="@+id/routine_box"
                 layout="@layout/item_repeat_task" />
         </LinearLayout>
     </LinearLayout>

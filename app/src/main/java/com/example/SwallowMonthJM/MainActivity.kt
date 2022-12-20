@@ -18,6 +18,7 @@ import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.ViewModel.AddTaskViewModel
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
+import com.example.SwallowMonthJM.ViewModel.RoutineViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
     val addViewModel: AddTaskViewModel by viewModels()
+    val routineViewModel : RoutineViewModel by viewModels()
     lateinit var frManger: FragmentManager
     private lateinit var fragmentPageAdapter: FragmentAdapter
     lateinit var viewPager: ViewPager2
