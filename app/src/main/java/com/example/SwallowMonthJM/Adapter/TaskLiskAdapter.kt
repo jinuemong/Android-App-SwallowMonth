@@ -32,6 +32,7 @@ class TaskListAdapter(
             @SuppressLint("SetTextI18n")
             fun bind(item: Task){
                 if(item.isDone==isDone){
+
                     val per = item.per
                     binding.taskPer.progress = per
                     binding.taskPerText.text = "$per%"

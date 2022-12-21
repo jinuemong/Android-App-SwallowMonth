@@ -64,9 +64,7 @@ class CustomCalendar(
                 isSelected = false,
                 monthIndex = -1,
                 null,
-                null
-            )
-            )
+            ))
         }
     }
 
@@ -79,9 +77,7 @@ class CustomCalendar(
                 isSelected = isToday,
                 monthIndex = 0,
                 null,
-                null
-            )
-            )
+            ))
             if(isToday){
                 todayIndex = dateList.lastIndex
             }
@@ -97,9 +93,7 @@ class CustomCalendar(
                 isSelected = false,
                 monthIndex = 1,
                 null,
-                null
-            )
-            )
+            ))
         }
     }
 }

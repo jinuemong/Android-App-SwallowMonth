@@ -10,4 +10,5 @@ class Routine (
     var totalRoutine : Int,
     var clearRoutine : Int,
     var iconType:Int = 0,
+    var topText : String
 ):Serializable

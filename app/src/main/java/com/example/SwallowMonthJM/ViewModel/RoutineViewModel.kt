@@ -8,7 +8,9 @@ class RoutineViewModel: ViewModel(){
     var routineLivData = MutableLiveData<ArrayList<Routine>>()
 
     private var currentRoutineArr = ArrayList<Routine>()
-
+    init {
+        routineLivData.value = currentRoutineArr
+    }
     fun addRoutineData(routine:Routine){
         currentRoutineArr.add(routine)
 

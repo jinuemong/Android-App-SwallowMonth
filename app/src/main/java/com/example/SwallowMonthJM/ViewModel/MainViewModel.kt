@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.Model.DayData
-import com.example.SwallowMonthJM.Unit.SampleClass
 import com.example.SwallowMonthJM.Model.Task
+import com.example.SwallowMonthJM.Unit.SampleClass
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +22,7 @@ class MainViewModel : ViewModel(){
     var currentYear = MutableLiveData<Int>()
     var currentMonth=MutableLiveData<Int>()
     var currentDayPosition= MutableLiveData<Int>()
+
     // 단순 초기화
     init {
         currentYear.value = 2022

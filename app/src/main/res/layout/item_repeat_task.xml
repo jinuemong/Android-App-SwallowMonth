@@ -40,6 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"/>
                     <ImageView
+                        android:id="@+id/fix_routine"
                         android:layout_margin="@dimen/main_margin"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

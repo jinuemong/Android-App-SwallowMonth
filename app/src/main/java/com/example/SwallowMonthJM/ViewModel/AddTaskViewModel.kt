@@ -44,10 +44,13 @@ class AddTaskViewModel : ViewModel(){
             null
         } else if (text==""){
             null
-        } else if (totalRoutine==-1){
+        } else if (totalRoutine==-1) {
+            null
+        } else if (topText==""){
+
             null
         }else{
-            Routine(null,text,cycle,totalRoutine,0,iconType)
+            Routine(null,text,cycle,startNum,totalRoutine,0,iconType,topText)
         }
     }
     fun reset(){
