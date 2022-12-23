@@ -30,7 +30,7 @@ val dayOfWeek : List<Int> = listOf(
 
 //레벨 리스트
 val level : List<Int> = listOf(
-    0,  //0
+    10,  //0 루틴
     10, //1  0 - 10분
     60, //2  10 - 60분
     180,//3  1시간~3시간
@@ -39,7 +39,7 @@ val level : List<Int> = listOf(
 )
 
 val levelText:List<String> = listOf(
-    "",
+    "routine task",
     "about 0 to 10 minutes",
     "about 10 to 60 minutes",
     "about 1 to 3 hours",

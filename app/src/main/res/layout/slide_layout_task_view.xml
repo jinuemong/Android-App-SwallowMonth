@@ -82,12 +82,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <TextView
+            style="@style/TextView1"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/main_margin"
+            android:text="@string/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <SeekBar
             android:id="@+id/task_seek_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_margin="@dimen/main_margin"
             android:indeterminate="false"
             android:max="100"
             android:progressBackgroundTint="@color/color_type1"

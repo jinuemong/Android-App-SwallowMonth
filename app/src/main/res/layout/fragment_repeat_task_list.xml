@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainFragment.FragmentRepeatTaskList">
     <LinearLayout
         android:padding="@dimen/main_margin"
@@ -16,14 +17,14 @@
             style="@style/TextView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Routine Task" />
+            android:text="@string/routine_task" />
         <View
             style="@style/LineView1"
             android:layout_width="match_parent"
             android:layout_height="2dp"/>
         <Button
             android:id="@+id/routine_add_button"
-            android:drawableRight="@drawable/ic_add_box_24"
+            android:drawableEnd="@drawable/ic_add_box_24"
             android:text ="@string/add_repeat_task"
             android:backgroundTint="@color/color_type2"
             android:src="@drawable/round_border"
@@ -44,6 +45,7 @@
                 android:id="@+id/routine_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_repeat_task" />
         </LinearLayout>
     </LinearLayout>

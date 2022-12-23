@@ -7,31 +7,24 @@
     android:padding="@dimen/main_margin"
     tools:context=".TaskFragment.DoneFragment">
 
-<!--    <com.sothree.slidinguppanel.SlidingUpPanelLayout-->
-<!--        android:id="@+id/slide_frame"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="bottom"-->
-<!--        app:umanoDragView="@id/slide_layout"-->
-<!--        app:umanoOverlay="true"-->
-<!--        app:umanoPanelHeight="0dp">-->
-
         <LinearLayout
             android:id="@+id/task_main_view"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/done_view"
+                android:id="@+id/routine_done_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_routine" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/task_done_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_task" />
         </LinearLayout>
-<!--        <include-->
-<!--            android:id="@+id/slide_layout"-->
-<!--            layout="@layout/slide_layout_task_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
-<!--    </com.sothree.slidinguppanel.SlidingUpPanelLayout>-->
 </FrameLayout>

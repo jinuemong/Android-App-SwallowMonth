@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.NumberPicker
@@ -41,7 +40,6 @@ class CyclePickerDialog(
                 cycle = cycleInPic
                 totalRoutine = remainingDays / cycleInPic
                 topText = topTextInPicker
-                Log.d("topText",topText)
                 routineChange.value =routineChange.value != true
             }
             dismiss()
@@ -55,7 +53,11 @@ class CyclePickerDialog(
             value = 1
         }
         cyclePicker?.setOnValueChangedListener{_,_,i2->
-            val routineDay = remainingDays/i2
+            val routineDay = if (remainingDays%i2!=0){
+                (remainingDays+1)/i2
+            }else{
+                remainingDays/i2
+            }
             topTextInPicker = "total of $remainingDays days and $routineDay routines"
             text?.text = topTextInPicker
         }

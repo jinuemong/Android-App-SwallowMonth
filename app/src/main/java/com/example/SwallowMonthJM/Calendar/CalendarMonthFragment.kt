@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.databinding.FragmentCalendarMonthBinding
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -48,7 +47,6 @@ class CalendarMonthFragment() : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         _binding = null
     }
 
@@ -68,10 +66,10 @@ class CalendarMonthFragment() : Fragment() {
 
         binding.fragCalenderYYYYXX.text = dateTime
 
-        binding.fragCalenderRecycler.apply {
+        binding.calendarBox.fragCalenderRecycler.apply {
             if (mainActivity.addViewModel.addType=="task") {
                 val calendarAdapter = CalendarAdapterAddTask(
-                    mainActivity, binding.fragCalenderLinear,
+                    mainActivity, binding.calendarBox.fragCalenderLinear,
                     currentDate, mainActivity.viewModel.currentMonth.value!!,
                 ).apply {
                     setOnItemClickListener(object : CalendarAdapterAddTask.OnItemClickListener {
@@ -81,7 +79,7 @@ class CalendarMonthFragment() : Fragment() {
                 adapter = calendarAdapter
             }else{
                 val calendarAdapter = CalendarAdapterAddRoutine(
-                    mainActivity, binding.fragCalenderLinear, fm,
+                    mainActivity, binding.calendarBox.fragCalenderLinear, fm,
                     currentDate, mainActivity.viewModel.currentMonth.value!!,
                 ).apply {
                     setOnItemClickListener(object : CalendarAdapterAddRoutine.OnItemClickListener {

@@ -6,14 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Calendar.CalendarMonthFragment">
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:gravity="bottom"
-        android:id="@+id/slide_frame"
-        app:umanoDragView="@id/main_layout"
-        app:umanoOverlay="true"
-        app:umanoPanelHeight="0dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/main_layout"
@@ -34,94 +26,10 @@
                 style="@style/LineView1"
                 android:layout_width="match_parent"
                 android:layout_height="2dp" />
-
-            <LinearLayout
-                android:layout_marginStart="@dimen/main_margin"
+            <include
+                android:id="@+id/calendar_box"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/item_height"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/sun"
-                    android:textSize="@dimen/item_height_mid_text_size" />
-
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/mon"
-                    android:textSize="@dimen/item_height_mid_text_size" />
-
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/tue"
-                    android:textSize="@dimen/item_height_mid_text_size" />
-
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/wed"
-                    android:textSize="@dimen/item_height_mid_text_size" />
-
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/tue"
-                    android:textSize="@dimen/item_height_mid_text_size" />
-
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/fri"
-                    android:textSize="@dimen/item_height_mid_text_size" />
-
-                <TextView
-                    style="@style/TextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/sat"
-                    android:textSize="@dimen/item_height_mid_text_size" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/frag_calender_linear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/frag_calender_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:layout_constrainedHeight="true"
-                    app:spanCount="7"
-                    tools:listitem="@layout/item_calendar" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                layout="@layout/calendar_month_layout"/>
         </LinearLayout>
-
-        <!-- sldie 레이아웃 -->
-        <include
-            layout="@layout/slide_layout_add_task"
-            android:id="@+id/slide_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </FrameLayout>

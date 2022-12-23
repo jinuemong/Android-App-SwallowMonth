@@ -46,7 +46,7 @@
                 android:layout_weight="1"
                 android:textSize="@dimen/item_height_mid_text_size"
                 android:textStyle="bold"
-                tools:text="username" />
+                android:text="@string/username" />
 
             <TextView
                 android:id="@+id/main_top_comment"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                tools:text="goal" />
+                android:text="@string/username_goal" />
         </LinearLayout>
         <Button
             app:layout_constraintEnd_toEndOf="parent"
