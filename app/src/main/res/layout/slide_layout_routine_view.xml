@@ -28,22 +28,30 @@
             android:layout_height="@dimen/item_height"
             android:layout_margin="@dimen/fab_margin"
             android:gravity="center"
-            android:orientation="horizontal"
             android:padding="@dimen/main_margin"
             android:textColor="@color/strong_color"
             android:textSize="@dimen/item_height_big_text_size"
             android:textStyle="bold"
             tools:text="@string/typing_in_your_routine" />
+        <TextView
+            android:id="@+id/top_text_routine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_mid_40_height"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/main_margin"
+            android:textColor="@color/normal_color"
+            android:textSize="@dimen/item_height_mid_text_size"
+            tools:text="@string/routine_sample" />
 
         <LinearLayout
             android:padding="@dimen/main_margin"
-            android:id="@+id/calendar_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_double_big"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/main_margin"
             android:gravity="center"
             android:orientation="horizontal">
             <include
+                android:id="@+id/calendar_layout"
                 layout="@layout/calendar_month_layout"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"/>

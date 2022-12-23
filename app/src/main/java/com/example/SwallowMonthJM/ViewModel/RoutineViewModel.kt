@@ -16,4 +16,7 @@ class RoutineViewModel: ViewModel(){
 
         routineLivData.value = currentRoutineArr
     }
+    fun setRoutine(){
+
+    }
 }
