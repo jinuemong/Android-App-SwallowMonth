@@ -70,7 +70,7 @@ class FragmentTaskList : Fragment() {
         binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
         binding.totalTask.text = mainActivity.viewModel.getTotalTask()
 
-        mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
+        mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
             binding.totalTask.text = mainActivity.viewModel.getTotalTask()
         })
 

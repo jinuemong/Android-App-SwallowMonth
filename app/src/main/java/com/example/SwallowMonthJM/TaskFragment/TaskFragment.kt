@@ -55,7 +55,7 @@ class TaskFragment(
         initAdapter(day)
         binding.taskView.adapter  =taskListAdapter
 
-        mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
+        mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
             day.taskList?.let {
                 (binding.taskView.adapter as TaskListAdapter).setData(it)
             }

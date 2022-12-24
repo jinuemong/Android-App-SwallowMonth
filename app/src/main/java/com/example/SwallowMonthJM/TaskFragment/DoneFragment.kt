@@ -52,18 +52,18 @@ class DoneFragment(
     private fun initView(){
         var day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
         initAdapter(day)
-        binding.doneView.adapter  =taskListAdapter
+        binding.taskDoneView.adapter  =taskListAdapter
 
-        mainActivity.viewModel.taskLiveData.observe(mainActivity, Observer {
+        mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
             day.taskList?.let {
-                (binding.doneView.adapter as TaskListAdapter).setData(it)
+                (binding.taskDoneView.adapter as TaskListAdapter).setData(it)
             }
         })
 
         mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
             day = mainActivity.viewModel.currentMonthArr[dayIndex]
             initAdapter(day)
-            binding.doneView.adapter  =taskListAdapter
+            binding.taskDoneView.adapter  =taskListAdapter
 
         })
     }

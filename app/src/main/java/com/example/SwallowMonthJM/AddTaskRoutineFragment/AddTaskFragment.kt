@@ -100,7 +100,7 @@ class AddTaskFragment : Fragment() {
                 endNum=startNum
             }
             if (data!=null){
-                mainActivity.viewModel.addTaskData(startNum,endNum,data)
+                mainActivity.taskViewModel.addTaskData(startNum,endNum,data)
                 mainActivity.onFragmentGoBack(this@AddTaskFragment)
             }
         }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Model.Task
 
-class AddTaskViewModel : ViewModel(){
+class AddTaskRoutineViewModel : ViewModel(){
     var addType = "task"
     var iconType :Int=-1
     var level :Int = -1
@@ -50,7 +50,7 @@ class AddTaskViewModel : ViewModel(){
 
             null
         }else{
-            Routine(null,text,cycle,startNum,totalRoutine,0,iconType,topText)
+            Routine(null,text,cycle,startNum,totalRoutine,0,iconType,topText,HashMap())
         }
     }
     fun reset(){

@@ -39,13 +39,13 @@ class TaskSlider(
         completeButton.setOnClickListener {
             if (!task.isDone){
                 slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-                mainActivity.viewModel.doneTaskData(task)
+                mainActivity.taskViewModel.doneTaskData(task)
             }
         }
 
         delButton.setOnClickListener {
             slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            mainActivity.viewModel.delTaskData(task)
+            mainActivity.taskViewModel.delTaskData(task)
         }
 
         icon.setOnClickListener {
@@ -54,7 +54,7 @@ class TaskSlider(
             dig.setOnClickedListener(object :SelectIconDialog.ButtonClickListener{
                 override fun onClicked(index: Int?) {
                     if (index != null) {
-                        mainActivity.viewModel.setTaskICon(index,task)
+                        mainActivity.taskViewModel.setTaskICon(index,task)
                         icon.setImageResource(calendarIcon[index])
                     }
                 }
@@ -73,10 +73,10 @@ class TaskSlider(
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 if(!task.isDone) {
-                    mainActivity.viewModel.setPerTask(task, seekVar.progress)
+                    mainActivity.taskViewModel.setPerTask(task, seekVar.progress)
                     if (seekVar.progress == 100) {
                         slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-                        mainActivity.viewModel.doneTaskData(task)
+                        mainActivity.taskViewModel.doneTaskData(task)
                     }
                 }
             }
