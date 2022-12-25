@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.example.SwallowMonthJM.Adapter.RoutineListAdapter
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
+import com.example.SwallowMonthJM.Adapter.TodayRoutineAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Unit.TaskSlider
@@ -25,7 +25,7 @@ class TaskFragment(
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     private lateinit var taskListAdapter:TaskListAdapter
-    private lateinit var routineListAdapter:RoutineListAdapter
+    private lateinit var routineListAdapter:TodayRoutineAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -54,10 +54,11 @@ class TaskFragment(
 
     private fun initView(){
         mainActivity.routineViewModel.routineLivData.apply {
-            routineListAdapter = RoutineListAdapter(mainActivity,this.value!!)
+            routineListAdapter = TodayRoutineAdapter(mainActivity,this.value!!
+                ,mainActivity.viewModel.currentDayPosition.value!!,false)
             binding.routineView.adapter = routineListAdapter
             this.observe(mainActivity, Observer {
-                (binding.routineView.adapter as RoutineListAdapter).setData(it)
+                (binding.routineView.adapter as TodayRoutineAdapter).setData(it)
             })
         }
 
@@ -76,6 +77,8 @@ class TaskFragment(
             day = mainActivity.viewModel.currentMonthArr[dayIndex]
             initAdapter(day)
             binding.taskView.adapter  =taskListAdapter
+
+            (binding.routineView.adapter as TodayRoutineAdapter).setDayDate(dayIndex)
         })
 
     }

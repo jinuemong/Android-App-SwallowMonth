@@ -11,14 +11,17 @@ import com.example.SwallowMonthJM.databinding.ItemRepeatTaskBinding
 
 class RoutineListAdapter(
     private val mainActivity: MainActivity,
-    private val dataSet : ArrayList<Routine>
+    private val dataSet : ArrayList<Routine>,
+
 ): RecyclerView.Adapter<RoutineListAdapter.RoutineListItemHolder>(){
     private lateinit var  binding :ItemRepeatTaskBinding
     private var itemList = dataSet
+
     inner class RoutineListItemHolder(val binding:ItemRepeatTaskBinding)
         :RecyclerView.ViewHolder(binding.root){
             @SuppressLint("SetTextI18n")
             fun bind(item:Routine){
+
                 binding.routineCycle.text = item.topText
                 binding.routineIcon.setImageResource(calendarIcon[item.iconType])
                 binding.routineText.text = item.text
@@ -45,4 +48,5 @@ class RoutineListAdapter(
         itemList = dataSet
         notifyDataSetChanged()
     }
+
 }

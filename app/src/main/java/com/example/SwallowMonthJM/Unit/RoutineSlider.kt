@@ -32,7 +32,6 @@ class RoutineSlider(
     fun setUpListener(){
         completeButton.setOnClickListener {
             slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            mainActivity.routineViewModel.
         }
     }
 
