@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.example.SwallowMonthJM.Adapter.RoutineListAdapter
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
@@ -24,6 +25,7 @@ class DoneFragment(
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     private lateinit var taskListAdapter:TaskListAdapter
+    private lateinit var routineListAdapter:RoutineListAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -50,6 +52,14 @@ class DoneFragment(
         _binding = null
     }
     private fun initView(){
+        mainActivity.routineViewModel.routineLivData.apply {
+            routineListAdapter = RoutineListAdapter(mainActivity,this.value!!)
+            binding.routineDoneView.adapter = routineListAdapter
+            this.observe(mainActivity, Observer {
+                (binding.routineDoneView.adapter as RoutineListAdapter).setData(it)
+            })
+        }
+
         var day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
         initAdapter(day)
         binding.taskDoneView.adapter  =taskListAdapter

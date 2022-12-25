@@ -59,7 +59,6 @@ class CalendarAdapterNormal(
                 binding.setUnOtherMonth()
             }
 
-
         }
     }
 
@@ -86,4 +85,6 @@ class CalendarAdapterNormal(
         calendarText.apply { setTextAppearance(R.style.grayColorText) }
     private fun ItemCalendarBinding.setUnOtherMonth() =
         calendarText.apply { setTextAppearance(R.style.strongColorText) }
+
+
 }
