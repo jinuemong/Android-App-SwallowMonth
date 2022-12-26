@@ -19,6 +19,15 @@ private val isDone : Boolean,
     private lateinit var  binding : ItemRoutineBinding
     private var itemList = dataSet
     private var dayPosition =dPosition
+    private var onItemClickListener: OnItemClickListener?=null
+
+    interface OnItemClickListener{
+        fun onItemClick(dayPosition: Int, routine: Routine)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.onItemClickListener = listener
+    }
 
     inner class TodayRoutineItemHolder(val binding: ItemRoutineBinding)
         :RecyclerView.ViewHolder(binding.root){
@@ -28,6 +37,11 @@ private val isDone : Boolean,
                 binding.routineIcon.setImageResource(calendarIcon[item.iconType])
                 binding.routineText.text = item.text
                 binding.isView()
+                if(onItemClickListener!=null){
+                    binding.root.setOnClickListener{
+                        onItemClickListener?.onItemClick(dayPosition, item)
+                    }
+                }
             }else{
                 binding.root.layoutParams.height = 0
                 binding.isUnView()

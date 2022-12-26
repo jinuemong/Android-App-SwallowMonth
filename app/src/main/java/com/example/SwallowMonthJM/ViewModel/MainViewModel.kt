@@ -16,7 +16,7 @@ class MainViewModel : ViewModel(){
     lateinit var currentDate : CustomCalendar
     lateinit var currentMonthArr : ArrayList<DayData>
     lateinit var dateTime:String
-
+    lateinit var todayDate : Date
     var currentYear = MutableLiveData<Int>()
     var currentMonth=MutableLiveData<Int>()
     var currentDayPosition= MutableLiveData<Int>()
@@ -88,6 +88,7 @@ class MainViewModel : ViewModel(){
         }
     }
     fun initCurrentData(data:Date){
+        todayDate = data
         val dateYear : Int = SimpleDateFormat("yyyy",Locale.KOREA).format(data).toInt()
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(data).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(data).toInt()

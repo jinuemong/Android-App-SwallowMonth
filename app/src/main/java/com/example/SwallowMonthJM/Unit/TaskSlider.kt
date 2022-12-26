@@ -1,25 +1,31 @@
 package com.example.SwallowMonthJM.Unit
 
 import android.annotation.SuppressLint
+import android.view.View
 import android.widget.SeekBar
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.databinding.SlideLayoutTaskViewBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 class TaskSlider(
-    slideLayout: SlideLayoutTaskViewBinding,
+    slideLayout: View,
     private val slideFrame : SlidingUpPanelLayout,
     private val mainActivity: MainActivity,
     private val task: Task,
 ) {
-    private var name = slideLayout.taskName
-    private var level = slideLayout.levelText
-    private var per = slideLayout.taskPer
-    private var perText = slideLayout.taskPerText
-    private var icon = slideLayout.taskIcon
-    private var completeButton = slideLayout.completeButton
-    private var seekVar = slideLayout.taskSeekBar
-    private var delButton = slideLayout.taskGarbage
+    private var slide : SlideLayoutTaskViewBinding
+    init {
+        slide = SlideLayoutTaskViewBinding.bind(slideLayout)
+
+    }
+    private var name = slide.taskName
+    private var level = slide.levelText
+    private var per = slide.taskPer
+    private var perText = slide.taskPerText
+    private var icon = slide.taskIcon
+    private var completeButton = slide.completeButton
+    private var seekVar = slide.taskSeekBar
+    private var delButton = slide.taskGarbage
     @SuppressLint("SetTextI18n")
     fun initSlide(){
         name.text = task.text

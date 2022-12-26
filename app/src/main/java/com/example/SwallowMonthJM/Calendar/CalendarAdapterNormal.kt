@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
+import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
 import java.text.SimpleDateFormat
@@ -18,6 +19,7 @@ class CalendarAdapterNormal(
     private val calendarLayout: LinearLayout,
     date: Date,
     currentMonth: Int,
+    private val dayRoutine: DayRoutine?
 
 ) : RecyclerView.Adapter<CalendarAdapterNormal.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding

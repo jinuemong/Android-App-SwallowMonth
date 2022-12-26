@@ -11,15 +11,16 @@ import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.Adapter.TodayRoutineAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
+import com.example.SwallowMonthJM.Model.Routine
+import com.example.SwallowMonthJM.Unit.RoutineSlider
 import com.example.SwallowMonthJM.Unit.TaskSlider
 import com.example.SwallowMonthJM.databinding.FragmentTaskBinding
-import com.example.SwallowMonthJM.databinding.SlideLayoutTaskViewBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
 class TaskFragment(
     private val slideFrame : SlidingUpPanelLayout,
-    private val slideLayout: SlideLayoutTaskViewBinding
+    private val slideLayout: View
 ) : Fragment() {
     private var _binding: FragmentTaskBinding?=null
     private val binding get() = _binding!!
@@ -55,7 +56,14 @@ class TaskFragment(
     private fun initView(){
         mainActivity.routineViewModel.routineLivData.apply {
             routineListAdapter = TodayRoutineAdapter(mainActivity,this.value!!
-                ,mainActivity.viewModel.currentDayPosition.value!!,false)
+                ,mainActivity.viewModel.currentDayPosition.value!!,false).apply {
+                setOnItemClickListener(object :TodayRoutineAdapter.OnItemClickListener{
+                    override fun onItemClick(dayPosition: Int, routine: Routine) {
+                        val routineSlide = RoutineSlider(slideLayout,slideFrame,mainActivity,dayPosition,routine)
+                        routineSlide.initSlide()
+                    }
+                })
+            }
             binding.routineView.adapter = routineListAdapter
             this.observe(mainActivity, Observer {
                 (binding.routineView.adapter as TodayRoutineAdapter).setData(it)
