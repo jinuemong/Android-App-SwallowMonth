@@ -6,6 +6,7 @@
     android:layout_height="@dimen/item_height_big_100">
 
     <LinearLayout
+        android:backgroundTint="@color/color_type4"
         android:background="@drawable/round_border"
         android:id="@+id/routine_layout"
         android:layout_width="match_parent"

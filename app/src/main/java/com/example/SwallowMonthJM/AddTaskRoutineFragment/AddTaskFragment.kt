@@ -24,7 +24,6 @@ class AddTaskFragment : Fragment() {
     private lateinit var callback : OnBackPressedCallback
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPagerAdapter: FragmentAdapter
-    private lateinit var taskSlide : TaskAddSlider
     private val tabText = arrayOf(
         "step1", "step2"
     )
@@ -68,7 +67,13 @@ class AddTaskFragment : Fragment() {
                 setOnItemClickListener(object :IconAdapter.OnItemClickListener{
                     override fun onItemClick(iconIndex: Int) {
                         mainActivity.addViewModel.iconType = iconIndex
-                        binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                        val state = binding.slideFrame.panelState
+                        if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                            binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                        }
+                        else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                            binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                        }
                     }
                 })
             }
@@ -77,11 +82,14 @@ class AddTaskFragment : Fragment() {
         initViewPager()
         initTabLayout()
         binding.fragAddLeft.animation = mainActivity.aniList[0]
-        val slideLayout = binding.slideLayout
-        taskSlide = TaskAddSlider(slideLayout,mainActivity, addData = { text ->
-            mainActivity.addViewModel.text = text
-            binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-        })
+        binding.slideLayout.apply {
+            TaskAddSlider(this,mainActivity, addData = { text ->
+                mainActivity.addViewModel.text = text
+                binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+            }).apply {
+                setUpListener()
+            }
+        }
     }
 
     private fun setUpListener(){
@@ -91,7 +99,13 @@ class AddTaskFragment : Fragment() {
 
         binding.addTaskCommit.setOnClickListener {
             if(mainActivity.addViewModel.getTextData()==""){
-                binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                val state = binding.slideFrame.panelState
+                if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                }
+                else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                }
             }
             val data = mainActivity.addViewModel.getTaskData()
             val startNum = mainActivity.addViewModel.startNum
@@ -105,7 +119,6 @@ class AddTaskFragment : Fragment() {
             }
         }
 
-        taskSlide.setUpListener()
     }
     private fun initFragmentAdapter(){
         fragmentPagerAdapter= FragmentAdapter(mainActivity)

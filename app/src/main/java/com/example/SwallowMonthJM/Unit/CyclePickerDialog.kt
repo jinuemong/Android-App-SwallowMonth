@@ -16,12 +16,12 @@ class CyclePickerDialog(
     private val mainActivity: MainActivity,
     private val  remainingDays:Int
 ) :DialogFragment(){
-    var topTextInPicker = ""
+    var topTextInPicker = "total of $remainingDays days and $remainingDays routines"
     var btnSet: Button? = null
     var btnCancel: Button? = null
     var cyclePicker: NumberPicker? = null
     var text : TextView?= null
-
+    var routineDay = remainingDays
     @SuppressLint("InflateParams", "SetTextI18n")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
@@ -31,6 +31,7 @@ class CyclePickerDialog(
             btnCancel = it.findViewById<Button>(R.id.btn_cancel)
             cyclePicker = it.findViewById<View>(R.id.circle_picker) as NumberPicker
             text = it.findViewById(R.id.mid_text)
+            text?.text = topTextInPicker
         }
         btnSet?.setOnClickListener{
             onClickedListener.onClicked()
@@ -38,7 +39,7 @@ class CyclePickerDialog(
 
             mainActivity.addViewModel.apply {
                 cycle = cycleInPic
-                totalRoutine = remainingDays / cycleInPic
+                totalRoutine = routineDay
                 topText = topTextInPicker
                 routineChange.value =routineChange.value != true
             }
@@ -53,7 +54,7 @@ class CyclePickerDialog(
             value = 1
         }
         cyclePicker?.setOnValueChangedListener{_,_,i2->
-            val routineDay = if (remainingDays%i2!=0){
+            routineDay = if (remainingDays%i2!=0){
                 (remainingDays+1)/i2
             }else{
                 remainingDays/i2

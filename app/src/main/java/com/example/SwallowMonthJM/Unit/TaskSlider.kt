@@ -2,30 +2,26 @@ package com.example.SwallowMonthJM.Unit
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.SeekBar
+import android.widget.*
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Task
-import com.example.SwallowMonthJM.databinding.SlideLayoutTaskViewBinding
+import com.example.SwallowMonthJM.R
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 class TaskSlider(
-    slideLayout: View,
+    private val slide: View,
     private val slideFrame : SlidingUpPanelLayout,
     private val mainActivity: MainActivity,
     private val task: Task,
 ) {
-    private var slide : SlideLayoutTaskViewBinding
-    init {
-        slide = SlideLayoutTaskViewBinding.bind(slideLayout)
 
-    }
-    private var name = slide.taskName
-    private var level = slide.levelText
-    private var per = slide.taskPer
-    private var perText = slide.taskPerText
-    private var icon = slide.taskIcon
-    private var completeButton = slide.completeButton
-    private var seekVar = slide.taskSeekBar
-    private var delButton = slide.taskGarbage
+    private var name = slide.findViewById<TextView>(R.id.task_name)
+    private var level = slide.findViewById<TextView>(R.id.level_text)
+    private var per = slide.findViewById<ProgressBar>(R.id.task_per)
+    private var perText = slide.findViewById<TextView>(R.id.task_per_text)
+    private var icon = slide.findViewById<ImageView>(R.id.task_icon)
+    private var completeButton = slide.findViewById<Button>(R.id.complete_button)
+    private var seekVar = slide.findViewById<SeekBar>(R.id.task_seek_bar)
+    private var delButton = slide.findViewById<ImageView>(R.id.task_garbage)
     @SuppressLint("SetTextI18n")
     fun initSlide(){
         name.text = task.text
@@ -44,7 +40,14 @@ class TaskSlider(
 
         completeButton.setOnClickListener {
             if (!task.isDone){
-                slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                val state = slideFrame.panelState
+                if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                }
+                else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                }
+
                 mainActivity.taskViewModel.doneTaskData(task)
             }
         }

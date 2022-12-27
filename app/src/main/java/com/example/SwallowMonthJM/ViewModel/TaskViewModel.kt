@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.ViewModel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.Unit.SampleTask
@@ -8,6 +9,11 @@ import com.example.SwallowMonthJM.Unit.SampleTask
 class TaskViewModel(
      mainActivity: MainActivity
 ) : ViewModel() {
+    class Factory(val mainActivity: MainActivity) : ViewModelProvider.Factory{
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return TaskViewModel(mainActivity) as T
+        }
+    }
     private val mainView = mainActivity.viewModel
 
     // 달력에 일정 추가

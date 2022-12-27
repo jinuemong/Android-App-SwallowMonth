@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.ViewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.Model.Routine
@@ -9,6 +10,11 @@ import com.example.SwallowMonthJM.Model.Routine
 class RoutineViewModel(
     mainActivity: MainActivity
 ): ViewModel(){
+    class Factory(val mainActivity: MainActivity) : ViewModelProvider.Factory{
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return RoutineViewModel(mainActivity) as T
+        }
+    }
     private val mainView = mainActivity.viewModel
 
     var routineLivData = MutableLiveData<ArrayList<Routine>>()
@@ -31,7 +37,10 @@ class RoutineViewModel(
         routineLivData.value = currentRoutineArr
     }
 
-    fun doneRoutineData(dayRoutine: DayRoutine){
+    fun doneRoutineData(routine: Routine,dayRoutine: DayRoutine){
+        if(!dayRoutine.clear) {
+            routine.clearRoutine += 1
+        }
         dayRoutine.clear = true
         routineLivData.value = currentRoutineArr
     }

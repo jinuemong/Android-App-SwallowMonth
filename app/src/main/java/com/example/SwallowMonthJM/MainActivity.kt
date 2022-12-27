@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
@@ -29,8 +30,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
     val addViewModel: AddTaskRoutineViewModel by viewModels()
-    val routineViewModel : RoutineViewModel by viewModels()
-    val taskViewModel : TaskViewModel by viewModels()
+    val routineViewModel by lazy {
+        ViewModelProvider(this@MainActivity,RoutineViewModel
+            .Factory(this@MainActivity))[RoutineViewModel::class.java]
+    }
+    val taskViewModel  by lazy {
+        ViewModelProvider(this@MainActivity,TaskViewModel
+            .Factory(this@MainActivity))[TaskViewModel::class.java]
+    }
     lateinit var frManger: FragmentManager
     private lateinit var fragmentPageAdapter: FragmentAdapter
     lateinit var viewPager: ViewPager2

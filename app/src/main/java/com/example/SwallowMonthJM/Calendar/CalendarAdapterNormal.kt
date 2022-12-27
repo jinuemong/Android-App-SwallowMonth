@@ -2,12 +2,13 @@ package com.example.SwallowMonthJM.Calendar
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
-import com.example.SwallowMonthJM.Model.DayRoutine
+import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
 import java.text.SimpleDateFormat
@@ -19,7 +20,8 @@ class CalendarAdapterNormal(
     private val calendarLayout: LinearLayout,
     date: Date,
     currentMonth: Int,
-    private val dayRoutine: DayRoutine?
+    private val routine: Routine,
+    private val dayP : Int
 
 ) : RecyclerView.Adapter<CalendarAdapterNormal.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
@@ -46,6 +48,26 @@ class CalendarAdapterNormal(
             val params =
                 LinearLayout.LayoutParams(calendarLayout.width / 7, calendarLayout.height / 6)
             binding.root.layoutParams = params
+
+            if (routine.dayRoutineList.containsKey(absoluteAdapterPosition)){
+                if(dataSet[absoluteAdapterPosition].day<dateDay){
+                    if (routine.dayRoutineList[absoluteAdapterPosition]!!.clear){
+                        binding.setClear()
+                    } else{
+                        binding.setFail()
+                    }
+                }else if(dataSet[absoluteAdapterPosition].day==dateDay) {
+                    if (routine.dayRoutineList[absoluteAdapterPosition]!!.clear){
+                        binding.setClear()
+                    } else{
+                        binding.setCalendar()
+                    }
+                }else{
+                    binding.setCalendar()
+                }
+            }else{
+                binding.reset()
+            }
 
             //오늘 날짜
             if (dataSet[absoluteAdapterPosition].isSelected) {
@@ -88,5 +110,21 @@ class CalendarAdapterNormal(
     private fun ItemCalendarBinding.setUnOtherMonth() =
         calendarText.apply { setTextAppearance(R.style.strongColorText) }
 
+    private fun ItemCalendarBinding.setCalendar() {
+        itemLineNormal.visibility = View.VISIBLE
+        itemLineNormal.setBackgroundResource(R.drawable.ic_baseline_event_repeat_24)
+    }
+    private fun ItemCalendarBinding.setClear() {
+        itemLineNormal.visibility = View.VISIBLE
+        itemLineNormal.setBackgroundResource(R.drawable.ic_iconmonstr_check_mark_13)
+    }
 
+    private fun ItemCalendarBinding.setFail() {
+        itemLineNormal.visibility = View.VISIBLE
+        itemLineNormal.setBackgroundResource(R.drawable.ic_baseline_close_24)
+    }
+
+    private fun ItemCalendarBinding.reset() {
+        itemLineNormal.visibility = View.GONE
+    }
 }

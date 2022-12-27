@@ -12,6 +12,7 @@ import com.example.SwallowMonthJM.Adapter.TodayRoutineAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Routine
+import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.RoutineSlider
 import com.example.SwallowMonthJM.Unit.TaskSlider
 import com.example.SwallowMonthJM.databinding.FragmentDoneBinding
@@ -27,6 +28,8 @@ class DoneFragment(
     lateinit var mainActivity: MainActivity
     private lateinit var taskListAdapter:TaskListAdapter
     private lateinit var routineListAdapter:TodayRoutineAdapter
+    private var taskSlider :View  = slideLayout.findViewById(R.id.slide_task)
+    private var routineSlider : View = slideLayout.findViewById(R.id.slide_routine)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -58,14 +61,28 @@ class DoneFragment(
                 ,mainActivity.viewModel.currentDayPosition.value!!,true).apply {
                 setOnItemClickListener(object :TodayRoutineAdapter.OnItemClickListener{
                     override fun onItemClick(dayPosition: Int, routine: Routine) {
-                        val routineSlide = RoutineSlider(slideLayout,slideFrame,mainActivity,dayPosition,routine)
-                        routineSlide.initSlide()
+                        taskSlider.visibility = View.GONE
+                        routineSlider.apply {
+                            visibility = View.VISIBLE
+                            RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
+                                .apply { initSlide() }
+
+                            val state = slideFrame.panelState
+                            if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                                slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                            }
+                            else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                                slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                            }
+
+                        }
                     }
                 })
             }
             binding.routineDoneView.adapter = routineListAdapter
             this.observe(mainActivity, Observer {
                 (binding.routineDoneView.adapter as TodayRoutineAdapter).setData(it)
+
             })
         }
 
@@ -94,10 +111,20 @@ class DoneFragment(
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int) {
                     val task = day.taskList!![position]
-                    val slideLayout = slideLayout
-                    val taskSlide = TaskSlider(slideLayout,slideFrame,mainActivity,task)
-                    taskSlide.initSlide()
-                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+
+                    routineSlider.visibility = View.GONE
+                    taskSlider.apply {
+                        visibility = View.VISIBLE
+                        TaskSlider(this,slideFrame,mainActivity,task)
+                            .apply { initSlide() }
+                        val state = slideFrame.panelState
+                        if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                        }
+                        else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                        }
+                    }
                 }
             })
         }
