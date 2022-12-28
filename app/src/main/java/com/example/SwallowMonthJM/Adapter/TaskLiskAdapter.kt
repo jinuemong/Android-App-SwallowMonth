@@ -18,6 +18,7 @@ class TaskListAdapter(
     private lateinit var binding : ItemTaskBinding
     private var itemList = dataSet ?: ArrayList<Task>()
     private var onItemClickListener: OnItemClickListener?=null
+    private var itemHeight = 0
 
     interface OnItemClickListener{
         fun onItemClick(position: Int)
@@ -38,6 +39,8 @@ class TaskListAdapter(
                     binding.taskPerText.text = "$per%"
                     binding.taskIcon.setImageResource(calendarIcon[item.iconType])
                     binding.taskText.text = item.text
+
+                    binding.root.layoutParams.height = itemHeight
                     binding.isView()
                     if (onItemClickListener!=null) {
                         binding.root.setOnClickListener {
@@ -54,6 +57,7 @@ class TaskListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListItemHolder {
         binding = ItemTaskBinding.inflate(LayoutInflater.from(mainActivity),parent,false)
+        itemHeight= binding.root.layoutParams.height
         return TaskListItemHolder(binding)
     }
 

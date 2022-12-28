@@ -96,6 +96,7 @@ class TaskFragment(
             binding.taskView.adapter  =taskListAdapter
 
             (binding.routineView.adapter as TodayRoutineAdapter).setDayDate(dayIndex)
+
         })
 
     }
@@ -112,7 +113,13 @@ class TaskFragment(
                         visibility = View.VISIBLE
                         TaskSlider(this,slideFrame,mainActivity,task)
                             .apply { initSlide() }
-                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                        val state = slideFrame.panelState
+                        if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                        }
+                        else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                        }
                     }
 
                 }

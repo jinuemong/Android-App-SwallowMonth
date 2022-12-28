@@ -13,13 +13,14 @@ import com.example.SwallowMonthJM.databinding.ItemRoutineBinding
 class TodayRoutineAdapter(
 private val mainActivity: MainActivity,
 private val dataSet : ArrayList<Routine>,
-private val dPosition:Int,
+dPosition:Int,
 private val isDone : Boolean,
 ): RecyclerView.Adapter<TodayRoutineAdapter.TodayRoutineItemHolder>(){
     private lateinit var  binding : ItemRoutineBinding
     private var itemList = dataSet
     private var dayPosition =dPosition
     private var onItemClickListener: OnItemClickListener?=null
+    private var itemHeight =0
 
     interface OnItemClickListener{
         fun onItemClick(dayPosition: Int, routine: Routine)
@@ -33,9 +34,11 @@ private val isDone : Boolean,
         :RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
         fun bind(item: Routine){
-            if(item.dayRoutineList.containsKey(dayPosition) && item.dayRoutineList[dayPosition]!!.clear==isDone){
+            if(item.dayRoutineList.containsKey(dayPosition) && (item.dayRoutineList[dayPosition]!!.clear==isDone)){
                 binding.routineIcon.setImageResource(calendarIcon[item.iconType])
                 binding.routineText.text = item.text
+
+                binding.root.layoutParams.height = itemHeight
                 binding.isView()
                 if(onItemClickListener!=null){
                     binding.root.setOnClickListener{
@@ -51,6 +54,7 @@ private val isDone : Boolean,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodayRoutineAdapter.TodayRoutineItemHolder {
         binding = ItemRoutineBinding.inflate(LayoutInflater.from(mainActivity),parent,false)
+        itemHeight= binding.root.layoutParams.height
         return TodayRoutineItemHolder(binding)
     }
 

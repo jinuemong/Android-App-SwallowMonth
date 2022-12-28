@@ -85,7 +85,13 @@ class AddTaskFragment : Fragment() {
         binding.slideLayout.apply {
             TaskAddSlider(this,mainActivity, addData = { text ->
                 mainActivity.addViewModel.text = text
-                binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                val state = binding.slideFrame.panelState
+                if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                }
+                else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                }
             }).apply {
                 setUpListener()
             }
