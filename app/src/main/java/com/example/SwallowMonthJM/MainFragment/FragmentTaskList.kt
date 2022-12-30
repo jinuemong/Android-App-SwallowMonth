@@ -68,9 +68,18 @@ class FragmentTaskList : Fragment() {
         binding.taskListCalendar.text = mainActivity.viewModel.dateTime
         binding.taskListPer.progress = mainActivity.viewModel.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
+
+        //남은 task + routine 설정
+
+        mainActivity.routineViewModel.setTotalRoutine()
         binding.totalTask.text = mainActivity.viewModel.getTotalTask()
 
         mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
+            binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+        })
+
+        mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
+            mainActivity.routineViewModel.setTotalRoutine()
             binding.totalTask.text = mainActivity.viewModel.getTotalTask()
         })
 
@@ -108,6 +117,7 @@ class FragmentTaskList : Fragment() {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
                         mainActivity.viewModel.setCurrentDayPosition(position)
+                        mainActivity.routineViewModel.setTotalRoutine()
                         binding.totalTask.text = mainActivity.viewModel.getTotalTask()
                         binding.bottomInTaskList.animation = mainActivity.aniList[1]
                         binding.bottomInTaskList.animation.start()

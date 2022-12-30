@@ -12,7 +12,10 @@ class MainViewModel : ViewModel(){
     var todayMonth =0
     var totalPer = 0
     var dayLiveData = MutableLiveData<ArrayList<DayData>>()
-
+    var currentTotalTask = 0
+    var currentTotalRoutine = 0
+    var currentTaskCount = 0
+    var currentRoutineCount = 0
     lateinit var currentDate : CustomCalendar
     lateinit var currentMonthArr : ArrayList<DayData>
     lateinit var dateTime:String
@@ -27,43 +30,6 @@ class MainViewModel : ViewModel(){
         currentMonth.value = 1
         currentDayPosition.value = 1
     }
-
-
-//    fun addTaskData(startNum:Int,endNum:Int,task: Task){
-//        for (i in startNum..endNum){
-//            val newTask = SampleClass(task).deepCopy()
-//            currentMonthArr[i].apply {
-//                if (this.taskList == null) {
-//                    this.taskList = ArrayList()
-//                }
-//                this.taskList!!.add(newTask.task)
-//            }
-//
-//        }
-//        taskLiveData.value = currentMonthArr
-//
-//    }
-
-//    fun delTaskData(task: Task){
-//        currentMonthArr[currentDayPosition.value!!].taskList?.remove(task)
-//        taskLiveData.value = currentMonthArr
-//    }
-
-//    fun doneTaskData(task : Task){
-//        task.isDone = true
-//        task.per = 100
-//        taskLiveData.value = currentMonthArr
-//    }
-
-//    fun setTaskICon(iconIndex:Int,task: Task){
-//        task.iconType = iconIndex
-//        taskLiveData.value = currentMonthArr
-//    }
-
-//    fun setPerTask(task: Task, p:Int){
-//        task.per = p
-//        taskLiveData.value = currentMonthArr
-//    }
 
     private fun setCurrentYear(year:Int){
         currentYear.value = year
@@ -102,18 +68,15 @@ class MainViewModel : ViewModel(){
 
     fun getTotalTask(): String{
         val taskList = currentMonthArr[currentDayPosition.value!!].taskList
-
         return if (taskList==null){
-            "0 / 0"
+            "$currentRoutineCount / $currentTotalRoutine"
         }else {
-            val totalCount = taskList.size
-            var taskCount = 0
-            for (t in taskList){
-                if (!t.isDone){
-                    taskCount+=1
-                }
+            val taskCount = taskList.count{
+                !it.isDone
             }
-            "$taskCount / $totalCount"
+            currentTaskCount = taskCount
+            currentTotalTask = taskList.size
+            "${currentTaskCount+currentRoutineCount} / ${currentTotalTask+currentTotalRoutine}"
         }
     }
 

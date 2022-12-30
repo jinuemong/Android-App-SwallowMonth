@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -43,5 +44,26 @@ class RoutineViewModel(
         }
         dayRoutine.clear = true
         routineLivData.value = currentRoutineArr
+    }
+
+    fun setTotalRoutine(){
+        val routineList = routineLivData.value
+
+        if (routineList!=null){
+            val day = mainView.currentDayPosition.value!!
+            val totalRoutine = routineList.count{
+                it.dayRoutineList.containsKey(day)
+            }
+            val countRoutine = routineList.count {
+                it.dayRoutineList.containsKey(day)&&
+                        (!it.dayRoutineList[day]!!.clear)
+            }
+            Log.d("totalRoutine",totalRoutine.toString())
+            Log.d("countRoutine",countRoutine.toString())
+            mainView.apply {
+                currentTotalRoutine = totalRoutine
+                currentRoutineCount = countRoutine
+            }
+        }
     }
 }
