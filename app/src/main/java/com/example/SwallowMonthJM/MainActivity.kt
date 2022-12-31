@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
-import com.example.SwallowMonthJM.MainFragment.FragmentCalendar
+import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
         fragmentPageAdapter.apply {
             addFragment(FragmentTaskList())
-            addFragment(FragmentCalendar())
+            addFragment(FragmentStatistics())
             addFragment(FragmentRepeatTaskList())
             addFragment(FragmentUserUI())
         }

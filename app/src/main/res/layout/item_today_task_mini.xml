@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:backgroundTint="@color/color_type4"
+    android:background="@drawable/round_border"
+    android:id="@+id/routine_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/main_margin"
+    android:padding="@dimen/main_margin"
+    android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/checkbox_item_today_task_mini"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:src="@drawable/ic_baseline_check_box_outline_blank_24"
+            android:layout_width="@dimen/item_mid_height_30"
+            android:layout_height="@dimen/item_mid_height_30"/>
+        <TextView
+            android:id="@+id/text_item_today_task_mini"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/checkbox_item_today_task_mini"
+            style="@style/TextView1"
+            android:layout_width="@dimen/item_height_double_big"
+            android:layout_height="wrap_content"
+            tools:text="@string/day_task_sample"
+            android:textSize="@dimen/item_height_mid_text_size"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/icon_item_today_task_mini"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/main_margin"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:src="@drawable/ic_baseline_event_repeat_24"
+            android:layout_width="@dimen/item_mid_height_30"
+            android:layout_height="@dimen/item_mid_height_30"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

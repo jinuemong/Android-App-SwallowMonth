@@ -7,6 +7,7 @@
     <dimen name="item_height_big_100">300dp</dimen>
     <dimen name="item_height_big_80">240dp</dimen>
     <dimen name="item_height_double_big">720dp</dimen>
+    <dimen name="item_we_300">900dp</dimen>
     <dimen name="item_height">180dp</dimen>
     <dimen name="item_mid_height_30">90dp</dimen>
     <dimen name="item_mid_40_height">120dp</dimen>

@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.SwallowMonthJM.Calendar.CalendarStateAdapter
-import com.example.SwallowMonthJM.databinding.FragmentCalendarBinding
+import com.example.SwallowMonthJM.databinding.FragmentStatisticsBinding
 
-class FragmentCalendar : Fragment() {
-    private var _binding:FragmentCalendarBinding?  = null
+class FragmentStatistics : Fragment() {
+    private var _binding:FragmentStatisticsBinding?  = null
     private val binding get() = _binding!!
 
-    private lateinit var calendarStateAdapter : CalendarStateAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +22,7 @@ class FragmentCalendar : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentCalendarBinding.inflate(inflater,container,false)
+        _binding = FragmentStatisticsBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -38,11 +36,6 @@ class FragmentCalendar : Fragment() {
         _binding = null
     }
     private fun initView(){
-        calendarStateAdapter = CalendarStateAdapter(requireActivity())
-        binding.calendarViewPager.adapter = calendarStateAdapter
-        calendarStateAdapter.apply {
-            //smooth = false (바로 이동)
-            binding.calendarViewPager.setCurrentItem(this.fragmentPosition,false)
-        }
+
     }
 }
