@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.Adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,8 +18,8 @@ class TodayMIniTaskListAdapter(
     taskSet: ArrayList<Task>?
 ) : RecyclerView.Adapter<TodayMIniTaskListAdapter.MIniTaskViewHolder>() {
     private lateinit var binding: ItemTodayTaskMiniBinding
-    private val routineList = routineSet
-    private val taskList = taskSet
+    private var routineList = routineSet
+    private var taskList = taskSet
 
     private var onItemClickListener : OnItemClickListener? = null
 
@@ -45,6 +46,7 @@ class TodayMIniTaskListAdapter(
                     onItemClickListener?.onItemClick(dayPosition,null,item)
                 }
             }
+
         }
 
         fun bindRoutine(item : Routine) {
@@ -75,15 +77,44 @@ class TodayMIniTaskListAdapter(
         if (routineList==null){
             holder.bindTask(taskList!![position])
         }else{
-            holder.bindRoutine(routineList[position])
+            holder.bindRoutine(routineList!![position])
         }
     }
 
-    override fun getItemCount() = routineList?.size ?: taskList!!.size
+    override fun getItemCount(): Int {
+        if (routineList==null && taskList==null){
+            return 0
+        }else{
+            if( routineList==null){
+                return taskList!!.size
+            }else{
+                return routineList!!.size
+            }
+        }
+    }
 
     private fun ItemTodayTaskMiniBinding.setChecked() =
         checkboxItemTodayTaskMini.setBackgroundResource(R.drawable.ic_baseline_check_box_24)
     private fun ItemTodayTaskMiniBinding.setUnChecked() =
         checkboxItemTodayTaskMini.setBackgroundColor(R.drawable.ic_baseline_check_box_outline_blank_24)
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setRoutineData(data:ArrayList<Routine>?){
+        if (data==null){
+            routineList = ArrayList()
+        }else {
+            routineList = data
+        }
+        routineList = data
+        notifyDataSetChanged()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun setTaskData(data:ArrayList<Task>?){
+        if (data==null){
+            taskList = ArrayList()
+        }else {
+            taskList = data
+        }
+        notifyDataSetChanged()
+    }
 }

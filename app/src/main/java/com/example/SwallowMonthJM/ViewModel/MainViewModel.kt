@@ -17,7 +17,7 @@ class MainViewModel : ViewModel(){
     var currentTaskCount = 0
     var currentRoutineCount = 0
     lateinit var currentDate : CustomCalendar
-    lateinit var currentMonthArr : ArrayList<DayData>
+    var currentMonthArr = ArrayList<DayData>()
     lateinit var dateTime:String
     lateinit var todayDate : Date
     var currentYear = MutableLiveData<Int>()
@@ -26,6 +26,7 @@ class MainViewModel : ViewModel(){
 
     // 단순 초기화
     init {
+        dayLiveData.value = currentMonthArr
         currentYear.value = 2022
         currentMonth.value = 1
         currentDayPosition.value = 1

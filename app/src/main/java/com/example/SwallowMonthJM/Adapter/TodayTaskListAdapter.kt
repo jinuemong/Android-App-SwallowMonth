@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.Unit.RoutineSlider
+import com.example.SwallowMonthJM.Unit.TaskSlider
 import com.example.SwallowMonthJM.Unit.dayOfWeek
 import com.example.SwallowMonthJM.databinding.ItemTodayTaskBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -39,17 +42,57 @@ class TodayTaskListAdapter(
 
             binding.routineViewItemTodayTask.adapter =
                 TodayMIniTaskListAdapter(mainActivity,item.day,routineList,null).apply {
+                    //observer를 통한 recycler view 초기화 (루틴)
+                    mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
+                        (binding.routineViewItemTodayTask.adapter as TodayMIniTaskListAdapter?)?.setRoutineData(it)
+                    })
+
+                    //클릭 이벤트로 slider 나타내기 (루틴)
                     setOnItemClickListener(object :TodayMIniTaskListAdapter.OnItemClickListener{
                         override fun onItemClick(dayPosition: Int, routine: Routine?, task: Task?) {
-
+                            taskSlider.visibility = View.GONE
+                            routineSlider.apply {
+                                visibility = View.VISIBLE
+                                if (routine != null) {
+                                    RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
+                                    val state = slideFrame.panelState
+                                    if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                                    }
+                                    else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                                    }
+                                }
+                            }
                         }
                     })
                 }
             binding.taskViewItemTodayTask.adapter =
                 TodayMIniTaskListAdapter(mainActivity,item.day,null,item.taskList).apply {
+                    // observer를 통한 recycler view 초기화 (task)
+                    mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
+                        (binding.routineViewItemTodayTask.adapter as TodayMIniTaskListAdapter)
+                            .setTaskData(it[absoluteAdapterPosition].taskList)
+                    })
+
+                    //클릭 이벤트로 slider 나타내기 (task)
                     setOnItemClickListener(object :TodayMIniTaskListAdapter.OnItemClickListener{
                         override fun onItemClick(dayPosition: Int, routine: Routine?, task: Task?) {
-
+                            routineSlider.visibility = View.GONE
+                            taskSlider.apply {
+                                visibility = View.VISIBLE
+                                if (task != null) {
+                                    TaskSlider(this,slideFrame,mainActivity,task)
+                                        .apply { initSlide() }
+                                    val state = slideFrame.panelState
+                                    if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                                    }
+                                    else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                                    }
+                                }
+                            }
                         }
                     })
                 }
@@ -66,4 +109,5 @@ class TodayTaskListAdapter(
     }
 
     override fun getItemCount(): Int =  dataSet.size
+
 }

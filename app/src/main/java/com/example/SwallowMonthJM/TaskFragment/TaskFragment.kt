@@ -67,7 +67,13 @@ class TaskFragment(
                             visibility = View.VISIBLE
                             RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
                                 .apply { initSlide() }
-                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                            val state = slideFrame.panelState
+                            if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                                slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                            }
+                            else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                                slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                            }
                         }
 
                     }
@@ -126,5 +132,6 @@ class TaskFragment(
             })
         }
     }
+
 
 }
