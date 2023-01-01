@@ -37,9 +37,10 @@
     <string name="typing_in_your_routine">Typing in your routine</string>
     <string name="complete">Complete</string>
     <string name="routine_sample">total of 20 days and 10 routines</string>
-    <string name="day_task_sample">TODAY, 2022 12 31</string>
+    <string name="day_task_sample">, 2022 12 31</string>
     <string name="routine_task">Routine Task</string>
     <string name="username">username</string>
     <string name="username_goal">username goal</string>
     <string name="progress">progress</string>
+    <string name="TODAY">TODAY</string>
 </resources>

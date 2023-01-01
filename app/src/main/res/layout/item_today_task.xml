@@ -8,15 +8,31 @@
     android:background="@drawable/round_border"
     android:backgroundTint="@color/color_type4"
     android:orientation="vertical">
-    <TextView
-        android:textSize="@dimen/item_height_big_text_size"
-        style="@style/TextView1"
-        tools:text="@string/day_task_sample"
-        android:layout_margin="@dimen/fab_margin_12dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/top_text_today_day"
+            android:textSize="@dimen/item_height_big_text_size"
+            style="@style/TextView1"
+            tools:text="@string/mon"
+            android:layout_marginStart="@dimen/fab_margin_12dp"
+            android:layout_marginTop="@dimen/fab_margin_12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/top_text_today_task"
+            android:textSize="@dimen/item_height_big_text_size"
+            style="@style/TextView1"
+            tools:text="@string/day_task_sample"
+            android:layout_margin="@dimen/fab_margin_12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="@dimen/main_margin"
         android:backgroundTint="@color/color_type3"
         android:background="@drawable/rect_border"
         android:layout_width="match_parent"
@@ -24,12 +40,14 @@
         android:orientation="vertical"
         android:padding="@dimen/main_margin">
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_margin="@dimen/main_margin"
             android:id="@+id/routine_view_item_today_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_today_task_mini" />
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_margin="@dimen/main_margin"
             android:id="@+id/task_view_item_today_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
