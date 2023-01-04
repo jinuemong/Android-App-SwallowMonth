@@ -24,6 +24,7 @@ class TaskSlider(
     private var delButton = slide.findViewById<ImageView>(R.id.task_garbage)
     @SuppressLint("SetTextI18n")
     fun initSlide(){
+        slide.layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT
         name.text = task.text
         level.text = levelText[task.level]
         icon.setImageResource(calendarIcon[task.iconType])

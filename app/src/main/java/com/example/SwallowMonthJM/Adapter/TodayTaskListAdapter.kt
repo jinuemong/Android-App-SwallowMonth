@@ -55,6 +55,7 @@ class TodayTaskListAdapter(
                                 visibility = View.VISIBLE
                                 if (routine != null) {
                                     RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
+                                        .apply { initSlide() }
                                     val state = slideFrame.panelState
                                     if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                                         slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED

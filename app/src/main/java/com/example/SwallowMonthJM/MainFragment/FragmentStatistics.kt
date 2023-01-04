@@ -45,10 +45,6 @@ class FragmentStatistics : Fragment() {
     }
     private fun initView(){
 
-//        mainActivity.routineViewModel.addRoutineData(Routine(null,"test routine",2,0,10,0,0,
-//        "teteet",HashMap()))
-//        mainActivity.taskViewModel.addTaskData(0,2,Task(null,"test1",false,0,1,15))
-//        mainActivity.taskViewModel.addTaskData(0,2,Task(null,"test2",true,0,1,15))
         binding.statisticsRecycler.adapter = TodayTaskListAdapter(
             mainActivity,
             mainActivity.viewModel.dayLiveData.value!!,
