@@ -72,8 +72,10 @@ class TodayTaskListAdapter(
                 TodayMIniTaskListAdapter(mainActivity,item.day,null,item.taskList).apply {
                     // observer를 통한 recycler view 초기화 (task)
                     mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
-                        (binding.routineViewItemTodayTask.adapter as TodayMIniTaskListAdapter)
-                            .setTaskData(it[absoluteAdapterPosition].taskList)
+                        if(it.size>0 && 0<absoluteAdapterPosition && absoluteAdapterPosition<it.size) {
+                            (binding.routineViewItemTodayTask.adapter as TodayMIniTaskListAdapter)
+                                .setTaskData(it[absoluteAdapterPosition].taskList)
+                        }
                     })
 
                     //클릭 이벤트로 slider 나타내기 (task)

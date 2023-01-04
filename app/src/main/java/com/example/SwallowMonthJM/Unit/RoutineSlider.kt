@@ -33,6 +33,7 @@ class RoutineSlider(
 
     @SuppressLint("SetTextI18n")
     fun initSlide(){
+        slide.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
         name.text = routine.text
         icon.setImageResource(calendarIcon[routine.iconType])
         mainText.text = "${routine.clearRoutine} / ${routine.totalRoutine}"
