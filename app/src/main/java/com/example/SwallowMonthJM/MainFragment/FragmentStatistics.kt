@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TodayTaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Model.Routine
-import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.databinding.FragmentStatisticsBinding
 
 class FragmentStatistics : Fragment() {
@@ -46,10 +45,10 @@ class FragmentStatistics : Fragment() {
     }
     private fun initView(){
 
-        mainActivity.routineViewModel.addRoutineData(Routine(null,"test routine",2,0,10,0,0,
-        "teteet",HashMap()))
-        mainActivity.taskViewModel.addTaskData(0,2,Task(null,"test1",false,0,1,15))
-        mainActivity.taskViewModel.addTaskData(0,2,Task(null,"test2",true,0,1,15))
+//        mainActivity.routineViewModel.addRoutineData(Routine(null,"test routine",2,0,10,0,0,
+//        "teteet",HashMap()))
+//        mainActivity.taskViewModel.addTaskData(0,2,Task(null,"test1",false,0,1,15))
+//        mainActivity.taskViewModel.addTaskData(0,2,Task(null,"test2",true,0,1,15))
         binding.statisticsRecycler.adapter = TodayTaskListAdapter(
             mainActivity,
             mainActivity.viewModel.dayLiveData.value!!,
@@ -57,5 +56,16 @@ class FragmentStatistics : Fragment() {
             binding.slideFrame,
             binding.slideLayout,
         )
+        mainActivity.viewModel.currentMonth.observe(mainActivity, Observer {
+            mainActivity.viewModel.currentMonthArr.apply {
+                if (this.size>0) {
+                    (binding.statisticsRecycler.adapter as TodayTaskListAdapter)
+                        .setData(this)
+                }
+            }
+        })
+
+
+
     }
 }

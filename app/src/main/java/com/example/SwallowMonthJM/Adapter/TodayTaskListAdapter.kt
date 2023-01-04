@@ -19,7 +19,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 class TodayTaskListAdapter(
     private val mainActivity: MainActivity,
-    private val dataSet : ArrayList<DayData>,
+    dataSet : ArrayList<DayData>,
     private val routineList : ArrayList<Routine>,
     private val slideFrame : SlidingUpPanelLayout,
     private val slideLayout: View,
@@ -27,7 +27,7 @@ class TodayTaskListAdapter(
     private lateinit var binding : ItemTodayTaskBinding
     private var taskSlider : View = slideLayout.findViewById(R.id.slide_task)
     private var routineSlider : View = slideLayout.findViewById(R.id.slide_routine)
-
+    private var dayDataSet =dataSet
     inner class TodayTaskListHolder(val binding:ItemTodayTaskBinding)
         :RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
@@ -38,7 +38,7 @@ class TodayTaskListAdapter(
             }else{
                 binding.topTextTodayDay.setText(dayOfWeek[(absoluteAdapterPosition%7)])
             }
-            binding.topTextTodayTask.text = ", ${item.keyDate} ${item.day}"
+            binding.topTextTodayTask.text = ", ${item.keyDate}.${item.day}"
 
             binding.routineViewItemTodayTask.adapter =
                 TodayMIniTaskListAdapter(mainActivity,item.day,routineList,null).apply {
@@ -67,6 +67,7 @@ class TodayTaskListAdapter(
                         }
                     })
                 }
+
             binding.taskViewItemTodayTask.adapter =
                 TodayMIniTaskListAdapter(mainActivity,item.day,null,item.taskList).apply {
                     // observer를 통한 recycler view 초기화 (task)
@@ -105,9 +106,15 @@ class TodayTaskListAdapter(
     }
 
     override fun onBindViewHolder(holder: TodayTaskListHolder, position: Int) {
-        holder.bind(dataSet[position])
+        holder.bind(dayDataSet[position])
     }
 
-    override fun getItemCount(): Int =  dataSet.size
+    override fun getItemCount(): Int =  dayDataSet.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(data:ArrayList<DayData>){
+        dayDataSet = data
+        notifyDataSetChanged()
+    }
 
 }

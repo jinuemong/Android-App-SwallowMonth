@@ -64,6 +64,8 @@ class TodayMIniTaskListAdapter(
                         onItemClickListener?.onItemClick(dayPosition,item,null)
                     }
                 }
+            }else{
+                binding.root.layoutParams.height=0
             }
         }
     }
