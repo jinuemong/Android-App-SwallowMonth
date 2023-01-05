@@ -29,8 +29,7 @@
                 android:layout_height="@dimen/item_height_double_big"
                 android:layout_margin="@dimen/main_margin"
                 android:background="@drawable/round_border"
-                android:backgroundTint="@color/color_type4"
-                android:orientation="vertical">
+                android:backgroundTint="@color/color_type4">
 
             </androidx.viewpager2.widget.ViewPager2>
 
