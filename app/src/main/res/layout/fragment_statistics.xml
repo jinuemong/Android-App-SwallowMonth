@@ -31,7 +31,23 @@
                 android:layout_height="@dimen/item_we_300"
                 android:layout_margin="@dimen/main_margin"
                 android:orientation="vertical">
+                <TextView
+                    android:layout_margin="@dimen/fab_margin"
+                    android:padding="@dimen/main_margin"
+                    android:layout_gravity="center"
+                    android:text="@string/collecting_activities"
+                    style="@style/ButtonText_big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/fab_margin_12dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_statistics" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

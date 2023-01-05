@@ -11,6 +11,7 @@ import java.util.*
 class MainViewModel : ViewModel(){
     var todayMonth =0
     var totalPer = 0
+    var totalPoint = 0
     var dayLiveData = MutableLiveData<ArrayList<DayData>>()
     var currentTotalTask = 0
     var currentTotalRoutine = 0

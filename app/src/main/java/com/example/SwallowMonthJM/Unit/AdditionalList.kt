@@ -29,7 +29,7 @@ val dayOfWeek : List<Int> = listOf(
 )
 
 //레벨 리스트
-val level : List<Int> = listOf(
+val levelPoint : List<Int> = listOf(
     10,  //0 루틴
     10, //1  0 - 10분
     60, //2  10 - 60분

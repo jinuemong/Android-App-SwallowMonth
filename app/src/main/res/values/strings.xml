@@ -43,4 +43,8 @@
     <string name="username_goal">username goal</string>
     <string name="progress">progress</string>
     <string name="TODAY">TODAY</string>
+    <string name="collecting_activities">Collecting Activities</string>
+    <string name="complete_0">complete : 0</string>
+    <string name="activity_0">activity : 0</string>
+    <string name="point_0">point : 0</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.Unit.SampleTask
+import com.example.SwallowMonthJM.Unit.levelPoint
 
 class TaskViewModel(
      mainActivity: MainActivity
@@ -39,9 +40,12 @@ class TaskViewModel(
     }
 
     fun doneTaskData(task : Task){
-        task.isDone = true
-        task.per = 100
-        mainView.dayLiveData.value = mainView.currentMonthArr
+        if (!task.isDone) {
+            task.isDone = true
+            task.per = 100
+            mainView.dayLiveData.value = mainView.currentMonthArr
+            mainView.totalPoint+= levelPoint[task.level]
+        }
     }
 
     fun setTaskICon(iconIndex:Int,task: Task){

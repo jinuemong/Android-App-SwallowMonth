@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.Model.Routine
+import com.example.SwallowMonthJM.Unit.levelPoint
 
 class RoutineViewModel(
     mainActivity: MainActivity
@@ -40,7 +41,9 @@ class RoutineViewModel(
 
     fun doneRoutineData(routine: Routine,dayRoutine: DayRoutine){
         if(!dayRoutine.clear) {
+            //one run
             routine.clearRoutine += 1
+            mainView.totalPoint+= levelPoint[0]
         }
         dayRoutine.clear = true
         routineLivData.value = currentRoutineArr
