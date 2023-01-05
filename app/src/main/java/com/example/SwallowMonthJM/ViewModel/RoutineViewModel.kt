@@ -1,6 +1,5 @@
 package com.example.SwallowMonthJM.ViewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -61,8 +60,6 @@ class RoutineViewModel(
                 it.dayRoutineList.containsKey(day)&&
                         (!it.dayRoutineList[day]!!.clear)
             }
-            Log.d("totalRoutine",totalRoutine.toString())
-            Log.d("countRoutine",countRoutine.toString())
             mainView.apply {
                 currentTotalRoutine = totalRoutine
                 currentRoutineCount = countRoutine

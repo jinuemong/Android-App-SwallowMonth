@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TodayTaskListAdapter
-import com.example.SwallowMonthJM.Calendar.CalendarStateAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.databinding.FragmentStatisticsBinding
 
@@ -16,7 +15,6 @@ class FragmentStatistics : Fragment() {
     private var _binding:FragmentStatisticsBinding?  = null
     private val binding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var calendarStateAdapter : CalendarStateAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -64,8 +62,4 @@ class FragmentStatistics : Fragment() {
         })
     }
 
-    private fun initRecycler(){
-        calendarStateAdapter = CalendarStateAdapter(requireActivity())
-
-    }
 }
