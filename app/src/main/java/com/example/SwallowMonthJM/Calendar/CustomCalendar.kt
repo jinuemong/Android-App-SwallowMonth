@@ -53,16 +53,16 @@ class CustomCalendar(
     }
 
     private fun makePrevTail(calendar: Calendar){
-
+        val monthIndex = -1
         calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1)
         val maxDate = calendar.getActualMaximum(Calendar.DATE)
         var maxOffsetDate = maxDate-prevTail
         for (i in 1..prevTail){
             dateList.add(
-                DayData(dateTime,
+                DayData(getCurrentData(monthIndex),
                 ++maxOffsetDate,
                 isSelected = false,
-                monthIndex = -1,
+                monthIndex = monthIndex,
                 null,
             ))
         }
@@ -85,15 +85,30 @@ class CustomCalendar(
     }
 
     private fun makeNextHead(){
+        val monthIndex = 1
         var date = 1
         for (i in 1..nextHead){
             dateList.add(
-                DayData(dateTime,
+                DayData(getCurrentData(monthIndex),
                 date++,
                 isSelected = false,
-                monthIndex = 1,
+                monthIndex = monthIndex,
                 null,
             ))
+        }
+    }
+
+    private fun getCurrentData(monthIndex : Int) : String{
+        val date = dateTime.split(".")
+        val year = date[0].toInt()
+
+        return when(val month = date[1].toInt()+monthIndex){
+
+            0 ->{ "${year-1}.${12}" }
+
+            13 ->{ "${year+1}.${1}" }
+
+            else ->{ "$year.${month}" }
         }
     }
 }
