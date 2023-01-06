@@ -44,7 +44,9 @@ class FragmentStatistics : Fragment() {
         _binding = null
     }
     private fun initView(){
-        stateAdapter = StatisticsStateAdapter(requireActivity())
+        stateAdapter = StatisticsStateAdapter(requireActivity()
+                ,binding.slideFrame, binding.slideLayout)
+
         binding.viewPagerInStatistics.adapter = stateAdapter
         stateAdapter.apply {
             binding.viewPagerInStatistics.currentItem = this.fragmentPosition

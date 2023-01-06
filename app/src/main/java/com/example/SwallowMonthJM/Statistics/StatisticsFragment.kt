@@ -7,12 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
+import com.example.SwallowMonthJM.Adapter.TodayTaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.databinding.StatisticsViewBinding
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
 import java.util.*
 
-class StatisticsFragment() : Fragment() {
+
+class StatisticsFragment(
+    private val slideFrame : SlidingUpPanelLayout,
+    private val slideLayout: View,
+) : Fragment() {
     var pageIndex = 0
 
     private var _binding : StatisticsViewBinding?=null
@@ -70,6 +77,25 @@ class StatisticsFragment() : Fragment() {
             adapter = calendarAdapter
         }
 
+        /////////////////////////////
+        //여기부분은 캘린더의 데이터에 따라 수정해주어야 하낟 !!
+        binding.statisticsRecycler.adapter = TodayTaskListAdapter(
+            mainActivity,
+            mainActivity.viewModel.dayLiveData.value!!,
+            mainActivity.routineViewModel.routineLivData.value!!,
+            slideFrame,
+            slideLayout
+        )
+        mainActivity.viewModel.currentMonth.observe(mainActivity, Observer {
+            mainActivity.viewModel.currentMonthArr.apply {
+                if (this.size>0) {
+                    (binding.statisticsRecycler.adapter as TodayTaskListAdapter)
+                        .setData(this)
+                }
+            }
+        })
+
+        //////////////////////////////////
     }
 
 }
