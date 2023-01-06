@@ -12,7 +12,9 @@ class StatisticsStateAdapter(fragmentActivity:FragmentActivity)
     override fun getItemCount()=pageCount
 
     override fun createFragment(position: Int): Fragment {
-
+        val statisticsTopFragment = StatisticsTopFragment()
+        statisticsTopFragment.pageIndex = position
+        return statisticsTopFragment
     }
 
 }

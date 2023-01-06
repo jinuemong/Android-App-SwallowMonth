@@ -32,7 +32,7 @@ class CalendarAdapterAddRoutine(
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
 
     // init calendar
-    var customCalendar: CustomCalendar =
+    private var customCalendar: CustomCalendar =
         CustomCalendar(date, dateDay, currentMonth, dateMonth, mainActivity.viewModel.dateTime)
 
     init {

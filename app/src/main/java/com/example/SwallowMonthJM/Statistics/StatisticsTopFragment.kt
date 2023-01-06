@@ -62,7 +62,12 @@ class StatisticsTopFragment() : Fragment() {
 
         binding.stDate.text = dateTime
         binding.calendarBox.fragCalenderRecycler.apply {
+            val calendarAdapter = CalendarAdapterStatistics(
+                mainActivity, binding.calendarBox.fragCalenderLinear,
+                currentDate,mainActivity.viewModel.todayMonth
+            )
 
+            adapter = calendarAdapter
         }
     }
 
