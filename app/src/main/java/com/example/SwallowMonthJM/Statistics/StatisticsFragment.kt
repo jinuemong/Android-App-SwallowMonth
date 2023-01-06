@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.databinding.StatisticsTopViewBinding
+import com.example.SwallowMonthJM.databinding.StatisticsViewBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class StatisticsTopFragment() : Fragment() {
+class StatisticsFragment() : Fragment() {
     var pageIndex = 0
 
-    private var _binding : StatisticsTopViewBinding?=null
+    private var _binding : StatisticsViewBinding?=null
     private val binding  get() = _binding!!
     lateinit var mainActivity: MainActivity
     lateinit var currentDate:  Date
@@ -34,7 +34,7 @@ class StatisticsTopFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = StatisticsTopViewBinding.inflate(inflater,container,false)
+        _binding = StatisticsViewBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -69,6 +69,7 @@ class StatisticsTopFragment() : Fragment() {
 
             adapter = calendarAdapter
         }
+
     }
 
 }

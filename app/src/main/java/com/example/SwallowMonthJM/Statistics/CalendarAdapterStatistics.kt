@@ -9,7 +9,7 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
-import com.example.SwallowMonthJM.databinding.StatisticsTopViewBinding
+import com.example.SwallowMonthJM.databinding.StatisticsViewBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +20,7 @@ class CalendarAdapterStatistics(
     currentMonth : Int
 ) :RecyclerView.Adapter<CalendarAdapterStatistics.CalendarStatisticsHolder>(){
 
-    private lateinit var binding: StatisticsTopViewBinding
+    private lateinit var binding: StatisticsViewBinding
     private var dataSet : ArrayList<DayData> = arrayListOf()
 
     //현재 캘린더 데이터 얻어옴
@@ -37,7 +37,7 @@ class CalendarAdapterStatistics(
 
     }
 
-    inner class CalendarStatisticsHolder(val binding: StatisticsTopViewBinding) :
+    inner class CalendarStatisticsHolder(val binding: StatisticsViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
@@ -46,7 +46,7 @@ class CalendarAdapterStatistics(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarStatisticsHolder {
-        binding = StatisticsTopViewBinding.inflate(LayoutInflater.from(mainActivity))
+        binding = StatisticsViewBinding.inflate(LayoutInflater.from(mainActivity))
         return  CalendarStatisticsHolder(binding)
     }
 

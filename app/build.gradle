@@ -5,12 +5,12 @@ plugins {
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.todolistjinuemong"
         minSdk 25
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -75,7 +75,6 @@ dependencies {
     //slide bar
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
 }

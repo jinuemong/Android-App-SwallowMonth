@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import com.example.SwallowMonthJM.Adapter.TodayTaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Statistics.StatisticsStateAdapter
 import com.example.SwallowMonthJM.databinding.FragmentStatisticsBinding
 
 class FragmentStatistics : Fragment() {
     private var _binding:FragmentStatisticsBinding?  = null
     private val binding get() = _binding!!
     private lateinit var mainActivity: MainActivity
+    private lateinit var stateAdapter:StatisticsStateAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,22 +44,26 @@ class FragmentStatistics : Fragment() {
         _binding = null
     }
     private fun initView(){
-
-        binding.statisticsRecycler.adapter = TodayTaskListAdapter(
-            mainActivity,
-            mainActivity.viewModel.dayLiveData.value!!,
-            mainActivity.routineViewModel.routineLivData.value!!,
-            binding.slideFrame,
-            binding.slideLayout,
-        )
-        mainActivity.viewModel.currentMonth.observe(mainActivity, Observer {
-            mainActivity.viewModel.currentMonthArr.apply {
-                if (this.size>0) {
-                    (binding.statisticsRecycler.adapter as TodayTaskListAdapter)
-                        .setData(this)
-                }
-            }
-        })
+        stateAdapter = StatisticsStateAdapter(requireActivity())
+        binding.viewPagerInStatistics.adapter = stateAdapter
+        stateAdapter.apply {
+            binding.viewPagerInStatistics.currentItem = this.fragmentPosition
+        }
+//        binding.statisticsRecycler.adapter = TodayTaskListAdapter(
+//            mainActivity,
+//            mainActivity.viewModel.dayLiveData.value!!,
+//            mainActivity.routineViewModel.routineLivData.value!!,
+//            binding.slideFrame,
+//            binding.slideLayout,
+//        )
+//        mainActivity.viewModel.currentMonth.observe(mainActivity, Observer {
+//            mainActivity.viewModel.currentMonthArr.apply {
+//                if (this.size>0) {
+//                    (binding.statisticsRecycler.adapter as TodayTaskListAdapter)
+//                        .setData(this)
+//                }
+//            }
+//        })
     }
 
 }

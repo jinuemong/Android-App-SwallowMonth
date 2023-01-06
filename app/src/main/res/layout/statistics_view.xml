@@ -2,10 +2,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/statistics_box"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/main_margin"
     android:background="@drawable/round_border"
     android:backgroundTint="@color/color_type4"
     android:orientation="vertical">
@@ -105,9 +105,25 @@
             android:layout_margin="@dimen/fab_margin_12dp"
             android:src="@drawable/ic_baseline_arrow_forward_24" />
     </LinearLayout>
-    <include
-        android:id="@+id/calendar_box"
+
+    <LinearLayout
+        android:backgroundTint="@color/color_type2"
+        android:background="@drawable/round_border"
+        android:layout_margin="@dimen/main_margin"
+        android:padding="@dimen/main_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/calendar_month_layout"/>
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/calendar_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/calendar_month_layout"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statistics_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_today_task"/>
 </LinearLayout>
