@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //각 캘린더의 어댑터 (날짜 - 일모음 )
-class CalendarAdapterNormal(
+class CalendarAdapterRoutine(
     private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
     date: Date,
@@ -23,7 +23,7 @@ class CalendarAdapterNormal(
     private val routine: Routine,
     private val dayP : Int
 
-) : RecyclerView.Adapter<CalendarAdapterNormal.CalenderItemHolder>() {
+) : RecyclerView.Adapter<CalendarAdapterRoutine.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
     private var dataSet: ArrayList<DayData> = arrayListOf()
 
@@ -44,10 +44,10 @@ class CalendarAdapterNormal(
 
             //텍스트 표시
             binding.calendarText.text = dataSet[absoluteAdapterPosition].day.toString()
-            //각 아이템의 높이 지정
-            val params =
-                LinearLayout.LayoutParams(calendarLayout.width / 7, calendarLayout.height / 6)
-            binding.root.layoutParams = params
+//            //각 아이템의 높이 지정
+//            val params =
+//                LinearLayout.LayoutParams(calendarLayout.width / 7, calendarLayout.height / 6)
+//            binding.root.layoutParams = params
 
             if (routine.dayRoutineList.containsKey(absoluteAdapterPosition)){
                 if(dataSet[absoluteAdapterPosition].day<dateDay){

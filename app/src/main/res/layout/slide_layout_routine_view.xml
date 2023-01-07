@@ -42,19 +42,18 @@
             android:textColor="@color/normal_color"
             android:textSize="@dimen/item_height_mid_text_size"
             tools:text="@string/routine_sample" />
-
         <LinearLayout
+            android:backgroundTint="@color/color_type2"
+            android:background="@drawable/round_border"
+            android:layout_margin="@dimen/fab_margin_12dp"
             android:padding="@dimen/main_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/main_margin"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/item_we_300">
             <include
                 android:id="@+id/calendar_layout"
-                layout="@layout/calendar_month_layout"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent"/>
+                layout="@layout/calendar_month_layout"/>
         </LinearLayout>
 
         <LinearLayout

@@ -18,7 +18,7 @@ class StatisticsStateAdapter(
     override fun getItemCount()=pageCount
 
     override fun createFragment(position: Int): Fragment {
-        val statisticsTopFragment = StatisticsFragment(slideFrame,slideLayout)
+        val statisticsTopFragment = OneStatisticsFragment(slideFrame,slideLayout)
         statisticsTopFragment.pageIndex = position
         return statisticsTopFragment
     }

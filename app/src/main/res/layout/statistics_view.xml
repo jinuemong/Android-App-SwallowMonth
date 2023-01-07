@@ -30,7 +30,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/item_height_big"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -109,14 +109,14 @@
     <LinearLayout
         android:backgroundTint="@color/color_type2"
         android:background="@drawable/round_border"
-        android:layout_margin="@dimen/main_margin"
+        android:layout_margin="@dimen/fab_margin_12dp"
         android:padding="@dimen/main_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/item_we_300">
         <include
             android:id="@+id/calendar_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             layout="@layout/calendar_month_layout"/>
     </LinearLayout>
 

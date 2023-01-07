@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.SwallowMonthJM.Calendar.CalendarAdapterNormal
+import com.example.SwallowMonthJM.Calendar.CalendarAdapterRoutine
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.R
@@ -59,7 +59,7 @@ class RoutineSlider(
     }
 
     private fun initCalendar(){
-        calendar.adapter = CalendarAdapterNormal(mainActivity,calendarLinear,
+        calendar.adapter = CalendarAdapterRoutine(mainActivity,calendarLinear,
         mainActivity.viewModel.todayDate,mainActivity.viewModel.currentMonth.value!!,routine,dPosition)
     }
 }

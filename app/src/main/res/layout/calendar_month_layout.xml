@@ -8,13 +8,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:layout_marginStart="@dimen/main_margin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
+            android:gravity="center"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,6 +23,7 @@
             android:textSize="@dimen/item_height_mid_text_size" />
 
         <TextView
+            android:gravity="center"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
             android:textSize="@dimen/item_height_mid_text_size" />
 
         <TextView
+            android:gravity="center"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,6 +41,7 @@
             android:textSize="@dimen/item_height_mid_text_size" />
 
         <TextView
+            android:gravity="center"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +50,7 @@
             android:textSize="@dimen/item_height_mid_text_size" />
 
         <TextView
+            android:gravity="center"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,6 +59,7 @@
             android:textSize="@dimen/item_height_mid_text_size" />
 
         <TextView
+            android:gravity="center"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,6 +68,7 @@
             android:textSize="@dimen/item_height_mid_text_size" />
 
         <TextView
+            android:gravity="center"
             style="@style/TextView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

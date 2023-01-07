@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class StatisticsFragment(
+class OneStatisticsFragment(
     private val slideFrame : SlidingUpPanelLayout,
     private val slideLayout: View,
 ) : Fragment() {
@@ -30,6 +30,7 @@ class StatisticsFragment(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        mainActivity = context as MainActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
