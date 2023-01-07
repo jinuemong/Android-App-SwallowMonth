@@ -96,7 +96,9 @@ class OneStatisticsFragment(
             }
         })
 
-        //////////////////////////////////
+        mainActivity.viewModel.apply {
+
+        }
     }
 
 }
