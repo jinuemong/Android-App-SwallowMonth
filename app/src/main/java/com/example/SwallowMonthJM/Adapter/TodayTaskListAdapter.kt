@@ -38,7 +38,7 @@ class TodayTaskListAdapter(
             }else{
                 binding.topTextTodayDay.setText(dayOfWeek[(absoluteAdapterPosition%7)])
             }
-            binding.topTextTodayTask.text = ", ${item.keyDate}.${item.day}"
+            binding.topTextTodayTask.text = " ${item.keyDate}.${item.day}"
 
             binding.routineViewItemTodayTask.adapter =
                 TodayMIniTaskListAdapter(mainActivity,item.day,routineList,null).apply {
