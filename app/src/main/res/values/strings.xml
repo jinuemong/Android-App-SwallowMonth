@@ -47,4 +47,6 @@
     <string name="complete_0">complete : 0</string>
     <string name="activity_0">activity : 0</string>
     <string name="point_0">point : 0</string>
+    <string name="manage_your_month_periodically">Manage your month periodically!</string>
+    <string name="swallow_a_month">Swallow a Month</string>
 </resources>
