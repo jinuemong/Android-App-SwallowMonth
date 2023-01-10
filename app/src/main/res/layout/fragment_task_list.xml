@@ -34,6 +34,12 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/fab_margin">
+                <ImageView
+                    android:src="@drawable/main_icon"
+                    android:layout_width="@dimen/item_mid_height_30"
+                    android:layout_height="@dimen/item_mid_height_30"
+                    android:gravity="center"
+                    android:orientation="vertical"/>
 
 
                     <LinearLayout
