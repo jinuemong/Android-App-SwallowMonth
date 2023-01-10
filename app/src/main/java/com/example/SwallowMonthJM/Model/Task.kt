@@ -4,6 +4,7 @@ import java.io.Serializable
 
 class Task(
     var id :Int?,
+    var dayDataId: Int?,
     var text: String,
     var isDone : Boolean,
     var iconType :Int=0,

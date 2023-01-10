@@ -51,21 +51,6 @@ class FragmentStatistics : Fragment() {
         stateAdapter.apply {
             binding.viewPagerInStatistics.currentItem = this.fragmentPosition
         }
-//        binding.statisticsRecycler.adapter = TodayTaskListAdapter(
-//            mainActivity,
-//            mainActivity.viewModel.dayLiveData.value!!,
-//            mainActivity.routineViewModel.routineLivData.value!!,
-//            binding.slideFrame,
-//            binding.slideLayout,
-//        )
-//        mainActivity.viewModel.currentMonth.observe(mainActivity, Observer {
-//            mainActivity.viewModel.currentMonthArr.apply {
-//                if (this.size>0) {
-//                    (binding.statisticsRecycler.adapter as TodayTaskListAdapter)
-//                        .setData(this)
-//                }
-//            }
-//        })
     }
 
 }

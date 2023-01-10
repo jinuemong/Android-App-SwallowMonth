@@ -29,7 +29,7 @@ class AddTaskRoutineViewModel : ViewModel(){
         } else if (startNum == -1 && endNum == -1) {
             null
         } else {
-            Task(null, text, false, iconType, level+1,0)
+            Task(null,null, text, false, iconType, level+1,0)
         }
     }
     fun getTextData():String{
