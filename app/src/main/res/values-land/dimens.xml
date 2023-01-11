@@ -13,7 +13,8 @@
     <dimen name="item_mid_40_height">120dp</dimen>
     <dimen name="item_mid_height_20dp">60dp</dimen>
     <dimen name="main_margin">15dp</dimen>
-    <dimen name="item_mid_2_height">150dp</dimen>
+    <dimen name="main_margin_10">30dp</dimen>
+    <dimen name="item_mid_50_height">150dp</dimen>
     <dimen name="item_height_double_big_text_size">150sp</dimen>
     <dimen name="item_height_big_text_size_35">105sp</dimen>
     <dimen name="item_height_big_text_size">75sp</dimen>

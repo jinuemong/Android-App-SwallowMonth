@@ -49,4 +49,11 @@
     <string name="point_0">point : 0</string>
     <string name="manage_your_month_periodically">Manage your month periodically!</string>
     <string name="swallow_a_month">Swallow a Month</string>
+    <string name="swallowmonth">SwallowMonth</string>
+    <string name="put_id_mess">아이디를 입력해주세요.</string>
+    <string name="put_pass_mess">비밀번호를 입력해주세요.</string>
+    <string name="put_pass_mes_repeat">비밀번호를 다시 입력해주세요.</string>
+    <string name="insert_mess">회원가입</string>
+    <string name="login_mess">로그인</string>
+    <string name="back_mess">뒤로가기</string>
 </resources>

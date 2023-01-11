@@ -40,8 +40,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="@dimen/item_mid_2_height"
-                android:layout_height="@dimen/item_mid_2_height"
+                android:layout_width="@dimen/item_mid_50_height"
+                android:layout_height="@dimen/item_mid_50_height"
                 android:layout_margin="@dimen/fab_margin_12dp"
                 android:src="@drawable/ic_baseline_arrow_back_24" />
 
@@ -105,8 +105,8 @@
             </LinearLayout>
 
             <ImageView
-                android:layout_width="@dimen/item_mid_2_height"
-                android:layout_height="@dimen/item_mid_2_height"
+                android:layout_width="@dimen/item_mid_50_height"
+                android:layout_height="@dimen/item_mid_50_height"
                 android:layout_margin="@dimen/fab_margin_12dp"
                 android:src="@drawable/ic_baseline_arrow_forward_24" />
         </LinearLayout>

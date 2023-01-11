@@ -111,7 +111,7 @@
                             android:id="@+id/task_list_calendar"
                             style="@style/TextView1"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/item_mid_2_height"
+                            android:layout_height="@dimen/item_mid_50_height"
                             android:layout_margin="@dimen/fab_margin"
                             android:backgroundTint="@color/color_type2"
                             android:drawableLeft="@drawable/ic_iconmonstr_calendar_6"

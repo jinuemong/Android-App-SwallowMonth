@@ -15,7 +15,7 @@
             android:orientation="horizontal"
             android:layout_margin="@dimen/main_margin"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_mid_2_height">
+            android:layout_height="@dimen/item_mid_50_height">
             <ImageView
                 android:id="@+id/add_routine_back"
                 app:layout_constraintTop_toTopOf="parent"
@@ -76,7 +76,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:padding="@dimen/main_margin"
-                android:layout_height="@dimen/item_mid_2_height">
+                android:layout_height="@dimen/item_mid_50_height">
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/add_routine_tab_layout"
                     android:layout_width="match_parent"

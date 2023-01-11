@@ -34,7 +34,7 @@
             <TextView
                 style="@style/level_big"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/item_mid_2_height"
+                android:layout_height="@dimen/item_mid_50_height"
                 android:text="level 1" />
 
             <TextView
@@ -56,7 +56,7 @@
             <TextView
                 style="@style/level_big"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/item_mid_2_height"
+                android:layout_height="@dimen/item_mid_50_height"
                 android:text="level 2" />
 
             <TextView
@@ -78,7 +78,7 @@
                 android:text="level 3"
                 style="@style/level_big"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/item_mid_2_height"/>
+                android:layout_height="@dimen/item_mid_50_height"/>
             <TextView
                 android:text="about 1 to 3 hours"
                 style="@style/level_small"
@@ -97,7 +97,7 @@
                 android:text="level 4"
                 style="@style/level_big"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/item_mid_2_height"/>
+                android:layout_height="@dimen/item_mid_50_height"/>
             <TextView
                 android:text="about 3 to 6 hours"
                 style="@style/level_small"
@@ -116,7 +116,7 @@
                 android:text="level 5"
                 style="@style/level_big"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/item_mid_2_height"/>
+                android:layout_height="@dimen/item_mid_50_height"/>
             <TextView
                 android:text="more than 6 hours"
                 style="@style/level_small"

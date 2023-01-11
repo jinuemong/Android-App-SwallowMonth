@@ -112,8 +112,8 @@
 
             <ImageView
                 android:id="@+id/task_icon"
-                android:layout_width="@dimen/item_mid_2_height"
-                android:layout_height="@dimen/item_mid_2_height"
+                android:layout_width="@dimen/item_mid_50_height"
+                android:layout_height="@dimen/item_mid_50_height"
                 android:src="@drawable/ic_iconmonstr_calendar_6" />
 
             <TextView

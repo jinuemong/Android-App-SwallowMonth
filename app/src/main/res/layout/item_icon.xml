@@ -14,6 +14,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="@dimen/item_mid_2_height"
-        android:layout_height="@dimen/item_mid_2_height"/>
+        android:layout_width="@dimen/item_mid_50_height"
+        android:layout_height="@dimen/item_mid_50_height"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

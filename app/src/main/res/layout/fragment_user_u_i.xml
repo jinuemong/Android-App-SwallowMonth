@@ -74,7 +74,7 @@
             android:text="goals"
             android:layout_margin="@dimen/fab_margin"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_mid_2_height"/>
+            android:layout_height="@dimen/item_mid_50_height"/>
 
 
     </LinearLayout>
