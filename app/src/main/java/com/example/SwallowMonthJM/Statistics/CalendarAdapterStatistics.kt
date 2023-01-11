@@ -28,7 +28,7 @@ class CalendarAdapterStatistics(
 
     // init calendar
     private var customCalendar: CustomCalendar =
-        CustomCalendar(date, dateDay, currentMonth, dateMonth, mainActivity.viewModel.dateTime)
+        CustomCalendar(date, dateDay, currentMonth, dateMonth)
 
     init {
         customCalendar.initBaseCalendar()

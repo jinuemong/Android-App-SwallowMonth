@@ -65,7 +65,7 @@ class FragmentTaskList : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initView(){
-        binding.taskListCalendar.text = mainActivity.viewModel.dateTime
+        binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         binding.taskListPer.progress = mainActivity.viewModel.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
 
@@ -155,7 +155,7 @@ class FragmentTaskList : Fragment() {
     private fun changeCalendar(year:Int, month:Int){
         mainActivity.viewModel.apply {
             initCurrentData(getDate(year,month))
-            binding.taskListCalendar.text = this.dateTime
+            binding.taskListCalendar.text = this.currentDate.keyDate
         }
         initRecyclerView()
         initAni()

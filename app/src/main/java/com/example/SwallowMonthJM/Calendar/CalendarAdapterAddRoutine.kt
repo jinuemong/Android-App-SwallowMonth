@@ -33,7 +33,7 @@ class CalendarAdapterAddRoutine(
 
     // init calendar
     private var customCalendar: CustomCalendar =
-        CustomCalendar(date, dateDay, currentMonth, dateMonth, mainActivity.viewModel.dateTime)
+        CustomCalendar(date, dateDay, currentMonth, dateMonth)
 
     init {
         customCalendar.initBaseCalendar()
@@ -120,7 +120,9 @@ class CalendarAdapterAddRoutine(
                             }
                         })
                     }else{
+
                         selectedNum = -1
+                        mainActivity.addViewModel.keyData = ""
                         mainActivity.addViewModel.cycle = 99
                         mainActivity.addViewModel.totalRoutine = -1
                         mainActivity.addViewModel.topText = ""

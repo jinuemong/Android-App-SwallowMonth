@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.Calendar
 
 import com.example.SwallowMonthJM.Model.DayData
+import java.text.SimpleDateFormat
 import java.util.*
 
 //각 달의 일수 표현
@@ -9,7 +10,7 @@ class CustomCalendar(
     private val currentDay:Int,
     private val currentMonth:Int,
     private val dateMonth:Int,
-    private val dateTime : String
+
 ) {
     //주당 7일 * 6주 총 42개의 데이터 전달
     companion object {
@@ -22,9 +23,10 @@ class CustomCalendar(
     var nextHead = 0 //다음달 앞부분
     var currentMaxDate = 0 //현재 달
     var dateList = ArrayList<DayData>()
-
+    var keyDate:String = ""
     init {
         calendar.time=date
+        keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(date)
     }
 
     //해당 fragment 에서 실행 해줌
@@ -74,7 +76,7 @@ class CustomCalendar(
             val isToday = (currentDay==i && currentMonth==dateMonth)
             dateList.add(
                 DayData(null,
-                    dateTime,
+                    keyDate,
                 i,
                 isSelected = isToday,
                 monthIndex = 0,
@@ -102,7 +104,7 @@ class CustomCalendar(
     }
 
     private fun getCurrentData(monthIndex : Int) : String{
-        val date = dateTime.split(".")
+        val date = keyDate.split(".")
         val year = date[0].toInt()
 
         return when(val month = date[1].toInt()+monthIndex){

@@ -38,6 +38,7 @@ class CyclePickerDialog(
             val cycleInPic = cyclePicker!!.value
 
             mainActivity.addViewModel.apply {
+                keyData = mainActivity.viewModel.currentDate.keyDate
                 cycle = cycleInPic
                 totalRoutine = routineDay
                 topText = topTextInPicker

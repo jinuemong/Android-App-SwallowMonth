@@ -27,7 +27,7 @@ class RoutineViewModel(
     fun addRoutineData(routine:Routine){
         for (i in 0 until routine.totalRoutine){
             val dayIndex = routine.startNum+i*routine.cycle
-            routine.dayRoutineList[dayIndex] = DayRoutine(dayIndex,false)
+            routine.dayRoutineList[dayIndex] = DayRoutine(null,null,dayIndex,false)
         }
         currentRoutineArr.add(routine)
         routineLivData.value = currentRoutineArr

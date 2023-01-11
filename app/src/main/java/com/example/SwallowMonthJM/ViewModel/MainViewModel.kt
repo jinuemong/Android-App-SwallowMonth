@@ -19,7 +19,6 @@ class MainViewModel : ViewModel(){
     var currentRoutineCount = 0
     lateinit var currentDate : CustomCalendar
     var currentMonthArr = ArrayList<DayData>()
-    lateinit var dateTime:String
     lateinit var todayDate : Date
     var currentYear = MutableLiveData<Int>()
     var currentMonth=MutableLiveData<Int>()
@@ -38,9 +37,6 @@ class MainViewModel : ViewModel(){
     }
     private fun setCurrentMonth(month:Int){
         currentMonth.value = month
-    }
-    private fun setDateTime(year:Int, month:Int){
-        dateTime = "$year.$month"
     }
 
     fun setCurrentDayPosition(dayPosition:Int){
@@ -62,8 +58,7 @@ class MainViewModel : ViewModel(){
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(data).toInt()
         setCurrentYear(dateYear)
         setCurrentMonth(dateMonth)
-        setDateTime(dateYear,dateMonth)
-        currentDate = CustomCalendar(data,dateDay,todayMonth,dateMonth,dateTime)
+        currentDate = CustomCalendar(data,dateDay,todayMonth,dateMonth)
         currentDate.initBaseCalendar()
         currentMonthArr = currentDate.dateList
     }

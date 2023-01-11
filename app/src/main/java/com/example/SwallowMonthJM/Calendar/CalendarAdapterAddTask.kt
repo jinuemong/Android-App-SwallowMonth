@@ -28,7 +28,7 @@ class CalendarAdapterAddTask(
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
     // init calendar
-    var customCalendar: CustomCalendar = CustomCalendar(date, dateDay, currentMonth, dateMonth,mainActivity.viewModel.dateTime)
+    var customCalendar: CustomCalendar = CustomCalendar(date, dateDay, currentMonth, dateMonth)
     init {
         customCalendar.initBaseCalendar()
         dataSet = customCalendar.dateList

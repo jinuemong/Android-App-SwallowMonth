@@ -11,6 +11,7 @@ class AddTaskRoutineViewModel : ViewModel(){
     var level :Int = -1
     var text : String = ""
     var cycle:Int = 99
+    var keyData : String = ""
     var totalRoutine : Int = -1
     var topText :String = ""
     // 범위
@@ -46,11 +47,13 @@ class AddTaskRoutineViewModel : ViewModel(){
             null
         } else if (totalRoutine==-1) {
             null
-        } else if (topText==""){
-
+        } else if (topText=="") {
+            null
+        } else if (keyData==""){
             null
         }else{
-            Routine(null,text,cycle,startNum,totalRoutine,0,iconType,topText,HashMap())
+            Routine(null,keyData,text,cycle,startNum,totalRoutine,
+                0,iconType,topText,HashMap())
         }
     }
     fun reset(){
@@ -58,6 +61,7 @@ class AddTaskRoutineViewModel : ViewModel(){
         level= -1
         text  = ""
         startNum = -1
+        keyData = ""
         endNum = -1
         cycle = 99
         totalRoutine = -1
