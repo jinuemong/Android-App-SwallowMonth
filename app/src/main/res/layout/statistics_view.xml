@@ -116,7 +116,7 @@
             android:layout_height="@dimen/item_we_300"
             android:layout_margin="@dimen/fab_margin_12dp"
             android:background="@drawable/round_border"
-            android:backgroundTint="@color/color_type2"
+            android:backgroundTint="@color/color_type3"
             android:padding="@dimen/main_margin">
 
             <include

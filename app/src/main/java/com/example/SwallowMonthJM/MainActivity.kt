@@ -3,6 +3,8 @@ package com.example.SwallowMonthJM
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
@@ -56,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     private val iconView = arrayOf(
         R.drawable.ic_baseline_home_24,
         R.drawable.ic_iconmonstr_bar_chart_thin,
+        R.drawable.ic_add_box_24,
         R.drawable.ic_iconmonstr_refresh_7,
         R.drawable.ic_iconmonstr_user_male_thin
     )
@@ -112,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         fragmentPageAdapter.apply {
             addFragment(FragmentTaskList())
             addFragment(FragmentStatistics())
+            addFragment(Fragment())
             addFragment(FragmentRepeatTaskList())
             addFragment(FragmentUserUI())
         }
@@ -135,6 +139,9 @@ class MainActivity : AppCompatActivity() {
         { tab, position ->
             tab.setIcon(iconView[position])
         }.attach()
+        val tab = binding.mainBottomTabLayout.getChildAt(0) as ViewGroup
+        val tabView = tab.getChildAt(2)
+        tabView.visibility = View.INVISIBLE
     }
 
     fun onFragmentChange(goFragment: Fragment) {
