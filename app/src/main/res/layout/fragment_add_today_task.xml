@@ -62,7 +62,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/routine_add_button"
+                    android:id="@+id/add_today_button"
                     android:layout_width="@dimen/item_height"
                     android:layout_height="@dimen/item_height"
                     android:src="@drawable/ic_add_box_24" />
