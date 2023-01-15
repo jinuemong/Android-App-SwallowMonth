@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTaskRoutineFragment.AddTodayTaskFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_margin="@dimen/fab_margin_12dp"
+            android:textColor="@color/color_type1"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textSize="@dimen/item_height_big_text_size_35"
+            android:text="@string/add_today_task"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"/>
+
+        <LinearLayout
+            android:layout_margin="@dimen/fab_margin_12dp"
+            android:id="@+id/frag_add_left"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_big_80"
+            android:background="@drawable/round_border"
+            android:gravity="center"
+            android:paddingStart="@dimen/fab_margin"
+            android:paddingEnd="@dimen/fab_margin">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/add_task_select_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_icon" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_margin="@dimen/main_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fab_margin_12dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/add_today_edit"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/item_height"
+                android:layout_margin="@dimen/main_margin"
+                android:layout_weight="5"
+                android:background="@drawable/round_border"
+                android:hint="@string/typing_in_your_task"
+                android:padding="@dimen/main_margin" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/routine_add_button"
+                    android:layout_width="@dimen/item_height"
+                    android:layout_height="@dimen/item_height"
+                    android:src="@drawable/ic_add_box_24" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/select_level_box"
+            layout="@layout/fragment_task_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/commit_button"
+            android:text="commit"
+            android:layout_margin="@dimen/main_margin_10"
+            android:layout_gravity="center"
+            style="@style/ButtonText_big"
+            android:layout_width="@dimen/item_we_300"
+            android:layout_height="@dimen/item_height_big_70"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+

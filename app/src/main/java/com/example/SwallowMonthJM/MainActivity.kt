@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
+import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTodayTaskFragment
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
@@ -42,6 +45,8 @@ class MainActivity : AppCompatActivity() {
             .Factory(this@MainActivity))[TaskViewModel::class.java]
     }
     lateinit var frManger: FragmentManager
+    private var backPressTime = 0
+    private lateinit var callback: OnBackPressedCallback
     private lateinit var fragmentPageAdapter: FragmentAdapter
     lateinit var viewPager: ViewPager2
 
@@ -81,6 +86,19 @@ class MainActivity : AppCompatActivity() {
         initView()
         setUpListener()
 
+        //뒤로가기 조작 (2초 이내 연속 클릭 시 종료)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis()>backPressTime+2000){
+                    backPressTime = System.currentTimeMillis().toInt()
+                    Toast.makeText(applicationContext,"'뒤로' 버틀을 한번 더 누르시면 앱이 종료됩니다."
+                        ,Toast.LENGTH_SHORT).show()
+                }
+                if (System.currentTimeMillis()<=backPressTime+2000){
+                    finish()
+                }
+            }
+        }
     }
 
     private fun initView() {
@@ -99,6 +117,10 @@ class MainActivity : AppCompatActivity() {
         binding.addTaskButton.setOnClickListener {
             onFragmentChange(AddTaskFragment())
         }
+        binding.addTodayTask.setOnClickListener {
+            onFragmentChange(AddTodayTaskFragment())
+        }
+
     }
 
     private fun initCurrentDate() {

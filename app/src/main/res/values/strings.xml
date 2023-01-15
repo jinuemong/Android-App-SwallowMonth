@@ -56,4 +56,5 @@
     <string name="insert_mess">회원가입</string>
     <string name="login_mess">로그인</string>
     <string name="back_mess">뒤로가기</string>
+    <string name="add_today_task">add Today Task</string>
 </resources>
