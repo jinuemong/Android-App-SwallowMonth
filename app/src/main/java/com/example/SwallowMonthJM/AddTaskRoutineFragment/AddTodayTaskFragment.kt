@@ -41,7 +41,7 @@ class AddTodayTaskFragment : Fragment() {
     }
 
     private fun initView(){
-        mainActivity.viewModel.currentDayPosition
+        mainActivity.addViewModel.startNum = mainActivity.viewModel.currentDayPosition.value!!
         //아이콘 선택
         binding.addTaskSelectIcon.apply {
             adapter = IconAdapter(mainActivity).apply {
