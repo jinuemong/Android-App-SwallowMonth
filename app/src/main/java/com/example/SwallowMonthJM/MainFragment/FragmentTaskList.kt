@@ -109,7 +109,7 @@ class FragmentTaskList : Fragment() {
     }
 
     private fun initRecyclerView(){
-        val todayIndex = mainActivity.viewModel.currentDate.todayIndex
+        val todayIndex = mainActivity.viewModel.currentDate.currentIndex
         mainActivity.viewModel.setCurrentDayPosition(todayIndex)
         binding.taskListHoCalendar.apply {
             setHasFixedSize(true)

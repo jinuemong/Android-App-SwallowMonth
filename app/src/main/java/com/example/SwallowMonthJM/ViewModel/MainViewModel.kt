@@ -9,17 +9,23 @@ import java.util.*
 
 //일정 리스트 관리
 class MainViewModel : ViewModel(){
+
+    lateinit var todayDate : Date
+    var todayYear = 0
     var todayMonth =0
+    var todayDayPosition = 0
+
     var totalPer = 0
     var totalPoint = 0
     var dayLiveData = MutableLiveData<ArrayList<DayData>>()
+
     var currentTotalTask = 0
     var currentTotalRoutine = 0
     var currentTaskCount = 0
     var currentRoutineCount = 0
     lateinit var currentDate : CustomCalendar
     var currentMonthArr = ArrayList<DayData>()
-    lateinit var todayDate : Date
+
     var currentYear = MutableLiveData<Int>()
     var currentMonth=MutableLiveData<Int>()
     var currentDayPosition= MutableLiveData<Int>()
@@ -61,7 +67,13 @@ class MainViewModel : ViewModel(){
         currentDate = CustomCalendar(data,dateDay,todayMonth,dateMonth)
         currentDate.initBaseCalendar()
         currentMonthArr = currentDate.dateList
+
+        if(todayYear==0) {
+            todayYear =dateYear
+            todayDayPosition = currentDate.currentIndex
+        }
     }
+
 
     fun getTotalTask(): String{
         val taskList = currentMonthArr[currentDayPosition.value!!].taskList

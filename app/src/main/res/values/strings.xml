@@ -24,10 +24,10 @@
     <string name="sat">SAT</string>
 
     <string name="result">Result Box</string>
-    <string name="edit_profile">편집</string>
-    <string name="logout_profile">로그아웃</string>
-    <string name="add_routine">add Routine</string>
-    <string name="add_task">add Task</string>
+    <string name="edit_profile">Edit</string>
+    <string name="logout_profile">Logout</string>
+    <string name="add_routine">Add Routine</string>
+    <string name="add_task">Add Task</string>
     <string name="commit">commit</string>
     <string name="day_tasks">Day Tasks</string>
     <string name="todo">Todo</string>
@@ -49,12 +49,12 @@
     <string name="point_0">point : 0</string>
     <string name="manage_your_month_periodically">Manage your month periodically!</string>
     <string name="swallow_a_month">Swallow a Month</string>
-    <string name="swallowmonth">SwallowMonth</string>
-    <string name="put_id_mess">아이디를 입력해주세요.</string>
-    <string name="put_pass_mess">비밀번호를 입력해주세요.</string>
-    <string name="put_pass_mes_repeat">비밀번호를 다시 입력해주세요.</string>
-    <string name="insert_mess">회원가입</string>
-    <string name="login_mess">로그인</string>
-    <string name="back_mess">뒤로가기</string>
-    <string name="add_today_task">add Today Task</string>
+    <string name="swallow_month">SwallowMonth</string>
+    <string name="put_id_mess">Enter your ID</string>
+    <string name="put_pass_mess">Enter your password</string>
+    <string name="put_pass_mes_repeat">Re-enter your password.</string>
+    <string name="insert_mess">Sign up</string>
+    <string name="login_mess">Login</string>
+    <string name="back_mess">Back</string>
+    <string name="add_today_task">Add Today Task</string>
 </resources>

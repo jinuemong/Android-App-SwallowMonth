@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/item_mid_height_30"
-            android:text="@string/swallowmonth"
+            android:text="@string/swallow_month"
             android:textSize="@dimen/item_height_double_big_text_size" />
     </LinearLayout>
     <EditText

@@ -10,15 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:layout_margin="@dimen/fab_margin_12dp"
-            android:textColor="@color/color_type1"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textSize="@dimen/item_height_big_text_size_35"
-            android:text="@string/add_today_task"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/item_height"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height">
+            <ImageView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/circle_border"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_width="@dimen/item_mid_40_height"
+                android:layout_height="@dimen/item_mid_40_height"/>
+            <TextView
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/color_type1"
+                android:textStyle="bold"
+                android:textSize="@dimen/item_height_big_text_size_35"
+                android:text="@string/add_today_task"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_margin="@dimen/fab_margin_12dp"
@@ -83,6 +99,9 @@
             style="@style/ButtonText_big"
             android:layout_width="@dimen/item_we_300"
             android:layout_height="@dimen/item_height_big_70"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_mid_height_30"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
 

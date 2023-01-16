@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
@@ -21,10 +22,18 @@ class AddTodayTaskFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private var selectedNum = -1
     private var layoutList = ArrayList<LinearLayout>()
+    private lateinit var callback : OnBackPressedCallback
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
         mainActivity.addViewModel.addType = "task"
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                mainActivity.onFragmentGoBack(this@AddTodayTaskFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +56,7 @@ class AddTodayTaskFragment : Fragment() {
     }
 
     private fun initView(){
-        mainActivity.addViewModel.startNum = mainActivity.viewModel.currentDayPosition.value!!
+        mainActivity.addViewModel.startNum = mainActivity.viewModel.todayDayPosition
         //아이콘 선택
         binding.addTaskSelectIcon.apply {
             adapter = IconAdapter(mainActivity).apply {
