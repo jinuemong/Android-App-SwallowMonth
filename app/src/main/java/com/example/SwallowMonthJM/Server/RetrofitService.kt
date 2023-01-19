@@ -28,5 +28,5 @@ interface RetrofitService {
     @GET("user/profile/")
     fun getProfile(
         @Query(value = "search",encoded = true)userName: String
-    ): Call<Profile>
+    ): Call<ArrayList<Profile>>
 }

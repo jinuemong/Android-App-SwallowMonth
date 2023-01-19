@@ -8,7 +8,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class MasterApplication:Application(
 
@@ -20,7 +19,7 @@ class MasterApplication:Application(
         Stetho.initializeWithDefaults(this)
         createRetrofit()
     }
-    private fun createRetrofit(){
+    fun createRetrofit(){
 
         val header = Interceptor{
             val original = it.request()

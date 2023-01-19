@@ -33,7 +33,7 @@ class IntroActivity : AppCompatActivity() {
             super.run()
             try {
                 sleep(3000)
-                val intent = Intent(applicationContext,MainActivity::class.java)
+                val intent = Intent(applicationContext,LoginActivity::class.java)
                 startActivity(intent)
             } catch (e: InterruptedException) {
                 e.printStackTrace()

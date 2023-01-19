@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTodayTaskFragment
@@ -23,12 +24,17 @@ import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
+import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.ViewModel.AddTaskRoutineViewModel
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.ViewModel.RoutineViewModel
 import com.example.SwallowMonthJM.ViewModel.TaskViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,6 +80,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        // user profile 세팅
+        val username = intent.getStringExtra("username").toString()
+        (application as MasterApplication).service.getProfile(username)
+            .enqueue(object :Callback<ArrayList<Profile>>{
+                override fun onResponse(call: Call<ArrayList<Profile>>, response: Response<ArrayList<Profile>>) {
+                    if(response.isSuccessful && response.body()!=null){
+                        val profile  =response.body()!![0]
+                        viewModel.profile = profile
+                        binding.apply {
+                            mainTopName.text = profile.userName
+                            mainTopComment.text = profile.userComment
+                            Glide.with(this@MainActivity)
+                                .load(profile.userImage)
+                                .into(mainTopImage)
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<ArrayList<Profile>>, t: Throwable) {}
+            })
 
         //애니메이션 설정
         aniList = arrayOf(

@@ -3,7 +3,7 @@ package com.example.SwallowMonthJM.Model
 import java.io.Serializable
 
 class User(
-    userName : String ,
-    last_login : String?,
-    token : String?
+    var userName : String ,
+    var last_login : String?,
+    var token : String?
 ):Serializable

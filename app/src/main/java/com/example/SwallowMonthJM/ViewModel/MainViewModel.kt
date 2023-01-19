@@ -4,11 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.Model.DayData
+import com.example.SwallowMonthJM.Model.Profile
 import java.text.SimpleDateFormat
 import java.util.*
 
 //일정 리스트 관리
 class MainViewModel : ViewModel(){
+    lateinit var profile : Profile
 
     lateinit var todayDate : Date
     var todayYear = 0
