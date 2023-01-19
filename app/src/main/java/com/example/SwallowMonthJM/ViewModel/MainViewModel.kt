@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
+import com.example.SwallowMonthJM.Manager.DayDateManager
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Profile
 import java.text.SimpleDateFormat
@@ -11,7 +12,7 @@ import java.util.*
 //일정 리스트 관리
 class MainViewModel : ViewModel(){
     lateinit var profile : Profile
-
+    lateinit var dayDataManager:DayDateManager
     lateinit var todayDate : Date
     var todayYear = 0
     var todayMonth =0
@@ -66,9 +67,21 @@ class MainViewModel : ViewModel(){
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(data).toInt()
         setCurrentYear(dateYear)
         setCurrentMonth(dateMonth)
-        currentDate = CustomCalendar(data,dateDay,todayMonth,dateMonth)
-        currentDate.initBaseCalendar()
-        currentMonthArr = currentDate.dateList
+        val keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(data)
+
+        //서버와 연결 - 해당 데이터가 없을 경우 새로 생성
+        dayDataManager.getKeyDateDayData(profile.userName,keyDate, paramFun = {
+            if (it!=null){
+                if (it.size>0){
+                    currentMonthArr = it
+                }else{
+                    //데이터가 없을 경우 새로 생성
+                    currentDate = CustomCalendar(data,keyDate,dateDay,todayMonth,dateMonth)
+                    currentDate.initBaseCalendar()
+                    currentMonthArr = currentDate.dateList
+                }
+            }
+        })
 
         if(todayYear==0) {
             todayYear =dateYear
