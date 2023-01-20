@@ -34,7 +34,8 @@ private val isDone : Boolean,
         :RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
         fun bind(item: Routine){
-            if(item.dayRoutineList.containsKey(dayPosition) && (item.dayRoutineList[dayPosition]!!.clear==isDone)){
+            val dayRoutine = item.dayRoutinePost.find { it.dayIndex==dayPosition}
+            if(dayRoutine!=null && (dayRoutine.clear==isDone)){
                 binding.routineIcon.setImageResource(calendarIcon[item.iconType])
                 binding.routineText.text = item.text
 

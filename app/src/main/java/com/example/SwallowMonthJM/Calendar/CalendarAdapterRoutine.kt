@@ -49,25 +49,43 @@ class CalendarAdapterRoutine(
 //                LinearLayout.LayoutParams(calendarLayout.width / 7, calendarLayout.height / 6)
 //            binding.root.layoutParams = params
 
-            if (routine.dayRoutineList.containsKey(absoluteAdapterPosition)){
-                if(dataSet[absoluteAdapterPosition].day<dateDay){
-                    if (routine.dayRoutineList[absoluteAdapterPosition]!!.clear){
+            val dayRoutine = routine.dayRoutinePost.find { it.dayIndex==absoluteAdapterPosition}
+            if ( dayRoutine==null){
+                binding.reset()
+            }else{
+                if (dataSet[absoluteAdapterPosition].day<dateDay){
+                    if (routine.dayRoutinePost[absoluteAdapterPosition].clear){
                         binding.setClear()
-                    } else{
+                    }else{
                         binding.setFail()
                     }
-                }else if(dataSet[absoluteAdapterPosition].day==dateDay) {
-                    if (routine.dayRoutineList[absoluteAdapterPosition]!!.clear){
+                }else if (dataSet[absoluteAdapterPosition].day==dateDay){
+                    if (routine.dayRoutinePost[absoluteAdapterPosition].clear){
                         binding.setClear()
                     } else{
                         binding.setCalendar()
                     }
-                }else{
-                    binding.setCalendar()
                 }
-            }else{
-                binding.reset()
             }
+//            if (routine.dayRoutineList.containsKey(absoluteAdapterPosition)){
+//                if(dataSet[absoluteAdapterPosition].day<dateDay){
+//                    if (routine.dayRoutineList[absoluteAdapterPosition]!!.clear){
+//                        binding.setClear()
+//                    } else{
+//                        binding.setFail()
+//                    }
+//                }else if(dataSet[absoluteAdapterPosition].day==dateDay) {
+//                    if (routine.dayRoutineList[absoluteAdapterPosition]!!.clear){
+//                        binding.setClear()
+//                    } else{
+//                        binding.setCalendar()
+//                    }
+//                }else{
+//                    binding.setCalendar()
+//                }
+//            }else{
+//                binding.reset()
+//            }
 
             //오늘 날짜
             if (dataSet[absoluteAdapterPosition].isSelected) {

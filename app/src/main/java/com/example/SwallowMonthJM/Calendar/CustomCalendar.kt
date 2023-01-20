@@ -61,13 +61,15 @@ class CustomCalendar(
         var maxOffsetDate = maxDate-prevTail
         for (i in 1..prevTail){
             dateList.add(
-                DayData(null,
+                DayData(
                     getCurrentData(monthIndex),
-                ++maxOffsetDate,
-                isSelected = false,
-                monthIndex = monthIndex,
-                null,
-            ))
+                    ++maxOffsetDate,
+                    isSelected = false,
+                    monthIndex = monthIndex,
+                    null,
+                    null,
+                )
+            )
         }
     }
 
@@ -75,13 +77,15 @@ class CustomCalendar(
         for (i in 1..calendar.getActualMaximum(Calendar.DATE)) {
             val isToday = (currentDay==i && currentMonth==dateMonth)
             dateList.add(
-                DayData(null,
+                DayData(
                     keyDate,
-                i,
-                isSelected = isToday,
-                monthIndex = 0,
-                null,
-            ))
+                    i,
+                    isSelected = isToday,
+                    monthIndex = 0,
+                    null,
+                    null
+                )
+            )
             if(isToday){
                 currentIndex = dateList.lastIndex
             }
@@ -93,13 +97,15 @@ class CustomCalendar(
         var date = 1
         for (i in 1..nextHead){
             dateList.add(
-                DayData(null,
+                DayData(
                     getCurrentData(monthIndex),
-                date++,
-                isSelected = false,
-                monthIndex = monthIndex,
-                null,
-            ))
+                    date++,
+                    isSelected = false,
+                    monthIndex = monthIndex,
+                    null,
+                    null,
+                )
+            )
         }
     }
 

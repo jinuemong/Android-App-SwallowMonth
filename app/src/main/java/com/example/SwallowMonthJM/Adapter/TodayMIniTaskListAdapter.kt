@@ -50,8 +50,9 @@ class TodayMIniTaskListAdapter(
         }
 
         fun bindRoutine(item : Routine) {
-            if (item.dayRoutineList.containsKey(dayPosition)){
-                if (item.dayRoutineList[dayPosition]!!.clear){
+            val dayRoutine = item.dayRoutinePost.find { it.dayIndex==dayPosition}
+            if (dayRoutine!=null){
+                if (dayRoutine.clear){
                     binding.setChecked()
                 }else{
                     binding.setUnChecked()
