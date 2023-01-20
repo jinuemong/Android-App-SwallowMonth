@@ -66,21 +66,19 @@ class FragmentTaskList : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initView(){
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
-        binding.taskListPer.progress = mainActivity.viewModel.totalPer
-        binding.taskListPerText.text = mainActivity.viewModel.totalPer.toString()+"%"
+        binding.taskListPer.progress = mainActivity.viewModel.monthData.totalPer
+        binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
 
-        //남은 task + routine 설정
 
-        mainActivity.routineViewModel.setTotalRoutine()
-        binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+        binding.totalTask.text = mainActivity.viewModel.getActivityList()
 
         mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
-            binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+
+            binding.totalTask.text = mainActivity.viewModel.getActivityList()
         })
 
         mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
-            mainActivity.routineViewModel.setTotalRoutine()
-            binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+            binding.totalTask.text = mainActivity.viewModel.getActivityList()
         })
 
         initRecyclerView()
@@ -117,8 +115,7 @@ class FragmentTaskList : Fragment() {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
                         mainActivity.viewModel.setCurrentDayPosition(position)
-                        mainActivity.routineViewModel.setTotalRoutine()
-                        binding.totalTask.text = mainActivity.viewModel.getTotalTask()
+                        binding.totalTask.text = mainActivity.viewModel.getActivityList()
                         binding.bottomInTaskList.animation = mainActivity.aniList[1]
                         binding.bottomInTaskList.animation.start()
                     }
@@ -154,7 +151,7 @@ class FragmentTaskList : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun changeCalendar(year:Int, month:Int){
         mainActivity.viewModel.apply {
-            initCurrentData(getDate(year,month))
+            initCurrentData(getDate(year,month),mainActivity)
             binding.taskListCalendar.text = this.currentDate.keyDate
         }
         initRecyclerView()

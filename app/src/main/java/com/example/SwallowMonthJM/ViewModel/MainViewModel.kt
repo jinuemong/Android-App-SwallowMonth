@@ -103,5 +103,12 @@ class MainViewModel : ViewModel(){
         }
     }
 
+    //남은 task + routine 설정
+    fun getActivityList() : String{
+        var totalList = monthData.taskCount+monthData.dayRoutineCount
+        var clearList = monthData.doneTask+monthData.clearRoutine
+        return "${totalList-clearList}/$totalList"
+    }
+
 
 }

@@ -8,5 +8,5 @@ class DayData(
     var isSelected : Boolean,
     var monthIndex : Int,
     var taskList : ArrayList<Task>?,
-    var dayRoutineList : ArrayList<Routine>?,
+    var dayRoutinePost : ArrayList<Routine>?,
 ):Serializable

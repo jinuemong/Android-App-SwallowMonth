@@ -44,7 +44,7 @@ class TaskViewModel(
             task.isDone = true
             task.per = 100
             mainView.dayLiveData.value = mainView.currentMonthArr
-            mainView.totalPoint+= levelPoint[task.level]
+            mainView.monthData.totalPoint+= levelPoint[task.level]
         }
     }
 

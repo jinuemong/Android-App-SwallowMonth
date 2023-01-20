@@ -23,11 +23,12 @@ class RoutineViewModel(
     private var currentRoutineArr = ArrayList<Routine>()
     init {
         routineLivData.value = currentRoutineArr
-    }
+    }    var id : Int,
+
     fun addRoutineData(routine:Routine){
         for (i in 0 until routine.totalRoutine){
             val dayIndex = routine.startNum+i*routine.cycle
-            routine.dayRoutineList[dayIndex] = DayRoutine(null,null,dayIndex,false)
+            routine.dayRoutinePost[dayIndex] = DayRoutine(null,null,null,dayIndex,false)
         }
         currentRoutineArr.add(routine)
         routineLivData.value = currentRoutineArr
@@ -42,28 +43,10 @@ class RoutineViewModel(
         if(!dayRoutine.clear) {
             //one run
             routine.clearRoutine += 1
-            mainView.totalPoint+= levelPoint[0]
+            mainView.monthData.totalPoint+= levelPoint[0]
         }
         dayRoutine.clear = true
         routineLivData.value = currentRoutineArr
     }
 
-    fun setTotalRoutine(){
-        val routineList = routineLivData.value
-
-        if (routineList!=null){
-            val day = mainView.currentDayPosition.value!!
-            val totalRoutine = routineList.count{
-                it.dayRoutineList.containsKey(day)
-            }
-            val countRoutine = routineList.count {
-                it.dayRoutineList.containsKey(day)&&
-                        (!it.dayRoutineList[day]!!.clear)
-            }
-            mainView.apply {
-                currentTotalRoutine = totalRoutine
-                currentRoutineCount = countRoutine
-            }
-        }
-    }
 }
