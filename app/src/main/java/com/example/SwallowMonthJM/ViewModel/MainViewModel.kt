@@ -69,7 +69,7 @@ class MainViewModel : ViewModel(){
             time
         }
     }
-    fun initCurrentData(data:Date,mainActivity: MainActivity){
+    fun setCurrentData(data:Date, mainActivity: MainActivity){
         todayDate = data
         val dateYear : Int = SimpleDateFormat("yyyy",Locale.KOREA).format(data).toInt()
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(data).toInt()
@@ -93,7 +93,7 @@ class MainViewModel : ViewModel(){
             }
         })
         //현재 view 데이터 생성
-        currentDate = CustomCalendar(data, keyDate, dateDay, todayMonth, dateMonth)
+        currentDate = CustomCalendar(data, dateDay, todayMonth, dateMonth)
         currentDate.initBaseCalendar()
         currentMonthArr = currentDate.dateList
 

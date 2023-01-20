@@ -1,12 +1,12 @@
 package com.example.SwallowMonthJM.Calendar
 
 import com.example.SwallowMonthJM.Model.DayData
+import java.text.SimpleDateFormat
 import java.util.*
 
 //각 달의 일수 표현
 class CustomCalendar(
     date: Date,
-    keyData:String,
     private val currentDay:Int,
     private val currentMonth:Int,
     private val dateMonth:Int,
@@ -26,7 +26,7 @@ class CustomCalendar(
     var keyDate:String = ""
     init {
         calendar.time=date
-        keyDate = keyData
+        keyDate  = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(date)
     }
 
     //해당 fragment 에서 실행 해줌

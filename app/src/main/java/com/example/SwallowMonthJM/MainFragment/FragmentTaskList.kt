@@ -151,7 +151,7 @@ class FragmentTaskList : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun changeCalendar(year:Int, month:Int){
         mainActivity.viewModel.apply {
-            initCurrentData(getDate(year,month),mainActivity)
+            setCurrentData(getDate(year,month),mainActivity)
             binding.taskListCalendar.text = this.currentDate.keyDate
         }
         initRecyclerView()

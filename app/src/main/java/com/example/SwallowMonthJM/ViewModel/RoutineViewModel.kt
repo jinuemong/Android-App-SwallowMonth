@@ -23,7 +23,7 @@ class RoutineViewModel(
     private var currentRoutineArr = ArrayList<Routine>()
     init {
         routineLivData.value = currentRoutineArr
-    }    var id : Int,
+    }
 
     fun addRoutineData(routine:Routine){
         for (i in 0 until routine.totalRoutine){

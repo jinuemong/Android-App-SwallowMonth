@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.apply {
             monthDataManager = MonthDataManager((this@MainActivity.application as MasterApplication))
             todayMonth = dateMonth
-            initCurrentData(date,this@MainActivity)
+            setCurrentData(date,this@MainActivity)
         }
     }
 
