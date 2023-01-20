@@ -1,6 +1,6 @@
 package com.example.SwallowMonthJM.Server
 
-import com.example.SwallowMonthJM.Model.DayData
+import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Model.User
 import retrofit2.Call
@@ -31,16 +31,16 @@ interface RetrofitService {
         @Query(value = "search",encoded = true)userName: String
     ): Call<ArrayList<Profile>>
 
-    // 전체 dayData 받기
-    @GET("daydata/dayDatas/")
+    // 전체 monthData 받기
+    @GET("month/monthDatas/")
     fun getDayDataList(
         @Query(value = "userName",encoded = true)userName: String
-    ): Call<ArrayList<DayData>>
+    ): Call<ArrayList<MonthData>>
 
     //특정 dayData 받기 (1개)
-    @GET("daydata/dayDatas/")
+    @GET("month/monthDatas/")
     fun getKeyDate(
         @Query(value = "userName",encoded = true)userName: String,
         @Query(value = "KeyDate",encoded = true)KeyDate: String
-    ): Call<ArrayList<DayData>>
+    ): Call<ArrayList<MonthData>>
 }

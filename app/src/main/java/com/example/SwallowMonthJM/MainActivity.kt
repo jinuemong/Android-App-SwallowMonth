@@ -24,6 +24,7 @@ import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
+import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.ViewModel.AddTaskRoutineViewModel
@@ -153,8 +154,9 @@ class MainActivity : AppCompatActivity() {
         val date = Calendar.getInstance().time
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
         viewModel.apply {
+            monthDataManager = MonthDataManager((this@MainActivity.application as MasterApplication))
             todayMonth = dateMonth
-            initCurrentData(date)
+            initCurrentData(date,this@MainActivity)
         }
     }
 

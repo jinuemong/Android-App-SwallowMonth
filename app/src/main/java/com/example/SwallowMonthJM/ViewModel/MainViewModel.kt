@@ -1,10 +1,13 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
-import com.example.SwallowMonthJM.Manager.DayDateManager
+import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Model.DayData
+import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.Profile
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,26 +15,33 @@ import java.util.*
 //일정 리스트 관리
 class MainViewModel : ViewModel(){
     lateinit var profile : Profile
-    lateinit var dayDataManager:DayDateManager
+    lateinit var monthDataManager:MonthDataManager
+
+    //오늘 데이터 저장 ///////////////////
     lateinit var todayDate : Date
     var todayYear = 0
     var todayMonth =0
     var todayDayPosition = 0
+    //////////////////////////////////
 
-    var totalPer = 0
-    var totalPoint = 0
+    //현재 view 데이터  /////////////////////
+    lateinit var monthData:MonthData
+//    var keyDate : String,
+//    var totalPer : Int,
+//    var totalPoint : Int,
+//    var taskCount : Int,
+//    var dayRoutineCount : Int,
+//    var doneTask : Int,
+//    var clearRoutine : Int,
+
     var dayLiveData = MutableLiveData<ArrayList<DayData>>()
-
-    var currentTotalTask = 0
-    var currentTotalRoutine = 0
-    var currentTaskCount = 0
-    var currentRoutineCount = 0
     lateinit var currentDate : CustomCalendar
     var currentMonthArr = ArrayList<DayData>()
 
     var currentYear = MutableLiveData<Int>()
     var currentMonth=MutableLiveData<Int>()
     var currentDayPosition= MutableLiveData<Int>()
+    //////////////////////////////////////////
 
     // 단순 초기화
     init {
@@ -52,7 +62,6 @@ class MainViewModel : ViewModel(){
         currentDayPosition.value = dayPosition
     }
 
-
     fun getDate(year: Int,month :Int): Date{
         return Calendar.getInstance().run {
             set(Calendar.YEAR,year)
@@ -60,7 +69,7 @@ class MainViewModel : ViewModel(){
             time
         }
     }
-    fun initCurrentData(data:Date){
+    fun initCurrentData(data:Date,mainActivity: MainActivity){
         todayDate = data
         val dateYear : Int = SimpleDateFormat("yyyy",Locale.KOREA).format(data).toInt()
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(data).toInt()
@@ -69,19 +78,24 @@ class MainViewModel : ViewModel(){
         setCurrentMonth(dateMonth)
         val keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(data)
 
-        //서버와 연결 - 해당 데이터가 없을 경우 새로 생성
-        dayDataManager.getKeyDateDayData(profile.userName,keyDate, paramFun = {
-            if (it!=null){
-                if (it.size>0){
-                    currentMonthArr = it
-                }else{
-                    //데이터가 없을 경우 새로 생성
-                    currentDate = CustomCalendar(data,keyDate,dateDay,todayMonth,dateMonth)
-                    currentDate.initBaseCalendar()
-                    currentMonthArr = currentDate.dateList
+        monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = {
+            if(it==null){
+                Toast.makeText(mainActivity,"Network error", Toast.LENGTH_SHORT)
+                    .show()
+            }else{
+                if (it.size>0){ //기존 데이터가 있을 경우
+                    monthData = it[0]
+                }else{ //기존 데이터가 없을 경우 새로 생성
+                    monthData = MonthData(null,profile.userName,keyDate,
+                        0,0,0,
+                        0,0,0)
                 }
             }
         })
+        //현재 view 데이터 생성
+        currentDate = CustomCalendar(data, keyDate, dateDay, todayMonth, dateMonth)
+        currentDate.initBaseCalendar()
+        currentMonthArr = currentDate.dateList
 
         if(todayYear==0) {
             todayYear =dateYear
@@ -89,19 +103,5 @@ class MainViewModel : ViewModel(){
         }
     }
 
-
-    fun getTotalTask(): String{
-        val taskList = currentMonthArr[currentDayPosition.value!!].taskList
-        return if (taskList==null){
-            "$currentRoutineCount / $currentTotalRoutine"
-        }else {
-            val taskCount = taskList.count{
-                !it.isDone
-            }
-            currentTaskCount = taskCount
-            currentTotalTask = taskList.size
-            "${currentTaskCount+currentRoutineCount} / ${currentTotalTask+currentTotalRoutine}"
-        }
-    }
 
 }
