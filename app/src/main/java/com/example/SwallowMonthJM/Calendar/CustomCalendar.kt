@@ -67,7 +67,6 @@ class CustomCalendar(
                     isSelected = false,
                     monthIndex = monthIndex,
                     null,
-                    null,
                 )
             )
         }
@@ -83,7 +82,6 @@ class CustomCalendar(
                     isSelected = isToday,
                     monthIndex = 0,
                     null,
-                    null
                 )
             )
             if(isToday){
@@ -102,7 +100,6 @@ class CustomCalendar(
                     date++,
                     isSelected = false,
                     monthIndex = monthIndex,
-                    null,
                     null,
                 )
             )

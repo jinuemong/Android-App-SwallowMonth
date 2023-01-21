@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.SwallowMonthJM.Model.User
@@ -46,6 +47,9 @@ class LoginActivity : AppCompatActivity() {
                     if (token!=null){
                         saveUserToken(token,this@LoginActivity)
                     }
+                    Log.d("user",user.userName)
+                    Log.d("user",user.token.toString())
+                    Log.d("user",user.last_login.toString())
                     //다음 화면으로 넘어가기
                     val intent = Intent(applicationContext,MainActivity::class.java)
                     intent.putExtra("username",user.userName)

@@ -21,6 +21,7 @@ class TaskViewModel(
     fun addTaskData(startNum:Int,endNum:Int,task: Task){
         for (i in startNum..endNum){
             val newTask = SampleTask(task).deepCopy()
+            newTask.task.dayIndex=i
             mainView.currentMonthArr[i].apply {
                 if (this.taskList == null) {
                     this.taskList = ArrayList()

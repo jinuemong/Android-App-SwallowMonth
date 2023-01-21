@@ -26,7 +26,7 @@ class InsertActivity : AppCompatActivity() {
         }
 
         binding.insertButton.setOnClickListener {
-            if (getUserName()!=""){
+            if (getUserName()==""){
                 Toast.makeText(this@InsertActivity,
                     "Enter Id", Toast.LENGTH_SHORT)
                     .show()

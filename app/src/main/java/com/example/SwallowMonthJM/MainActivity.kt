@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         // user profile 세팅
         val username = intent.getStringExtra("username").toString()
+
         (application as MasterApplication).service.getProfile(username)
             .enqueue(object :Callback<ArrayList<Profile>>{
                 override fun onResponse(call: Call<ArrayList<Profile>>, response: Response<ArrayList<Profile>>) {
