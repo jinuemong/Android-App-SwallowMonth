@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             .Factory(this@MainActivity))[TaskViewModel::class.java]
     }
     lateinit var frManger: FragmentManager
-    private var backPressTime = 0
+    private var backPressTime:Long = 0
     private lateinit var callback: OnBackPressedCallback
     private lateinit var fragmentPageAdapter: FragmentAdapter
     lateinit var viewPager: ViewPager2
@@ -99,15 +99,15 @@ class MainActivity : AppCompatActivity() {
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (System.currentTimeMillis()>backPressTime+2000){
-                    backPressTime = System.currentTimeMillis().toInt()
+                    backPressTime = System.currentTimeMillis()
                     Toast.makeText(applicationContext,"'뒤로' 버틀을 한번 더 누르시면 앱이 종료됩니다."
                         ,Toast.LENGTH_SHORT).show()
-                }
-                if (System.currentTimeMillis()<=backPressTime+2000){
-                    finish()
+                }else{
+                    finishAffinity()
                 }
             }
         }
+        this.onBackPressedDispatcher.addCallback(this,callback)
     }
 
     private fun initView() {
