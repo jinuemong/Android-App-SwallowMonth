@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.SwallowMonthJM.Model.User
@@ -39,7 +38,8 @@ class LoginActivity : AppCompatActivity() {
         ).enqueue(object :Callback<User>{
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 (application as MasterApplication).createRetrofit()
-                if (response.isSuccessful){
+                if (response.isSuccessful && response.body()!=null){
+
                     //로그인 성공
                     val user = response.body()
                     //토큰 가져오기
@@ -47,12 +47,9 @@ class LoginActivity : AppCompatActivity() {
                     if (token!=null){
                         saveUserToken(token,this@LoginActivity)
                     }
-                    Log.d("user",user.userName)
-                    Log.d("user",user.token.toString())
-                    Log.d("user",user.last_login.toString())
                     //다음 화면으로 넘어가기
                     val intent = Intent(applicationContext,MainActivity::class.java)
-                    intent.putExtra("username",user.userName)
+                    intent.putExtra("username",getUserName())
                     startActivity(intent)
                 }else{
                     val err = errorConvert(response.errorBody())

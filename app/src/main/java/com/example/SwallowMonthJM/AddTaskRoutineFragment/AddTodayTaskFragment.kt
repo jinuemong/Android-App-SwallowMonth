@@ -97,6 +97,9 @@ class AddTodayTaskFragment : Fragment() {
                 mainActivity.onFragmentGoBack(this@AddTodayTaskFragment)
             }
         }
+        binding.backButton.setOnClickListener {
+            mainActivity.onFragmentGoBack(this@AddTodayTaskFragment)
+        }
     }
     private fun addTypeData(){
         binding.addTodayEdit.apply {

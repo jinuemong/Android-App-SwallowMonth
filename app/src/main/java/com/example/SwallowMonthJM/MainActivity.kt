@@ -25,7 +25,7 @@ import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.Manager.MonthDataManager
-import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Manager.UserManager
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.ViewModel.AddTaskRoutineViewModel
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
@@ -33,9 +33,6 @@ import com.example.SwallowMonthJM.ViewModel.RoutineViewModel
 import com.example.SwallowMonthJM.ViewModel.TaskViewModel
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var callback: OnBackPressedCallback
     private lateinit var fragmentPageAdapter: FragmentAdapter
     lateinit var viewPager: ViewPager2
-
+    lateinit var userName:String
     //click tab
     val tintColor = ColorStateList(
         arrayOf(
@@ -81,27 +78,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        frManger = this@MainActivity.supportFragmentManager
 
         // user profile 세팅
-        val username = intent.getStringExtra("username").toString()
+        userName = intent.getStringExtra("username").toString()
 
-        (application as MasterApplication).service.getProfile(username)
-            .enqueue(object :Callback<ArrayList<Profile>>{
-                override fun onResponse(call: Call<ArrayList<Profile>>, response: Response<ArrayList<Profile>>) {
-                    if(response.isSuccessful && response.body()!=null){
-                        val profile  =response.body()!![0]
-                        viewModel.profile = profile
-                        binding.apply {
-                            mainTopName.text = profile.userName
-                            mainTopComment.text = profile.userComment
-                            Glide.with(this@MainActivity)
-                                .load(profile.userImage)
-                                .into(mainTopImage)
-                        }
-                    }
-                }
-                override fun onFailure(call: Call<ArrayList<Profile>>, t: Throwable) {}
-            })
 
         //애니메이션 설정
         aniList = arrayOf(
@@ -130,25 +111,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        frManger = this@MainActivity.supportFragmentManager
-        binding.mainTopLayout.apply {
-            binding.mainTopLayout
-        }
-        viewPager = binding.mainMidViewpager
-        initCurrentDate()
-        initFragmentAdapter()
-        initViewPager()
-        initTabLayout()
-    }
-
-    private fun setUpListener(){
-        binding.addTaskButton.setOnClickListener {
-            onFragmentChange(AddTaskFragment())
-        }
-        binding.addTodayTask.setOnClickListener {
-            onFragmentChange(AddTodayTaskFragment())
-        }
-
+        UserManager((this@MainActivity.application as MasterApplication))
+            .getUserProfile(userName, paramFun = { profile->
+                viewModel.profile = profile
+                binding.apply {
+                    mainTopName.text = profile.userName
+                    mainTopComment.text = profile.userComment
+                    Glide.with(this@MainActivity)
+                        .load(profile.userImage)
+                        .into(mainTopImage)
+                }
+                //현재 데이터 설정
+                initCurrentDate()
+                viewPager = binding.mainMidViewpager
+                initFragmentAdapter()
+                initViewPager()
+                initTabLayout()
+            })
     }
 
     private fun initCurrentDate() {
@@ -159,6 +138,16 @@ class MainActivity : AppCompatActivity() {
             todayMonth = dateMonth
             setCurrentData(date,this@MainActivity)
         }
+    }
+
+    private fun setUpListener(){
+        binding.addTaskButton.setOnClickListener {
+            onFragmentChange(AddTaskFragment())
+        }
+        binding.addTodayTask.setOnClickListener {
+            onFragmentChange(AddTodayTaskFragment())
+        }
+
     }
 
     private fun initFragmentAdapter() {

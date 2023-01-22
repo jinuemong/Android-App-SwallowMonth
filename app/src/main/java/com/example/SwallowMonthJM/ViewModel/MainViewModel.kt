@@ -14,7 +14,7 @@ import java.util.*
 
 //일정 리스트 관리
 class MainViewModel : ViewModel(){
-    lateinit var profile : Profile
+    lateinit var profile :Profile
     lateinit var monthDataManager:MonthDataManager
 
     //오늘 데이터 저장 ///////////////////
@@ -77,7 +77,9 @@ class MainViewModel : ViewModel(){
         setCurrentYear(dateYear)
         setCurrentMonth(dateMonth)
         val keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(data)
-
+        monthData = MonthData(null,profile.userName,keyDate,
+            0,0,0,
+            0,0,0)
         monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = {
             if(it==null){
                 Toast.makeText(mainActivity,"Network error", Toast.LENGTH_SHORT)
@@ -85,10 +87,6 @@ class MainViewModel : ViewModel(){
             }else{
                 if (it.size>0){ //기존 데이터가 있을 경우
                     monthData = it[0]
-                }else{ //기존 데이터가 없을 경우 새로 생성
-                    monthData = MonthData(null,profile.userName,keyDate,
-                        0,0,0,
-                        0,0,0)
                 }
             }
         })
@@ -105,8 +103,8 @@ class MainViewModel : ViewModel(){
 
     //남은 task + routine 설정
     fun getActivityList() : String{
-        var totalList = monthData.taskCount+monthData.dayRoutineCount
-        var clearList = monthData.doneTask+monthData.clearRoutine
+        val totalList = monthData.taskCount+monthData.dayRoutineCount
+        val clearList = monthData.doneTask+monthData.clearRoutine
         return "${totalList-clearList}/$totalList"
     }
 

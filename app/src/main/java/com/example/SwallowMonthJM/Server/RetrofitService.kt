@@ -41,6 +41,6 @@ interface RetrofitService {
     @GET("month/monthDatas/")
     fun getKeyDate(
         @Query(value = "userName",encoded = true)userName: String,
-        @Query(value = "KeyDate",encoded = true)KeyDate: String
+        @Query(value = "keyDate",encoded = true)keyDate: String
     ): Call<ArrayList<MonthData>>
 }

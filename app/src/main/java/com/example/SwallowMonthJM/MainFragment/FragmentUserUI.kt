@@ -1,19 +1,20 @@
 package com.example.SwallowMonthJM.MainFragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.SwallowMonthJM.InsertActivity
+import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
 
 
 class FragmentUserUI : Fragment() {
+    private var _binding : FragmentUserUIBinding?=null
+    private val binding get() = _binding!!
+
     lateinit var mainActivity: MainActivity
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,18 +27,24 @@ class FragmentUserUI : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_u_i, container, false)
+    ): View {
+        _binding = FragmentUserUIBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val button = view.findViewById<TextView>(R.id.user_ui_goals_button)
-        button.setOnClickListener {
-            val next = Intent(mainActivity,InsertActivity::class.java)
-            startActivity(next)
+        initView()
+    }
+
+    private fun initView(){
+        mainActivity.viewModel.profile.apply {
+            Glide.with(mainActivity)
+                .load(this.userImage)
+                .into(binding.userImage)
+            binding.userName.text = this.userName
         }
+
     }
 }
 
