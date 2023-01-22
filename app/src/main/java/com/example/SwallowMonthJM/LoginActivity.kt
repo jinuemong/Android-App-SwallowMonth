@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.SwallowMonthJM.Model.User
 import com.example.SwallowMonthJM.Server.MasterApplication
@@ -15,6 +16,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
+    private var backPressTime:Long = 0
+    private lateinit var callback: OnBackPressedCallback
+
     private lateinit var binding:ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,19 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(applicationContext,InsertActivity::class.java)
             startActivity(intent)
         }
+        //뒤로가기 조작 (2초 이내 연속 클릭 시 종료)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis()>backPressTime+2000){
+                    backPressTime = System.currentTimeMillis()
+                    Toast.makeText(applicationContext,"'뒤로' 버틀을 한번 더 누르시면 앱이 종료됩니다."
+                        ,Toast.LENGTH_SHORT).show()
+                }else{
+                    finishAffinity()
+                }
+            }
+        }
+        this.onBackPressedDispatcher.addCallback(this,callback)
     }
 
     private fun login(){
