@@ -64,9 +64,10 @@
         <item name="android:background">@drawable/round_border</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/color_type1</item>
         <item name="android:textSize">@dimen/item_height_small_text_size</item>
     </style>
+
 
     <!--큰 버튼 텍스트-->
     <style name="ButtonText_big">

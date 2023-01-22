@@ -57,4 +57,6 @@
     <string name="login_mess">Login</string>
     <string name="back_mess">Back</string>
     <string name="add_today_task">Add Today Task</string>
+    <string name="activity">Activity</string>
+    <string name="my_multi_profile">My Multi-profile</string>
 </resources>
