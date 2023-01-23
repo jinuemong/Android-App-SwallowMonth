@@ -61,11 +61,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/edit"
                     style="@style/ButtonText_big"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/item_mid_50_height"
                     android:layout_margin="@dimen/main_margin"
-                    android:text="@string/edit_profile"
+                    android:text="@string/action_settings"
                     android:textSize="@dimen/item_height_big_21_text_size" />
 
                 <TextView
