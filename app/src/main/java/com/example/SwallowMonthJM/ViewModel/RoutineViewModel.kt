@@ -26,9 +26,10 @@ class RoutineViewModel(
     }
 
     fun addRoutineData(routine:Routine){
+        //서버에 생성하고 반환값으로 DayRoutine 생성해야함 !
         for (i in 0 until routine.totalRoutine){
             val dayIndex = routine.startNum+i*routine.cycle
-            routine.dayRoutinePost.add(DayRoutine(null,routine.routineId,mainView.monthData.monthId,dayIndex,false))
+            routine.dayRoutinePost.add(DayRoutine(null,routine.routineId!!,mainView.monthData.monthId!!,dayIndex,false))
         }
         currentRoutineArr.add(routine)
         routineLivData.value = currentRoutineArr

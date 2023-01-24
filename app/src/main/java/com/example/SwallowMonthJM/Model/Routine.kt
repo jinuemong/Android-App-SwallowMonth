@@ -3,7 +3,7 @@ package com.example.SwallowMonthJM.Model
 import java.io.Serializable
 
 class Routine (
-    var routineId : Int,
+    var routineId : Int?,
     var userId : String,
     var monthId : Int,
     var keyDate : String,

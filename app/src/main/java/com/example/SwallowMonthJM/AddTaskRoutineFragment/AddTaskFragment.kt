@@ -120,6 +120,9 @@ class AddTaskFragment : Fragment() {
                 endNum=startNum
             }
             if (data!=null){
+                //만약에 month id 가 null이라면 새로운 month 데이터 생성
+                //이후에 data.userId, data.monthId 수정!!!!!!!!!!!!!!!!!!!!
+
                 mainActivity.taskViewModel.addTaskData(startNum,endNum,data)
                 mainActivity.onFragmentGoBack(this@AddTaskFragment)
             }

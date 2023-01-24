@@ -31,7 +31,7 @@ class AddTaskRoutineViewModel : ViewModel(){
         } else if (startNum == -1 && endNum == -1) {
             null
         } else {
-            Task(null,null,null, -1,text, false, iconType, level+1,0)
+            Task(null,-1,"-1", -1,text, false, iconType, level+1,0)
         }
     }
     fun getTextData():String{
@@ -53,7 +53,7 @@ class AddTaskRoutineViewModel : ViewModel(){
         } else if (keyData==""){
             null
         }else{
-            Routine(null,null,null,keyData,text,cycle,startNum,totalRoutine,
+        Routine(null,"-1",-1,keyData,text,cycle,startNum,totalRoutine,
                 0,iconType,topText,ArrayList())
         }
     }
