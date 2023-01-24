@@ -3,7 +3,7 @@ package com.example.SwallowMonthJM.Model
 import java.io.Serializable
 
 class MonthData (
-    var monthId : Int?,
+    var monthId : Int,
     var userId : String,
     var keyDate : String,
     var totalPer : Int,

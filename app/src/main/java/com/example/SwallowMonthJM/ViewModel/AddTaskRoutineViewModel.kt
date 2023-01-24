@@ -19,6 +19,7 @@ class AddTaskRoutineViewModel : ViewModel(){
     var endNum = -1
     var routineChange = MutableLiveData<Boolean>(false)
 
+
     fun getTaskData(): Task? {
 
         return if (iconType == -1) {
