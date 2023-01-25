@@ -12,6 +12,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
+import com.example.SwallowMonthJM.Model.Task
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Unit.TaskAddSlider
 import com.example.SwallowMonthJM.databinding.FragmentAddTaskBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -24,6 +27,8 @@ class AddTaskFragment : Fragment() {
     private lateinit var callback : OnBackPressedCallback
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPagerAdapter: FragmentAdapter
+    private lateinit var monthDataManager: MonthDataManager
+
     private val tabText = arrayOf(
         "step1", "step2"
     )
@@ -32,6 +37,8 @@ class AddTaskFragment : Fragment() {
         mainActivity = context as MainActivity
         mainActivity.addViewModel.addType = "task"
         fm = (activity as MainActivity).supportFragmentManager
+        monthDataManager = MonthDataManager((mainActivity.application as MasterApplication))
+
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 mainActivity.onFragmentGoBack(this@AddTaskFragment)
@@ -114,17 +121,18 @@ class AddTaskFragment : Fragment() {
                 }
             }
             val data = mainActivity.addViewModel.getTaskData()
-            val startNum = mainActivity.addViewModel.startNum
-            var endNum = mainActivity.addViewModel.endNum
-            if (endNum==-1) {
-                endNum=startNum
-            }
             if (data!=null){
                 //만약에 month id 가 null이라면 새로운 month 데이터 생성
-                //이후에 data.userId, data.monthId 수정!!!!!!!!!!!!!!!!!!!!
-
-                mainActivity.taskViewModel.addTaskData(startNum,endNum,data)
-                mainActivity.onFragmentGoBack(this@AddTaskFragment)
+                if (mainActivity.viewModel.monthData.monthId == null) {
+                    monthDataManager.addMonthData(mainActivity.viewModel.monthData, paramFun = {
+                        if (it != null) {
+                            mainActivity.viewModel.monthData = it
+                        }
+                    })
+                }
+                //후처리 코드
+                val startIntroThread = AddThread(data)
+                startIntroThread.start()
             }
         }
 
@@ -155,4 +163,27 @@ class AddTaskFragment : Fragment() {
         }.attach()
     }
 
+    inner class AddThread(val data: Task) : Thread(){
+        val startNum = mainActivity.addViewModel.startNum
+        var endNum = mainActivity.addViewModel.endNum
+        override fun run() {
+            super.run()
+            try {
+                sleep(500)
+                if (endNum==-1) {
+                    endNum=startNum
+                }
+                mainActivity.viewModel.monthData.monthId.let {
+                    if(it!=null){
+                        data.monthId = it
+                        data.userId = mainActivity.viewModel.profile.userName
+                        //                mainActivity.taskViewModel.addTaskData(startNum,endNum,data)
+                        mainActivity.onFragmentGoBack(this@AddTaskFragment)
+                    }
+                }
+            }catch (e:InterruptedException){
+                e.printStackTrace()
+            }
+        }
+    }
 }

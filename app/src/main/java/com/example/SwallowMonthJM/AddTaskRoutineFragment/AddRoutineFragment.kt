@@ -13,6 +13,7 @@ import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.MonthDataManager
+import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.databinding.FragmentAddRoutineBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -99,12 +100,9 @@ class AddRoutineFragment : Fragment() {
                             }
                     })
                 }
-
-                //후처리 코드 블럭
-                data.monthId = mainActivity.viewModel.monthData.monthId!!
-                data.userId = mainActivity.viewModel.profile.userName
-//                        mainActivity.routineViewModel.addRoutineData(data)
-                mainActivity.onFragmentGoBack(this@AddRoutineFragment)
+                //후처리 코드
+                val startIntroThread = AddThread(data)
+                startIntroThread.start()
 
             }
         }
@@ -133,5 +131,22 @@ class AddRoutineFragment : Fragment() {
             tab.text = tabText[position]
         }.attach()
     }
-
+    inner class AddThread(val data: Routine): Thread(){
+        override fun run() {
+            super.run()
+            try {
+                sleep(500)
+                mainActivity.viewModel.monthData.monthId.let {
+                    if (it!=null){
+                        data.monthId = it
+                        data.userId = mainActivity.viewModel.profile.userName
+                        //                        mainActivity.routineViewModel.addRoutineData(data)
+                        mainActivity.onFragmentGoBack(this@AddRoutineFragment)
+                    }
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
+    }
 }

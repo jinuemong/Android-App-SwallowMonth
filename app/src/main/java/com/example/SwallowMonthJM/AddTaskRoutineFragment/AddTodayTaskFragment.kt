@@ -12,7 +12,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
+import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.databinding.FragmentAddTodayTaskBinding
 
 
@@ -23,10 +26,13 @@ class AddTodayTaskFragment : Fragment() {
     private var selectedNum = -1
     private var layoutList = ArrayList<LinearLayout>()
     private lateinit var callback : OnBackPressedCallback
+    private lateinit var monthDataManager: MonthDataManager
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
         mainActivity.addViewModel.addType = "task"
+        monthDataManager = MonthDataManager((mainActivity.application as MasterApplication))
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -87,17 +93,18 @@ class AddTodayTaskFragment : Fragment() {
     private fun setUpListener(){
         binding.commitButton.setOnClickListener {
             val data = mainActivity.addViewModel.getTaskData()
-            val startNum = mainActivity.addViewModel.startNum
-            var endNum = mainActivity.addViewModel.endNum
-            if (endNum==-1) {
-                endNum=startNum
-            }
             if (data!=null){
                 //만약에 month id 가 null이라면 새로운 month 데이터 생성
-                //이후에 data.userId, data.monthId 수정!!!!!!!!!!!!!!!!!!!!
-
-                mainActivity.taskViewModel.addTaskData(startNum,endNum,data)
-                mainActivity.onFragmentGoBack(this@AddTodayTaskFragment)
+                if (mainActivity.viewModel.monthData.monthId == null) {
+                    monthDataManager.addMonthData(mainActivity.viewModel.monthData, paramFun = {
+                        if (it != null) {
+                            mainActivity.viewModel.monthData = it
+                        }
+                    })
+                }
+                //후처리 코드
+                val startIntroThread = AddThread(data)
+                startIntroThread.start()
             }
         }
         binding.backButton.setOnClickListener {
@@ -133,6 +140,30 @@ class AddTodayTaskFragment : Fragment() {
                 layoutList[i].setBackgroundResource(R.color.color_type3)
                 selectedNum = i
                 mainActivity.addViewModel.level = selectedNum
+            }
+        }
+    }
+
+    inner class AddThread(val data: Task) : Thread(){
+        val startNum = mainActivity.addViewModel.startNum
+        var endNum = mainActivity.addViewModel.endNum
+        override fun run() {
+            super.run()
+            try {
+                sleep(500)
+                if (endNum==-1) {
+                    endNum=startNum
+                }
+                mainActivity.viewModel.monthData.monthId.let {
+                    if(it!=null){
+                        data.monthId = it
+                        data.userId = mainActivity.viewModel.profile.userName
+                        //                mainActivity.taskViewModel.addTaskData(startNum,endNum,data)
+                        mainActivity.onFragmentGoBack(this@AddTodayTaskFragment)
+                    }
+                }
+            }catch (e:InterruptedException){
+                e.printStackTrace()
             }
         }
     }
