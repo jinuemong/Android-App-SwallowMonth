@@ -26,7 +26,7 @@ class MainViewModel : ViewModel(){
 
     //현재 view 데이터  /////////////////////
     lateinit var monthData:MonthData
-//    var keyDate : String,
+//    var keyDate : String?,
 //    var totalPer : Int,
 //    var totalPoint : Int,
 //    var taskCount : Int,

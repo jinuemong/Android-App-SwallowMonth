@@ -19,7 +19,7 @@ class MonthDataManager(
                     response: Response<ArrayList<MonthData>>
                 ) {
                     if(response.isSuccessful) {
-                        paramFun(response.body())
+                        paramFun(call.execute().body())
                     }else(paramFun(null))
                 }
                 override fun onFailure(call: Call<ArrayList<MonthData>>, t: Throwable) {
@@ -62,7 +62,6 @@ class MonthDataManager(
                         paramFun(null)
                     }
                 }
-
                 override fun onFailure(call: Call<MonthData>, t: Throwable) {
                     paramFun(null)
                 }

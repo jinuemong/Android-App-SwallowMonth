@@ -12,6 +12,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.databinding.FragmentAddRoutineBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -23,7 +25,7 @@ class AddRoutineFragment : Fragment() {
     private lateinit var callback : OnBackPressedCallback
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPagerAdapter:FragmentAdapter
-
+    private lateinit var monthDataManager: MonthDataManager
     private val tabText = arrayOf(
         "step1", "step2"
     )
@@ -31,6 +33,8 @@ class AddRoutineFragment : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
         mainActivity.addViewModel.addType = "routine"
+        monthDataManager = MonthDataManager((mainActivity.application as MasterApplication))
+
         fm = (activity as MainActivity).supportFragmentManager
         callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
@@ -85,14 +89,23 @@ class AddRoutineFragment : Fragment() {
             mainActivity.onFragmentGoBack(this@AddRoutineFragment)
         }
         binding.routineCommit.setOnClickListener {
-
             val data = mainActivity.addViewModel.getRoutineData()
-            if (data!=null){
+            if (data != null) {
+                //만약 month id 가 null이라면 새로운 month 데이터 생성
+                if (mainActivity.viewModel.monthData.monthId == null) {
+                    monthDataManager.addMonthData(mainActivity.viewModel.monthData, paramFun = {
+                            if (it != null) {
+                                mainActivity.viewModel.monthData = it
+                            }
+                    })
+                }
 
-                //만약에 month id 가 null이라면 새로운 month 데이터 생성
-                //이후에 data.userId, data.monthId 수정!!!!!!!!!!!!!!!!!!!!
-                mainActivity.routineViewModel.addRoutineData(data)
+                //후처리 코드 블럭
+                data.monthId = mainActivity.viewModel.monthData.monthId!!
+                data.userId = mainActivity.viewModel.profile.userName
+//                        mainActivity.routineViewModel.addRoutineData(data)
                 mainActivity.onFragmentGoBack(this@AddRoutineFragment)
+
             }
         }
     }
