@@ -96,13 +96,13 @@ class DoneFragment(
             }
         })
 
-        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
-            day = mainActivity.viewModel.currentMonthArr[dayIndex]
-            initAdapter(day)
-            binding.taskDoneView.adapter  =taskListAdapter
-
-            (binding.routineDoneView.adapter as TodayRoutineAdapter).setDayDate(dayIndex)
-        })
+//        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
+//            day = mainActivity.viewModel.currentMonthArr[dayIndex]
+//            initAdapter(day)
+//            binding.taskDoneView.adapter  =taskListAdapter
+//
+//            (binding.routineDoneView.adapter as TodayRoutineAdapter).setDayDate(dayIndex)
+//        })
     }
 
     private fun initAdapter(day : DayData){

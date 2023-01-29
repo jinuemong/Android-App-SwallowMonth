@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.ViewModel
 
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
@@ -14,6 +15,7 @@ import java.util.*
 
 //일정 리스트 관리
 class MainViewModel : ViewModel(){
+
     lateinit var profile :Profile
     lateinit var monthDataManager:MonthDataManager
 
@@ -26,23 +28,27 @@ class MainViewModel : ViewModel(){
 
     //현재 view 데이터  /////////////////////
     lateinit var monthData:MonthData
-//    var keyDate : String?,
-//    var totalPer : Int,
-//    var totalPoint : Int,
-//    var taskCount : Int,
-//    var dayRoutineCount : Int,
-//    var doneTask : Int,
-//    var clearRoutine : Int,
-
     var dayLiveData = MutableLiveData<ArrayList<DayData>>()
     lateinit var currentDate : CustomCalendar
     var currentMonthArr = ArrayList<DayData>()
-
     var currentYear = MutableLiveData<Int>()
     var currentMonth=MutableLiveData<Int>()
     var currentDayPosition= MutableLiveData<Int>()
     //////////////////////////////////////////
 
+    //관찰 데이터//////////////////////////
+    private val _event_statistics = SingleLiveEvent<Any>()
+    private val _event_taskList = SingleLiveEvent<Any>()
+    val eventStatistics : LiveData<Any> get() = _event_statistics
+    val eventTaskList : LiveData<Any> get() = _event_taskList
+
+    private fun setStatistics(){
+        _event_statistics.call()
+    }
+    private fun setTaskList(){
+        _event_taskList.call()
+    }
+    /////////////////////////////////////
     // 단순 초기화
     init {
         dayLiveData.value = currentMonthArr
@@ -70,7 +76,6 @@ class MainViewModel : ViewModel(){
         }
     }
     fun setCurrentData(data:Date, mainActivity: MainActivity){
-        todayDate = data
         val dateYear : Int = SimpleDateFormat("yyyy",Locale.KOREA).format(data).toInt()
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(data).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(data).toInt()
@@ -94,11 +99,18 @@ class MainViewModel : ViewModel(){
         currentDate = CustomCalendar(data, dateDay, todayMonth, dateMonth)
         currentDate.initBaseCalendar()
         currentMonthArr = currentDate.dateList
+        dayLiveData.value = currentMonthArr
 
+        //오늘 날짜 초기화
         if(todayYear==0) {
+            todayDate = data
             todayYear =dateYear
             todayDayPosition = currentDate.currentIndex
         }
+
+        //데이터 변화 알림
+        setStatistics()
+        setTaskList()
     }
 
     //남은 task + routine 설정

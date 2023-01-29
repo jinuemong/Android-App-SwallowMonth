@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textSize="@dimen/item_height_big_text_size_35"
             style="@style/ButtonText_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,31 +24,48 @@
             android:padding="@dimen/main_margin"
             android:text="@string/collecting_activities" />
 
-        <TextView
-            android:id="@+id/st_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/main_margin"
-            android:textSize="@dimen/item_height_big_text_size"
-            android:textStyle="bold"
-            tools:text="xxxx.x" />
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_big"
-            android:gravity="center"
+            android:layout_height="@dimen/item_height_big_150"
             android:orientation="horizontal">
+            <LinearLayout
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/item_mid_height_20dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="@dimen/item_mid_50_height"
-                android:layout_height="@dimen/item_mid_50_height"
-                android:layout_margin="@dimen/fab_margin_12dp"
-                android:src="@drawable/ic_baseline_arrow_back_24" />
+                <TextView
+                    android:id="@+id/st_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/fab_margin_12dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/item_height_big_text_size"
+                    android:textStyle="bold"
+                    tools:text="xxxx.x" />
+
+                <Button
+                    android:id="@+id/task_list_calendar"
+                    style="@style/TextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/color_type2"
+                    android:drawableLeft="@drawable/ic_iconmonstr_calendar_6"
+                    android:padding="@dimen/main_margin"
+                    android:src="@drawable/round_border"
+                    tools:text="22.11" />
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="@dimen/item_height_big_100"
-                android:layout_height="@dimen/item_height_big_100">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/item_height_big_150"
+                android:layout_height="@dimen/item_height_big_150">
 
                 <ProgressBar
                     android:id="@+id/st_per"
@@ -66,13 +84,18 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textColor="@color/strong_color"
-                    android:textSize="@dimen/item_height_mid_text_size"
+                    android:textSize="@dimen/item_height_big_text_size"
                     android:textStyle="bold"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp"
                     tools:text="100%" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_marginEnd="@dimen/fab_margin_12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/item_height_big"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -104,12 +127,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="@dimen/item_mid_50_height"
-                android:layout_height="@dimen/item_mid_50_height"
-                android:layout_margin="@dimen/fab_margin_12dp"
-                android:src="@drawable/ic_baseline_arrow_forward_24" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

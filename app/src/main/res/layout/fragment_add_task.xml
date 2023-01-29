@@ -30,8 +30,8 @@
 
                 <ImageView
                     android:id="@+id/add_task_back"
-                    android:layout_width="@dimen/item_mid_height_30"
-                    android:layout_height="@dimen/item_mid_height_30"
+                    android:layout_width="@dimen/item_mid_40_height"
+                    android:layout_height="@dimen/item_mid_40_height"
                     android:background="@drawable/circle_border"
                     android:src="@drawable/ic_baseline_arrow_back_24"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -50,19 +50,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/add_task_commit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_border"
-                    android:padding="@dimen/main_margin"
-                    android:text="@string/commit"
-                    android:textColor="@color/strong_color"
-                    android:textSize="@dimen/item_height_mid_text_size"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -107,6 +94,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/add_task_commit"
+                    android:text="commit"
+                    android:layout_margin="@dimen/fab_margin_12dp"
+                    android:layout_gravity="center"
+                    style="@style/ButtonText_big"
+                    android:layout_width="@dimen/item_we_300"
+                    android:layout_height="@dimen/item_height_big_70"/>
             </LinearLayout>
         </LinearLayout>
     <!-- sldie 레이아웃 -->

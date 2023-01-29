@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         ViewModelProvider(this@MainActivity,RoutineViewModel
             .Factory(this@MainActivity))[RoutineViewModel::class.java]
     }
+
     val taskViewModel  by lazy {
         ViewModelProvider(this@MainActivity,TaskViewModel
             .Factory(this@MainActivity))[TaskViewModel::class.java]
@@ -134,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         val date = Calendar.getInstance().time
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
         viewModel.apply {
-            monthDataManager = MonthDataManager((this@MainActivity.application as MasterApplication))
+            monthDataManager = MonthDataManager(application as MasterApplication)
             todayMonth = dateMonth
             setCurrentData(date,this@MainActivity)
         }

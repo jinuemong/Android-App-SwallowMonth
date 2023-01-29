@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM.MainFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,6 +58,11 @@ class FragmentTaskList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         setUpListener()
+        //month data Change 관찰
+        mainActivity.viewModel.eventTaskList.observe(mainActivity, Observer {
+            Log.d("change ///////////","task")
+            initView()
+        })
     }
 
     override fun onResume() {
@@ -65,21 +71,22 @@ class FragmentTaskList : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initView(){
+        //상단 데이터 적용
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         binding.taskListPer.progress = mainActivity.viewModel.monthData.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
-
-
         binding.totalTask.text = mainActivity.viewModel.getActivityList()
 
+        //dayDate 관찰
         mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
-
             binding.totalTask.text = mainActivity.viewModel.getActivityList()
         })
 
+        //Routine 관찰
         mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
             binding.totalTask.text = mainActivity.viewModel.getActivityList()
         })
+
 
         initRecyclerView()
         initPager()

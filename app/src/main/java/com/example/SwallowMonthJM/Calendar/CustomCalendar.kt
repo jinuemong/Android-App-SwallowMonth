@@ -24,9 +24,11 @@ class CustomCalendar(
     var currentMaxDate = 0 //현재 달
     var dateList = ArrayList<DayData>()
     var keyDate:String = ""
+    var topDate : String = ""
     init {
         calendar.time=date
         keyDate  = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(date)
+        topDate = SimpleDateFormat("yyyy년 MM월", Locale.KOREA).format(date)
     }
 
     //해당 fragment 에서 실행 해줌

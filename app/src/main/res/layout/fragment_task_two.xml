@@ -124,7 +124,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/item_mid_height_30"/>
         </LinearLayout>
-
     </LinearLayout>
 
 </FrameLayout>

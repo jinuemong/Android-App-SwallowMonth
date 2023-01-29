@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Statistics.StatisticsStateAdapter
+import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.Statistics.OneStatisticsFragment
 import com.example.SwallowMonthJM.databinding.FragmentStatisticsBinding
 
 class FragmentStatistics : Fragment() {
     private var _binding:FragmentStatisticsBinding?  = null
     private val binding get() = _binding!!
     private lateinit var mainActivity: MainActivity
-    private lateinit var stateAdapter:StatisticsStateAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,13 +44,11 @@ class FragmentStatistics : Fragment() {
         _binding = null
     }
     private fun initView(){
-        stateAdapter = StatisticsStateAdapter(requireActivity()
-                ,binding.slideFrame, binding.slideLayout)
-
-        binding.viewPagerInStatistics.adapter = stateAdapter
-        stateAdapter.apply {
-            binding.viewPagerInStatistics.currentItem = this.fragmentPosition
-        }
+        mainActivity.frManger.beginTransaction()
+            .replace(R.id.container_in_statistics,
+                OneStatisticsFragment(binding.slideFrame,binding.slideLayout))
+            .addToBackStack(null)
+            .commit()
     }
 
 }

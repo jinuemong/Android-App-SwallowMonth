@@ -96,14 +96,14 @@ class TaskFragment(
             }
         })
 
-        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
-            day = mainActivity.viewModel.currentMonthArr[dayIndex]
-            initAdapter(day)
-            binding.taskView.adapter  =taskListAdapter
-
-            (binding.routineView.adapter as TodayRoutineAdapter).setDayDate(dayIndex)
-
-        })
+//        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
+//            day = mainActivity.viewModel.currentMonthArr[dayIndex]
+//            initAdapter(day)
+//            binding.taskView.adapter  =taskListAdapter
+//
+//            (binding.routineView.adapter as TodayRoutineAdapter).setDayDate(dayIndex)
+//
+//        })
 
     }
 

@@ -16,8 +16,8 @@
         app:umanoDragView="@id/slide_layout"
         app:umanoOverlay="true"
         app:umanoPanelHeight="0dp">
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager_in_statistics"
+        <FrameLayout
+            android:id="@+id/container_in_statistics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/main_margin"
