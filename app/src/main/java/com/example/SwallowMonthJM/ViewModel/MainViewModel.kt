@@ -1,6 +1,5 @@
 package com.example.SwallowMonthJM.ViewModel
 
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -70,10 +69,11 @@ class MainViewModel : ViewModel(){
     }
 
     fun getDate(year: Int,month :Int): Date{
-        Log.d("data set ",year.toString()+"++"+month)
         return Calendar.getInstance().run {
             set(Calendar.YEAR,year)
             set(Calendar.MONTH, month - 1)
+            //2월은 윤년이 아니면 3월로 침 1월로 초기화
+            set(Calendar.DAY_OF_MONTH,1)
             time
         }
     }
@@ -81,6 +81,7 @@ class MainViewModel : ViewModel(){
         val dateYear : Int = SimpleDateFormat("yyyy",Locale.KOREA).format(data).toInt()
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(data).toInt()
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(data).toInt()
+
         setCurrentYear(dateYear)
         setCurrentMonth(dateMonth)
         val keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(data)
