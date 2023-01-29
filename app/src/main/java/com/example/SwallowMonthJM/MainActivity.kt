@@ -124,10 +124,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 //현재 데이터 설정
                 initCurrentDate()
-                viewPager = binding.mainMidViewpager
-                initFragmentAdapter()
-                initViewPager()
-                initTabLayout()
             })
     }
 
@@ -139,6 +135,10 @@ class MainActivity : AppCompatActivity() {
             todayMonth = dateMonth
             setCurrentData(date,this@MainActivity)
         }
+        viewPager = binding.mainMidViewpager
+        initFragmentAdapter()
+        initViewPager()
+        initTabLayout()
     }
 
     private fun setUpListener(){

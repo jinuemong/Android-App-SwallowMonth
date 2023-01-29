@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -69,9 +70,10 @@ class MainViewModel : ViewModel(){
     }
 
     fun getDate(year: Int,month :Int): Date{
+        Log.d("data set ",year.toString()+"++"+month)
         return Calendar.getInstance().run {
             set(Calendar.YEAR,year)
-            set(Calendar.MONTH,month-1)
+            set(Calendar.MONTH, month - 1)
             time
         }
     }
