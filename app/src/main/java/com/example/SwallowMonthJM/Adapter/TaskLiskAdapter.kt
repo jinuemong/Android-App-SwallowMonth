@@ -12,16 +12,18 @@ import com.example.SwallowMonthJM.databinding.ItemTaskBinding
 
 class TaskListAdapter(
     private val mainActivity: MainActivity,
-    private val dataSet : ArrayList<Task>?,
+    private val dataSet : ArrayList<Task>,
+    dPosition:Int,
     private val isDone : Boolean,
 ) : RecyclerView.Adapter<TaskListAdapter.TaskListItemHolder>(){
     private lateinit var binding : ItemTaskBinding
-    private var itemList = dataSet ?: ArrayList<Task>()
+    private var itemList = dataSet
     private var onItemClickListener: OnItemClickListener?=null
     private var itemHeight = 0
+    private var dayPosition =dPosition
 
     interface OnItemClickListener{
-        fun onItemClick(position: Int)
+        fun onItemClick(task: Task)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener){
@@ -32,8 +34,7 @@ class TaskListAdapter(
         : RecyclerView.ViewHolder(binding.root){
             @SuppressLint("SetTextI18n")
             fun bind(item: Task){
-                if(item.isDone==isDone){
-
+                if(item.isDone==isDone && item.dayIndex==dayPosition){
                     val per = item.per
                     binding.taskPer.progress = per
                     binding.taskPerText.text = "$per%"
@@ -44,7 +45,7 @@ class TaskListAdapter(
                     binding.isView()
                     if (onItemClickListener!=null) {
                         binding.root.setOnClickListener {
-                            onItemClickListener?.onItemClick(position=absoluteAdapterPosition)
+                            onItemClickListener?.onItemClick(item)
                         }
                     }
 
@@ -73,6 +74,11 @@ class TaskListAdapter(
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setDayDate(dPosition:Int){
+        dayPosition = dPosition
+        notifyDataSetChanged()
+    }
 
     private fun ItemTaskBinding.isView() {taskLayout.visibility = View.VISIBLE}
     private fun ItemTaskBinding.isUnView() {taskLayout.visibility = View.GONE}

@@ -33,20 +33,23 @@ class TodayMIniTaskListAdapter(
     inner class MIniTaskViewHolder(val binding: ItemTodayTaskMiniBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindTask(item : Task){
-            if (item.isDone){
-                binding.setChecked()
-            }else{
-                binding.setUnChecked()
-            }
-            binding.textItemTodayTaskMini.text = item.text
-            binding.iconItemTodayTaskMini.setImageResource(calendarIcon[item.iconType])
-
-            if (onItemClickListener!=null){
-                binding.root.setOnClickListener{
-                    onItemClickListener?.onItemClick(dayPosition,null,item)
+            if (dayPosition==item.dayIndex) {
+                if (item.isDone) {
+                    binding.setChecked()
+                } else {
+                    binding.setUnChecked()
                 }
-            }
+                binding.textItemTodayTaskMini.text = item.text
+                binding.iconItemTodayTaskMini.setImageResource(calendarIcon[item.iconType])
 
+                if (onItemClickListener != null) {
+                    binding.root.setOnClickListener {
+                        onItemClickListener?.onItemClick(dayPosition, null, item)
+                    }
+                }
+            }else{
+                binding.root.layoutParams.height=0
+            }
         }
 
         fun bindRoutine(item : Routine) {

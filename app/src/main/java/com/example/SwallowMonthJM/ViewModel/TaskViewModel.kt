@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
@@ -19,28 +20,31 @@ class TaskViewModel(
     }
     private val mainView = mainActivity.viewModel
     private val taskManager = TaskManager(mainActivity.application as MasterApplication)
+
+    var taskLiveData = MutableLiveData<ArrayList<Task>>()
+
+    var currentTaskArr = ArrayList<Task>()
+    init {
+        taskLiveData.value = currentTaskArr
+    }
     // 달력에 일정 추가
     fun addTaskData(startNum:Int,endNum:Int,task: Task){
         for (i in startNum..endNum){
             val newTask = SampleTask(task).deepCopy()
             newTask.task.dayIndex=i
-            mainView.currentMonthArr[i].apply {
-                if (this.taskList == null) {
-                    this.taskList = ArrayList()
-                }
-                taskManager.addTaskData(newTask.task, paramFun = {
-                    newTask.task = it!!
-                    this.taskList!!.add(newTask.task)
-                })
-            }
+            taskManager.addTaskData(newTask.task, paramFun = {
+                newTask.task = it!!
+                taskLiveData.value?.add(newTask.task)
+            })
         }
+        Thread.sleep(500)
         mainView.dayLiveData.postValue(mainView.currentMonthArr)
     }
 
     fun delTaskData(task: Task){
-        mainView.currentMonthArr[mainView.currentDayPosition.value!!]
-            .taskList?.remove(task)
+        taskLiveData.value?.remove(task)
         task.id?.let { taskManager.delTaskData(it, paramFun = {}) }
+        Thread.sleep(500)
         mainView.dayLiveData.postValue(mainView.currentMonthArr)
     }
 

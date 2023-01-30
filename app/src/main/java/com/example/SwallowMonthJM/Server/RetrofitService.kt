@@ -82,12 +82,11 @@ interface RetrofitService {
         @Path("id") id: Int,
     ): Call<Task>
 
-    //day task 얻기
+    //month task 얻기
     @GET("task/tasks/")
     fun getDayTaskList(
         @Query(value = "userName", encoded = true) userName: String,
         @Query(value = "monthId", encoded = true) monthId: Int,
-        @Query(value = "dayIndex", encoded = true) dayIndex: Int,
         ): Call<ArrayList<Task>>
 
     //Routine 추가

@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,9 +8,12 @@ import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.MonthDataManager
+import com.example.SwallowMonthJM.Manager.RoutineManager
+import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Server.MasterApplication
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -96,13 +100,40 @@ class MainViewModel : ViewModel(){
         monthData = MonthData(null,profile.userName,keyDate,
             0,0,0,
             0,0,0)
-        monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = {
-            if(it==null){
+        monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = { mData ->
+            if(mData==null){
                 Toast.makeText(mainActivity,"Network error", Toast.LENGTH_SHORT)
                     .show()
             }else{
-                if (it.size>0){ //기존 데이터가 있을 경우
-                    monthData = it[0]
+                if (mData.size>0){ //기존 데이터가 있을 경우
+                    monthData = mData[0]
+                    //routine 데이터 설정
+                    val routineManager = RoutineManager(mainActivity.application as MasterApplication)
+                    routineManager.getRoutineList(mainActivity.userName,monthData.keyDate, paramFun = {
+                        if(it!=null) {
+                            mainActivity.routineViewModel.currentRoutineArr = it
+                            for (i in mainActivity.routineViewModel.currentRoutineArr){
+                                Log.d("!!!routine data: ",i.toString())
+                            }
+                        }else{
+                            mainActivity.routineViewModel.currentRoutineArr = ArrayList()
+                        }
+                        mainActivity.routineViewModel.routineLivData.value = mainActivity.routineViewModel.currentRoutineArr
+
+                    })
+                    //task 데이터 설정
+                    val taskManager = TaskManager(mainActivity.application as MasterApplication)
+                    taskManager.getTaskList(mainActivity.userName, monthData.monthId!!, paramFun = {
+                        if (it != null) {
+                            mainActivity.taskViewModel.currentTaskArr = it
+                            for (i in mainActivity.taskViewModel.currentTaskArr) {
+                                Log.d("!!!task data: ", i.toString())
+                            }
+                        } else {
+                            mainActivity.taskViewModel.currentTaskArr = ArrayList()
+                        }
+                        mainActivity.taskViewModel.taskLiveData.value = mainActivity.taskViewModel.currentTaskArr
+                    })
                 }
             }
         })

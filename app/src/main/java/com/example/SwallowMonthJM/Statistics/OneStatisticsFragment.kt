@@ -79,10 +79,12 @@ class OneStatisticsFragment(
         //리싸이클러 설정
         binding.statisticsRecycler.adapter = TodayTaskListAdapter(
             mainActivity,
+            mainActivity.taskViewModel.taskLiveData.value!!,
             mainActivity.viewModel.dayLiveData.value!!,
             mainActivity.routineViewModel.routineLivData.value!!,
             slideFrame, slideLayout
         )
+
     }
 
     private fun setUpListener(){

@@ -11,8 +11,8 @@ class TaskManager(
     private val materApp : MasterApplication
 ) {
 
-    fun getTaskList(userName:String,monthId:Int,dayIndex:Int,paramFun: (ArrayList<Task>?) -> Unit){
-        materApp.service.getDayTaskList(userName,monthId,dayIndex)
+    fun getTaskList(userName:String,monthId:Int,paramFun: (ArrayList<Task>?) -> Unit){
+        materApp.service.getDayTaskList(userName,monthId)
             .enqueue(object :Callback<ArrayList<Task>>{
                 override fun onResponse(
                     call: Call<ArrayList<Task>>,

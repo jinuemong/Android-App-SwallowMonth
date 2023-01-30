@@ -12,6 +12,7 @@ import com.example.SwallowMonthJM.Adapter.TodayRoutineAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Routine
+import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.RoutineSlider
 import com.example.SwallowMonthJM.Unit.TaskSlider
@@ -63,7 +64,7 @@ class TaskFragment(
         initRoutineAdapter()
         //task 어댑터 초기화
         dayData = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
-        initTaskAdapter(dayData)
+        initTaskAdapter()
 
 
         //루틴 데이터 변화 관찰
@@ -72,34 +73,29 @@ class TaskFragment(
         })
 
         //task 데이터 변화 관찰
-        mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
-            dayData.taskList?.let { taskList->
-                taskListAdapter.setData(taskList)
-            }
+        mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
+            taskListAdapter.setData(it)
         })
 
         // 날짜 데이터 변경 시 적용
         mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
             //현재 날짜 인덱스의 task 갱신
-            dayData = mainActivity.viewModel.currentMonthArr[dayIndex]
-            dayData.taskList?.let { taskList->
-                taskListAdapter.setData(taskList)
-            }
+            taskListAdapter.setDayDate(dayIndex)
 
             //루틴 리싸이클러의 현재 날짜 인덱스 변경
             routineListAdapter.setDayDate(dayIndex)
         })
     }
 
-    private fun initTaskAdapter(day : DayData){
+    private fun initTaskAdapter(){
         //task 뷰 init
         //어댑터 생성
-        taskListAdapter = TaskListAdapter(mainActivity,day.taskList,false)
+        taskListAdapter = TaskListAdapter(mainActivity,mainActivity.taskViewModel.taskLiveData.value!!,
+            mainActivity.viewModel.currentDayPosition.value!!,false)
         //어댑터 내부 클릭 이벤트 적용
-        taskListAdapter.apply {
+        .apply {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
-                override fun onItemClick(position: Int) {
-                    val task = day.taskList!![position]
+                override fun onItemClick(task: Task) {
 
                     routineSlider.visibility = View.GONE
                     taskSlider.apply {
@@ -128,7 +124,7 @@ class TaskFragment(
         routineListAdapter = TodayRoutineAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!
             ,mainActivity.viewModel.currentDayPosition.value!!,false)
         // 어댑터 내부 클릭 이벤트 적용
-        routineListAdapter.apply {
+        .apply {
             setOnItemClickListener(object :TodayRoutineAdapter.OnItemClickListener{
                 override fun onItemClick(dayPosition: Int, routine: Routine) {
                     taskSlider.visibility = View.GONE

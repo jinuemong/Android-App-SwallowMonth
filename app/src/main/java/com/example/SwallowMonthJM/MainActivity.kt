@@ -25,7 +25,6 @@ import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.Manager.MonthDataManager
-import com.example.SwallowMonthJM.Manager.RoutineManager
 import com.example.SwallowMonthJM.Manager.UserManager
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.ViewModel.AddTaskRoutineViewModel
@@ -140,15 +139,6 @@ class MainActivity : AppCompatActivity() {
         initFragmentAdapter()
         initViewPager()
         initTabLayout()
-
-        //routine 데이터 설정
-        val routineManager = RoutineManager(application as MasterApplication)
-        routineManager.getRoutineList(userName,viewModel.monthData.keyDate, paramFun = {
-            if(it!=null) {
-                routineViewModel.currentRoutineArr = it
-                routineViewModel.routineLivData.value = routineViewModel.currentRoutineArr
-            }
-        })
     }
 
     private fun setUpListener(){

@@ -9,6 +9,7 @@ import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Unit.levelPoint
+import java.lang.Thread.sleep
 
 class RoutineViewModel(
     mainActivity: MainActivity
@@ -43,6 +44,7 @@ class RoutineViewModel(
                         routineData.dayRoutinePost.add(it!!)
                     })
                 }
+                sleep(500)
                 currentRoutineArr.add(routineData)
                 routineLivData.postValue(currentRoutineArr)
             }
@@ -52,6 +54,7 @@ class RoutineViewModel(
     fun delRoutineData(routine: Routine){
         currentRoutineArr.remove(routine)
         routine.routineId?.let { routineManager.delRoutine(it, paramFun = {}) }
+        Thread.sleep(500)
         routineLivData.postValue(currentRoutineArr)
     }
 
