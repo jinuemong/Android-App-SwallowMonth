@@ -33,7 +33,7 @@ class CalendarAdapterAddRoutine(
 
     // init calendar
     private var customCalendar: CustomCalendar =
-        CustomCalendar(date, dateDay, currentMonth, dateMonth)
+        CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
 
     init {
         customCalendar.initBaseCalendar()

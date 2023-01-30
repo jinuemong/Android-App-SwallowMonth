@@ -27,6 +27,7 @@ class DoneFragment(
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     private lateinit var taskListAdapter:TaskListAdapter
+    private lateinit var dayData : DayData //task 리스트 불러오기
     private lateinit var routineListAdapter:TodayRoutineAdapter
     private var taskSlider :View  = slideLayout.findViewById(R.id.slide_task)
     private var routineSlider : View = slideLayout.findViewById(R.id.slide_routine)
@@ -56,57 +57,45 @@ class DoneFragment(
         _binding = null
     }
     private fun initView(){
-        mainActivity.routineViewModel.routineLivData.apply {
-            routineListAdapter = TodayRoutineAdapter(mainActivity,this.value!!
-                ,mainActivity.viewModel.currentDayPosition.value!!,true).apply {
-                setOnItemClickListener(object :TodayRoutineAdapter.OnItemClickListener{
-                    override fun onItemClick(dayPosition: Int, routine: Routine) {
-                        taskSlider.visibility = View.GONE
-                        routineSlider.apply {
-                            visibility = View.VISIBLE
-                            RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
-                                .apply { initSlide() }
 
-                            val state = slideFrame.panelState
-                            if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                                slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-                            }
-                            else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                                slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-                            }
+        //루틴 어댑터 초기화
+        initRoutineAdapter()
+        //task 어댑터 초기화
+        dayData = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
+        initTaskAdapter(dayData)
 
-                        }
-                    }
-                })
-            }
-            binding.routineDoneView.adapter = routineListAdapter
-            this.observe(mainActivity, Observer {
-                (binding.routineDoneView.adapter as TodayRoutineAdapter).setData(it)
+        //루틴 데이터 변화 관찰
+        mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
+            routineListAdapter.setData(it)
+        })
 
-            })
-        }
-
-        var day = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
-        initAdapter(day)
-        binding.taskDoneView.adapter  =taskListAdapter
-
+        //task 데이터 변화 관찰
         mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
-            day.taskList?.let {
-                (binding.taskDoneView.adapter as TaskListAdapter).setData(it)
+            dayData.taskList?.let { taskList->
+                taskListAdapter.setData(taskList)
             }
         })
 
-//        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
-//            day = mainActivity.viewModel.currentMonthArr[dayIndex]
-//            initAdapter(day)
-//            binding.taskDoneView.adapter  =taskListAdapter
-//
-//            (binding.routineDoneView.adapter as TodayRoutineAdapter).setDayDate(dayIndex)
-//        })
+        // 날짜 데이터 변경 시 적용
+        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
+            //현재 날짜 인덱스의 task 갱신
+            dayData = mainActivity.viewModel.currentMonthArr[dayIndex]
+            dayData.taskList?.let { taskList->
+                taskListAdapter.setData(taskList)
+            }
+
+            //루틴 리싸이클러의 현재 날짜 인덱스 변경
+            routineListAdapter.setDayDate(dayIndex)
+        })
+
+
     }
 
-    private fun initAdapter(day : DayData){
+    private fun initTaskAdapter(day : DayData){
+        // task 뷰 init
+        // 어댑터 생성
         taskListAdapter = TaskListAdapter(mainActivity,day.taskList,true)
+        // 어댑터 내부 클릭 이벤트 적용
         taskListAdapter.apply {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
                 override fun onItemClick(position: Int) {
@@ -128,6 +117,39 @@ class DoneFragment(
                 }
             })
         }
+        //어댑터 부착
+        binding.taskDoneView.adapter  =taskListAdapter
+    }
+
+    private fun initRoutineAdapter(){
+        //루틴 뷰 init
+        // 어댑터 생성
+        routineListAdapter = TodayRoutineAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!,
+            mainActivity.viewModel.currentDayPosition.value!!,true)
+        // 어댑터 내부 클릭 이벤트 적용
+        routineListAdapter.apply {
+            setOnItemClickListener(object :TodayRoutineAdapter.OnItemClickListener{
+                override fun onItemClick(dayPosition: Int, routine: Routine) {
+                    taskSlider.visibility = View.GONE
+                    routineSlider.apply {
+                        visibility = View.VISIBLE
+                        RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
+                            .apply { initSlide() }
+
+                        val state = slideFrame.panelState
+                        if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                        }
+                        else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                        }
+
+                    }
+                }
+            })
+        }
+        // 어댑터 부착
+        binding.routineDoneView.adapter = routineListAdapter
     }
 
 }

@@ -57,26 +57,33 @@ class MainViewModel : ViewModel(){
         currentDayPosition.value = 1
     }
 
+    //현재 뷰 년도 초기화
     private fun setCurrentYear(year:Int){
         currentYear.value = year
     }
+
+    //현재 뷰 달 초기화
     private fun setCurrentMonth(month:Int){
         currentMonth.value = month
     }
 
+    //현재 뷰 day position 초기화
     fun setCurrentDayPosition(dayPosition:Int){
         currentDayPosition.value = dayPosition
     }
 
+    //현재 뷰 Date 구함
     fun getDate(year: Int,month :Int): Date{
         return Calendar.getInstance().run {
             set(Calendar.YEAR,year)
             set(Calendar.MONTH, month - 1)
-            //2월은 윤년이 아니면 3월로 침 1월로 초기화
+            //2월은 윤년이 아니면 3월로 침 ->1월로 초기화
             set(Calendar.DAY_OF_MONTH,1)
             time
         }
     }
+
+    //현재 뷰 갱신
     fun setCurrentData(data:Date, mainActivity: MainActivity){
         val dateYear : Int = SimpleDateFormat("yyyy",Locale.KOREA).format(data).toInt()
         val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(data).toInt()
@@ -84,6 +91,7 @@ class MainViewModel : ViewModel(){
 
         setCurrentYear(dateYear)
         setCurrentMonth(dateMonth)
+
         val keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(data)
         monthData = MonthData(null,profile.userName,keyDate,
             0,0,0,
@@ -99,7 +107,7 @@ class MainViewModel : ViewModel(){
             }
         })
         //현재 view 데이터 생성
-        currentDate = CustomCalendar(data, dateDay, todayMonth, dateMonth)
+        currentDate = CustomCalendar(mainActivity,data, dateDay, todayMonth, dateMonth)
         currentDate.initBaseCalendar()
         currentMonthArr = currentDate.dateList
         dayLiveData.value = currentMonthArr
@@ -109,7 +117,9 @@ class MainViewModel : ViewModel(){
             todayDate = data
             todayYear =dateYear
             todayDayPosition = currentDate.currentIndex
+            currentDayPosition.value = currentDate.currentIndex
         }
+        setCurrentDayPosition(currentDayPosition.value!!)
 
         //데이터 변화 알림
         setStatistics()

@@ -11,6 +11,27 @@ class TaskManager(
     private val materApp : MasterApplication
 ) {
 
+    fun getTaskList(userName:String,monthId:Int,dayIndex:Int,paramFun: (ArrayList<Task>?) -> Unit){
+        materApp.service.getDayTaskList(userName,monthId,dayIndex)
+            .enqueue(object :Callback<ArrayList<Task>>{
+                override fun onResponse(
+                    call: Call<ArrayList<Task>>,
+                    response: Response<ArrayList<Task>>
+                ) {
+                    if (response.isSuccessful){
+                        paramFun(response.body())
+                    }else {
+                        paramFun(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Task>>, t: Throwable) {
+                    paramFun(null)
+                }
+
+            })
+    }
+
     fun addTaskData(task: Task,paramFun :(Task?)->Unit){
         materApp.service.addTask(task.monthId,task.userId,task.dayIndex,task.text,task.isDone
         ,task.iconType,task.level,task.per).enqueue(object : Callback<Task>{

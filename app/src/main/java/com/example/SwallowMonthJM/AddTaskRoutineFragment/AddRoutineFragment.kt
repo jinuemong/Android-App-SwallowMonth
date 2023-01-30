@@ -140,7 +140,7 @@ class AddRoutineFragment : Fragment() {
                     if (it!=null){
                         data.monthId = it
                         data.userId = mainActivity.viewModel.profile.userName
-                        //                        mainActivity.routineViewModel.addRoutineData(data)
+                        mainActivity.routineViewModel.addRoutineData(data)
                         mainActivity.onFragmentGoBack(this@AddRoutineFragment)
                     }
                 }

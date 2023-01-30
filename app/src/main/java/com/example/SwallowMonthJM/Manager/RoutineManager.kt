@@ -11,6 +11,26 @@ class RoutineManager(
     private val materApp : MasterApplication
 ) {
 
+    fun getRoutineList(userName:String,keyDate:String,paramFun: (ArrayList<Routine>?) -> Unit){
+        materApp.service.getMonthRoutineList(userName,keyDate)
+            .enqueue(object : Callback<ArrayList<Routine>>{
+                override fun onResponse(
+                    call: Call<ArrayList<Routine>>,
+                    response: Response<ArrayList<Routine>>
+                ) {
+                    if(response.isSuccessful){
+                        paramFun(response.body())
+                    }else{
+                        paramFun(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Routine>>, t: Throwable) {
+                    paramFun(null)
+                }
+
+            })
+    }
     fun addRoutine(routine: Routine,paramFun:(Routine?)->Unit){
         materApp.service.addRoutine(routine.userId,routine.monthId,routine.keyDate,routine.text,
         routine.cycle,routine.startNum,routine.totalRoutine,routine.clearRoutine,routine.iconType,routine.topText)

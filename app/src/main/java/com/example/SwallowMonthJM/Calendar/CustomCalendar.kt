@@ -1,11 +1,15 @@
 package com.example.SwallowMonthJM.Calendar
 
+import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.DayData
+import com.example.SwallowMonthJM.Server.MasterApplication
 import java.text.SimpleDateFormat
 import java.util.*
 
 //각 달의 일수 표현
 class CustomCalendar(
+    private val mainActivity: MainActivity,
     date: Date,
     private val currentDay:Int,
     private val currentMonth:Int,
@@ -17,6 +21,8 @@ class CustomCalendar(
         const val DAYS_OF_WEEK= 7
         const val LOW_OF_CALENDAR =6
     }
+    var dayIndex =-1 //dayIndex 넣기
+
     var currentIndex = 0
     val calendar: Calendar = Calendar.getInstance()
     var prevTail = 0 //이전달 끝부분
@@ -25,6 +31,9 @@ class CustomCalendar(
     var dateList = ArrayList<DayData>()
     var keyDate:String = ""
     var topDate : String = ""
+    private var taskManager:TaskManager = TaskManager(mainActivity.application as MasterApplication)
+    private val userName  = mainActivity.userName
+    private val monthId = mainActivity.viewModel.monthData.monthId
     init {
         calendar.time=date
         keyDate  = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(date)
@@ -62,30 +71,57 @@ class CustomCalendar(
         val maxDate = calendar.getActualMaximum(Calendar.DATE)
         var maxOffsetDate = maxDate-prevTail
         for (i in 1..prevTail){
-            dateList.add(
-                DayData(
-                    getCurrentData(monthIndex),
-                    ++maxOffsetDate,
-                    isSelected = false,
-                    monthIndex = monthIndex,
-                    null,
+            if(monthId!=null) {
+                taskManager.getTaskList(userName, monthId,++dayIndex, paramFun = {
+                    dateList.add(
+                        DayData(
+                            getCurrentData(monthIndex),
+                            ++maxOffsetDate,
+                            isSelected = false,
+                            monthIndex = monthIndex,
+                            it,
+                        )
+                    )
+                })
+            }else {
+                dateList.add(
+                    DayData(
+                        getCurrentData(monthIndex),
+                        ++maxOffsetDate,
+                        isSelected = false,
+                        monthIndex = monthIndex,
+                        null,
+                    )
                 )
-            )
+            }
         }
     }
 
     private fun makeCurrentMonth(calendar: Calendar){
         for (i in 1..calendar.getActualMaximum(Calendar.DATE)) {
             val isToday = (currentDay==i && currentMonth==dateMonth)
-            dateList.add(
-                DayData(
-                    keyDate,
-                    i,
-                    isSelected = isToday,
-                    monthIndex = 0,
-                    null,
+            if(monthId!=null) {
+                taskManager.getTaskList(userName, monthId,++dayIndex, paramFun = {
+                    DayData(
+                        keyDate,
+                        i,
+                        isSelected = isToday,
+                        monthIndex = 0,
+                        it,
+                    )
+                })
+            }else{
+                dateList.add(
+                    DayData(
+                        keyDate,
+                        i,
+                        isSelected = isToday,
+                        monthIndex = 0,
+                        null,
+                    )
                 )
-            )
+            }
+
             if(isToday){
                 currentIndex = dateList.lastIndex
             }
@@ -96,15 +132,29 @@ class CustomCalendar(
         val monthIndex = 1
         var date = 1
         for (i in 1..nextHead){
-            dateList.add(
-                DayData(
-                    getCurrentData(monthIndex),
-                    date++,
-                    isSelected = false,
-                    monthIndex = monthIndex,
-                    null,
+            if(monthId!=null) {
+                taskManager.getTaskList(userName, monthId, ++dayIndex, paramFun = {
+                    dateList.add(
+                        DayData(
+                            getCurrentData(monthIndex),
+                            date++,
+                            isSelected = false,
+                            monthIndex = monthIndex,
+                            it,
+                        )
+                    )
+                })
+            }else{
+                dateList.add(
+                    DayData(
+                        getCurrentData(monthIndex),
+                        date++,
+                        isSelected = false,
+                        monthIndex = monthIndex,
+                        null,
+                    )
                 )
-            )
+            }
         }
     }
 

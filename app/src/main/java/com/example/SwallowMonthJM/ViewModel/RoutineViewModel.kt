@@ -4,8 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.RoutineManager
 import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.Model.Routine
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Unit.levelPoint
 
 class RoutineViewModel(
@@ -17,27 +19,40 @@ class RoutineViewModel(
         }
     }
     private val mainView = mainActivity.viewModel
+    private val routineManager = RoutineManager(mainActivity.application as MasterApplication)
 
     var routineLivData = MutableLiveData<ArrayList<Routine>>()
 
-    private var currentRoutineArr = ArrayList<Routine>()
+    var currentRoutineArr = ArrayList<Routine>()
     init {
         routineLivData.value = currentRoutineArr
     }
 
     fun addRoutineData(routine:Routine){
         //서버에 생성하고 반환값으로 DayRoutine 생성해야함 !
-        for (i in 0 until routine.totalRoutine){
-            val dayIndex = routine.startNum+i*routine.cycle
-            routine.dayRoutinePost.add(DayRoutine(null,routine.routineId!!,mainView.monthData.monthId!!,dayIndex,false))
-        }
-        currentRoutineArr.add(routine)
-        routineLivData.value = currentRoutineArr
+        routineManager.addRoutine(routine, paramFun = { routineData->
+            if (routineData!=null) {
+                for (i in 0 until routineData.totalRoutine) {
+                    val dayIndex = routineData.startNum + i * routineData.cycle
+                    val dayRoutine = DayRoutine(
+                        null, routineData.routineId!!,
+                        mainView.monthData.monthId!!,
+                        dayIndex, false)
+
+                    routineManager.addDayRoutine(dayRoutine, paramFun = {
+                        routineData.dayRoutinePost.add(it!!)
+                    })
+                }
+                currentRoutineArr.add(routineData)
+                routineLivData.postValue(currentRoutineArr)
+            }
+        })
     }
 
     fun delRoutineData(routine: Routine){
         currentRoutineArr.remove(routine)
-        routineLivData.value = currentRoutineArr
+        routine.routineId?.let { routineManager.delRoutine(it, paramFun = {}) }
+        routineLivData.postValue(currentRoutineArr)
     }
 
     fun doneRoutineData(routine: Routine,dayRoutine: DayRoutine){
@@ -47,7 +62,7 @@ class RoutineViewModel(
             mainView.monthData.totalPoint+= levelPoint[0]
         }
         dayRoutine.clear = true
-        routineLivData.value = currentRoutineArr
+        routineLivData.postValue(currentRoutineArr)
     }
 
 }
