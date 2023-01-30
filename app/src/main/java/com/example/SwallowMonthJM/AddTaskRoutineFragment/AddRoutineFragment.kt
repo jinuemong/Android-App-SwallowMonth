@@ -101,8 +101,8 @@ class AddRoutineFragment : Fragment() {
                     })
                 }
                 //후처리 코드
-                val startIntroThread = AddThread(data)
-                startIntroThread.start()
+                val startThread = AddThread(data)
+                startThread.start()
 
             }
         }
