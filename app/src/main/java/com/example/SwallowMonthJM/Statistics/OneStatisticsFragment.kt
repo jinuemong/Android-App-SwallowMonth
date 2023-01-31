@@ -47,12 +47,12 @@ class OneStatisticsFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
-        setUpListener()
+
 
         //month data Change 관찰
         mainActivity.viewModel.eventStatistics.observe(mainActivity, Observer {
             initData()
+            setUpListener()
         })
     }
 
