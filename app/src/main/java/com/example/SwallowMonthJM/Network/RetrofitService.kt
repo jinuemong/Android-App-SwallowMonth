@@ -77,7 +77,7 @@ interface RetrofitService {
     ): Call<Task>
 
     //Task 제거
-    @DELETE("task/tasks/{id}")
+    @DELETE("task/tasks/{id}/")
     fun delTask(
         @Path("id") id: Int,
     ): Call<Task>
@@ -106,7 +106,7 @@ interface RetrofitService {
     ): Call<Routine>
 
     //Routine 제거 routineId
-    @DELETE("routine/routines/{routineId}")
+    @DELETE("routine/routines/{routineId}/")
     fun delRoutine(
         @Path("routineId") routineId: Int,
     ): Call<Routine>
@@ -129,7 +129,14 @@ interface RetrofitService {
     ): Call<ArrayList<Routine>>
 
 
-    //Patch task and routine
+    //Patch Data
+
+    //Month 수정
+    @PATCH("month/monthDatas/{monthId}/")
+    fun setMonthData(
+        @Path("monthId")monthId: Int,
+        @Body monthData: MonthData
+    ):Call<MonthData>
 
     //Task 수정
     @PATCH("task/tasks/{id}")
@@ -139,14 +146,14 @@ interface RetrofitService {
     ):Call<Task>
 
     //Routine 수정
-    @PATCH("routine/routines/{routineId}")
+    @PATCH("routine/routines/{routineId}/")
     fun setRoutineData(
         @Path("routineId")routineId : Int,
         @Body routine : Routine
     ):Call<Routine>
 
     //dayRoutine 수정
-    @PATCH("routine/dayRoutines/{id}")
+    @PATCH("routine/dayRoutines/{id}/")
     fun setDayRoutineData(
         @Path("id")id : Int,
         @Body dayRoutine : DayRoutine

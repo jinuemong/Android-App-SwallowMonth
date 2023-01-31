@@ -82,4 +82,40 @@ class RoutineManager(
                 }
             })
     }
+
+    fun setRoutineData(routineId :Int, routine: Routine,paramFun: (Routine?) -> Unit){
+        materApp.service.setRoutineData(routineId,routine)
+            .enqueue(object :Callback<Routine>{
+                override fun onResponse(call: Call<Routine>, response: Response<Routine>) {
+                    if (response.isSuccessful){
+                        paramFun(response.body())
+                    }else{
+                        paramFun(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<Routine>, t: Throwable) {
+                    paramFun(null)
+                }
+
+            })
+    }
+
+    fun setDayRoutineData(id : Int, dayRoutine: DayRoutine,paramFun: (DayRoutine?) -> Unit){
+        materApp.service.setDayRoutineData(id,dayRoutine)
+            .enqueue(object :Callback<DayRoutine>{
+                override fun onResponse(call: Call<DayRoutine>, response: Response<DayRoutine>) {
+                    if (response.isSuccessful){
+                        paramFun(response.body())
+                    }else{
+                        paramFun(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<DayRoutine>, t: Throwable) {
+                    paramFun(null)
+                }
+
+            })
+    }
 }

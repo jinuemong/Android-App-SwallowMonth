@@ -62,4 +62,21 @@ class TaskManager(
             }
         })
     }
+
+    fun setTaskData(taskId: Int, task: Task, paramFun: (Task?) -> Unit) {
+        materApp.service.setTaskData(taskId, task).enqueue(object : Callback<Task> {
+            override fun onResponse(call: Call<Task>, response: Response<Task>) {
+                if(response.isSuccessful){
+                    paramFun(response.body())
+                }else{
+                    paramFun(null)
+                }
+            }
+
+            override fun onFailure(call: Call<Task>, t: Throwable) {
+                paramFun(null)
+            }
+
+        })
+    }
 }

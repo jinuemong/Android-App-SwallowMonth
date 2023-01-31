@@ -86,4 +86,23 @@ class MonthDataManager(
 
             })
     }
+
+    //MonthData 수정
+    fun setMonthData(monthId: Int,monthData: MonthData,paramFun:(MonthData?)->Unit){
+        materApp.service.setMonthData(monthId,monthData)
+            .enqueue(object :Callback<MonthData>{
+                override fun onResponse(call: Call<MonthData>, response: Response<MonthData>) {
+                    if(response.isSuccessful && response.body()!=null){
+                        paramFun(response.body())
+                    }else{
+                        paramFun(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<MonthData>, t: Throwable) {
+                    paramFun(null)
+                }
+
+            })
+    }
 }
