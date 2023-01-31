@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TodayTaskListAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Unit.MonthPickerDialog
@@ -47,13 +46,8 @@ class OneStatisticsFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        //month data Change 관찰
-        mainActivity.viewModel.eventStatistics.observe(mainActivity, Observer {
-            initData()
-            setUpListener()
-        })
+        initData()
+        setUpListener()
     }
 
     override fun onDestroyView() {

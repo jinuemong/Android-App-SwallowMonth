@@ -42,9 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_task"
-                    android:textColor="@color/strong_color"
-                    android:textSize="@dimen/item_height_big_text_size"
+                    android:textColor="@color/color_type1"
                     android:textStyle="bold"
+                    android:textSize="@dimen/item_height_big_text_size_35"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +53,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
+                android:layout_marginTop="@dimen/main_margin_10"
                 android:id="@+id/frag_add_left"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height_big_80"

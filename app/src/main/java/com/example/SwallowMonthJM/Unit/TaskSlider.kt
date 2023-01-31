@@ -22,9 +22,13 @@ class TaskSlider(
     private var completeButton = slide.findViewById<Button>(R.id.complete_button)
     private var seekVar = slide.findViewById<SeekBar>(R.id.task_seek_bar)
     private var delButton = slide.findViewById<ImageView>(R.id.task_garbage)
+    //slide 너비 설정
+    private val params =
+        LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT)
     @SuppressLint("SetTextI18n")
     fun initSlide(){
-        slide.layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT
         name.text = task.text
         level.text = levelText[task.level]
         icon.setImageResource(calendarIcon[task.iconType])
@@ -34,7 +38,7 @@ class TaskSlider(
 
         setUpListener()
         seekbarListener()
-
+        slide.layoutParams = params
     }
 
     private fun setUpListener(){

@@ -38,11 +38,13 @@ class RoutineViewModel(
                         mainView.monthData.monthId!!,
                         dayIndex, false)
 
-                    routineManager.addDayRoutine(dayRoutine, paramFun = {
-                        routineData.dayRoutinePost.add(it!!)
-                        RoutineThread(routineData,"add").start()
+                    routineManager.addDayRoutine(dayRoutine, paramFun = { dayRou->
+                        routineData.dayRoutinePost.add(dayRou!!)
                     })
                 }
+                Thread.sleep(500)
+                currentRoutineArr.add(routineData)
+                routineLivData.postValue(currentRoutineArr)
             }
         })
     }
@@ -62,19 +64,6 @@ class RoutineViewModel(
         dayRoutine.clear = true
         routineLivData.postValue(currentRoutineArr)
     }
-    inner class RoutineThread(val routine:Routine,val type:String): Thread(){
-        override fun run() {
-            super.run()
-            try {
-                sleep(500)
-                if (type=="add"){
-                    currentRoutineArr.add(routine)
-                    routineLivData.postValue(currentRoutineArr)
-                }
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        }
-    }
+
 
 }

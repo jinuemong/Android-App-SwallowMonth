@@ -93,8 +93,6 @@ class MainActivity : AppCompatActivity() {
             AnimationUtils.loadAnimation(this@MainActivity, R.anim.wave),
             AnimationUtils.loadAnimation(this@MainActivity,R.anim.enter_right)
         )
-        initView()
-        setUpListener()
 
         //뒤로가기 조작 (2초 이내 연속 클릭 시 종료)
         callback = object : OnBackPressedCallback(true) {
@@ -109,6 +107,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         this.onBackPressedDispatcher.addCallback(this,callback)
+
+        //뷰 초기화
+
+        initView()
     }
 
     private fun initView() {
@@ -124,6 +126,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 //현재 데이터 설정
                 initCurrentDate()
+                //지연 데이터 적용
+                Thread.sleep(500)
+                initFragmentAdapter()
+                initViewPager()
+                initTabLayout()
+                setUpListener()
             })
     }
 
@@ -136,9 +144,7 @@ class MainActivity : AppCompatActivity() {
             setCurrentData(date,this@MainActivity)
         }
         viewPager = binding.mainMidViewpager
-        initFragmentAdapter()
-        initViewPager()
-        initTabLayout()
+
     }
 
     private fun setUpListener(){
@@ -183,6 +189,7 @@ class MainActivity : AppCompatActivity() {
         val tab = binding.mainBottomTabLayout.getChildAt(0) as ViewGroup
         val tabView = tab.getChildAt(2)
         tabView.visibility = View.INVISIBLE
+
     }
 
     fun onFragmentChange(goFragment: Fragment) {
@@ -195,6 +202,5 @@ class MainActivity : AppCompatActivity() {
         frManger.beginTransaction().remove(fragment).commit()
         frManger.popBackStack()
     }
-
 }
 

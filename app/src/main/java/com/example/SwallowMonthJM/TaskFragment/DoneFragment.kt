@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
@@ -96,7 +97,6 @@ class DoneFragment(
         .apply {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
                 override fun onItemClick(task: Task) {
-
                     routineSlider.visibility = View.GONE
                     taskSlider.apply {
                         visibility = View.VISIBLE

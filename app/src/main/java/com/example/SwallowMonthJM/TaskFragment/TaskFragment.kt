@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
@@ -103,6 +104,7 @@ class TaskFragment(
                         TaskSlider(this,slideFrame,mainActivity,task)
                             .apply { initSlide() }
                         val state = slideFrame.panelState
+
                         if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                             slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
                         }
@@ -132,6 +134,7 @@ class TaskFragment(
                         visibility = View.VISIBLE
                         RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
                             .apply { initSlide() }
+
                         val state = slideFrame.panelState
                         if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                             slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED

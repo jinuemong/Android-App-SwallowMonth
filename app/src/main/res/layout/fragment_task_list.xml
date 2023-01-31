@@ -9,7 +9,7 @@
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/slide_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="bottom"
         app:umanoDragView="@id/slide_layout"
         app:umanoOverlay="true"
@@ -234,12 +234,12 @@
                 android:id="@+id/slide_task"
                 layout="@layout/slide_layout_task_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
             <include
                 android:id="@+id/slide_routine"
                 layout="@layout/slide_layout_routine_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </FrameLayout>

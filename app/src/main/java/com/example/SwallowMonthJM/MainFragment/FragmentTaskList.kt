@@ -55,11 +55,8 @@ class FragmentTaskList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //month data Change 관찰
-        mainActivity.viewModel.eventTaskList.observe(mainActivity, Observer {
-            initView()
-            setUpListener()
-        })
+        initView()
+        setUpListener()
     }
 
     override fun onResume() {

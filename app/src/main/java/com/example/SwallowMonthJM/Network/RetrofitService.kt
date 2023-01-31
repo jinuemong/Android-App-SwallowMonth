@@ -127,4 +127,28 @@ interface RetrofitService {
         @Query(value = "userName", encoded = true) userName: String,
         @Query(value = "keyDate", encoded = true) keyDate: String,
     ): Call<ArrayList<Routine>>
+
+
+    //Patch task and routine
+
+    //Task 수정
+    @PATCH("task/tasks/{id}")
+    fun setTaskData(
+        @Path("id")id : Int,
+        @Body task : Task
+    ):Call<Task>
+
+    //Routine 수정
+    @PATCH("routine/routines/{routineId}")
+    fun setRoutineData(
+        @Path("routineId")routineId : Int,
+        @Body routine : Routine
+    ):Call<Routine>
+
+    //dayRoutine 수정
+    @PATCH("routine/dayRoutines/{id}")
+    fun setDayRoutineData(
+        @Path("id")id : Int,
+        @Body dayRoutine : DayRoutine
+    ):Call<DayRoutine>
 }

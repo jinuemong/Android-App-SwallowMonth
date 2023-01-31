@@ -1,8 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
@@ -41,17 +39,12 @@ class MainViewModel : ViewModel(){
     //////////////////////////////////////////
 
     //관찰 데이터//////////////////////////
-    private val _event_statistics = SingleLiveEvent<Any>()
-    private val _event_taskList = SingleLiveEvent<Any>()
-    val eventStatistics : LiveData<Any> get() = _event_statistics
-    val eventTaskList : LiveData<Any> get() = _event_taskList
-
-    private fun setStatistics(){
-        _event_statistics.call()
-    }
-    private fun setTaskList(){
-        _event_taskList.call()
-    }
+//    private val _eventSetData = SingleLiveEvent<Any>()
+//    val eventSetData : LiveData<Any> get() = _eventSetData
+//
+//    private fun setData(){
+//        _eventSetData.call()
+//    }
     /////////////////////////////////////
     // 단순 초기화
     init {
@@ -112,9 +105,6 @@ class MainViewModel : ViewModel(){
                     routineManager.getRoutineList(mainActivity.userName,monthData.keyDate, paramFun = {
                         if(it!=null) {
                             mainActivity.routineViewModel.currentRoutineArr = it
-                            for (i in mainActivity.routineViewModel.currentRoutineArr){
-                                Log.d("!!!routine data: ",i.toString())
-                            }
                         }else{
                             mainActivity.routineViewModel.currentRoutineArr = ArrayList()
                         }
@@ -126,9 +116,6 @@ class MainViewModel : ViewModel(){
                     taskManager.getTaskList(mainActivity.userName, monthData.monthId!!, paramFun = {
                         if (it != null) {
                             mainActivity.taskViewModel.currentTaskArr = it
-                            for (i in mainActivity.taskViewModel.currentTaskArr) {
-                                Log.d("!!!task data: ", i.toString())
-                            }
                         } else {
                             mainActivity.taskViewModel.currentTaskArr = ArrayList()
                         }
@@ -151,10 +138,6 @@ class MainViewModel : ViewModel(){
             currentDayPosition.value = currentDate.currentIndex
         }
         setCurrentDayPosition(currentDayPosition.value!!)
-
-        //데이터 변화 알림
-        setStatistics()
-        setTaskList()
     }
 
     //남은 task + routine 설정
@@ -163,6 +146,5 @@ class MainViewModel : ViewModel(){
         val clearList = monthData.doneTask+monthData.clearRoutine
         return "${totalList-clearList}/$totalList"
     }
-
 
 }

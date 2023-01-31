@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
@@ -56,13 +57,7 @@ class TodayTaskListAdapter(
                             routineSlider.apply {
                                 visibility = View.VISIBLE
                                 if (routine != null) {
-                                    RoutineSlider(
-                                        this,
-                                        slideFrame,
-                                        mainActivity,
-                                        dayPosition,
-                                        routine
-                                    )
+                                    RoutineSlider(this, slideFrame, mainActivity, dayPosition, routine)
                                         .apply { initSlide() }
                                     val state = slideFrame.panelState
                                     if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
@@ -92,6 +87,7 @@ class TodayTaskListAdapter(
                         override fun onItemClick(dayPosition: Int, routine: Routine?, task: Task?) {
                             routineSlider.visibility = View.GONE
                             taskSlider.apply {
+
                                 visibility = View.VISIBLE
                                 if (task != null) {
                                     TaskSlider(this, slideFrame, mainActivity, task)

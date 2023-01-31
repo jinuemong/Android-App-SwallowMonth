@@ -37,7 +37,8 @@ class TaskViewModel(
                 currentTaskArr.add(newTask.task)
             })
         }
-        TaskThread(null,"add").start()
+        Thread.sleep(500)
+        mainView.dayLiveData.postValue(mainView.currentMonthArr)
     }
 
     fun delTaskData(task: Task){
@@ -64,17 +65,6 @@ class TaskViewModel(
         task.per = p
         mainView.dayLiveData.postValue(mainView.currentMonthArr)
     }
-    inner class TaskThread(val task: Task?, val type:String): Thread(){
-        override fun run() {
-            super.run()
-            try {
-                sleep(500)
-                if (type=="add"){
-                    mainView.dayLiveData.postValue(mainView.currentMonthArr)
-                }
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-        }
-    }
+
+
 }

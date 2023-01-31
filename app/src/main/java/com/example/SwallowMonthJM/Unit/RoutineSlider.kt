@@ -30,16 +30,20 @@ class RoutineSlider(
     private var calendarLinear = slide.findViewById<View>(R.id.calendar_layout)
         .findViewById<LinearLayout>(R.id.frag_calender_linear)
     private var completeButton = slide.findViewById<Button>(R.id.complete_button)
-
+    //slide 너비 설정
+    private val params =
+        LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT)
     @SuppressLint("SetTextI18n")
     fun initSlide(){
-        slide.layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT
         name.text = routine.text
         icon.setImageResource(calendarIcon[routine.iconType])
         mainText.text = "${routine.clearRoutine} / ${routine.totalRoutine}"
         topText.text = routine.topText
         initCalendar()
         setUpListener()
+        slide.layoutParams = params
     }
 
     private fun setUpListener(){
