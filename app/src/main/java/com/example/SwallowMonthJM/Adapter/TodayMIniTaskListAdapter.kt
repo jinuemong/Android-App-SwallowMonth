@@ -53,6 +53,7 @@ class TodayMIniTaskListAdapter(
         }
 
         fun bindRoutine(item : Routine) {
+
             val dayRoutine = item.dayRoutinePost.find { it.dayIndex==dayPosition}
             if (dayRoutine!=null){
                 if (dayRoutine.clear){

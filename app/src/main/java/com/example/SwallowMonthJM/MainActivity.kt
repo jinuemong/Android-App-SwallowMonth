@@ -26,7 +26,7 @@ import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.UserManager
-import com.example.SwallowMonthJM.Server.MasterApplication
+import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.ViewModel.AddTaskRoutineViewModel
 import com.example.SwallowMonthJM.ViewModel.MainViewModel
 import com.example.SwallowMonthJM.ViewModel.RoutineViewModel

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.Task
-import com.example.SwallowMonthJM.Server.MasterApplication
+import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.Unit.SampleTask
 import com.example.SwallowMonthJM.Unit.levelPoint
 
@@ -34,17 +34,15 @@ class TaskViewModel(
             newTask.task.dayIndex=i
             taskManager.addTaskData(newTask.task, paramFun = {
                 newTask.task = it!!
-                taskLiveData.value?.add(newTask.task)
+                currentTaskArr.add(newTask.task)
             })
         }
-        Thread.sleep(500)
-        mainView.dayLiveData.postValue(mainView.currentMonthArr)
+        TaskThread(null,"add").start()
     }
 
     fun delTaskData(task: Task){
         taskLiveData.value?.remove(task)
         task.id?.let { taskManager.delTaskData(it, paramFun = {}) }
-        Thread.sleep(500)
         mainView.dayLiveData.postValue(mainView.currentMonthArr)
     }
 
@@ -65,5 +63,18 @@ class TaskViewModel(
     fun setPerTask(task: Task, p:Int){
         task.per = p
         mainView.dayLiveData.postValue(mainView.currentMonthArr)
+    }
+    inner class TaskThread(val task: Task?, val type:String): Thread(){
+        override fun run() {
+            super.run()
+            try {
+                sleep(500)
+                if (type=="add"){
+                    mainView.dayLiveData.postValue(mainView.currentMonthArr)
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
     }
 }

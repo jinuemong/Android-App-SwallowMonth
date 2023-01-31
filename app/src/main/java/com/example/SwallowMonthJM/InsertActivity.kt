@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.SwallowMonthJM.Model.User
-import com.example.SwallowMonthJM.Server.MasterApplication
+import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.Unit.errorConvert
 import com.example.SwallowMonthJM.databinding.ActivityInsertBinding
 import retrofit2.Call

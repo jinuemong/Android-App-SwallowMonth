@@ -3,7 +3,7 @@ package com.example.SwallowMonthJM.Calendar
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.DayData
-import com.example.SwallowMonthJM.Server.MasterApplication
+import com.example.SwallowMonthJM.Network.MasterApplication
 import java.text.SimpleDateFormat
 import java.util.*
 

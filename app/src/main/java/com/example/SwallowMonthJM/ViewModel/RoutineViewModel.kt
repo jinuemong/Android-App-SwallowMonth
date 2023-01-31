@@ -7,9 +7,8 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RoutineManager
 import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.Model.Routine
-import com.example.SwallowMonthJM.Server.MasterApplication
+import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.Unit.levelPoint
-import java.lang.Thread.sleep
 
 class RoutineViewModel(
     mainActivity: MainActivity
@@ -21,7 +20,6 @@ class RoutineViewModel(
     }
     private val mainView = mainActivity.viewModel
     private val routineManager = RoutineManager(mainActivity.application as MasterApplication)
-
     var routineLivData = MutableLiveData<ArrayList<Routine>>()
 
     var currentRoutineArr = ArrayList<Routine>()
@@ -42,11 +40,9 @@ class RoutineViewModel(
 
                     routineManager.addDayRoutine(dayRoutine, paramFun = {
                         routineData.dayRoutinePost.add(it!!)
+                        RoutineThread(routineData,"add").start()
                     })
                 }
-                sleep(500)
-                currentRoutineArr.add(routineData)
-                routineLivData.postValue(currentRoutineArr)
             }
         })
     }
@@ -54,7 +50,6 @@ class RoutineViewModel(
     fun delRoutineData(routine: Routine){
         currentRoutineArr.remove(routine)
         routine.routineId?.let { routineManager.delRoutine(it, paramFun = {}) }
-        Thread.sleep(500)
         routineLivData.postValue(currentRoutineArr)
     }
 
@@ -66,6 +61,20 @@ class RoutineViewModel(
         }
         dayRoutine.clear = true
         routineLivData.postValue(currentRoutineArr)
+    }
+    inner class RoutineThread(val routine:Routine,val type:String): Thread(){
+        override fun run() {
+            super.run()
+            try {
+                sleep(500)
+                if (type=="add"){
+                    currentRoutineArr.add(routine)
+                    routineLivData.postValue(currentRoutineArr)
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
     }
 
 }

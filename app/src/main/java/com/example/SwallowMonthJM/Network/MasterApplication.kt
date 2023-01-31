@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Server
+package com.example.SwallowMonthJM.Network
 
 import android.app.Application
 import android.content.Context
@@ -13,7 +13,7 @@ class MasterApplication:Application(
 
 ) {
     lateinit var service:RetrofitService
-    private val baseUrl = "https://ba2d-211-177-27-146.jp.ngrok.io"
+    private val baseUrl = "https://2c1d-14-51-88-88.jp.ngrok.io"
     override fun onCreate() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)

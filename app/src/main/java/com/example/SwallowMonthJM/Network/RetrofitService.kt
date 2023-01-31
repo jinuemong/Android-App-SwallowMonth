@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Server
+package com.example.SwallowMonthJM.Network
 
 import com.example.SwallowMonthJM.Model.*
 import retrofit2.Call
