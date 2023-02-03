@@ -9,6 +9,8 @@ import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemIconBinding
 
+//아이콘 선택
+
 class IconAdapter(
     private val mainActivity: MainActivity
 ) : RecyclerView.Adapter<IconAdapter.IconViewHolder>(){

@@ -9,6 +9,8 @@ import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemRepeatTaskBinding
 
+//main 3번째 탭 : Routine List 불러오기
+
 class RoutineListAdapter(
     private val mainActivity: MainActivity,
     private val dataSet : ArrayList<Routine>,

@@ -5,18 +5,26 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.dayOfWeek
 import com.example.SwallowMonthJM.databinding.ItemCalendarHorizontalBinding
 
+// main 첫번째 탭 : task list  가로 뷰
+
 class CalendarListAdapter(
     private val mainActivity: MainActivity,
-    private val dataSet : ArrayList<DayData>,
-    private val todayIndex:Int
+    dataSet : ArrayList<DayData>,
+    customCalendar: CustomCalendar,
 ): RecyclerView.Adapter<CalendarListAdapter.CalendarListItemHolder>(){
-    private var selectedPosition = todayIndex
+    private var calendarData = customCalendar
+    private var startIndex = calendarData.prevTail
+    private var endIndex = calendarData.currentMaxDate + calendarData.prevTail
+    private var selectedPosition = calendarData.currentIndex - startIndex
+    //데이터 자르기
+    private var dataList = dataSet.subList(startIndex,endIndex)
 
     private lateinit var binding: ItemCalendarHorizontalBinding
     private var onItemClickListener: OnItemClickListener?=null
@@ -32,15 +40,15 @@ class CalendarListAdapter(
     inner class CalendarListItemHolder(val binding: ItemCalendarHorizontalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DayData) {
-            if(selectedPosition==absoluteAdapterPosition){
+            if (selectedPosition == absoluteAdapterPosition) {
                 binding.setChecked()
-            }else{
+            } else {
                 binding.setUnchecked()
             }
-            if(onItemClickListener!=null){
+            if (onItemClickListener != null) {
                 binding.root.setOnClickListener {
                     onItemClickListener?.onItemClick(item, position = absoluteAdapterPosition)
-                    if (selectedPosition!=absoluteAdapterPosition){
+                    if (selectedPosition != absoluteAdapterPosition) {
                         binding.setChecked()
                         notifyItemChanged(selectedPosition)
                         selectedPosition = absoluteAdapterPosition
@@ -57,12 +65,13 @@ class CalendarListAdapter(
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: CalendarListItemHolder, position: Int) {
-        holder.bind(dataSet[position])
-        holder.binding.itemHoDayNum.text = dataSet[position].day.toString()
-        holder.binding.itemHoDayText.setText(dayOfWeek[(position%7)])
+        holder.bind(dataList[position])
+
+        holder.binding.itemHoDayNum.text = dataList[position].day.toString()
+        holder.binding.itemHoDayText.setText(dayOfWeek[((position+startIndex)%7)])
     }
 
-    override fun getItemCount(): Int =dataSet.size
+    override fun getItemCount(): Int =dataList.size
 
     @SuppressLint("ResourceAsColor")
     private fun ItemCalendarHorizontalBinding.setChecked() =

@@ -10,6 +10,8 @@ import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemTaskBinding
 
+// main 첫번째 탭 : task list 세로 뷰
+
 class TaskListAdapter(
     private val mainActivity: MainActivity,
     private val dataSet : ArrayList<Task>,
