@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 //calendarMonthFragment 의 어댑터
+//각 달력 표시
+
 class CalendarStateAdapter(fragmentActivity: FragmentActivity)
     :FragmentStateAdapter(fragmentActivity){
 

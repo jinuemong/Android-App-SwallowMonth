@@ -22,11 +22,14 @@ class TaskViewModel(
     private val taskManager = TaskManager(mainActivity.application as MasterApplication)
 
     var taskLiveData = MutableLiveData<ArrayList<Task>>()
-
     var currentTaskArr = ArrayList<Task>()
     init {
         taskLiveData.value = currentTaskArr
     }
+
+
+    private var addData = ArrayList<Task>()
+
     // 달력에 일정 추가
     fun addTaskData(startNum:Int,endNum:Int,task: Task){
         for (i in startNum..endNum){
@@ -35,10 +38,17 @@ class TaskViewModel(
             taskManager.addTaskData(newTask.task, paramFun = {
                 newTask.task = it!!
                 currentTaskArr.add(newTask.task)
+                addData.add(newTask.task)
             })
         }
         Thread.sleep(500)
-        mainView.dayLiveData.postValue(mainView.currentMonthArr)
+
+        //추가한 데이터가 0보다 크고 추가한 데이터의 달이 현재 달과 같은 경우
+        if(addData.size>0 && addData[0].monthId==mainView.monthData.monthId){
+            currentTaskArr.addAll(addData)
+            taskLiveData.postValue(currentTaskArr)
+        }
+        addData.clear()
     }
 
     fun delTaskData(task: Task){

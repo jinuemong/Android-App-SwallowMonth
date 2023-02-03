@@ -93,12 +93,13 @@ class MainViewModel : ViewModel(){
         monthData = MonthData(null,profile.userName,keyDate,
             0,0,0,
             0,0,0)
-        monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = { mData ->
-            if(mData==null){
+        monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = { mData,success ->
+            if(!success){ //not true -> network err
                 Toast.makeText(mainActivity,"Network error", Toast.LENGTH_SHORT)
                     .show()
             }else{
-                if (mData.size>0){ //기존 데이터가 있을 경우
+                val monthId = mData?.get(0)?.monthId
+                if (monthId!=null){ //기존 데이터가 있을 경우
                     monthData = mData[0]
                     //routine 데이터 설정
                     val routineManager = RoutineManager(mainActivity.application as MasterApplication)

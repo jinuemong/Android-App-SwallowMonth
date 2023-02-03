@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //각 달을 표시하는 fragment (월 모음)
+//한 달력 표시
+
 class CalendarMonthFragment() : Fragment() {
     var pageIndex = 0
     // 상하 슬라이드 동작 제어

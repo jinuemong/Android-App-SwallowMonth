@@ -10,11 +10,13 @@ import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemRoutineBinding
 
+// main 첫번째 탭 : routine list 세로 뷰
+
 class TodayRoutineAdapter(
-private val mainActivity: MainActivity,
-private val dataSet : ArrayList<Routine>,
-dPosition:Int,
-private val isDone : Boolean,
+    private val mainActivity: MainActivity,
+    private val dataSet : ArrayList<Routine>,
+    dPosition:Int,
+    private val isDone : Boolean,
 ): RecyclerView.Adapter<TodayRoutineAdapter.TodayRoutineItemHolder>(){
     private lateinit var  binding : ItemRoutineBinding
     private var itemList = dataSet

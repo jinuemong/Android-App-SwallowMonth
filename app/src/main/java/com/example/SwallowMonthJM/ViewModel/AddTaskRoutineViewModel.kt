@@ -6,6 +6,7 @@ import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Model.Task
 
 class AddTaskRoutineViewModel : ViewModel(){
+    var monthId = -1
     var addType = "task"
     var iconType :Int=-1
     var level :Int = -1
@@ -29,6 +30,8 @@ class AddTaskRoutineViewModel : ViewModel(){
         } else if (text == "") {
             null
         } else if (startNum == -1 && endNum == -1) {
+            null
+        } else if (keyData==""){
             null
         } else {
             Task(null,-1,"-1", -1,text, false, iconType, level+1,0)
@@ -67,5 +70,6 @@ class AddTaskRoutineViewModel : ViewModel(){
         cycle = 99
         totalRoutine = -1
         topText = ""
+        monthId = -1
     }
 }

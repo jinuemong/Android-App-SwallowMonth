@@ -35,7 +35,7 @@ class RoutineViewModel(
                     val dayIndex = routineData.startNum + i * routineData.cycle
                     val dayRoutine = DayRoutine(
                         null, routineData.routineId!!,
-                        mainView.monthData.monthId!!,
+                        routineData.monthId,
                         dayIndex, false)
 
                     routineManager.addDayRoutine(dayRoutine, paramFun = { dayRou->
@@ -43,8 +43,12 @@ class RoutineViewModel(
                     })
                 }
                 Thread.sleep(500)
-                currentRoutineArr.add(routineData)
-                routineLivData.postValue(currentRoutineArr)
+
+                //추가한 데이터의 달이 현재 달과 같은 경우 추가
+                if(routineData.monthId==mainView.monthData.monthId) {
+                    currentRoutineArr.add(routineData)
+                    routineLivData.postValue(currentRoutineArr)
+                }
             }
         })
     }

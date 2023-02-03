@@ -75,6 +75,7 @@ class OneStatisticsFragment(
             mainActivity,
             mainActivity.taskViewModel.taskLiveData.value!!,
             mainActivity.viewModel.dayLiveData.value!!,
+            mainActivity.viewModel.currentDate,
             mainActivity.routineViewModel.routineLivData.value!!,
             slideFrame, slideLayout
         )

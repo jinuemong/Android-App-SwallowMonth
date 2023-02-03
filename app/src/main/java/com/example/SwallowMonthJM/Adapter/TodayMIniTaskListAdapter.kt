@@ -11,6 +11,7 @@ import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemTodayTaskMiniBinding
 
+//main 2번째 탭 Statistics :  task + routine 합한 뷰
 class TodayMIniTaskListAdapter(
     private val mainActivity: MainActivity,
     private val dayPosition : Int,

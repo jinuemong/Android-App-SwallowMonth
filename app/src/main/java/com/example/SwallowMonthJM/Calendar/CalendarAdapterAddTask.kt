@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 //각 캘린더의 어댑터 (날짜 - 일모음 )
+// task 추가
 class CalendarAdapterAddTask(
     private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
@@ -22,17 +22,28 @@ class CalendarAdapterAddTask(
 
 ) : RecyclerView.Adapter<CalendarAdapterAddTask.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
-    private var dataSet: ArrayList<DayData> = arrayListOf()
 
     //현재 캘린더 데이터 얻어옴
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
+
+
     // init calendar
-    var customCalendar: CustomCalendar = CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
+    private var customCalendar: CustomCalendar =
+        CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
+    private var startIndex =0
+    private var endIndex=0
+    private var selectedPosition=0
+
+    //데이터 초기화
     init {
         customCalendar.initBaseCalendar()
-        dataSet = customCalendar.dateList
+        startIndex = customCalendar.prevTail
+        endIndex = customCalendar.currentMaxDate + customCalendar.prevTail
+        selectedPosition = customCalendar.currentIndex - startIndex
     }
+    //데이터 자르기
+    private var dataSet = customCalendar.dateList.subList(startIndex,endIndex)
 
     private var onItemClickListener: OnItemClickListener? = null
 
@@ -60,11 +71,13 @@ class CalendarAdapterAddTask(
             binding.root.layoutParams = params
 
             //클릭 조건
+            //취소
             if (startNum==-1 && endNum==-1) {
                 binding.reset()
                 mainActivity.addViewModel.startNum=-1
                 mainActivity.addViewModel.endNum=-1
             }
+            //하나 선택
             if (startNum==absoluteAdapterPosition){
                 if (endNum==-1) {
                     binding.setOneSelected()
@@ -76,6 +89,7 @@ class CalendarAdapterAddTask(
                 binding.reset()
             }
 
+            //범위 선택
             if (endNum==absoluteAdapterPosition){
                 binding.setTail()
                 mainActivity.addViewModel.endNum=endNum
@@ -104,10 +118,12 @@ class CalendarAdapterAddTask(
                     onItemClickListener?.onItemClick()
 
                     if (startNum!=-1 && endNum!=-1){
+                        mainActivity.addViewModel.keyData = ""
                         startNum = -1
                         endNum = -1
                     }else{
                         if (startNum==-1){
+                            mainActivity.addViewModel.keyData = customCalendar.keyDate
                             startNum = absoluteAdapterPosition
                         }else if ( startNum!=-1 && endNum==-1){
                             if (absoluteAdapterPosition != startNum) {

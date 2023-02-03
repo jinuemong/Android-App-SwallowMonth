@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
@@ -15,6 +14,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //각 캘린더의 어댑터 (날짜 - 일모음 )
+//루틴 데이터의 상세 정보 표시
+
 class CalendarAdapterRoutine(
     private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
@@ -25,17 +26,29 @@ class CalendarAdapterRoutine(
 
 ) : RecyclerView.Adapter<CalendarAdapterRoutine.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
-    private var dataSet: ArrayList<DayData> = arrayListOf()
+
 
     //현재 캘린더 데이터 얻어옴
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
-    // init calendar
-    var customCalendar: CustomCalendar = mainActivity.viewModel.currentDate
 
+    // init calendar
+    private var customCalendar: CustomCalendar =
+        CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
+    private var startIndex =0
+    private var endIndex=0
+    private var selectedPosition=0
+
+    //데이터 초기화
     init {
-        dataSet = customCalendar.dateList
+        customCalendar.initBaseCalendar()
+        startIndex = customCalendar.prevTail
+        endIndex = customCalendar.currentMaxDate + customCalendar.prevTail
+        selectedPosition = customCalendar.currentIndex - startIndex
     }
+
+    //데이터 자르기
+    private var dataSet = customCalendar.dateList.subList(startIndex,endIndex)
 
     inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -44,10 +57,7 @@ class CalendarAdapterRoutine(
 
             //텍스트 표시
             binding.calendarText.text = dataSet[absoluteAdapterPosition].day.toString()
-//            //각 아이템의 높이 지정
-//            val params =
-//                LinearLayout.LayoutParams(calendarLayout.width / 7, calendarLayout.height / 6)
-//            binding.root.layoutParams = params
+
 
             val dayRoutine = routine.dayRoutinePost.find { it.dayIndex==absoluteAdapterPosition}
 

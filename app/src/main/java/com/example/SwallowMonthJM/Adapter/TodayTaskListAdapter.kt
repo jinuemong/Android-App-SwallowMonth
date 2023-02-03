@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.example.SwallowMonthJM.Calendar.CustomCalendar
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Routine
@@ -18,10 +18,13 @@ import com.example.SwallowMonthJM.Unit.dayOfWeek
 import com.example.SwallowMonthJM.databinding.ItemTodayTaskBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
+// TodayMiniTaskList의 어댑터 : 각 날짜를 표시
+
 class TodayTaskListAdapter(
     private val mainActivity: MainActivity,
     private val taskList: ArrayList<Task>,
     dataSet: ArrayList<DayData>,
+    customCalendar: CustomCalendar,
     private val routineList: ArrayList<Routine>,
     private val slideFrame: SlidingUpPanelLayout,
     private val slideLayout: View,
@@ -29,7 +32,12 @@ class TodayTaskListAdapter(
     private lateinit var binding: ItemTodayTaskBinding
     private var taskSlider: View = slideLayout.findViewById(R.id.slide_task)
     private var routineSlider: View = slideLayout.findViewById(R.id.slide_routine)
-    private var dayDataSet = dataSet
+
+    private var calendarData = customCalendar
+    private var startIndex = calendarData.prevTail
+    private var endIndex = calendarData.currentMaxDate + calendarData.prevTail
+    //데이터 자르기
+    private var dayDataSet = dataSet.subList(startIndex,endIndex)
 
     inner class TodayTaskListHolder(val binding: ItemTodayTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -39,7 +47,7 @@ class TodayTaskListAdapter(
                 //today
                 binding.topTextTodayDay.setText(R.string.TODAY)
             } else {
-                binding.topTextTodayDay.setText(dayOfWeek[(absoluteAdapterPosition % 7)])
+                binding.topTextTodayDay.setText(dayOfWeek[((absoluteAdapterPosition+startIndex)%7)])
             }
             binding.topTextTodayTask.text = " ${item.keyDate}.${item.day}"
 

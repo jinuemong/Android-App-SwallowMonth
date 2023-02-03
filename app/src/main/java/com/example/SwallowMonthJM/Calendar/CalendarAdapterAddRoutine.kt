@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.CyclePickerDialog
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
@@ -16,6 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //각 캘린더의 어댑터 (날짜 - 일모음 )
+// 루틴 추가
 class CalendarAdapterAddRoutine(
     private val mainActivity: MainActivity,
     private val calendarLayout: LinearLayout,
@@ -25,21 +25,28 @@ class CalendarAdapterAddRoutine(
 
     ) : RecyclerView.Adapter<CalendarAdapterAddRoutine.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
-    private var dataSet: ArrayList<DayData> = arrayListOf()
 
     //현재 캘린더 데이터 얻어옴
     private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
     private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
 
+
     // init calendar
     private var customCalendar: CustomCalendar =
         CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
+    private var startIndex =0
+    private var endIndex=0
+    private var selectedPosition=0
 
+    //데이터 초기화
     init {
         customCalendar.initBaseCalendar()
-        dataSet = customCalendar.dateList
-
+        startIndex = customCalendar.prevTail
+        endIndex = customCalendar.currentMaxDate + customCalendar.prevTail
+        selectedPosition = customCalendar.currentIndex - startIndex
     }
+    //데이터 자르기
+    private var dataSet = customCalendar.dateList.subList(startIndex,endIndex)
 
     private var onItemClickListener: OnItemClickListener? = null
 
@@ -72,6 +79,7 @@ class CalendarAdapterAddRoutine(
                 mainActivity.addViewModel.startNum = -1
             }
 
+            //하나 선택
             if (selectedNum == absoluteAdapterPosition) {
                 binding.setOneSelected()
                 mainActivity.addViewModel.startNum = selectedNum
@@ -79,6 +87,7 @@ class CalendarAdapterAddRoutine(
                 binding.reset()
             }
 
+            //범위 선택
             if (selectedNum!=-1 && mainActivity.addViewModel.cycle!=99) {
                 if (absoluteAdapterPosition in selectedNum until currentMonthDay) {
 
@@ -117,6 +126,7 @@ class CalendarAdapterAddRoutine(
                         dig.setOnClickedListener(object : CyclePickerDialog.ButtonClickListener {
                             override fun onClicked() {
                                 notifyDataSetChanged()
+                                mainActivity.addViewModel.keyData = customCalendar.keyDate
                             }
                         })
                     }else{

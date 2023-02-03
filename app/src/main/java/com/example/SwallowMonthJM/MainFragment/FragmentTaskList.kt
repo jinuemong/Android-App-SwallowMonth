@@ -112,7 +112,9 @@ class FragmentTaskList : Fragment() {
         mainActivity.viewModel.setCurrentDayPosition(todayIndex)
         binding.taskListHoCalendar.apply {
             setHasFixedSize(true)
-            adapter = CalendarListAdapter(mainActivity,mainActivity.viewModel.currentDate.dateList,todayIndex).apply {
+            adapter = CalendarListAdapter(mainActivity,
+                mainActivity.viewModel.currentDate.dateList,
+                mainActivity.viewModel.currentDate).apply {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
                         mainActivity.viewModel.setCurrentDayPosition(position)

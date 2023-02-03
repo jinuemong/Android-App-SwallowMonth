@@ -31,21 +31,21 @@ class MonthDataManager(
 
     //KeyDate로 특정 달 MonthData 받기
     fun getKeyDateMonthData(userName:String,KeyDate:String
-                          ,paramFun: (ArrayList<MonthData>?) -> Unit){
+                          ,paramFun: (ArrayList<MonthData>?,Boolean) -> Unit){
         materApp.service.getMonthKeyDate(userName,KeyDate)
             .enqueue(object : Callback<ArrayList<MonthData>>{
                 override fun onResponse(
                     call: Call<ArrayList<MonthData>>,
                     response: Response<ArrayList<MonthData>>
                 ) {
-                    if(response.isSuccessful && response.body()!=null){
-                        paramFun(response.body())
+                    if(response.isSuccessful){
+                        paramFun(response.body(),true)
                     }else{
-                        paramFun(null)
+                        paramFun(null,false)
                     }
                 }
                 override fun onFailure(call: Call<ArrayList<MonthData>>, t: Throwable) {
-                    paramFun(null)
+                    paramFun(null,false)
                 }
             })
     }

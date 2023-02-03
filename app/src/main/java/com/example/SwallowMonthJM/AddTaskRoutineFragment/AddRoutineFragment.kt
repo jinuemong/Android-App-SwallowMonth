@@ -13,6 +13,7 @@ import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.Adapter.IconAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.MonthDataManager
+import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.databinding.FragmentAddRoutineBinding
@@ -27,6 +28,7 @@ class AddRoutineFragment : Fragment() {
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPagerAdapter:FragmentAdapter
     private lateinit var monthDataManager: MonthDataManager
+
     private val tabText = arrayOf(
         "step1", "step2"
     )
@@ -92,14 +94,36 @@ class AddRoutineFragment : Fragment() {
         binding.routineCommit.setOnClickListener {
             val data = mainActivity.addViewModel.getRoutineData()
             if (data != null) {
-                //만약 month id 가 null이라면 새로운 month 데이터 생성
-                if (mainActivity.viewModel.monthData.monthId == null) {
-                    monthDataManager.addMonthData(mainActivity.viewModel.monthData, paramFun = {
-                            if (it != null) {
-                                mainActivity.viewModel.monthData = it
-                            }
-                    })
-                }
+                //만약 keyDate가 존재하지 않는다면 새로 생성
+                monthDataManager.getKeyDateMonthData(mainActivity.userName,mainActivity.addViewModel.keyData,
+                paramFun = { findMonth,success->
+                    if (success) {
+                        val monthId = findMonth?.get(0)?.monthId
+                        // null이 아니면 해당 위치에 데이터 추가
+                        if (monthId != null) {
+                            mainActivity.addViewModel.monthId = monthId
+
+                        //null 경우 새로 생성
+                        } else {
+                            val monthData = MonthData(null,mainActivity.userName,
+                                mainActivity.addViewModel.keyData,
+                                0,0,0,
+                                0,0,0)
+
+                            monthDataManager.addMonthData(monthData, paramFun = {
+                                if (it != null) {
+                                    mainActivity.addViewModel.monthId = it.monthId!!
+
+                                    //만약 현재 데이터도 null이고 keyDate가 같다면 갱신
+                                    if (mainActivity.viewModel.monthData.monthId==null
+                                        &&mainActivity.viewModel.monthData.keyDate==it.keyDate){
+                                        mainActivity.viewModel.monthData = it
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
                 //후처리 코드
                 val startThread = AddThread(data)
                 startThread.start()
@@ -131,18 +155,17 @@ class AddRoutineFragment : Fragment() {
             tab.text = tabText[position]
         }.attach()
     }
-    inner class AddThread(val data: Routine): Thread(){
+    inner class AddThread(private val data: Routine): Thread(){
         override fun run() {
             super.run()
             try {
                 sleep(500)
-                mainActivity.viewModel.monthData.monthId.let {
-                    if (it!=null){
-                        data.monthId = it
-                        data.userId = mainActivity.viewModel.profile.userName
-                        mainActivity.routineViewModel.addRoutineData(data)
-                        mainActivity.onFragmentGoBack(this@AddRoutineFragment)
-                    }
+                // 데이터 null인지 확인 -1?
+                if (mainActivity.addViewModel.monthId!=-1) {
+                    data.monthId = mainActivity.addViewModel.monthId
+                    data.userId = mainActivity.viewModel.profile.userName
+                    mainActivity.routineViewModel.addRoutineData(data)
+                    mainActivity.onFragmentGoBack(this@AddRoutineFragment)
                 }
             } catch (e: InterruptedException) {
                 e.printStackTrace()

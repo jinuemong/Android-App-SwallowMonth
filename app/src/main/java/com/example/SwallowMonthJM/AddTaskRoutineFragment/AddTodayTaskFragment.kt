@@ -56,13 +56,15 @@ class AddTodayTaskFragment : Fragment() {
         setUpListener()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
+        mainActivity.addViewModel.reset()
     }
 
     private fun initView(){
         mainActivity.addViewModel.startNum = mainActivity.viewModel.todayDayPosition
+        mainActivity.addViewModel.keyData = mainActivity.viewModel.currentDate.keyDate
         //아이콘 선택
         binding.addTaskSelectIcon.apply {
             adapter = IconAdapter(mainActivity).apply {
@@ -144,7 +146,7 @@ class AddTodayTaskFragment : Fragment() {
         }
     }
 
-    inner class AddThread(val data: Task) : Thread(){
+    inner class AddThread(private val data: Task) : Thread(){
         val startNum = mainActivity.addViewModel.startNum
         var endNum = mainActivity.addViewModel.endNum
         override fun run() {
