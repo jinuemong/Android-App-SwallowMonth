@@ -48,7 +48,7 @@ class FragmentTaskList : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTaskListBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -71,12 +71,12 @@ class FragmentTaskList : Fragment() {
         binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
         binding.totalTask.text = mainActivity.viewModel.getActivityList()
 
-        //dayDate 관찰
-        mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
+        //Task Data 관찰
+        mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
             binding.totalTask.text = mainActivity.viewModel.getActivityList()
         })
 
-        //Routine 관찰
+        //Routine Data 관찰
         mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
             binding.totalTask.text = mainActivity.viewModel.getActivityList()
         })
@@ -96,6 +96,7 @@ class FragmentTaskList : Fragment() {
     }
 
     private fun setUpListener(){
+        //년도 + 달 선택 : Month Picker
         binding.taskListCalendar.setOnClickListener {
             val dig = MonthPickerDialog(mainActivity.viewModel.currentYear.value!!,mainActivity.viewModel.currentMonth.value!!)
             dig.show(fm,null)
@@ -107,6 +108,7 @@ class FragmentTaskList : Fragment() {
         }
     }
 
+    //현재 리싸이클러 뷰 갱신
     private fun initRecyclerView(){
         val todayIndex = mainActivity.viewModel.currentDate.currentIndex
         mainActivity.viewModel.setCurrentDayPosition(todayIndex)
@@ -159,6 +161,12 @@ class FragmentTaskList : Fragment() {
         }
         initRecyclerView()
         initAni()
+    }
+
+    private fun setTodayNum(){
+        val allTask = mainActivity.taskViewModel.taskLiveData.value!!.count {
+            it.dayIndex==cu
+        }
     }
 }
 

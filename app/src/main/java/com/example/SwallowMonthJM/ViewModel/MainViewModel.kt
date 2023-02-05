@@ -90,9 +90,13 @@ class MainViewModel : ViewModel(){
         setCurrentMonth(dateMonth)
 
         val keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(data)
+
+        //새로 monthData 생성
         monthData = MonthData(null,profile.userName,keyDate,
             0,0,0,
             0,0,0)
+
+        //만약 monthData가 존재하면 불러오기 (존재한다면 Task,Routine도 있음)
         monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = { mData,success ->
             if(!success){ //not true -> network err
                 Toast.makeText(mainActivity,"Network error", Toast.LENGTH_SHORT)
@@ -139,13 +143,6 @@ class MainViewModel : ViewModel(){
             currentDayPosition.value = currentDate.currentIndex
         }
         setCurrentDayPosition(currentDayPosition.value!!)
-    }
-
-    //남은 task + routine 설정
-    fun getActivityList() : String{
-        val totalList = monthData.taskCount+monthData.dayRoutineCount
-        val clearList = monthData.doneTask+monthData.clearRoutine
-        return "${totalList-clearList}/$totalList"
     }
 
 }
