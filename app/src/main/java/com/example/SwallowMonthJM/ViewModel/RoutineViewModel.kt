@@ -21,10 +21,11 @@ class RoutineViewModel(
     private val mainView = mainActivity.viewModel
     private val routineManager = RoutineManager(mainActivity.application as MasterApplication)
     var routineLivData = MutableLiveData<ArrayList<Routine>>()
-
     var currentRoutineArr = ArrayList<Routine>()
+    var currentRoutineDataNum =MutableLiveData<ArrayList<Int>>() //현재 데이터 수
     init {
         routineLivData.value = currentRoutineArr
+        currentRoutineDataNum.value = arrayListOf(0,0)//[0]:Not clear [1]: clear
     }
 
     fun addRoutineData(routine:Routine){

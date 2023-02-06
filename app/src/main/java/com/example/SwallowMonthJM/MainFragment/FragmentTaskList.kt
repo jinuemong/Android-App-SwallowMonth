@@ -69,21 +69,10 @@ class FragmentTaskList : Fragment() {
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         binding.taskListPer.progress = mainActivity.viewModel.monthData.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
-        binding.totalTask.text = mainActivity.viewModel.getActivityList()
-
-        //Task Data 관찰
-        mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
-            binding.totalTask.text = mainActivity.viewModel.getActivityList()
-        })
-
-        //Routine Data 관찰
-        mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
-            binding.totalTask.text = mainActivity.viewModel.getActivityList()
-        })
-
 
         initRecyclerView()
         initPager()
+        setActivityNum() //총 데이터 수 관리
         initAni()
     }
     private fun initAni(){
@@ -120,7 +109,6 @@ class FragmentTaskList : Fragment() {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
                         mainActivity.viewModel.setCurrentDayPosition(position)
-                        binding.totalTask.text = mainActivity.viewModel.getActivityList()
                         binding.bottomInTaskList.animation = mainActivity.aniList[1]
                         binding.bottomInTaskList.animation.start()
                     }
@@ -163,10 +151,29 @@ class FragmentTaskList : Fragment() {
         initAni()
     }
 
-    private fun setTodayNum(){
-        val allTask = mainActivity.taskViewModel.taskLiveData.value!!.count {
-            it.dayIndex==cu
+    @SuppressLint("SetTextI18n")
+    private fun setActivityNum(){
+        binding.totalTask.text = getActivityNum()
+
+        //데이터 변화 시 초기화
+        mainActivity.apply {
+            taskViewModel.currentTaskDataNum.observe(mainActivity, Observer {
+                binding.totalTask.text = getActivityNum()
+            })
+            routineViewModel.currentRoutineDataNum.observe(mainActivity, Observer {
+                binding.totalTask.text = getActivityNum()
+            })
         }
+    }
+
+    private fun getActivityNum() : String{
+        //task + routine 수
+        val notClear = mainActivity.taskViewModel.currentTaskDataNum.value!![0]+
+                mainActivity.routineViewModel.currentRoutineDataNum.value!![0]
+        val isClear = mainActivity.taskViewModel.currentTaskDataNum.value!![1]+
+                mainActivity.routineViewModel.currentRoutineDataNum.value!![1]
+
+        return "$notClear / ${notClear+isClear}"
     }
 }
 

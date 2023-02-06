@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
@@ -71,20 +70,29 @@ class TaskFragment(
         //루틴 데이터 변화 관찰
         mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
             routineListAdapter.setData(it)
+            //데이터 수 갱신
+            mainActivity.routineViewModel.currentRoutineDataNum.value!![0] = routineListAdapter.itemCount
         })
 
         //task 데이터 변화 관찰
         mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
             taskListAdapter.setData(it)
+            //데이터 수 갱신
+            mainActivity.taskViewModel.currentTaskDataNum.value!![0] = taskListAdapter.itemCount
         })
 
         // 날짜 데이터 변경 시 적용
         mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
             //현재 날짜 인덱스의 task 갱신
             taskListAdapter.setDayDate(dayIndex)
+            //데이터 수 갱신
+            mainActivity.taskViewModel.currentTaskDataNum.value!![0] = taskListAdapter.itemCount
 
             //루틴 리싸이클러의 현재 날짜 인덱스 변경
             routineListAdapter.setDayDate(dayIndex)
+            //데이터 수 갱신
+            mainActivity.routineViewModel.currentRoutineDataNum.value!![0] = routineListAdapter.itemCount
+
         })
     }
 

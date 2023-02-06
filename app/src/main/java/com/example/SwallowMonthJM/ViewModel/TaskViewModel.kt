@@ -23,8 +23,10 @@ class TaskViewModel(
 
     var taskLiveData = MutableLiveData<ArrayList<Task>>()
     var currentTaskArr = ArrayList<Task>()
+    var currentTaskDataNum =MutableLiveData<ArrayList<Int>>() //현재 데이터 수
     init {
         taskLiveData.value = currentTaskArr
+        currentTaskDataNum.value = arrayListOf(0,0)//[0]:Not Done [1]: Done
     }
 
 
