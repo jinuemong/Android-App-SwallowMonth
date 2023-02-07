@@ -165,6 +165,7 @@ class AddRoutineFragment : Fragment() {
                     data.monthId = mainActivity.addViewModel.monthId
                     data.userId = mainActivity.viewModel.profile.userName
                     mainActivity.routineViewModel.addRoutineData(data)
+                    mainActivity.addViewModel.reset()
                     mainActivity.onFragmentGoBack(this@AddRoutineFragment)
                 }
             } catch (e: InterruptedException) {

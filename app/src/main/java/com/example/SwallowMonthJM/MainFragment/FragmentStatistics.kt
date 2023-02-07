@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Statistics.OneStatisticsFragment
@@ -37,6 +38,9 @@ class FragmentStatistics : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
+            initView()
+        })
     }
 
     override fun onDestroyView() {

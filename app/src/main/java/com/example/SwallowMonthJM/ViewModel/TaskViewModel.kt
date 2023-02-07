@@ -1,9 +1,11 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.Network.MasterApplication
@@ -20,13 +22,11 @@ class TaskViewModel(
     }
     private val mainView = mainActivity.viewModel
     private val taskManager = TaskManager(mainActivity.application as MasterApplication)
-
+    private val monthManager = MonthDataManager(mainActivity.application as MasterApplication)
     var taskLiveData = MutableLiveData<ArrayList<Task>>()
     var currentTaskArr = ArrayList<Task>()
-    var currentTaskDataNum =MutableLiveData<ArrayList<Int>>() //현재 데이터 수
     init {
         taskLiveData.value = currentTaskArr
-        currentTaskDataNum.value = arrayListOf(0,0)//[0]:Not Done [1]: Done
     }
 
 
@@ -38,15 +38,16 @@ class TaskViewModel(
             val newTask = SampleTask(task).deepCopy()
             newTask.task.dayIndex=i
             taskManager.addTaskData(newTask.task, paramFun = {
-                newTask.task = it!!
-                currentTaskArr.add(newTask.task)
-                addData.add(newTask.task)
+                if (it != null) {
+                    addData.add(it)
+                }
             })
         }
         Thread.sleep(500)
 
         //추가한 데이터가 0보다 크고 추가한 데이터의 달이 현재 달과 같은 경우
         if(addData.size>0 && addData[0].monthId==mainView.monthData.monthId){
+            Log.d("데이터 추가 확인...",addData[0].toString())
             currentTaskArr.addAll(addData)
             taskLiveData.postValue(currentTaskArr)
         }
@@ -54,28 +55,46 @@ class TaskViewModel(
     }
 
     fun delTaskData(task: Task){
-        taskLiveData.value?.remove(task)
-        task.id?.let { taskManager.delTaskData(it, paramFun = {}) }
-        mainView.dayLiveData.postValue(mainView.currentMonthArr)
+        task.id?.let { taskManager.delTaskData(it, paramFun = {
+        }) }
+        currentTaskArr.remove(task)
+        taskLiveData.value = currentTaskArr
     }
 
     fun doneTaskData(task : Task){
         if (!task.isDone) {
             task.isDone = true
             task.per = 100
-            mainView.dayLiveData.postValue(mainView.currentMonthArr)
-            mainView.monthData.totalPoint+= levelPoint[task.level]
+            task.id?.let {  id ->
+                taskManager.setTaskData(id,task, paramFun = {})
+            }
+            mainView.monthData.apply {
+                totalPoint += levelPoint[task.level]
+                doneTask+=1
+                totalPer = ((doneTask+clearRoutine)/(taskCount+dayRoutineCount))*100
+                //서버에 적용
+                this.monthId?.let { id->
+                    monthManager.setMonthData(id,this, paramFun = {})
+                }
+            }
+            taskLiveData.value = currentTaskArr
         }
     }
 
     fun setTaskICon(iconIndex:Int,task: Task){
         task.iconType = iconIndex
-        mainView.dayLiveData.postValue(mainView.currentMonthArr)
+        task.id?.let {
+            taskManager.setTaskData(it,task, paramFun = {})
+        }
+        taskLiveData.value = currentTaskArr
     }
 
     fun setPerTask(task: Task, p:Int){
         task.per = p
-        mainView.dayLiveData.postValue(mainView.currentMonthArr)
+        task.id?.let {
+            taskManager.setTaskData(it,task, paramFun = {})
+        }
+        taskLiveData.value = currentTaskArr
     }
 
 

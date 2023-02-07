@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.RoutineManager
 import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.Model.Routine
@@ -20,12 +21,13 @@ class RoutineViewModel(
     }
     private val mainView = mainActivity.viewModel
     private val routineManager = RoutineManager(mainActivity.application as MasterApplication)
+
     var routineLivData = MutableLiveData<ArrayList<Routine>>()
+    private val monthManager = MonthDataManager(mainActivity.application as MasterApplication)
+
     var currentRoutineArr = ArrayList<Routine>()
-    var currentRoutineDataNum =MutableLiveData<ArrayList<Int>>() //현재 데이터 수
     init {
         routineLivData.value = currentRoutineArr
-        currentRoutineDataNum.value = arrayListOf(0,0)//[0]:Not clear [1]: clear
     }
 
     fun addRoutineData(routine:Routine){
@@ -57,18 +59,33 @@ class RoutineViewModel(
     fun delRoutineData(routine: Routine){
         currentRoutineArr.remove(routine)
         routine.routineId?.let { routineManager.delRoutine(it, paramFun = {}) }
-        routineLivData.postValue(currentRoutineArr)
+        routineLivData.value = currentRoutineArr
     }
 
-    fun doneRoutineData(routine: Routine,dayRoutine: DayRoutine){
-        if(!dayRoutine.clear) {
+    fun doneRoutineData(routine: Routine, dayRoutine: DayRoutine) {
+        if (!dayRoutine.clear) {
             //one run
             routine.clearRoutine += 1
-            mainView.monthData.totalPoint+= levelPoint[0]
+            dayRoutine.clear = true
+            routine.routineId?.let { id ->
+                routineManager.setRoutineData(id, routine, paramFun = {})
+            }
+            dayRoutine.id?.let { id ->
+                routineManager.setDayRoutineData(id, dayRoutine, paramFun = {})
+            }
+            mainView.monthData.apply {
+                totalPoint += levelPoint[0]
+                clearRoutine += 1
+                totalPer = ((doneTask + clearRoutine) / (taskCount + dayRoutineCount)) * 100
+                //서버에 적용
+                this.monthId?.let { id ->
+                    monthManager.setMonthData(id, this, paramFun = {})
+                }
+            }
+            routineLivData.value = currentRoutineArr
         }
-        dayRoutine.clear = true
-        routineLivData.postValue(currentRoutineArr)
     }
+
 
 
 }

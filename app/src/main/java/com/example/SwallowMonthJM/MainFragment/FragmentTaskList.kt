@@ -56,7 +56,9 @@ class FragmentTaskList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        setUpListener()
+        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
+            initView()
+        })
     }
 
     override fun onResume() {
@@ -72,8 +74,10 @@ class FragmentTaskList : Fragment() {
 
         initRecyclerView()
         initPager()
-        setActivityNum() //총 데이터 수 관리
+        binding.totalTask.text = getActivityNum()
         initAni()
+        setUpListener()
+
     }
     private fun initAni(){
         binding.topInTaskList.animation = mainActivity.aniList[2]
@@ -95,6 +99,15 @@ class FragmentTaskList : Fragment() {
                 }
             })
         }
+
+        //데이터 변화 관찰
+        mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
+            binding.totalTask.text = getActivityNum()
+        })
+        mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
+            binding.totalTask.text = getActivityNum()
+        })
+
     }
 
     //현재 리싸이클러 뷰 갱신
@@ -109,6 +122,7 @@ class FragmentTaskList : Fragment() {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
                         mainActivity.viewModel.setCurrentDayPosition(position)
+                        binding.totalTask.text = getActivityNum()
                         binding.bottomInTaskList.animation = mainActivity.aniList[1]
                         binding.bottomInTaskList.animation.start()
                     }
@@ -148,32 +162,30 @@ class FragmentTaskList : Fragment() {
             binding.taskListCalendar.text = this.currentDate.keyDate
         }
         initRecyclerView()
+        binding.totalTask.text = getActivityNum()
         initAni()
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setActivityNum(){
-        binding.totalTask.text = getActivityNum()
-
-        //데이터 변화 시 초기화
-        mainActivity.apply {
-            taskViewModel.currentTaskDataNum.observe(mainActivity, Observer {
-                binding.totalTask.text = getActivityNum()
-            })
-            routineViewModel.currentRoutineDataNum.observe(mainActivity, Observer {
-                binding.totalTask.text = getActivityNum()
-            })
-        }
-    }
-
-    private fun getActivityNum() : String{
+    fun getActivityNum() : String{
         //task + routine 수
-        val notClear = mainActivity.taskViewModel.currentTaskDataNum.value!![0]+
-                mainActivity.routineViewModel.currentRoutineDataNum.value!![0]
-        val isClear = mainActivity.taskViewModel.currentTaskDataNum.value!![1]+
-                mainActivity.routineViewModel.currentRoutineDataNum.value!![1]
-
-        return "$notClear / ${notClear+isClear}"
+        val dayIndex = mainActivity.viewModel.currentDayPosition.value
+        val totalTask = mainActivity.taskViewModel.taskLiveData.value!!.count {
+            it.dayIndex==dayIndex
+        }
+        val doneTask = mainActivity.taskViewModel.taskLiveData.value!!.count{
+            it.dayIndex==dayIndex && it.isDone
+        }
+        var totalRoutine = 0
+        var clearRoutine = 0
+        for (routine in mainActivity.routineViewModel.routineLivData.value!!){
+            totalRoutine += routine.dayRoutinePost.count {
+                it.dayIndex ==dayIndex
+            }
+            clearRoutine += routine.dayRoutinePost.count{
+                it.dayIndex==dayIndex && it.clear
+            }
+        }
+        return "${totalTask+totalRoutine-doneTask-clearRoutine} / ${totalTask+totalRoutine}"
     }
 }
 

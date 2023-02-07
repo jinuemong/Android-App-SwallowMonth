@@ -161,6 +161,7 @@ class AddTodayTaskFragment : Fragment() {
                         data.monthId = it
                         data.userId = mainActivity.viewModel.profile.userName
                         mainActivity.taskViewModel.addTaskData(startNum, endNum, data)
+                        mainActivity.addViewModel.reset()
                         mainActivity.onFragmentGoBack(this@AddTodayTaskFragment)
                     }
                 }

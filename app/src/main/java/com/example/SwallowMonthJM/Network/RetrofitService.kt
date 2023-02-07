@@ -139,7 +139,7 @@ interface RetrofitService {
     ):Call<MonthData>
 
     //Task 수정
-    @PATCH("task/tasks/{id}")
+    @PATCH("task/tasks/{id}/")
     fun setTaskData(
         @Path("id")id : Int,
         @Body task : Task

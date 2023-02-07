@@ -43,6 +43,7 @@
             android:textSize="@dimen/item_height_mid_text_size"
             tools:text="@string/routine_sample" />
         <LinearLayout
+            android:gravity="center"
             android:backgroundTint="@color/color_type2"
             android:background="@drawable/round_border"
             android:layout_margin="@dimen/fab_margin_12dp"

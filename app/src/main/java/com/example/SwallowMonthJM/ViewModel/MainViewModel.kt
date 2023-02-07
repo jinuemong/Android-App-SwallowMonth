@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.ViewModel
 
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
@@ -39,12 +40,12 @@ class MainViewModel : ViewModel(){
     //////////////////////////////////////////
 
     //관찰 데이터//////////////////////////
-//    private val _eventSetData = SingleLiveEvent<Any>()
-//    val eventSetData : LiveData<Any> get() = _eventSetData
-//
-//    private fun setData(){
-//        _eventSetData.call()
-//    }
+    private val _eventSetData = SingleLiveEvent<Any>()
+    val eventSetData : LiveData<Any> get() = _eventSetData
+
+    private fun setData(){
+        _eventSetData.call()
+    }
     /////////////////////////////////////
     // 단순 초기화
     init {
@@ -102,9 +103,12 @@ class MainViewModel : ViewModel(){
                 Toast.makeText(mainActivity,"Network error", Toast.LENGTH_SHORT)
                     .show()
             }else{
-                val monthId = mData?.get(0)?.monthId
+                val monthId = if (mData!=null && mData.size>0 ){
+                    mData[0].monthId
+                }else null
+
                 if (monthId!=null){ //기존 데이터가 있을 경우
-                    monthData = mData[0]
+                    monthData = mData!![0]
                     //routine 데이터 설정
                     val routineManager = RoutineManager(mainActivity.application as MasterApplication)
                     routineManager.getRoutineList(mainActivity.userName,monthData.keyDate, paramFun = {
@@ -126,8 +130,18 @@ class MainViewModel : ViewModel(){
                         }
                         mainActivity.taskViewModel.taskLiveData.value = mainActivity.taskViewModel.currentTaskArr
                     })
+                }else{
+                    mainActivity.taskViewModel.apply {
+                        currentTaskArr.clear()
+                        taskLiveData.value = currentTaskArr
+                    }
+                    mainActivity.routineViewModel.apply {
+                        currentRoutineArr.clear()
+                        routineLivData.value = currentRoutineArr
+                    }
                 }
             }
+            setData()
         })
         //현재 view 데이터 생성
         currentDate = CustomCalendar(mainActivity,data, dateDay, todayMonth, dateMonth)

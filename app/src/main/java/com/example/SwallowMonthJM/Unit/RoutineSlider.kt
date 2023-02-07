@@ -64,6 +64,6 @@ class RoutineSlider(
 
     private fun initCalendar(){
         calendar.adapter = CalendarAdapterRoutine(mainActivity,calendarLinear,
-        mainActivity.viewModel.todayDate,mainActivity.viewModel.currentMonth.value!!,routine,dPosition)
+        mainActivity.viewModel.currentDate.calendar.time,mainActivity.viewModel.currentMonth.value!!,routine,dPosition)
     }
 }
