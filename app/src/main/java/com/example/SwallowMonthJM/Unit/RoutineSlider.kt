@@ -56,8 +56,10 @@ class RoutineSlider(
                 slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             }
 
-            routine.dayRoutinePost[dPosition].let { dayRoutine ->
-                mainActivity.routineViewModel.doneRoutineData(routine,dayRoutine)
+            routine.dayRoutinePost.get(dPosition).let { dayRoutine ->
+                if (dayRoutine != null) {
+                    mainActivity.routineViewModel.doneRoutineData(routine,dayRoutine)
+                }
             }
         }
     }

@@ -8,7 +8,6 @@ fun errorConvert(responseBody: ResponseBody?) : String{
     return if (err==null){
         "error"
     }else{
-       val errList = err.split(":")
-        return "{$errList[2]}"
+        return err
     }
 }

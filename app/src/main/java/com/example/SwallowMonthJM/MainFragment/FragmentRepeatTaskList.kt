@@ -41,10 +41,6 @@ class FragmentRepeatTaskList : Fragment() {
         setUpListener()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding=null
-    }
 
     private fun initView(){
         adapter = RoutineListAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!)

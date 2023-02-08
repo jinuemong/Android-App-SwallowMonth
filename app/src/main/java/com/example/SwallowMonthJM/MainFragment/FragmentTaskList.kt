@@ -65,6 +65,7 @@ class FragmentTaskList : Fragment() {
         super.onResume()
     }
 
+
     @SuppressLint("SetTextI18n")
     private fun initView(){
         //상단 데이터 적용
@@ -176,12 +177,14 @@ class FragmentTaskList : Fragment() {
         var totalRoutine = 0
         var clearRoutine = 0
         for (routine in mainActivity.routineViewModel.routineLivData.value!!){
+
             totalRoutine += routine.dayRoutinePost.count {
-                it.dayIndex ==dayIndex
+                it.dayIndex == dayIndex
             }
-            clearRoutine += routine.dayRoutinePost.count{
-                it.dayIndex==dayIndex && it.clear
+            clearRoutine += routine.dayRoutinePost.count {
+                it.dayIndex == dayIndex && it.clear
             }
+
         }
         return "${totalTask+totalRoutine-doneTask-clearRoutine} / ${totalTask+totalRoutine}"
     }

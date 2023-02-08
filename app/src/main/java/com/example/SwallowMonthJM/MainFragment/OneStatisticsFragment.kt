@@ -63,10 +63,6 @@ class OneStatisticsFragment(
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     private fun initTopData(){
         //상단 데이터 설정

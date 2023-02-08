@@ -42,10 +42,7 @@ class FragmentStatistics : Fragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
     private fun initView(){
         mainActivity.frManger.beginTransaction()
             .replace(R.id.container_in_statistics,
