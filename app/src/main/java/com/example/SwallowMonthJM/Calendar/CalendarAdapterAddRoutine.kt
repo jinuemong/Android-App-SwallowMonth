@@ -34,19 +34,14 @@ class CalendarAdapterAddRoutine(
     // init calendar
     private var customCalendar: CustomCalendar =
         CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
-    private var startIndex =0
-    private var endIndex=0
-    private var selectedPosition=0
-
     //데이터 초기화
     init {
         customCalendar.initBaseCalendar()
-        startIndex = customCalendar.prevTail
-        endIndex = customCalendar.currentMaxDate + customCalendar.prevTail
-        selectedPosition = customCalendar.currentIndex - startIndex
+
     }
-    //데이터 자르기
-    private var dataSet = customCalendar.dateList.subList(startIndex,endIndex)
+    //데이터 저장
+    private val subIndex = customCalendar.prevTail
+    private var dataSet = customCalendar.dateList
 
     private var onItemClickListener: OnItemClickListener? = null
 
@@ -82,7 +77,7 @@ class CalendarAdapterAddRoutine(
             //하나 선택
             if (selectedNum == absoluteAdapterPosition) {
                 binding.setOneSelected()
-                mainActivity.addViewModel.startNum = selectedNum
+                mainActivity.addViewModel.startNum = selectedNum-subIndex
             } else {
                 binding.reset()
             }

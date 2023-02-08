@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Statistics.OneStatisticsFragment
 import com.example.SwallowMonthJM.databinding.FragmentStatisticsBinding
 
 class FragmentStatistics : Fragment() {
@@ -50,7 +49,8 @@ class FragmentStatistics : Fragment() {
     private fun initView(){
         mainActivity.frManger.beginTransaction()
             .replace(R.id.container_in_statistics,
-                OneStatisticsFragment(binding.slideFrame,binding.slideLayout))
+                OneStatisticsFragment(binding.slideFrame,binding.slideLayout)
+            )
             .addToBackStack(null)
             .commit()
     }

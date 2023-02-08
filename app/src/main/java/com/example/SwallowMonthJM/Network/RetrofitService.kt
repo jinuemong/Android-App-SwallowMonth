@@ -157,5 +157,5 @@ interface RetrofitService {
     fun setDayRoutineData(
         @Path("id")id : Int,
         @Body dayRoutine : DayRoutine
-    ):Call<List<Int>> //commentId, postId
+    ):Call<DayRoutine>
 }

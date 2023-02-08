@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Statistics
+package com.example.SwallowMonthJM.MainFragment
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TodayTaskListAdapter
+import com.example.SwallowMonthJM.Calendar.CalendarAdapterStatistics
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Unit.MonthPickerDialog
 import com.example.SwallowMonthJM.databinding.StatisticsViewBinding
@@ -46,8 +48,19 @@ class OneStatisticsFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initTopData()
         initData()
         setUpListener()
+
+        mainActivity.apply {
+            viewModel.dayLiveData.observe(mainActivity, Observer {
+                initTopData()
+            })
+            //상단 데이터 초기화화//            taskViewModel.taskLiveData.observe(mainActivity, Observer {
+//            })
+//            routineViewModel.routineLivData.observe(mainActivity, Observer {
+//            })
+        }
     }
 
     override fun onDestroyView() {
@@ -55,10 +68,12 @@ class OneStatisticsFragment(
         _binding = null
     }
 
-    private fun initData(){
+    private fun initTopData(){
         //상단 데이터 설정
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         binding.stDate.text = mainActivity.viewModel.currentDate.topDate
+    }
+    private fun initData(){
 
         //캘린더 설정
         binding.calendarBox.fragCalenderRecycler.apply {

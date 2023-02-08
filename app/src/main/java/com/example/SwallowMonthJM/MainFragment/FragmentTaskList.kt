@@ -112,8 +112,6 @@ class FragmentTaskList : Fragment() {
 
     //현재 리싸이클러 뷰 갱신
     private fun initRecyclerView(){
-        val todayIndex = mainActivity.viewModel.currentDate.currentIndex
-        mainActivity.viewModel.setCurrentDayPosition(todayIndex)
         binding.taskListHoCalendar.apply {
             setHasFixedSize(true)
             adapter = CalendarListAdapter(mainActivity,
@@ -128,7 +126,7 @@ class FragmentTaskList : Fragment() {
                     }
                 })
             }
-            smoothScrollToPosition(todayIndex)
+            smoothScrollToPosition(mainActivity.viewModel.currentDayPosition.value!!)
         }
     }
 
@@ -168,7 +166,7 @@ class FragmentTaskList : Fragment() {
 
     fun getActivityNum() : String{
         //task + routine 수
-        val dayIndex = mainActivity.viewModel.currentDayPosition.value
+        val dayIndex = mainActivity.viewModel.currentCalPosition
         val totalTask = mainActivity.taskViewModel.taskLiveData.value!!.count {
             it.dayIndex==dayIndex
         }

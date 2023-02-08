@@ -73,6 +73,7 @@
 
 
     <androidx.viewpager2.widget.ViewPager2
+        android:saveEnabled="false"
         android:id="@+id/main_mid_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

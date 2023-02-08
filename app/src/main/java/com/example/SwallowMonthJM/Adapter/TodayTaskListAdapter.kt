@@ -36,8 +36,9 @@ class TodayTaskListAdapter(
     private var calendarData = customCalendar
     private var startIndex = calendarData.prevTail
     private var endIndex = calendarData.currentMaxDate + calendarData.prevTail
+
     //데이터 자르기
-    private var dayDataSet = dataSet.subList(startIndex,endIndex)
+    private var dayDataSet = dataSet.subList(startIndex, endIndex)
 
     inner class TodayTaskListHolder(val binding: ItemTodayTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -47,12 +48,12 @@ class TodayTaskListAdapter(
                 //today
                 binding.topTextTodayDay.setText(R.string.TODAY)
             } else {
-                binding.topTextTodayDay.setText(dayOfWeek[((absoluteAdapterPosition+startIndex)%7)])
+                binding.topTextTodayDay.setText(dayOfWeek[((absoluteAdapterPosition + startIndex) % 7)])
             }
             binding.topTextTodayTask.text = " ${item.keyDate}.${item.day}"
 
             binding.routineViewItemTodayTask.adapter =
-                TodayMIniTaskListAdapter(mainActivity, item.day, routineList, null).apply {
+                TodayMIniTaskListAdapter(mainActivity, absoluteAdapterPosition, routineList, null).apply {
                     //observer를 통한 recycler view 초기화 (루틴)
                     mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
                         (binding.routineViewItemTodayTask.adapter as TodayMIniTaskListAdapter?)?.setRoutineData(it)
@@ -65,7 +66,13 @@ class TodayTaskListAdapter(
                             routineSlider.apply {
                                 visibility = View.VISIBLE
                                 if (routine != null) {
-                                    RoutineSlider(this, slideFrame, mainActivity, dayPosition, routine)
+                                    RoutineSlider(
+                                        this,
+                                        slideFrame,
+                                        mainActivity,
+                                        dayPosition,
+                                        routine
+                                    )
                                         .apply { initSlide() }
                                     val state = slideFrame.panelState
                                     if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
@@ -82,12 +89,10 @@ class TodayTaskListAdapter(
                 }
 
             binding.taskViewItemTodayTask.adapter =
-                TodayMIniTaskListAdapter(mainActivity, item.day, null, taskList).apply {
+                TodayMIniTaskListAdapter(mainActivity, absoluteAdapterPosition, null, taskList).apply {
                     // observer를 통한 recycler view 초기화 (task)
                     mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
-                        if (it.size > 0 && 0 < absoluteAdapterPosition && absoluteAdapterPosition < it.size) {
-                            (binding.taskViewItemTodayTask.adapter as TodayMIniTaskListAdapter?)?.setTaskData(it)
-                        }
+                        (binding.taskViewItemTodayTask.adapter as TodayMIniTaskListAdapter?)?.setTaskData(it)
                     })
 
                     //클릭 이벤트로 slider 나타내기 (task)
@@ -126,7 +131,6 @@ class TodayTaskListAdapter(
     }
 
     override fun getItemCount(): Int = dayDataSet.size
-
 
 
 }

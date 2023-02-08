@@ -1,6 +1,5 @@
 package com.example.SwallowMonthJM.ViewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -47,7 +46,10 @@ class TaskViewModel(
 
         //추가한 데이터가 0보다 크고 추가한 데이터의 달이 현재 달과 같은 경우
         if(addData.size>0 && addData[0].monthId==mainView.monthData.monthId){
-            Log.d("데이터 추가 확인...",addData[0].toString())
+            mainView.monthData.apply {
+                taskCount+=addData.size
+                totalPer = ((doneTask + clearRoutine) / (taskCount + dayRoutineCount)) * 100
+            }
             currentTaskArr.addAll(addData)
             taskLiveData.postValue(currentTaskArr)
         }
@@ -55,8 +57,17 @@ class TaskViewModel(
     }
 
     fun delTaskData(task: Task){
-        task.id?.let { taskManager.delTaskData(it, paramFun = {
-        }) }
+        task.id?.let {
+            taskManager.delTaskData(it, paramFun = {})
+            if (task.isDone){
+                mainView.monthData.apply {
+                    doneTask-=1
+                    monthId?.let { id->
+                        monthManager.setMonthData(id,this, paramFun = {})
+                    }
+                }
+            }
+        }
         currentTaskArr.remove(task)
         taskLiveData.value = currentTaskArr
     }

@@ -62,7 +62,6 @@ class DoneFragment(
         //루틴 어댑터 초기화
         initRoutineAdapter()
         //task 어댑터 초기화
-        dayData = mainActivity.viewModel.currentMonthArr[mainActivity.viewModel.currentDayPosition.value!!]
         initTaskAdapter()
 
         //루틴 데이터 변화 관찰
@@ -91,7 +90,7 @@ class DoneFragment(
         // task 뷰 init
         // 어댑터 생성
         taskListAdapter = TaskListAdapter(mainActivity,mainActivity.taskViewModel.taskLiveData.value!!,
-            mainActivity.viewModel.currentDayPosition.value!!,true)
+            mainActivity.viewModel.currentCalPosition,true)
         // 어댑터 내부 클릭 이벤트 적용
         .apply {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
@@ -120,7 +119,7 @@ class DoneFragment(
         //루틴 뷰 init
         // 어댑터 생성
         routineListAdapter = TodayRoutineAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!,
-            mainActivity.viewModel.currentDayPosition.value!!,true)
+            mainActivity.viewModel.currentCalPosition,true)
         // 어댑터 내부 클릭 이벤트 적용
         .apply {
             setOnItemClickListener(object :TodayRoutineAdapter.OnItemClickListener{

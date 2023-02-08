@@ -49,6 +49,10 @@ class RoutineViewModel(
 
                 //추가한 데이터의 달이 현재 달과 같은 경우 추가
                 if(routineData.monthId==mainView.monthData.monthId) {
+                    mainView.monthData.apply {
+                        dayRoutineCount += routineData.totalRoutine
+                        totalPer = ((doneTask + clearRoutine) / (taskCount + dayRoutineCount)) * 100
+                    }
                     currentRoutineArr.add(routineData)
                     routineLivData.postValue(currentRoutineArr)
                 }

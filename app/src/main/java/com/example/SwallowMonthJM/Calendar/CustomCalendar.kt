@@ -1,9 +1,7 @@
 package com.example.SwallowMonthJM.Calendar
 
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.DayData
-import com.example.SwallowMonthJM.Network.MasterApplication
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,9 +27,7 @@ class CustomCalendar(
     var dateList = ArrayList<DayData>()
     var keyDate:String = ""
     var topDate : String = ""
-    private var taskManager:TaskManager = TaskManager(mainActivity.application as MasterApplication)
-    private val userName  = mainActivity.userName
-    private val monthId = mainActivity.viewModel.monthData.monthId
+
     init {
         calendar.time=date
         keyDate  = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(date)

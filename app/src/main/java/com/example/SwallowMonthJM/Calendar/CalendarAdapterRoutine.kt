@@ -35,20 +35,15 @@ class CalendarAdapterRoutine(
     // init calendar
     private var customCalendar: CustomCalendar =
         CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
-    private var startIndex =0
-    private var endIndex=0
-    private var selectedPosition=0
 
     //데이터 초기화
     init {
         customCalendar.initBaseCalendar()
-        startIndex = customCalendar.prevTail
-        endIndex = customCalendar.currentMaxDate + customCalendar.prevTail
-        selectedPosition = customCalendar.currentIndex - startIndex
+
     }
 
     //데이터 자르기
-    private var dataSet = customCalendar.dateList.subList(startIndex,endIndex)
+    private var dataSet = customCalendar.dateList
 
     inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root) {
