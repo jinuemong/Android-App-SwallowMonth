@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,7 +14,7 @@ class MasterApplication:Application(
 
 ) {
     lateinit var service:RetrofitService
-    private val baseUrl = "https://ef66-211-177-27-146.jp.ngrok.io"
+    private val baseUrl = "https://261e-14-51-88-88.jp.ngrok.io"
     override fun onCreate() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)
@@ -35,8 +36,13 @@ class MasterApplication:Application(
             }
         }
 
+        //오류 관련 인터셉터
+        val logInterceptor  = HttpLoggingInterceptor()
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
         val client = OkHttpClient.Builder()
             .addInterceptor(header)
+            .addInterceptor(logInterceptor)
             .addNetworkInterceptor(StethoInterceptor())
             .build()
 

@@ -28,7 +28,7 @@ class MainViewModel : ViewModel(){
     var todayYear = 0
     var todayMonth =0
     var todayDayPosition = 0
-    var todayCalPosition = 0
+    var todayCalPosition = 0 //안 잘린 달력에서 사용
     //////////////////////////////////
 
     //현재 view 데이터  /////////////////////
@@ -123,8 +123,8 @@ class MainViewModel : ViewModel(){
                             mainActivity.routineViewModel.currentRoutineArr = ArrayList()
                         }
                         mainActivity.routineViewModel.routineLivData.value = mainActivity.routineViewModel.currentRoutineArr
-
                     })
+
                     //task 데이터 설정
                     val taskManager = TaskManager(mainActivity.application as MasterApplication)
                     taskManager.getTaskList(mainActivity.userName, monthData.monthId!!, paramFun = {
@@ -146,7 +146,6 @@ class MainViewModel : ViewModel(){
                     }
                 }
             }
-            setData()
         })
         //현재 view 데이터 생성
         currentDate = CustomCalendar(mainActivity,data, dateDay, todayMonth, dateMonth)
@@ -161,8 +160,9 @@ class MainViewModel : ViewModel(){
             todayDayPosition = currentDate.currentIndex //오늘날짜
             todayCalPosition = currentDate.currentIndex-currentDate.prevTail //오늘 달력 인덱스
             todayKeyDate = currentDate.keyDate //오늘 keyDate
-            setCurrentDayPosition(currentDate.currentIndex) //view 날짜
         }
+        setCurrentDayPosition(currentDate.currentIndex -currentDate.prevTail ) //view 날짜
+        setData()
     }
 
 }

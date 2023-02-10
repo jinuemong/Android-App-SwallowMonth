@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.Adapter.TodayRoutineAdapter
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
@@ -28,7 +27,6 @@ class TaskFragment(
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     private lateinit var taskListAdapter:TaskListAdapter
-    private lateinit var dayData : DayData //task 리스트 불러오기
     private lateinit var routineListAdapter:TodayRoutineAdapter
     private var taskSlider :View  = slideLayout.findViewById(R.id.slide_task)
     private var routineSlider : View = slideLayout.findViewById(R.id.slide_routine)
@@ -85,13 +83,15 @@ class TaskFragment(
             routineListAdapter.setDayDate(dayIndex)
 
         })
+
+
     }
 
     private fun initTaskAdapter(){
         //task 뷰 init
         //어댑터 생성
         taskListAdapter = TaskListAdapter(mainActivity,mainActivity.taskViewModel.taskLiveData.value!!,
-            mainActivity.viewModel.currentCalPosition,false)
+            mainActivity.viewModel.currentDayPosition.value!!,false)
         //어댑터 내부 클릭 이벤트 적용
         .apply {
             setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
@@ -123,7 +123,7 @@ class TaskFragment(
         //류틴 뷰 init
         //어댑터 생성
         routineListAdapter = TodayRoutineAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!
-            ,mainActivity.viewModel.currentCalPosition,false)
+            ,mainActivity.viewModel.currentDayPosition.value!!,false)
         // 어댑터 내부 클릭 이벤트 적용
         .apply {
             setOnItemClickListener(object :TodayRoutineAdapter.OnItemClickListener{

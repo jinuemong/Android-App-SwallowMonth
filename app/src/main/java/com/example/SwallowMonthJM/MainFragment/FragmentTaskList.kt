@@ -28,7 +28,7 @@ class FragmentTaskList : Fragment() {
     lateinit var mainActivity: MainActivity
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPageAdapter: FragmentAdapter
-
+    private lateinit var calendarListAdapter: CalendarListAdapter
     private var tabText = arrayOf(
         "Todo","Done"
     )
@@ -55,7 +55,8 @@ class FragmentTaskList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+
+        //data가 갱신된 후에 view 그리기
         mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
             initView()
         })
@@ -73,12 +74,12 @@ class FragmentTaskList : Fragment() {
         binding.taskListPer.progress = mainActivity.viewModel.monthData.totalPer
         binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
 
+
         initRecyclerView()
         initPager()
         binding.totalTask.text = getActivityNum()
         initAni()
         setUpListener()
-
     }
     private fun initAni(){
         binding.topInTaskList.animation = mainActivity.aniList[2]
@@ -108,16 +109,19 @@ class FragmentTaskList : Fragment() {
         mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
             binding.totalTask.text = getActivityNum()
         })
-
     }
 
     //현재 리싸이클러 뷰 갱신
     private fun initRecyclerView(){
+        //어댑터 생성
+        calendarListAdapter = CalendarListAdapter(mainActivity,
+            mainActivity.viewModel.currentDate.dateList,
+            mainActivity.viewModel.currentDate)
+
+        //어댑터 연결
         binding.taskListHoCalendar.apply {
             setHasFixedSize(true)
-            adapter = CalendarListAdapter(mainActivity,
-                mainActivity.viewModel.currentDate.dateList,
-                mainActivity.viewModel.currentDate).apply {
+            adapter = calendarListAdapter.apply {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
                         mainActivity.viewModel.setCurrentDayPosition(position)
@@ -167,7 +171,7 @@ class FragmentTaskList : Fragment() {
 
     fun getActivityNum() : String{
         //task + routine 수
-        val dayIndex = mainActivity.viewModel.currentCalPosition
+        val dayIndex = mainActivity.viewModel.currentDayPosition.value
         val totalTask = mainActivity.taskViewModel.taskLiveData.value!!.count {
             it.dayIndex==dayIndex
         }
