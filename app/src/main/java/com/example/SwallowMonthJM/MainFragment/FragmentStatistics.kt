@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentStatisticsBinding
@@ -36,11 +35,11 @@ class FragmentStatistics : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initView()
         //data가 갱신된 후에 view 그리기
-        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
-            initView()
-        })
+//        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
+//            initView()
+//        })
     }
 
 

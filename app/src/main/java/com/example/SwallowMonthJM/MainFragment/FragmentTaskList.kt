@@ -55,11 +55,11 @@ class FragmentTaskList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initView()
         //data가 갱신된 후에 view 그리기
-        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
-            initView()
-        })
+//        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
+//            initView()
+//        })
     }
 
     override fun onResume() {

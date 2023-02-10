@@ -46,6 +46,10 @@ class DoneFragment(
         _binding = FragmentDoneBinding.inflate(inflater,container,false)
         return binding.root
     }
+    override fun onResume() {
+        super.onResume()
+        initView()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

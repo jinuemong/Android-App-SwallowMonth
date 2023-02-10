@@ -14,7 +14,7 @@ class MasterApplication:Application(
 
 ) {
     lateinit var service:RetrofitService
-    private val baseUrl = "https://261e-14-51-88-88.jp.ngrok.io"
+    private val baseUrl = "https://65c2-211-177-27-146.jp.ngrok.io"
     override fun onCreate() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)

@@ -1,6 +1,5 @@
 package com.example.SwallowMonthJM.Manager
 
-import android.util.Log
 import com.example.SwallowMonthJM.Model.DayRoutine
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Network.MasterApplication
@@ -33,17 +32,6 @@ class RoutineManager(
             })
     }
     fun addRoutine(routine: Routine,paramFun:(Routine?)->Unit){
-        Log.d("userId : :::::",routine.userId.toString())
-        Log.d("monthId : :::::",routine.monthId.toString())
-        Log.d("keyDate : :::::",routine.keyDate.toString())
-        Log.d("text : :::::",routine.text)
-        Log.d("cycle : :::::",routine.cycle.toString())
-        Log.d("startNum : :::::",routine.startNum.toString())
-        Log.d("totalRoutine : :::::",routine.totalRoutine.toString())
-        Log.d("clearRoutine : :::::",routine.clearRoutine.toString())
-        Log.d("iconType : :::::",routine.iconType.toString())
-        Log.d("topText : :::::",routine.topText.toString())
-
 
         materApp.service.addRoutine(routine.userId,routine.monthId,routine.keyDate,routine.text,
         routine.cycle,routine.startNum,routine.totalRoutine,routine.clearRoutine,routine.iconType,routine.topText)
@@ -53,9 +41,6 @@ class RoutineManager(
                         paramFun(response.body())
                     }else{
                         paramFun(null)
-                        Log.d("err2",response.errorBody()?.string()!!)
-                        Log.d("err3",response.message().toString())
-                        Log.d("err4",response.body().toString())
                     }
                 }
 

@@ -56,6 +56,10 @@ class TaskFragment(
         _binding = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        initView()
+    }
     private fun initView(){
 
         //루틴 어댑터 초기화

@@ -1,7 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
@@ -43,12 +42,12 @@ class MainViewModel : ViewModel(){
     //////////////////////////////////////////
 
     //관찰 데이터//////////////////////////
-    private val _eventSetData = SingleLiveEvent<Any>()
-    val eventSetData : LiveData<Any> get() = _eventSetData
-
-    private fun setData(){
-        _eventSetData.call()
-    }
+//    private val _eventSetData = SingleLiveEvent<Any>()
+//    val eventSetData : LiveData<Any> get() = _eventSetData
+//
+//    private fun setData(){
+//        _eventSetData.call()
+//    }
     /////////////////////////////////////
     // 단순 초기화
     init {
@@ -162,7 +161,7 @@ class MainViewModel : ViewModel(){
             todayKeyDate = currentDate.keyDate //오늘 keyDate
         }
         setCurrentDayPosition(currentDate.currentIndex -currentDate.prevTail ) //view 날짜
-        setData()
+//        setData()
     }
 
 }
