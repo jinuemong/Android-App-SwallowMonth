@@ -22,7 +22,7 @@ import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTodayTaskFragment
 import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
 import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
-import com.example.SwallowMonthJM.MainFragment.FragmentTaskList
+import com.example.SwallowMonthJM.MainFragment.FragmentActivityList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.UserManager
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
     private fun initFragmentAdapter() {
         fragmentPageAdapter = FragmentAdapter(this@MainActivity)
         fragmentPageAdapter.apply {
-            addFragment(FragmentTaskList())
+            addFragment(FragmentActivityList())
             addFragment(FragmentStatistics())
             addFragment(Fragment())
             addFragment(FragmentRepeatTaskList())

@@ -161,7 +161,6 @@ class MainViewModel : ViewModel(){
             todayKeyDate = currentDate.keyDate //오늘 keyDate
         }
         setCurrentDayPosition(currentDate.currentIndex -currentDate.prevTail ) //view 날짜
-//        setData()
     }
 
 }

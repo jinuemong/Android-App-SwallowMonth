@@ -81,8 +81,10 @@
         </LinearLayout>
 
         <TextView
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/item_height_big_21_text_size"
             android:id="@+id/user_comment"
-            style="@style/ButtonText_big"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
@@ -100,7 +102,7 @@
             android:background="@color/color_type4"
             android:id="@+id/multi_profile_re"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_big_150"
+            android:layout_height="@dimen/item_height_double_big"
             android:layout_margin="@dimen/fab_margin"
             android:orientation="horizontal"
             android:padding="@dimen/main_margin_10"
@@ -118,7 +120,7 @@
             android:background="@color/color_type4"
             android:id="@+id/month_report_re"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_big_150"
+            android:layout_height="@dimen/item_height_double_big"
             android:layout_margin="@dimen/fab_margin"
             android:orientation="horizontal"
             android:padding="@dimen/main_margin_10"

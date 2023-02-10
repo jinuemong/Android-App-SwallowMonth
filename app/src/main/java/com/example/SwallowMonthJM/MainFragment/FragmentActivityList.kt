@@ -22,7 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 // home
 
-class FragmentTaskList : Fragment() {
+class FragmentActivityList : Fragment() {
     private var _binding : FragmentTaskListBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
