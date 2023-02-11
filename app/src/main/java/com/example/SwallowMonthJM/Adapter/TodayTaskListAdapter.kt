@@ -74,13 +74,14 @@ class TodayTaskListAdapter(
                                         routine
                                     )
                                         .apply { initSlide() }
+
                                     val state = slideFrame.panelState
-                                    if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                                        slideFrame.panelState =
-                                            SlidingUpPanelLayout.PanelState.ANCHORED
-                                    } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                                        slideFrame.panelState =
-                                            SlidingUpPanelLayout.PanelState.COLLAPSED
+                                    if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+
+                                    }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
                                     }
                                 }
                             }
@@ -105,13 +106,14 @@ class TodayTaskListAdapter(
                                 if (task != null) {
                                     TaskSlider(this, slideFrame, mainActivity, task)
                                         .apply { initSlide() }
+
                                     val state = slideFrame.panelState
-                                    if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                                        slideFrame.panelState =
-                                            SlidingUpPanelLayout.PanelState.ANCHORED
-                                    } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                                        slideFrame.panelState =
-                                            SlidingUpPanelLayout.PanelState.COLLAPSED
+                                    if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+
+                                    }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
+                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
                                     }
                                 }
                             }

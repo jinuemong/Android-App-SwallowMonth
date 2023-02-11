@@ -100,8 +100,6 @@ class OneStatisticsFragment(
         binding.calendarBox.fragCalenderRecycler.apply {
             val calendarAdapter = CalendarAdapterStatistics(
                 mainActivity, binding.calendarBox.fragCalenderLinear,
-                mainActivity.viewModel.currentDate.calendar.time
-                ,mainActivity.viewModel.todayMonth
             )
             adapter = calendarAdapter
         }
@@ -125,6 +123,7 @@ class OneStatisticsFragment(
             dig.setOnClickedListener(object : MonthPickerDialog.ButtonClickListener{
                 override fun onClicked(year: Int, month: Int) {
                     changeCalendar(year,month)
+                    initAni()
                 }
             })
         }
@@ -136,7 +135,7 @@ class OneStatisticsFragment(
             setCurrentData(getDate(year,month),mainActivity)
         }
         initData()
-        initAni()
+
     }
 
     fun initAni(){

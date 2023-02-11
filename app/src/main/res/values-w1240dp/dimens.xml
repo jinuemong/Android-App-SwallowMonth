@@ -9,6 +9,7 @@
     <dimen name="item_height_double_big">3000dp</dimen>
     <dimen name="item_height">750dp</dimen>
     <dimen name="item_we_300">3750dp</dimen>
+    <dimen name="item_we_350">4375dp</dimen>
     <dimen name="item_mid_height_30">375dp</dimen>
     <dimen name="item_mid_height_20dp">250dp</dimen>
     <dimen name="item_mid_40_height">500dp</dimen>

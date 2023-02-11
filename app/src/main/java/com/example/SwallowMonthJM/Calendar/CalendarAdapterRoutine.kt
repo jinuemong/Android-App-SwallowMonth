@@ -10,39 +10,23 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 //각 캘린더의 어댑터 (날짜 - 일모음 )
 //루틴 데이터의 상세 정보 표시
 
 class CalendarAdapterRoutine(
     private val mainActivity: MainActivity,
-    private val calendarLayout: LinearLayout,
-    date: Date,
-    currentMonth: Int,
+    private val calendarLayout : LinearLayout,
     private val routine: Routine,
-    private val dayP : Int
 
-) : RecyclerView.Adapter<CalendarAdapterRoutine.CalenderItemHolder>() {
+    ) : RecyclerView.Adapter<CalendarAdapterRoutine.CalenderItemHolder>() {
     private lateinit var binding: ItemCalendarBinding
 
-
-    //현재 캘린더 데이터 얻어옴
-    private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
-    private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
-
-    // init calendar
-    private var customCalendar: CustomCalendar =
-        CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
-
-    //데이터 초기화
-    init {
-        customCalendar.initBaseCalendar()
-
-    }
-
-    private var dataSet = customCalendar.dateList
+    private val dataSet = mainActivity.viewModel.currentDate.dateList
+    private val subIndex = mainActivity.viewModel.currentDate.prevTail
+    private val todayIndex = mainActivity.viewModel.todayDayPosition
+    private val currentDate = mainActivity.viewModel.currentDate.keyDate
+    private val routineDate = routine.keyDate
 
     inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -51,29 +35,37 @@ class CalendarAdapterRoutine(
             //텍스트 표시
             binding.calendarText.text = dataSet[absoluteAdapterPosition].day.toString()
 
-            val dayRoutine = routine.dayRoutinePost
-                .find { it.dayIndex==dataSet[absoluteAdapterPosition].day}
+            //각 아이템의 높이 지정
+            val params =
+                LinearLayout.LayoutParams(calendarLayout.width / 7, (calendarLayout.height / 6
+                +binding.itemLineNormal.layoutParams.height) )
+            binding.root.layoutParams = params
 
+            val dayRoutine = routine.dayRoutinePost
+                .find { it.dayIndex==(absoluteAdapterPosition-subIndex)}
             if ( dayRoutine==null){
                 binding.reset()
             }else{
-                if (dataSet[absoluteAdapterPosition].day<dateDay){
-                    if (dayRoutine.clear){
+                //현재 데이터가 오늘 이전
+                if ( (absoluteAdapterPosition-subIndex) <todayIndex){
+                    if (dayRoutine.clear){ //클리어
                         binding.setClear()
                     }else{
-                        binding.setFail()
+                        binding.setFail() //실패
                     }
-                }else if (dataSet[absoluteAdapterPosition].day==dateDay){
-                    if (dayRoutine.clear){
+                //현재 데이터가 오늘
+                }else if ((absoluteAdapterPosition-subIndex)==todayIndex){
+
+                    if (dayRoutine.clear){ //클리어
                         binding.setClear()
                     } else{
-                        binding.setCalendar()
+                        binding.setCalendar() //아직
                     }
                 }
             }
 
             //오늘 날짜
-            if (dataSet[absoluteAdapterPosition].isSelected) {
+            if (routineDate==currentDate &&absoluteAdapterPosition==todayIndex) {
                 binding.setToday()
             }else{
                 binding.setUnToday()

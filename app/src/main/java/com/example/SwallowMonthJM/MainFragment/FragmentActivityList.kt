@@ -65,6 +65,7 @@ class FragmentActivityList : Fragment() {
                     initAni()
                 }
             }
+
         })
 
         //데이터 변화 관찰

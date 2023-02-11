@@ -2,10 +2,7 @@ package com.example.SwallowMonthJM.Unit
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.Calendar.CalendarAdapterRoutine
 import com.example.SwallowMonthJM.MainActivity
@@ -30,11 +27,6 @@ class RoutineSlider(
     private var calendarLinear = slide.findViewById<View>(R.id.calendar_layout)
         .findViewById<LinearLayout>(R.id.frag_calender_linear)
     private var completeButton = slide.findViewById<Button>(R.id.complete_button)
-    //slide 너비 설정
-    private val params =
-        LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT)
 
     @SuppressLint("SetTextI18n")
     fun initSlide(){
@@ -44,34 +36,41 @@ class RoutineSlider(
         topText.text = routine.topText
         initCalendar()
         setUpListener()
-        slide.layoutParams = params
     }
 
     private fun setUpListener(){
         completeButton.setOnClickListener {
-            val state = slideFrame.panelState
-            if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            }
-            else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            }
+            val todayPosition =mainActivity.viewModel.currentDate.prevTail-
+                    mainActivity.viewModel.todayDayPosition
 
-            val dayRoutine = routine.dayRoutinePost.find {
-                it.dayIndex ==dPosition
-            }
+            if (dPosition==todayPosition) {
 
-            if (dayRoutine != null) {
-                mainActivity.routineViewModel.doneRoutineData(routine,dayRoutine)
+                val state = slideFrame.panelState
+                if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
+                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+
+                }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
+                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
+                }
+
+                val dayRoutine = routine.dayRoutinePost.find {
+                    it.dayIndex == dPosition
+                }
+
+                if (dayRoutine != null) {
+                    mainActivity.routineViewModel.doneRoutineData(routine, dayRoutine)
+                }
+            }else{
+                Toast.makeText(mainActivity,"Not Today!", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
     private fun initCalendar(){
         calendar.adapter = CalendarAdapterRoutine(
-            mainActivity, calendarLinear,
-            mainActivity.viewModel.currentDate.calendar.time,
-            mainActivity.viewModel.currentMonth.value!!, routine, dPosition
+            mainActivity, calendarLinear,routine
         )
     }
 }

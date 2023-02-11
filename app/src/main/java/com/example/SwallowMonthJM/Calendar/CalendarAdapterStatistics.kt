@@ -5,35 +5,19 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.ItemCalendarBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 class CalendarAdapterStatistics(
     private val mainActivity: MainActivity,
     private val calendarLayout : LinearLayout,
-    date : Date,
-    currentMonth : Int
 ) :RecyclerView.Adapter<CalendarAdapterStatistics.CalendarStatisticsHolder>(){
 
     private lateinit var binding: ItemCalendarBinding
-    private var dataSet : ArrayList<DayData> = arrayListOf()
 
-    //현재 캘린더 데이터 얻어옴
-    private val dateDay: Int = SimpleDateFormat("dd", Locale.KOREA).format(date).toInt()
-    private val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
-
-    // init calendar
-    private var customCalendar: CustomCalendar =
-        CustomCalendar(mainActivity,date, dateDay, currentMonth, dateMonth)
-
-    init {
-        customCalendar.initBaseCalendar()
-        dataSet = customCalendar.dateList
-
-    }
+    private val dataSet = mainActivity.viewModel.currentDate.dateList
+    private val subIndex = mainActivity.viewModel.currentDate.prevTail
+    private val todayIndex = mainActivity.viewModel.todayDayPosition
 
     inner class CalendarStatisticsHolder(val binding: ItemCalendarBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -47,7 +31,7 @@ class CalendarAdapterStatistics(
             binding.root.layoutParams = params
 
             //오늘 날짜
-            if (dataSet[absoluteAdapterPosition].isSelected) {
+            if (absoluteAdapterPosition==todayIndex) {
                 binding.setToday()
             } else {
                 binding.setUnToday()

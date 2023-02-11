@@ -7,9 +7,10 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+
 class TaskSlider(
     private val slide: View,
-    private val slideFrame : SlidingUpPanelLayout,
+    private val slideFrame: SlidingUpPanelLayout,
     private val mainActivity: MainActivity,
     private val task: Task,
 ) {
@@ -22,13 +23,9 @@ class TaskSlider(
     private var completeButton = slide.findViewById<Button>(R.id.complete_button)
     private var seekVar = slide.findViewById<SeekBar>(R.id.task_seek_bar)
     private var delButton = slide.findViewById<ImageView>(R.id.task_garbage)
-    //slide 너비 설정
-    private val params =
-        LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT)
+
     @SuppressLint("SetTextI18n")
-    fun initSlide(){
+    fun initSlide() {
         name.text = task.text
         level.text = levelText[task.level]
         icon.setImageResource(calendarIcon[task.iconType])
@@ -38,19 +35,20 @@ class TaskSlider(
 
         setUpListener()
         seekbarListener()
-        slide.layoutParams = params
     }
 
-    private fun setUpListener(){
+    private fun setUpListener() {
 
         completeButton.setOnClickListener {
-            if (!task.isDone){
+            if (!task.isDone) {
+
                 val state = slideFrame.panelState
                 if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                     slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-                }
-                else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+
+                } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
                     slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
                 }
 
                 mainActivity.taskViewModel.doneTaskData(task)
@@ -58,23 +56,26 @@ class TaskSlider(
         }
 
         delButton.setOnClickListener {
+
             val state = slideFrame.panelState
             if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                 slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-            }
-            else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
+
+            } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
                 slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
             }
+
             mainActivity.taskViewModel.delTaskData(task)
         }
 
         icon.setOnClickListener {
             val dig = SelectIconDialog(mainActivity)
             dig.showDig()
-            dig.setOnClickedListener(object :SelectIconDialog.ButtonClickListener{
+            dig.setOnClickedListener(object : SelectIconDialog.ButtonClickListener {
                 override fun onClicked(index: Int?) {
                     if (index != null) {
-                        mainActivity.taskViewModel.setTaskICon(index,task)
+                        mainActivity.taskViewModel.setTaskICon(index, task)
                         icon.setImageResource(calendarIcon[index])
                     }
                 }
@@ -82,26 +83,23 @@ class TaskSlider(
         }
     }
 
-    private fun seekbarListener(){
-        seekVar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+    private fun seekbarListener() {
+        seekVar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             @SuppressLint("SetTextI18n")
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 perText.text = "${progress}%"
                 per.progress = progress
             }
+
             override fun onStartTrackingTouch(p0: SeekBar?) {}
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                if(!task.isDone) {
+                if (!task.isDone) {
                     mainActivity.taskViewModel.setPerTask(task, seekVar.progress)
                     if (seekVar.progress == 100) {
-                        val state = slideFrame.panelState
-                        if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-                        }
-                        else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-                        }
+
+                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+
                         mainActivity.taskViewModel.doneTaskData(task)
                     }
                 }
