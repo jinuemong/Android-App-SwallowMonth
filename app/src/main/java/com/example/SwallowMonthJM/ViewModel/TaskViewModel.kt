@@ -62,6 +62,7 @@ class TaskViewModel(
             if (task.isDone){
                 mainView.monthData.apply {
                     doneTask-=1
+                    taskCount-=1
                     monthId?.let { id->
                         monthManager.setMonthData(id,this, paramFun = {})
                     }
@@ -100,6 +101,7 @@ class TaskViewModel(
         taskLiveData.value = currentTaskArr
     }
 
+    //task 하나의 per 구하기
     fun setPerTask(task: Task, p:Int){
         task.per = p
         task.id?.let {

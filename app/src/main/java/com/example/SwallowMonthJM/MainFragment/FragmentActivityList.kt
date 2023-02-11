@@ -112,7 +112,7 @@ class FragmentActivityList : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initTopData(){
         binding.taskListPer.progress = mainActivity.viewModel.monthData.totalPer
-        binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
+        binding.taskListPerText.text = "${mainActivity.viewModel.monthData.totalPer}%"
     }
 
     private fun setUpListener(){

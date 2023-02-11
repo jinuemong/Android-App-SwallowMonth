@@ -86,8 +86,13 @@ class OneStatisticsFragment(
     @SuppressLint("SetTextI18n")
     private fun initTopData(){
         //top 데이터 설정
-        binding.stPer.progress = mainActivity.viewModel.monthData.totalPer
-        binding.stPerText.text = "${mainActivity.viewModel.monthData.totalPer}%"
+        mainActivity.viewModel.monthData.apply {
+            binding.stPer.progress = totalPer
+            binding.stPerText.text = "${totalPer}%"
+            binding.stPoint.text = "point:${totalPoint}"
+            binding.stTotal.text = "activity:${taskCount+dayRoutineCount}"
+            binding.stComplete.text = "clear:${clearRoutine + doneTask}"
+        }
     }
     private fun initData(){
 

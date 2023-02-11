@@ -61,8 +61,12 @@ class RoutineViewModel(
     }
 
     fun delRoutineData(routine: Routine){
-        currentRoutineArr.remove(routine)
         routine.routineId?.let { routineManager.delRoutine(it, paramFun = {}) }
+        mainView.monthData.apply {
+            clearRoutine-=routine.clearRoutine
+            dayRoutineCount-=routine.totalRoutine
+        }
+        currentRoutineArr.remove(routine)
         routineLivData.value = currentRoutineArr
     }
 
