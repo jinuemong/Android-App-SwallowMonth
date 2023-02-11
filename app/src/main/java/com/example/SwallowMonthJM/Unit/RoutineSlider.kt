@@ -35,6 +35,7 @@ class RoutineSlider(
         LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT)
+
     @SuppressLint("SetTextI18n")
     fun initSlide(){
         name.text = routine.text

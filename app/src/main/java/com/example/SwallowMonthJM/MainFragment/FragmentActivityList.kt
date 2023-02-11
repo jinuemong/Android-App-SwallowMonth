@@ -56,10 +56,30 @@ class FragmentActivityList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        //data가 갱신된 후에 view 그리기
-//        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
-//            initView()
-//        })
+
+        //page 선택
+        mainActivity.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if(position==0){
+                    initAni()
+                }
+            }
+        })
+
+        //데이터 변화 관찰
+        mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
+            binding.totalTask.text = getActivityNum()
+            initTopData()
+        })
+        mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
+            binding.totalTask.text = getActivityNum()
+            initTopData()
+        })
+
+        mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
+            binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
+        })
     }
 
     override fun onResume() {
@@ -71,8 +91,7 @@ class FragmentActivityList : Fragment() {
     private fun initView(){
         //상단 데이터 적용
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
-        binding.taskListPer.progress = mainActivity.viewModel.monthData.totalPer
-        binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
+        initTopData()
 
 
         initRecyclerView()
@@ -90,6 +109,12 @@ class FragmentActivityList : Fragment() {
         binding.taskListHoCalendar.animation.start()
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun initTopData(){
+        binding.taskListPer.progress = mainActivity.viewModel.monthData.totalPer
+        binding.taskListPerText.text = mainActivity.viewModel.monthData.totalPer.toString()+"%"
+    }
+
     private fun setUpListener(){
         //년도 + 달 선택 : Month Picker
         binding.taskListCalendar.setOnClickListener {
@@ -101,14 +126,6 @@ class FragmentActivityList : Fragment() {
                 }
             })
         }
-
-        //데이터 변화 관찰
-        mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
-            binding.totalTask.text = getActivityNum()
-        })
-        mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
-            binding.totalTask.text = getActivityNum()
-        })
     }
 
     //현재 리싸이클러 뷰 갱신

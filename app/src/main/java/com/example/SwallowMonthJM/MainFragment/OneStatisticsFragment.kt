@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.SwallowMonthJM.Adapter.TodayTaskListAdapter
 import com.example.SwallowMonthJM.Calendar.CalendarAdapterStatistics
 import com.example.SwallowMonthJM.MainActivity
@@ -48,26 +49,45 @@ class OneStatisticsFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initTopData()
+        initCalData()
         initData()
         setUpListener()
 
         mainActivity.apply {
             viewModel.dayLiveData.observe(mainActivity, Observer {
+                initCalData()
+            })
+            //상단 데이터 초기화
+            taskViewModel.taskLiveData.observe(mainActivity, Observer {
                 initTopData()
             })
-            //상단 데이터 초기화화//            taskViewModel.taskLiveData.observe(mainActivity, Observer {
-//            })
-//            routineViewModel.routineLivData.observe(mainActivity, Observer {
-//            })
+            routineViewModel.routineLivData.observe(mainActivity, Observer {
+                initTopData()
+            })
+            //page 선택
+            mainActivity.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    if(position==1){
+                        initAni()
+                    }
+                }
+            })
         }
     }
 
 
-    private fun initTopData(){
-        //상단 데이터 설정
+    private fun initCalData(){
+        //캘린더 데이터 설정
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         binding.stDate.text = mainActivity.viewModel.currentDate.topDate
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initTopData(){
+        //top 데이터 설정
+        binding.stPer.progress = mainActivity.viewModel.monthData.totalPer
+        binding.stPerText.text = "${mainActivity.viewModel.monthData.totalPer}%"
     }
     private fun initData(){
 
@@ -111,5 +131,18 @@ class OneStatisticsFragment(
             setCurrentData(getDate(year,month),mainActivity)
         }
         initData()
+        initAni()
     }
+
+    fun initAni(){
+        binding.topMenu.animation = mainActivity.aniList[2]
+        binding.leftMenu.animation = mainActivity.aniList[0]
+        binding.rightMenu.animation = mainActivity.aniList[4]
+        binding.statisticsRecycler.animation = mainActivity.aniList[1]
+        binding.topMenu.animation.start()
+        binding.leftMenu.animation.start()
+        binding.rightMenu.animation.start()
+        binding.statisticsRecycler.animation.start()
+    }
+
 }

@@ -42,7 +42,6 @@ class CalendarAdapterRoutine(
 
     }
 
-    //데이터 자르기
     private var dataSet = customCalendar.dateList
 
     inner class CalenderItemHolder(val binding: ItemCalendarBinding) :
