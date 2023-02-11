@@ -51,7 +51,10 @@ class RoutineViewModel(
                 if(routineData.monthId==mainView.monthData.monthId) {
                     mainView.monthData.apply {
                         dayRoutineCount += routineData.totalRoutine
-                        totalPer = ((doneTask + clearRoutine) / (taskCount + dayRoutineCount)) * 100
+                        totalPer = (((doneTask+clearRoutine).toDouble()/(taskCount+dayRoutineCount).toDouble())*100.0).toInt()
+                        monthId?.let { id->
+                            monthManager.setMonthData(id,this, paramFun = {})
+                        }
                     }
                     currentRoutineArr.add(routineData)
                     routineLivData.postValue(currentRoutineArr)
@@ -65,6 +68,10 @@ class RoutineViewModel(
         mainView.monthData.apply {
             clearRoutine-=routine.clearRoutine
             dayRoutineCount-=routine.totalRoutine
+            totalPer = (((doneTask+clearRoutine).toDouble()/(taskCount+dayRoutineCount).toDouble())*100.0).toInt()
+            monthId?.let { id->
+                monthManager.setMonthData(id,this, paramFun = {})
+            }
         }
         currentRoutineArr.remove(routine)
         routineLivData.value = currentRoutineArr
@@ -84,7 +91,7 @@ class RoutineViewModel(
             mainView.monthData.apply {
                 totalPoint += levelPoint[0]
                 clearRoutine += 1
-                totalPer = ((doneTask + clearRoutine) / (taskCount + dayRoutineCount)) * 100
+                totalPer = (((doneTask+clearRoutine).toDouble()/(taskCount+dayRoutineCount).toDouble())*100.0).toInt()
                 //서버에 적용
                 this.monthId?.let { id ->
                     monthManager.setMonthData(id, this, paramFun = {})

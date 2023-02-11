@@ -1,7 +1,6 @@
 package com.example.SwallowMonthJM.Adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,13 +36,9 @@ class TaskListAdapter(
         : RecyclerView.ViewHolder(binding.root){
             @SuppressLint("SetTextI18n")
             fun bind(){
-                Log.d("item -=--------------- 3",dayPosition.toString())
                 val item = itemList[absoluteAdapterPosition]
-                if (!item.isDone){
-                    Log.d("item -=--------------- 1",item.dayIndex.toString()+":"+item.text)
-                }
+
                 if(item.isDone==isDone && item.dayIndex==dayPosition){
-                    Log.d("item -=--------------- 2",item.dayIndex.toString()+":"+item.text)
                     val per = item.per
                     binding.taskPer.progress = per
                     binding.taskPerText.text = "$per%"

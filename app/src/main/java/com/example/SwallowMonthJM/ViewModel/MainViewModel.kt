@@ -112,7 +112,9 @@ class MainViewModel : ViewModel(){
                 }else null
 
                 if (monthId!=null){ //기존 데이터가 있을 경우
+
                     monthData = mData!![0]
+
                     //routine 데이터 설정
                     val routineManager = RoutineManager(mainActivity.application as MasterApplication)
                     routineManager.getRoutineList(mainActivity.userName,monthData.keyDate, paramFun = {

@@ -48,7 +48,10 @@ class TaskViewModel(
         if(addData.size>0 && addData[0].monthId==mainView.monthData.monthId){
             mainView.monthData.apply {
                 taskCount+=addData.size
-                totalPer = ((doneTask + clearRoutine) / (taskCount + dayRoutineCount)) * 100
+                totalPer = (((doneTask+clearRoutine).toDouble()/(taskCount+dayRoutineCount).toDouble())*100.0).toInt()
+                monthId?.let { id->
+                    monthManager.setMonthData(id,this, paramFun = {})
+                }
             }
             currentTaskArr.addAll(addData)
             taskLiveData.postValue(currentTaskArr)
@@ -63,6 +66,7 @@ class TaskViewModel(
                 mainView.monthData.apply {
                     doneTask-=1
                     taskCount-=1
+                    totalPer = (((doneTask+clearRoutine).toDouble()/(taskCount+dayRoutineCount).toDouble())*100.0).toInt()
                     monthId?.let { id->
                         monthManager.setMonthData(id,this, paramFun = {})
                     }
@@ -83,10 +87,11 @@ class TaskViewModel(
             mainView.monthData.apply {
                 totalPoint += levelPoint[task.level]
                 doneTask+=1
-                totalPer = ((doneTask+clearRoutine)/(taskCount+dayRoutineCount))*100
+                totalPer = (((doneTask+clearRoutine).toDouble()/(taskCount+dayRoutineCount).toDouble())*100.0).toInt()
                 //서버에 적용
                 this.monthId?.let { id->
-                    monthManager.setMonthData(id,this, paramFun = {})
+                    monthManager.setMonthData(id,this, paramFun = {
+                    })
                 }
             }
             taskLiveData.value = currentTaskArr

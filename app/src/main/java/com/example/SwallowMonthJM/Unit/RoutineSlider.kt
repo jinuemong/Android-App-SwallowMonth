@@ -57,15 +57,21 @@ class RoutineSlider(
                 slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             }
 
-            val dayroutine
-            routine.dayRoutinePost[dPosition].let { dayRoutine ->
+            val dayRoutine = routine.dayRoutinePost.find {
+                it.dayIndex ==dPosition
+            }
+
+            if (dayRoutine != null) {
                 mainActivity.routineViewModel.doneRoutineData(routine,dayRoutine)
             }
         }
     }
 
     private fun initCalendar(){
-        calendar.adapter = CalendarAdapterRoutine(mainActivity,calendarLinear,
-        mainActivity.viewModel.currentDate.calendar.time,mainActivity.viewModel.currentMonth.value!!,routine,dPosition)
+        calendar.adapter = CalendarAdapterRoutine(
+            mainActivity, calendarLinear,
+            mainActivity.viewModel.currentDate.calendar.time,
+            mainActivity.viewModel.currentMonth.value!!, routine, dPosition
+        )
     }
 }

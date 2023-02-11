@@ -48,12 +48,11 @@ class CalendarAdapterRoutine(
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("NotifyDataSetChanged")
         fun bind() {
-
             //텍스트 표시
             binding.calendarText.text = dataSet[absoluteAdapterPosition].day.toString()
 
-
-            val dayRoutine = routine.dayRoutinePost.find { it.dayIndex==absoluteAdapterPosition}
+            val dayRoutine = routine.dayRoutinePost
+                .find { it.dayIndex==dataSet[absoluteAdapterPosition].day}
 
             if ( dayRoutine==null){
                 binding.reset()
