@@ -47,20 +47,23 @@ class CalendarAdapterRoutine(
                 binding.reset()
             }else{
                 //현재 데이터가 오늘 이전
-                if ( (absoluteAdapterPosition-subIndex) <todayIndex){
+                if ( (absoluteAdapterPosition) <todayIndex){
                     if (dayRoutine.clear){ //클리어
                         binding.setClear()
                     }else{
                         binding.setFail() //실패
                     }
                 //현재 데이터가 오늘
-                }else if ((absoluteAdapterPosition-subIndex)==todayIndex){
+                }else if ((absoluteAdapterPosition)==todayIndex){
 
                     if (dayRoutine.clear){ //클리어
                         binding.setClear()
                     } else{
                         binding.setCalendar() //아직
                     }
+                //현재 데이터가 오늘 이후
+                }else{
+                    binding.setCalendar()
                 }
             }
 

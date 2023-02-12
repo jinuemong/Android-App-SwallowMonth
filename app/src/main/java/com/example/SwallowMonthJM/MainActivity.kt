@@ -35,7 +35,6 @@ import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
 import java.util.*
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
