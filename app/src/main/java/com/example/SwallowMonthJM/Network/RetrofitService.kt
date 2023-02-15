@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.Network
 
 import com.example.SwallowMonthJM.Model.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -36,11 +37,11 @@ interface RetrofitService {
     @Multipart
     @PATCH("user/profile/{profileId}")
     fun setUserProfile(
-        @Path("monthId")monthId: Int,
-        @Body userName: MultipartBody.Part?,
-        @Body userComment: MultipartBody.Part?,
+        @Path("profileId")profileId: Int,
+        @Body userName: RequestBody,
+        @Body userComment: RequestBody,
         @Part userImage: MultipartBody.Part?,
-    )
+    ) : Call<Profile>
 
     // 전체 monthData 받기
     @GET("month/monthDatas/")

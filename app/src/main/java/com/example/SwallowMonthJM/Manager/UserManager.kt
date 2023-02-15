@@ -1,13 +1,16 @@
 package com.example.SwallowMonthJM.Manager
 
+import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.ViewModel.MultiPartViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UserManager(
-    private val materApp : MasterApplication
+    private val materApp : MasterApplication,
+    private val mainActivity: MainActivity
 ) {
     fun getUserProfile(userName:String,paramFun:(Profile)->Unit){
         materApp.service.getProfile(userName)
@@ -20,5 +23,11 @@ class UserManager(
                 }
                 override fun onFailure(call: Call<java.util.ArrayList<Profile>>, t: Throwable) {}
             })
+    }
+
+    fun setUserProfile(profile: Profile,imageUri:String,paramFun: (Profile?,String) -> Unit){
+        MultiPartViewModel().updateProfile(profile,imageUri,mainActivity, paramFunc = { reProfile,message->
+            paramFun(reProfile,message) //update profile, message
+        })
     }
 }

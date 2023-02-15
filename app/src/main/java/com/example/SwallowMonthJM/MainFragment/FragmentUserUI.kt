@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.LoginActivity
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
 
 
@@ -54,6 +55,10 @@ class FragmentUserUI : Fragment() {
         binding.logout.setOnClickListener {
             val intent = Intent(mainActivity, LoginActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.edit.setOnClickListener {
+            mainActivity.onFragmentChange(ProfileUpdateFragment())
         }
     }
 }

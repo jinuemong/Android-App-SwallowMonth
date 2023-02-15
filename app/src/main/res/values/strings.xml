@@ -59,4 +59,7 @@
     <string name="add_today_task">Add Today Task</string>
     <string name="activity">Activity</string>
     <string name="my_multi_profile">My Multi-profile</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="enter_your_new_id">Enter your new ID</string>
+    <string name="enter_your_new_comment">Enter your new Comment</string>
 </resources>

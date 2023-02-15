@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        UserManager((this@MainActivity.application as MasterApplication))
+        UserManager((this@MainActivity.application as MasterApplication),this@MainActivity)
             .getUserProfile(userName, paramFun = { profile->
                 viewModel.profile = profile
                 binding.apply {
