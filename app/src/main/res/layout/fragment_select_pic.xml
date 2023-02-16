@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UIFragment.SelectPicFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_big_80">
+        <TextView
+            android:id="@+id/cancel_button"
+            android:textSize="@dimen/item_height_big_21_text_size"
+            android:text="@string/back"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/item_mid_height_20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/upload_button"
+            android:textSize="@dimen/item_height_big_21_text_size"
+            android:text="@string/commit"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/item_mid_height_20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/line"
+        android:background="@color/color_type1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_we_300">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/select_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+    <FrameLayout
+        android:background="@color/color_type1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/image_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        tools:listitem="@layout/item_one_pic"
+        android:orientation="vertical"
+        />
+</LinearLayout>

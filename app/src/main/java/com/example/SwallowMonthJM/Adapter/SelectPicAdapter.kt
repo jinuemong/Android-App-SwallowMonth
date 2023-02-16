@@ -24,14 +24,18 @@ class SelectPicAdapter(
     fun setOnItemClickListener(listener: OnItemClickListener){
         this.onItemClickListener = listener
     }
+
     inner class SelectPicViewHolder(private val binding: ItemOnePicBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("NotifyDataSetChanged")
         fun bind(){
+            val item = itemList[absoluteAdapterPosition]
+
+            //카메라 뷰  = 0
             if (absoluteAdapterPosition==0){
                 binding.checkImage.setImageResource(R.drawable.baseline_camera_alt_24)
+                binding.checkBox.setImageResource(0) //카메라는 체크 박스 제거
             }else {
-                val item = itemList[absoluteAdapterPosition]
                 Glide.with(mainActivity)
                     .load(item)
                     .into(binding.checkImage)
@@ -40,18 +44,25 @@ class SelectPicAdapter(
                 } else {
                     binding.setUnCheck()
                 }
-                binding.root.setOnClickListener {
-                    //재 클릭 시 선택 종료
-                    if (absoluteAdapterPosition == selectedPicNum) {
-                        onItemClickListener?.onItemClick("") //선택 uri 전달
-                        selectedPicNum = -1
-                        //이미지 클릭 시 uri 전달
-                    } else {
-                        onItemClickListener?.onItemClick(item) //선택 uri 전달
-                        selectedPicNum = absoluteAdapterPosition
-                    }
-                    notifyDataSetChanged()
+            }
+            binding.root.setOnClickListener {
+
+                //카메라 세팅
+                if (absoluteAdapterPosition ==0){
+                    onItemClickListener?.onItemClick("camera!")
+
+                //재 클릭 시 선택 종료
+                } else if (absoluteAdapterPosition == selectedPicNum) {
+                    onItemClickListener?.onItemClick("") //선택 uri 전달
+                    selectedPicNum = -1
+
+                //이미지 클릭 시 uri 전달
+                } else {
+                    onItemClickListener?.onItemClick(item) //선택 uri 전달
+                    selectedPicNum = absoluteAdapterPosition
                 }
+
+                notifyDataSetChanged()
             }
         }
     }
