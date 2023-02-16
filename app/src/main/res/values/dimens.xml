@@ -16,6 +16,7 @@
     <dimen name="item_mid_40_height">40dp</dimen>
     <dimen name="item_mid_height_30">30dp</dimen>
     <dimen name="item_mid_height_20dp">20dp</dimen>
+
     <dimen name="main_margin">5dp</dimen>
     <dimen name="main_margin_10">10dp</dimen>
     <dimen name="item_height_double_big_text_size">50sp</dimen>

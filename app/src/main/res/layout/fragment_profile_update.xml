@@ -38,24 +38,49 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_image"
+        android:layout_margin="@dimen/main_margin_10"
+        android:layout_width="@dimen/item_height_big_150"
+        android:layout_height="@dimen/item_height_big_150"/>
+
+    <TextView
+        android:padding="@dimen/main_margin"
+        android:textColor="@color/strong_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_margin="@dimen/fab_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:textSize="@dimen/item_height_big_text_size"
+        android:textStyle="bold"
+        android:text="@string/enter_your_new_id" />
     <EditText
         android:id="@+id/insert_id"
-        android:layout_width="@dimen/item_we_300"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:gravity="center"
-        android:hint="@string/enter_your_new_id"
         android:textSize="@dimen/item_height_big_21_text_size"
         android:textStyle="bold" />
-
+    <TextView
+        android:padding="@dimen/main_margin"
+        android:textColor="@color/strong_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_margin="@dimen/fab_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:textSize="@dimen/item_height_big_text_size"
+        android:textStyle="bold"
+        android:text="@string/enter_your_new_comment" />
     <EditText
         android:id="@+id/insert_comment"
-        android:layout_width="@dimen/item_we_300"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:layout_marginTop="@dimen/item_mid_height_20dp"
         android:gravity="center"
-        android:hint="@string/enter_your_new_comment"
         android:inputType="textPassword"
         android:textSize="@dimen/item_height_big_21_text_size"
         android:textStyle="bold" />
