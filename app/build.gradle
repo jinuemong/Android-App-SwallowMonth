@@ -84,4 +84,6 @@ dependencies {
     //로그 기록 확인
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
+    //ted-permission
+    implementation 'io.github.ParkSangGwon:tedpermission:2.3.0'
 }
