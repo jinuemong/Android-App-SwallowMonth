@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -203,6 +204,7 @@ class MainActivity : AppCompatActivity() {
             Glide.with(this@MainActivity)
                 .load(profile.userImage)
                 .into(mainTopImage)
+            Log.d("setsetsesetset",profile.userImage)
         }
     }
 }

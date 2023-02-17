@@ -39,7 +39,7 @@ class MultiPartViewModel : ViewModel(){
                 val imRequestBody = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 val imageMultipartBody : MultipartBody.Part =
                     MultipartBody.Part.createFormData(
-                        imageFile.name,
+                        "userImage",
                         imageFile.name,
                         imRequestBody
                     )
@@ -48,25 +48,19 @@ class MultiPartViewModel : ViewModel(){
                     ucRequestBody,imageMultipartBody).enqueue(object : Callback<Profile> {
                         override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                             if (response.isSuccessful){
-                                Log.d("teslsslsll 1 ", response.body().toString())
                                 paramFunc(response.body(),"")
 
                             }else{
                                 paramFunc(null,response.errorBody()?.string()!!)
-                                Log.d("teslsslsll 2 ", response.errorBody()!!.string())
-
                             }
                         }
                         override fun onFailure(call: Call<Profile>, t: Throwable) {
                             paramFunc(null,"")
-                            Log.d("teslsslsll 3 ", t.toString())
-
                         }
 
                     })
             }catch (e : Exception){
                 paramFunc(null,"")
-                Log.d("teslsslsll 4 ", e.toString())
             }
         }
     }

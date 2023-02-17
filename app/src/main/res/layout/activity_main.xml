@@ -25,8 +25,7 @@
             android:layout_width="@dimen/item_mid_50_height"
             android:layout_height="@dimen/item_mid_50_height"
             android:background="@drawable/circle_border"
-            android:padding="@dimen/main_margin"
-            android:src="@drawable/ic_iconmonstr_user_male_thin" />
+            android:padding="@dimen/main_margin" />
 
         <LinearLayout
             android:layout_marginStart="@dimen/fab_margin"
