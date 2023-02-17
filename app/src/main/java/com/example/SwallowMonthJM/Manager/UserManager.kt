@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.Manager
 
+import android.net.Uri
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
@@ -25,9 +26,10 @@ class UserManager(
             })
     }
 
-    fun setUserProfile(profile: Profile,imageUri:String,paramFun: (Profile?,String) -> Unit){
-        MultiPartViewModel().updateProfile(profile,imageUri,mainActivity, paramFunc = { reProfile,message->
-            paramFun(reProfile,message) //update profile, message
+    fun setUserProfile(profile: Profile, imageUri: Uri, paramFun: (Profile?, String) -> Unit){
+        mainActivity.multiPartViewModel
+            .updateProfile(profile,imageUri,mainActivity, paramFunc = { reProfile,message->
+                paramFun(reProfile,message) //update profile, message
         })
     }
 }

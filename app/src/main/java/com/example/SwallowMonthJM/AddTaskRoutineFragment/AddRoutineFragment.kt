@@ -98,7 +98,11 @@ class AddRoutineFragment : Fragment() {
                 monthDataManager.getKeyDateMonthData(mainActivity.userName,mainActivity.addViewModel.keyData,
                 paramFun = { findMonth,success->
                     if (success) {
-                        val monthId = findMonth?.get(0)?.monthId
+                        val monthId = if (findMonth!=null && findMonth.size>0){
+                            findMonth[0].monthId
+                        }else{
+                            null
+                        }
                         // null이 아니면 해당 위치에 데이터 추가
                         if (monthId != null) {
                             mainActivity.addViewModel.monthId = monthId

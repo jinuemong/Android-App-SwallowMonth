@@ -26,11 +26,9 @@ import com.example.SwallowMonthJM.MainFragment.FragmentActivityList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.UserManager
+import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
-import com.example.SwallowMonthJM.ViewModel.AddTaskRoutineViewModel
-import com.example.SwallowMonthJM.ViewModel.MainViewModel
-import com.example.SwallowMonthJM.ViewModel.RoutineViewModel
-import com.example.SwallowMonthJM.ViewModel.TaskViewModel
+import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
@@ -39,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
     val addViewModel: AddTaskRoutineViewModel by viewModels()
+    val multiPartViewModel : MultiPartViewModel by viewModels()
     val routineViewModel by lazy {
         ViewModelProvider(this@MainActivity,RoutineViewModel
             .Factory(this@MainActivity))[RoutineViewModel::class.java]
@@ -116,13 +115,8 @@ class MainActivity : AppCompatActivity() {
         UserManager((this@MainActivity.application as MasterApplication),this@MainActivity)
             .getUserProfile(userName, paramFun = { profile->
                 viewModel.profile = profile
-                binding.apply {
-                    mainTopName.text = profile.userName
-                    mainTopComment.text = profile.userComment
-                    Glide.with(this@MainActivity)
-                        .load(profile.userImage)
-                        .into(mainTopImage)
-                }
+                setProfile(profile)
+
                 //현재 데이터 설정
                 initCurrentDate()
                 //지연 데이터 적용
@@ -200,6 +194,16 @@ class MainActivity : AppCompatActivity() {
     fun onFragmentGoBack(fragment: Fragment) {
         frManger.beginTransaction().remove(fragment).commit()
         frManger.popBackStack()
+    }
+
+    fun setProfile(profile: Profile){
+        binding.apply {
+            mainTopName.text = profile.userName
+            mainTopComment.text = profile.userComment
+            Glide.with(this@MainActivity)
+                .load(profile.userImage)
+                .into(mainTopImage)
+        }
     }
 }
 

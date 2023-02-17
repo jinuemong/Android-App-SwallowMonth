@@ -32,14 +32,12 @@ interface RetrofitService {
     ): Call<ArrayList<Profile>>
 
     // profile 수정
-    //id값 추가 해야함
-
     @Multipart
-    @PATCH("user/profile/{profileId}")
+    @POST("user/update/profile/")
     fun setUserProfile(
-        @Path("profileId")profileId: Int,
-        @Body userName: RequestBody,
-        @Body userComment: RequestBody,
+        @Part("profileId") profileId: RequestBody,
+        @Part("userName") userName: RequestBody,
+        @Part("userComment") userComment: RequestBody,
         @Part userImage: MultipartBody.Part?,
     ) : Call<Profile>
 

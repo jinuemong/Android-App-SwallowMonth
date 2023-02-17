@@ -1,8 +1,10 @@
 package com.example.SwallowMonthJM.Adapter
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
@@ -11,14 +13,14 @@ import com.example.SwallowMonthJM.databinding.ItemOnePicBinding
 
 class SelectPicAdapter(
     private val mainActivity: MainActivity,
-    private val itemList: ArrayList<String>,
+    private var itemList: ArrayList<Uri>,
 ) : RecyclerView.Adapter<SelectPicAdapter.SelectPicViewHolder>() {
 
     private lateinit var binding: ItemOnePicBinding
     private var onItemClickListener :OnItemClickListener?=null
     private var selectedPicNum = -1
     interface OnItemClickListener{
-        fun onItemClick(imageUri:String){
+        fun onItemClick(imageUri:Uri){
         }
     }
     fun setOnItemClickListener(listener: OnItemClickListener){
@@ -33,7 +35,7 @@ class SelectPicAdapter(
 
             //카메라 뷰  = 0
             if (absoluteAdapterPosition==0){
-                binding.checkImage.setImageResource(R.drawable.baseline_camera_alt_24)
+                binding.checkImage.setBackgroundResource(R.drawable.baseline_camera_alt_24)
                 binding.checkBox.setImageResource(0) //카메라는 체크 박스 제거
             }else {
                 Glide.with(mainActivity)
@@ -49,11 +51,11 @@ class SelectPicAdapter(
 
                 //카메라 세팅
                 if (absoluteAdapterPosition ==0){
-                    onItemClickListener?.onItemClick("camera!")
+                    onItemClickListener?.onItemClick("camera!".toUri())
 
                 //재 클릭 시 선택 종료
                 } else if (absoluteAdapterPosition == selectedPicNum) {
-                    onItemClickListener?.onItemClick("") //선택 uri 전달
+                    onItemClickListener?.onItemClick("".toUri()) //선택 uri 전달
                     selectedPicNum = -1
 
                 //이미지 클릭 시 uri 전달
@@ -83,5 +85,4 @@ class SelectPicAdapter(
 
     private fun ItemOnePicBinding.setUnCheck() =
         checkBox.setBackgroundResource(R.drawable.circle)
-
 }

@@ -14,8 +14,8 @@ val calendarIcon :List<Int> = listOf(
     R.drawable.ic_baseline_hotel_class_24,
     R.drawable.ic_baseline_hiking_24,
     R.drawable.ic_baseline_groups_2_24,
-    R.drawable.ic_baseline_directions_walk_24
-)
+    R.drawable.ic_baseline_directions_walk_24,
+    )
 
 //요일 리스트
 val dayOfWeek : List<Int> = listOf(
