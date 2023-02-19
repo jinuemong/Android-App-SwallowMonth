@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -85,6 +86,25 @@ class ProfileUpdateFragment : Fragment() {
             mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
         }
 
+        //키 리스너
+        binding.insertComment.setOnKeyListener{ _,keyCode, event ->
+            var handled = false
+
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                addTypeUserComment()
+                handled = true
+            }
+            handled
+        }
+        binding.insertId.setOnKeyListener{ _,keyCode, event->
+            var handled = false
+
+            if (event.action ==KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                handled = true
+                addTypeUserName()
+            }
+            handled
+        }
         //이미지 변경
         binding.userImage.setOnClickListener {
             val state = binding.slideFrameInUpdateProfile.panelState
@@ -100,13 +120,13 @@ class ProfileUpdateFragment : Fragment() {
         //제출
         binding.commitButton.setOnClickListener {
             updateProfile?.let { up ->
-                Log.d("teslsslsll 4 ", up.userName.toString())
-                Log.d("teslsslsll 4 ", up.userComment.toString())
-                Log.d("teslsslsll 4 ", imageUri.toString())
+
+                if(binding.insertComment.text!=null){addTypeUserComment()}
+                if(binding.insertId.text!=null){addTypeUserName()}
 
                 userManager.setUserProfile(up,imageUri!!, paramFun = { newProfile,erMessage->
                     if (newProfile != null && erMessage=="") {
-                        mainActivity.viewModel.profile = newProfile
+                        mainActivity.viewModel.setProfile(newProfile)
                         mainActivity.setProfile(newProfile)
                         mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
                     }else{
@@ -117,6 +137,22 @@ class ProfileUpdateFragment : Fragment() {
 
                 })
 
+            }
+        }
+    }
+
+    private fun addTypeUserComment(){
+        binding.insertComment.apply {
+            if (text != null) {
+                updateProfile?.userComment = text.toString()
+            }
+        }
+    }
+
+    private fun addTypeUserName(){
+        binding.insertId.apply {
+            if (text!=null){
+                updateProfile?.userName = text.toString()
             }
         }
     }

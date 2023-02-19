@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.LoginActivity
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
+
 
 
 class FragmentUserUI : Fragment() {
@@ -39,6 +41,11 @@ class FragmentUserUI : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         setUpListener()
+
+        //옵저버를 통한 프로필 업데이트
+        mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
+            initView()
+        })
     }
 
     private fun initView(){

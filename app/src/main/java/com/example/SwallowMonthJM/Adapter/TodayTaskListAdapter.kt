@@ -12,8 +12,8 @@ import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Unit.RoutineSlider
-import com.example.SwallowMonthJM.Unit.TaskSlider
+import com.example.SwallowMonthJM.Slider.RoutineSlider
+import com.example.SwallowMonthJM.Slider.TaskSlider
 import com.example.SwallowMonthJM.Unit.dayOfWeek
 import com.example.SwallowMonthJM.databinding.ItemTodayTaskBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout

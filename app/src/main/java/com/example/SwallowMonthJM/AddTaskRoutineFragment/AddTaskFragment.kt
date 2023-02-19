@@ -16,7 +16,7 @@ import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.Network.MasterApplication
-import com.example.SwallowMonthJM.Unit.TaskAddSlider
+import com.example.SwallowMonthJM.Slider.TaskAddSlider
 import com.example.SwallowMonthJM.databinding.FragmentAddTaskBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sothree.slidinguppanel.SlidingUpPanelLayout

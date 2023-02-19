@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class Profile(
     val profileId : Int,
-    val userName : String,
+    var userName : String,
     val userImage : String,
-    val userComment : String,
+    var userComment : String,
 ) : Serializable

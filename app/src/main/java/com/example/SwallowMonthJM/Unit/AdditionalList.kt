@@ -15,6 +15,15 @@ val calendarIcon :List<Int> = listOf(
     R.drawable.ic_baseline_hiking_24,
     R.drawable.ic_baseline_groups_2_24,
     R.drawable.ic_baseline_directions_walk_24,
+    R.drawable.directions_bike_black_24dp,
+    R.drawable.downhill_skiing_black_24dp,
+    R.drawable.emoji_events_black_24dp,
+    R.drawable.fitness_center_black_24dp,
+    R.drawable.pool_black_24dp,
+    R.drawable.sports_football_black_24dp,
+    R.drawable.sports_kabaddi_black_24dp,
+    R.drawable.sports_soccer_black_24dp,
+    R.drawable.surfing_black_24dp
     )
 
 //요일 리스트

@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.ViewModel
 
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.SwallowMonthJM.Calendar.CustomCalendar
@@ -20,7 +21,12 @@ class MainViewModel : ViewModel(){
 
     lateinit var profile :Profile
     lateinit var monthDataManager:MonthDataManager
-
+    private var _eventSetProfile = SingleLiveEvent<Any>()
+    val eventSetData : LiveData<Any> get() = _eventSetProfile
+    fun setProfile(newProfile: Profile){
+        profile = newProfile
+        _eventSetProfile.call()
+    }
     //오늘 데이터 저장 ///////////////////
     lateinit var todayDate : Date
     lateinit var todayKeyDate:String

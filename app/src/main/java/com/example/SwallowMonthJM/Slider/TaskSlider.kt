@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Unit
+package com.example.SwallowMonthJM.Slider
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -6,6 +6,9 @@ import android.widget.*
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.Unit.SelectIconDialog
+import com.example.SwallowMonthJM.Unit.calendarIcon
+import com.example.SwallowMonthJM.Unit.levelText
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 class TaskSlider(
