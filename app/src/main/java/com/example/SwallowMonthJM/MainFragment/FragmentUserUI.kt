@@ -61,6 +61,7 @@ class FragmentUserUI : Fragment() {
     private fun setUpListener(){
         binding.logout.setOnClickListener {
             val intent = Intent(mainActivity, LoginActivity::class.java)
+            intent.putExtra("logout",true)
             startActivity(intent)
         }
 
