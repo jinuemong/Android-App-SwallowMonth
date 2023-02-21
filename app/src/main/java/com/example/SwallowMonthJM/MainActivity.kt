@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTodayTaskFragment
-import com.example.SwallowMonthJM.MainFragment.FragmentRepeatTaskList
+import com.example.SwallowMonthJM.MainFragment.FragmentRoutineList
 import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentActivityList
 import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity() {
             addFragment(FragmentActivityList())
             addFragment(FragmentStatistics())
             addFragment(Fragment())
-            addFragment(FragmentRepeatTaskList())
+            addFragment(FragmentRoutineList())
             addFragment(FragmentUserUI())
         }
     }

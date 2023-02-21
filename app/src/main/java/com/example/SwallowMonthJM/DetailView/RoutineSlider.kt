@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Slider
+package com.example.SwallowMonthJM.DetailView
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -8,6 +8,7 @@ import com.example.SwallowMonthJM.Calendar.CalendarAdapterRoutine
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.Unit.SelectIconDialog
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
@@ -69,7 +70,17 @@ class RoutineSlider(
         }
 
         icon.setOnClickListener {
+            val dig = SelectIconDialog(mainActivity)
+            dig.showDig()
+            dig.setOnClickedListener(object : SelectIconDialog.ButtonClickListener{
+                override fun onClicked(index: Int?) {
+                    if (index!=null){
+                        mainActivity.routineViewModel.setRoutineIcon(index,routine)
+                        icon.setImageResource(calendarIcon[index])
+                    }
+                }
 
+            })
         }
     }
 

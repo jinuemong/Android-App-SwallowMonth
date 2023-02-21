@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_border"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:clickable="true"
+    tools:context=".DetailView.DetailRoutineFragment"
+    android:focusable="true">
+
+    <ImageView
+        android:src="@drawable/ic_baseline_close_24"
+        android:layout_margin="@dimen/main_margin_10"
+        android:layout_gravity="end"
+        android:id="@+id/close_button"
+        android:layout_width="@dimen/item_mid_height_30"
+        android:layout_height="@dimen/item_mid_height_30"/>
+    <TextView
+        android:id="@+id/routine_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_margin="@dimen/fab_margin_12dp"
+        android:gravity="center"
+        android:padding="@dimen/main_margin"
+        android:textColor="@color/strong_color"
+        android:textSize="@dimen/item_height_big_text_size"
+        android:textStyle="bold"
+        tools:text="@string/typing_in_your_routine" />
+
+    <TextView
+        android:id="@+id/top_text_routine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_mid_40_height"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/main_margin"
+        android:textColor="@color/normal_color"
+        android:textSize="@dimen/item_height_mid_text_size"
+        tools:text="@string/routine_sample" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_we_350"
+        android:layout_margin="@dimen/fab_margin_12dp"
+        android:background="@drawable/round_border"
+        android:backgroundTint="@color/color_type2"
+        android:gravity="center"
+        android:padding="@dimen/main_margin">
+
+        <include
+            android:id="@+id/calendar_layout"
+            layout="@layout/calendar_month_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/fab_margin_12dp"
+        android:layout_marginTop="@dimen/main_margin"
+        android:background="@drawable/round_border"
+        android:orientation="horizontal"
+        android:padding="@dimen/main_margin">
+
+        <ImageView
+            android:id="@+id/routine_icon"
+            android:layout_width="@dimen/item_mid_50_height"
+            android:layout_height="@dimen/item_mid_50_height"
+            android:src="@drawable/ic_iconmonstr_calendar_6" />
+
+        <TextView
+            android:id="@+id/routine_main_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/main_margin"
+            android:layout_marginTop="@dimen/main_margin"
+            android:gravity="center"
+            android:textColor="@color/color_type1"
+            android:textSize="@dimen/item_height_mid_text_size"
+            tools:text="clear / total " />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/del_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:backgroundTint="@color/del_button"
+        android:drawableLeft="@drawable/ic_garbage"
+        android:padding="@dimen/fab_margin"
+        android:src="@drawable/round_border"
+        android:text="@string/delete_routine" />
+</LinearLayout>

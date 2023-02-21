@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Adapter.RoutineListAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddRoutineFragment
+import com.example.SwallowMonthJM.DetailView.DetailRoutineFragment
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Model.Routine
 import com.example.SwallowMonthJM.databinding.FragmentRepeatTaskListBinding
 
-class FragmentRepeatTaskList : Fragment() {
+class FragmentRoutineList : Fragment() {
     private var _binding:FragmentRepeatTaskListBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
@@ -44,7 +46,15 @@ class FragmentRepeatTaskList : Fragment() {
 
     private fun initView(){
         adapter = RoutineListAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!)
-        binding.routineRecycler.adapter = adapter
+        //어댑터 넣고 클릭 리스너 적용
+        binding.routineRecycler.adapter = adapter.apply {
+            setOnItemClickListener(object : RoutineListAdapter.OnItemClickListener{
+                override fun onClick(item: Routine) {
+                    mainActivity.onFragmentChange(DetailRoutineFragment(item))
+                }
+
+            })
+        }
         mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
             (binding.routineRecycler.adapter as RoutineListAdapter).setData(it)
         })

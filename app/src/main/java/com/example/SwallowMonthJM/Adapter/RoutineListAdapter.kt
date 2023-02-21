@@ -19,6 +19,17 @@ class RoutineListAdapter(
     private lateinit var  binding :ItemRepeatTaskBinding
     private var itemList = dataSet
 
+    private var onItemClickListener : OnItemClickListener?= null
+    interface OnItemClickListener {
+        fun onClick(item : Routine){
+
+        }
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.onItemClickListener = listener
+    }
+
     inner class RoutineListItemHolder(val binding:ItemRepeatTaskBinding)
         :RecyclerView.ViewHolder(binding.root){
             @SuppressLint("SetTextI18n")
@@ -31,6 +42,10 @@ class RoutineListAdapter(
                 binding.totalRoutine.text = "${item.clearRoutine} / ${item.totalRoutine}"
                 binding.routinePerText.text = (per*100).toString()
                 binding.routinePer.progress = per
+
+                binding.root.setOnClickListener {
+                    onItemClickListener?.onClick(item)
+                }
             }
     }
 

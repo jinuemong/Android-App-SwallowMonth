@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Network.MasterApplication
@@ -27,11 +28,18 @@ class ProfileUpdateFragment : Fragment() {
     private var updateProfile : Profile? = null
     private var imageUri : Uri?=null
     private var selectPicFragment : SelectPicFragment? = null
+    private lateinit var callback : OnBackPressedCallback
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
         userManager = UserManager(mainActivity.application as MasterApplication, mainActivity)
+        callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
+            }
+        }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

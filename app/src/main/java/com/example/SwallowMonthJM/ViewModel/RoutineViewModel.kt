@@ -101,6 +101,14 @@ class RoutineViewModel(
         }
     }
 
+    fun setRoutineIcon(iconIndex : Int, routine:Routine){
+        routine.iconType = iconIndex
+        routine.routineId?.let {
+            routineManager.setRoutineData(it,routine, paramFun = {})
+        }
+        routineLivData.value = currentRoutineArr
+    }
+
 
 
 }

@@ -13,7 +13,7 @@
     <color name="normal_color">#2C608F</color>
     <color name="strong_color">#012F5A</color>
     <color name="weak_color">#629CD1</color>
-    
+    <color name="del_button">#DD7595</color>
     <color name="color_type1">#7B90C6</color>
     <color name="color_type2">#B4C4EE</color>
     <color name="color_type3">#CBD4EC</color>

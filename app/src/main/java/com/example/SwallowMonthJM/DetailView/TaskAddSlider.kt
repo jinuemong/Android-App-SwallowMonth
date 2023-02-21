@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Slider
+package com.example.SwallowMonthJM.DetailView
 
 import android.content.Context
 import android.view.KeyEvent
