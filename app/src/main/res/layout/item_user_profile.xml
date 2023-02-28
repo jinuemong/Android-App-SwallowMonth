@@ -12,10 +12,11 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_image"
         android:layout_width="@dimen/item_height_big_70"
         android:layout_height="@dimen/item_height_big_70"/>
     <TextView
-        android:id="@+id/item_ho_day_num"
+        android:id="@+id/user_name"
         style="@style/TextView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +26,7 @@
         tools:text="username" />
 
     <TextView
-        android:id="@+id/item_ho_day_text"
+        android:id="@+id/user_comment"
         style="@style/TextView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
