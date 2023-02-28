@@ -19,12 +19,12 @@ import java.util.*
 //일정 리스트 관리
 class MainViewModel : ViewModel(){
 
-    lateinit var profile :Profile
+    lateinit var myProfile :Profile
     lateinit var monthDataManager:MonthDataManager
     private var _eventSetProfile = SingleLiveEvent<Any>()
     val eventSetData : LiveData<Any> get() = _eventSetProfile
     fun setProfile(newProfile: Profile){
-        profile = newProfile
+        myProfile = newProfile
         _eventSetProfile.call()
     }
     //오늘 데이터 저장 ///////////////////
@@ -103,12 +103,12 @@ class MainViewModel : ViewModel(){
         val keyDate = SimpleDateFormat("yyyy.MM", Locale.KOREA).format(data)
 
         //새로 monthData 생성
-        monthData = MonthData(null,profile.userName,keyDate,
+        monthData = MonthData(null,myProfile.userName,keyDate,
             0,0,0,
             0,0,0)
 
         //만약 monthData가 존재하면 불러오기 (존재한다면 Task,Routine도 있음)
-        monthDataManager.getKeyDateMonthData(profile.userName,keyDate, paramFun = { mData,success ->
+        monthDataManager.getKeyDateMonthData(myProfile.userName,keyDate, paramFun = { mData, success ->
             if(!success){ //not true -> network err
                 Toast.makeText(mainActivity,"Network error", Toast.LENGTH_SHORT)
                     .show()

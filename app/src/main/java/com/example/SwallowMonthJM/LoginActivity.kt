@@ -1,9 +1,11 @@
 package com.example.SwallowMonthJM
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -22,27 +24,32 @@ class LoginActivity : AppCompatActivity() {
     private var backPressTime:Long = 0
     private lateinit var callback: OnBackPressedCallback
     private lateinit var binding:ActivityLoginBinding
-
-    private val sharedPreferences : SharedPreferences by lazy {
-        val masterKeyAlias = MasterKey
-            .Builder(applicationContext, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            .build()
-        EncryptedSharedPreferences.create(
-            applicationContext,
-            "encrypted_settings", //파일이름
-            masterKeyAlias,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
-    }
-    private val editor = sharedPreferences.edit()
-
+    private lateinit var sharedPreferences : SharedPreferences
+    private lateinit var editor : Editor
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        // on create 내부에 선언
+        val masterKeyAlias = MasterKey
+            .Builder(applicationContext, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+
+        sharedPreferences  =
+            EncryptedSharedPreferences.create(
+                applicationContext,
+                "encrypted_settings", //파일이름
+                masterKeyAlias,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+
+        editor = sharedPreferences.edit()
+
 
         val isLogout = intent.getBooleanExtra("logout",false)
         //로그아웃으로 넘어왔다면 자동 로그인 삭제

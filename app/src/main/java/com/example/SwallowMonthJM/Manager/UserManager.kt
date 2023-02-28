@@ -26,7 +26,7 @@ class UserManager(
             })
     }
 
-    fun setUserProfile(profile: Profile, imageUri: Uri, paramFun: (Profile?, String) -> Unit){
+    fun setUserProfile(profile: Profile, imageUri: Uri?, paramFun: (Profile?, String) -> Unit){
         mainActivity.multiPartViewModel
             .updateProfile(profile,imageUri,mainActivity, paramFunc = { reProfile,message->
                 paramFun(reProfile,message) //update profile, message

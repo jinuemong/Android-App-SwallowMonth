@@ -49,11 +49,12 @@ class FragmentUserUI : Fragment() {
     }
 
     private fun initView(){
-        mainActivity.viewModel.profile.apply {
+        mainActivity.viewModel.myProfile.apply {
             Glide.with(mainActivity)
                 .load(this.userImage)
                 .into(binding.userImage)
             binding.userName.text = this.userName
+            binding.userComment.text = this.userComment
         }
 
     }

@@ -46,6 +46,7 @@ class DetailRoutineFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        view.startAnimation(mainActivity.aniList[1])
     }
 
     @SuppressLint("SetTextI18n")
@@ -78,6 +79,7 @@ class DetailRoutineFragment(
         //삭제 버튼
         binding.delButton.setOnClickListener {
             mainActivity.routineViewModel.delRoutineData(routine)
+            mainActivity.onFragmentGoBack(this@DetailRoutineFragment)
         }
 
         //뒤로가기 버튼

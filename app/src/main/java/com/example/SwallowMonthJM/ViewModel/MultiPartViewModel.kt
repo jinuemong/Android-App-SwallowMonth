@@ -25,7 +25,7 @@ import java.io.File
 
 class MultiPartViewModel : ViewModel(){
 
-    fun updateProfile(profile:Profile, imagePath : Uri,
+    fun updateProfile(profile:Profile, imagePath : Uri?,
                       activity:Activity, paramFunc:(Profile?,String)->Unit){
         viewModelScope.launch {
             try{
@@ -33,16 +33,21 @@ class MultiPartViewModel : ViewModel(){
                 //username , userComment 수정
                 val unRequestBody : RequestBody = profile.userName.toPlainRequestBody()
                 val ucRequestBody : RequestBody = profile.userComment.toPlainRequestBody()
+                var imageMultipartBody:MultipartBody.Part?=null
 
-                val path = getImageFilePath(activity,imagePath)
-                val imageFile = File(path)
-                val imRequestBody = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val imageMultipartBody : MultipartBody.Part =
-                    MultipartBody.Part.createFormData(
-                        "userImage",
-                        imageFile.name,
-                        imRequestBody
-                    )
+                //이미지 있으면 변환
+                if (imagePath!=null) {
+                    val path = getImageFilePath(activity, imagePath)
+                    val imageFile = File(path)
+                    val imRequestBody = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    imageMultipartBody =
+                        MultipartBody.Part.createFormData(
+                            "userImage",
+                            imageFile.name,
+                            imRequestBody
+                        )
+                }
+
                 (activity.application as MasterApplication).service
                     .setUserProfile(idRequestBody,unRequestBody,
                     ucRequestBody,imageMultipartBody).enqueue(object : Callback<Profile> {

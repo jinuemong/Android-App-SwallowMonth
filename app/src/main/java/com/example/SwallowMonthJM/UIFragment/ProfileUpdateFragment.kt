@@ -51,11 +51,10 @@ class ProfileUpdateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainActivity.viewModel.profile.apply {
+        mainActivity.viewModel.myProfile.apply {
             updateProfile = this
-            imageUri = Uri.parse(userImage)
             Glide.with(mainActivity)
-                .load(imageUri)
+                .load(userImage)
                 .into(binding.userImage)
 
             binding.insertId.setText(userName)
@@ -63,7 +62,8 @@ class ProfileUpdateFragment : Fragment() {
 
         }
 
-
+        // 슬라이드로 이미지 변경 프래그먼트 처리
+        // 클릭 이벤트 시 이미지 가져옴
         selectPicFragment=  SelectPicFragment(binding.slideFrameInUpdateProfile)
             .apply {
             setOnItemClickListener(object :SelectPicFragment.OnItemClickListener{
@@ -72,7 +72,7 @@ class ProfileUpdateFragment : Fragment() {
                         if (lastUri.toString()!=""){
                         lastUri
                     }else{
-                        Uri.parse(mainActivity.viewModel.profile.userImage)
+                        Uri.parse(mainActivity.viewModel.myProfile.userImage)
                     }
                     Glide.with(mainActivity)
                         .load(imageUri)
@@ -132,11 +132,15 @@ class ProfileUpdateFragment : Fragment() {
                 if(binding.insertComment.text!=null){addTypeUserComment()}
                 if(binding.insertId.text!=null){addTypeUserName()}
 
-                userManager.setUserProfile(up,imageUri!!, paramFun = { newProfile,erMessage->
+                userManager.setUserProfile(up,imageUri, paramFun = { newProfile,erMessage->
                     if (newProfile != null && erMessage=="") {
-                        mainActivity.viewModel.setProfile(newProfile)
-                        mainActivity.setProfile(newProfile)
-                        mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
+                        UserManager((mainActivity.application as MasterApplication),mainActivity)
+                            .getUserProfile(newProfile.userName, paramFun = { profile->
+                                mainActivity.viewModel.setProfile(profile)
+                                mainActivity.setProfile(profile)
+                                mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
+                            })
+
                     }else{
                         //에러 메시지 띄우기
                         Toast.makeText(mainActivity.applicationContext,erMessage

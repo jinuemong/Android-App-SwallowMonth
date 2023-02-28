@@ -167,7 +167,7 @@ class AddRoutineFragment : Fragment() {
                 // 데이터 null인지 확인 -1?
                 if (mainActivity.addViewModel.monthId!=-1) {
                     data.monthId = mainActivity.addViewModel.monthId
-                    data.userId = mainActivity.viewModel.profile.userName
+                    data.userId = mainActivity.viewModel.myProfile.userName
                     mainActivity.routineViewModel.addRoutineData(data)
                     mainActivity.addViewModel.reset()
                     mainActivity.onFragmentGoBack(this@AddRoutineFragment)

@@ -34,6 +34,7 @@ import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.lifecycle.Observer
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
@@ -108,14 +109,13 @@ class MainActivity : AppCompatActivity() {
         this.onBackPressedDispatcher.addCallback(this,callback)
 
         //뷰 초기화
-
         initView()
     }
 
     private fun initView() {
         UserManager((this@MainActivity.application as MasterApplication),this@MainActivity)
             .getUserProfile(userName, paramFun = { profile->
-                viewModel.profile = profile
+                viewModel.myProfile = profile
                 setProfile(profile)
 
                 //현재 데이터 설정
