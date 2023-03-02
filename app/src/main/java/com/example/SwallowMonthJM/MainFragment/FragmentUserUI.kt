@@ -46,6 +46,8 @@ class FragmentUserUI : Fragment() {
         mainActivity.viewModel.eventSetData.observe(mainActivity, Observer {
             initView()
         })
+
+        //추천 유저
     }
 
     private fun initView(){
@@ -70,5 +72,6 @@ class FragmentUserUI : Fragment() {
             mainActivity.onFragmentChange(ProfileUpdateFragment())
         }
     }
+
 }
 

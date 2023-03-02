@@ -170,4 +170,14 @@ interface RetrofitService {
         @Path("id")id : Int,
         @Body dayRoutine : DayRoutine
     ):Call<DayRoutine>
+
+
+    ////Relation//
+
+    //add FUser
+    @POST("relation/fusers/")
+    fun addFUser(
+        
+    )
+
 }
