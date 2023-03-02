@@ -6,5 +6,5 @@ class FUser(
     val fuId : Int,
     val frId : Int,
     val userId : String,
-    val otherUser : String,
+    val otherUser : Int,
 ): Serializable

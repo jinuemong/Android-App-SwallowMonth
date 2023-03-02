@@ -174,10 +174,38 @@ interface RetrofitService {
 
     ////Relation//
 
+    // add FriendShip
+    @POST("relation/friendShips/")
+    fun addFriendShip(
+        @Field("name") name : String,
+    ):Call<FriendShip>
+
     //add FUser
+    @FormUrlEncoded
     @POST("relation/fusers/")
     fun addFUser(
-        
-    )
+        @Field("frId") frId:Int,
+        @Field("userId") userId:String,
+        @Field("otherUser") otherUser:Int,
+    ):Call<FUser>
+
+
+    //친구 관계 삭제 시 친구 리스트 자동 삭제
+    @DELETE("relation/friendShips/{frId}")
+    fun delFriendShip(
+        @Path("frId") frId: Int,
+    ):Call<FriendShip>
+
+    // 내 친구 리스트
+    @POST("relation/myFriends/")
+    fun getMyFriends(
+        @Field("userName")userName : String
+    ):Call<ArrayList<MyFriendData>>
+
+    //랜덤 유저 얻기
+    @POST("relation/randomProfile/")
+    fun getRandomProfile(
+        @Field("profileId")profileId : Int,
+    ):Call<ArrayList<Profile>>
 
 }
