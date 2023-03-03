@@ -10,12 +10,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.databinding.FragmentUserProfileBinding
 import org.mozilla.javascript.tools.jsc.Main
 
 
-class UserProfileFragment : Fragment() {
+class UserProfileFragment() : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var callback: OnBackPressedCallback
+    private var _binding : FragmentUserProfileBinding?=null
+    private val binding get() = _binding!!
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity=  context as MainActivity
@@ -29,9 +32,19 @@ class UserProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+    ): View {
+        _binding = FragmentUserProfileBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    companion object{
+        @JvmStatic
+        fun newInstance(profileId: Int) =
+            UserProfileFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("profileId",profileId)
+                }
+            }
     }
 
 }

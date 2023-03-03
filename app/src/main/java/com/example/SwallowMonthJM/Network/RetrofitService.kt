@@ -200,7 +200,7 @@ interface RetrofitService {
     @POST("relation/myFriends/")
     fun getMyFriends(
         @Field("userName")userName : String
-    ):Call<ArrayList<MyFriendData>>
+    ):Call<ArrayList<FriendData>>
 
     //랜덤 유저 얻기
     @POST("relation/randomProfile/")
@@ -208,4 +208,23 @@ interface RetrofitService {
         @Field("profileId")profileId : Int,
     ):Call<ArrayList<Profile>>
 
+    //내 알림 리스트 얻기
+    @GET("user/alarms/")
+    fun getAlarmList(
+        @Query(value = "search", encoded = true) userName: String
+    ): Call<ArrayList<Alarm>>
+
+    // 알림 보내기
+    @FormUrlEncoded
+    @POST("user/alarms/")
+    fun addAlarm(
+        @Field("userId")userName: String,
+        @Field("type")type:String,
+        @Field("typeId")typeId : Int,
+    ): Call<Alarm>
+
+    @DELETE("user/alarms/{alarmId}/")
+    fun delAlarm(
+        @Path("alarmId")alarmId:Int,
+    ): Call<Alarm>
 }

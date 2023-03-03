@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.example.SwallowMonthJM.DetailView.FriendListFragment
 import com.example.SwallowMonthJM.LoginActivity
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Relation.TotalFriendFragment
 import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
 
@@ -71,6 +73,12 @@ class FragmentUserUI : Fragment() {
         binding.edit.setOnClickListener {
             mainActivity.onFragmentChange(ProfileUpdateFragment())
         }
+
+        binding.myFriend.setOnClickListener {
+            val userName = mainActivity.viewModel.myProfile.userName
+            mainActivity.onFragmentChange(TotalFriendFragment(userName))
+        }
+
     }
 
 }
