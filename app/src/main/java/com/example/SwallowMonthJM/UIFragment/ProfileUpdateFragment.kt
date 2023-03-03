@@ -135,10 +135,14 @@ class ProfileUpdateFragment : Fragment() {
                 userManager.setUserProfile(up,imageUri, paramFun = { newProfile,erMessage->
                     if (newProfile != null && erMessage=="") {
                         UserManager((mainActivity.application as MasterApplication),mainActivity)
-                            .getUserProfile(newProfile.userName, paramFun = { profile->
-                                mainActivity.viewModel.setProfile(profile)
-                                mainActivity.setProfile(profile)
-                                mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
+                            .getUserProfile(newProfile.profileId, paramFun = { profile,message->
+                                if (profile!=null) {
+                                    mainActivity.viewModel.setProfile(profile)
+                                    mainActivity.setProfile(profile)
+                                    mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
+                                }else{
+                                    Toast.makeText(mainActivity,message,Toast.LENGTH_SHORT).show()
+                                }
                             })
 
                     }else{

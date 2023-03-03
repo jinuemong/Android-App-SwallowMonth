@@ -13,19 +13,43 @@ class UserManager(
     private val materApp : MasterApplication,
     private val mainActivity: MainActivity
 ) {
-    fun getUserProfile(userName:String,paramFun:(Profile)->Unit){
-        materApp.service.getProfile(userName)
-            .enqueue(object : Callback<java.util.ArrayList<Profile>> {
-                override fun onResponse(call: Call<java.util.ArrayList<Profile>>, response: Response<java.util.ArrayList<Profile>>) {
+    fun getUserProfile(profileId:Int, paramFun:(Profile?,message:String?)->Unit){
+        materApp.service.getProfile(profileId)
+            .enqueue(object : Callback<Profile> {
+                override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                     if(response.isSuccessful && response.body()!=null){
-                        val profile  =response.body()!![0]
-                        paramFun(profile)
+                        val profile  =response.body()
+                        paramFun(profile,null)
+                    }else{
+                        paramFun(null,response.errorBody()!!.string())
                     }
                 }
-                override fun onFailure(call: Call<java.util.ArrayList<Profile>>, t: Throwable) {}
+                override fun onFailure(call: Call<Profile>, t: Throwable) {
+                    paramFun(null,"error")
+                }
             })
     }
 
+    fun getUserProfileWithUserName(username:String,paramFun: (Profile?, message: String?) -> Unit){
+        materApp.service.searchProfile(username)
+            .enqueue(object : Callback<ArrayList<Profile>>{
+                override fun onResponse(
+                    call: Call<ArrayList<Profile>>,
+                    response: Response<ArrayList<Profile>>
+                ) {
+                    if (response.isSuccessful && response.body()!!.size>0){
+                        paramFun(response.body()!![0],null)
+                    }else{
+                        paramFun(null,response.errorBody()!!.string())
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Profile>>, t: Throwable) {
+                    paramFun(null,"error")
+                }
+
+            })
+    }
     fun setUserProfile(profile: Profile, imageUri: Uri?, paramFun: (Profile?, String) -> Unit){
         mainActivity.multiPartViewModel
             .updateProfile(profile,imageUri,mainActivity, paramFunc = { reProfile,message->

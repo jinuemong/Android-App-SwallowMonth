@@ -25,10 +25,16 @@ interface RetrofitService {
         @Field("password") password: String
     ): Call<User>
 
+    // 유저 얻기
+    @GET("user/profile/{profileId}/")
+    fun getProfile(
+        @Field("profileId") profileId : Int
+    ): Call<Profile>
+
     // 유저 조회
     @GET("user/profile/")
-    fun getProfile(
-        @Query(value = "search", encoded = true) userName: String
+    fun searchProfile(
+        @Query("userName") userName : String
     ): Call<ArrayList<Profile>>
 
     // profile 수정

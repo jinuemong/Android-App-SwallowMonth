@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.SwallowMonthJM.Adapter.MiniProfileAdapter
+import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
@@ -54,7 +55,7 @@ class TotalFriendFragment() : Fragment() {
                         binding.friendList.adapter = adapter.apply {
                             setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
                                 override fun onItemClick(item: Profile) {
-
+                                    mainActivity.onFragmentChange(UserProfileFragment.newInstance(item.profileId))
                                 }
                             })
                         }

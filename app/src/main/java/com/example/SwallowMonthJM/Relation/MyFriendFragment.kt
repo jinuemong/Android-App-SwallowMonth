@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.SwallowMonthJM.Adapter.MiniProfileAdapter
+import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
+import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentMyFriendBinding
@@ -39,7 +43,20 @@ class MyFriendFragment : Fragment() {
 
         RelationManager(mainActivity.application as MasterApplication)
             .getFriendList(mainActivity.viewModel.myProfile.userName, paramFunc = { data,message->
-                
+                if (message==null){
+                    val adapterData = if (data==null || data.size==0) arrayListOf() else data
+                    val adapter = MiniProfileAdapter(mainActivity,adapterData)
+                    binding.friendList.adapter = adapter.apply {
+                        setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
+                            override fun onItemClick(item: Profile) {
+                                mainActivity.onFragmentChange(UserProfileFragment.newInstance(item.profileId))
+                            }
+                        })
+                    }
+                }else{
+                    Toast.makeText(mainActivity,message, Toast.LENGTH_SHORT).show()
+                }
+                setUpListener()
             })
     }
 

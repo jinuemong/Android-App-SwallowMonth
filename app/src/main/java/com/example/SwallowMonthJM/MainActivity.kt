@@ -113,9 +113,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         UserManager((this@MainActivity.application as MasterApplication),this@MainActivity)
-            .getUserProfile(userName, paramFun = { profile->
-                viewModel.myProfile = profile
-                setProfile(profile)
+            .getUserProfileWithUserName(userName, paramFun = { profile,_->
+                if (profile!=null) {
+                    viewModel.myProfile = profile
+                    setProfile(profile)
+                }
 
                 //현재 데이터 설정
                 initCurrentDate()
