@@ -9,9 +9,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.example.SwallowMonthJM.Adapter.MiniProfileAdapter
 import com.example.SwallowMonthJM.DetailView.FriendListFragment
+import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.LoginActivity
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.RelationManager
+import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.Relation.TotalFriendFragment
 import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
@@ -59,8 +64,22 @@ class FragmentUserUI : Fragment() {
                 .into(binding.userImage)
             binding.userName.text = this.userName
             binding.userComment.text = this.userComment
-        }
 
+            // 추천 유저
+            RelationManager(mainActivity.application as MasterApplication)
+                .getRandomProfileList(this.profileId, paramFunc = {data,_->
+                    if (data!=null){
+                        val adapter = MiniProfileAdapter(mainActivity,data)
+                        binding.recommendUser.adapter =adapter.apply {
+                            setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
+                                override fun onItemClick(item: Profile) {
+                                    mainActivity.onFragmentChange(UserProfileFragment.newInstance(item.profileId))
+                                }
+                            })
+                        }
+                    }
+                })
+        }
     }
 
     private fun setUpListener(){

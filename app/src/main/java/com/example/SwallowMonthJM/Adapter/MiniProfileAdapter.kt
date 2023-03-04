@@ -11,7 +11,7 @@ import com.example.SwallowMonthJM.databinding.ItemUserProfileBinding
 
 class MiniProfileAdapter(
     private val mainActivity: MainActivity,
-    private val dataList : ArrayList<FriendData>
+    private val dataList : ArrayList<Profile>
 ) : RecyclerView.Adapter<MiniProfileAdapter.MiniProfileViewHolder>(){
     private lateinit var binding : ItemUserProfileBinding
 
@@ -25,7 +25,7 @@ class MiniProfileAdapter(
     inner class MiniProfileViewHolder(val binding:ItemUserProfileBinding)
         :RecyclerView.ViewHolder(binding.root){
             fun bind(){
-                val item = dataList[absoluteAdapterPosition].profile
+                val item = dataList[absoluteAdapterPosition]
                 binding.userName.text = item.userName
                 binding.userComment.text = item.userComment
                 Glide.with(mainActivity)

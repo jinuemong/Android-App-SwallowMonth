@@ -70,7 +70,7 @@ class UserProfileFragment() : Fragment() {
 
                         profileName = data.userName
 
-                        getFriendList()
+                        setFriendList()
                         setUpListener()
                     }
                 })
@@ -91,7 +91,7 @@ class UserProfileFragment() : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getFriendList(){
+    private fun setFriendList(){
         // max 10
         RelationManager(mainActivity.application as MasterApplication)
             .getFriendList(profileName, paramFunc ={ data,_->
@@ -103,7 +103,7 @@ class UserProfileFragment() : Fragment() {
                     binding.friendList.adapter = adapter.apply {
                         setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
                             override fun onItemClick(item: Profile) {
-                                //뷰에 나타난 프로필 변경
+                                //클릭 프로필로 이동
                                 mainActivity.onFragmentChange(newInstance(item.profileId))
                             }
                         })

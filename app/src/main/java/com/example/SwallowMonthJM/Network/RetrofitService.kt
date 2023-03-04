@@ -25,6 +25,10 @@ interface RetrofitService {
         @Field("password") password: String
     ): Call<User>
 
+    //비밀번호 수정
+    @PATCH("user/current/")
+
+
     // 유저 얻기
     @GET("user/profile/{profileId}/")
     fun getProfile(
@@ -206,7 +210,7 @@ interface RetrofitService {
     @POST("relation/friends/")
     fun getFriends(
         @Field("userName")userName : String
-    ):Call<ArrayList<FriendData>>
+    ):Call<ArrayList<Profile>>
 
     //랜덤 유저 얻기
     @POST("relation/randomProfile/")
