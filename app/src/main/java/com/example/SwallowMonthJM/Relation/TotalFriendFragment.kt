@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.Relation
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,8 +44,11 @@ class TotalFriendFragment() : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.text.text = "$username Friend List'"
 
         username?.let {
             RelationManager(mainActivity.application as MasterApplication)

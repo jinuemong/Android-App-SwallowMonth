@@ -65,7 +65,7 @@ class RelationManager(
     }
 
     fun getFriendList(userName: String, paramFunc: (ArrayList<FriendData>?, message: String?) -> Unit){
-        masterApp.service.getMyFriends(userName)
+        masterApp.service.getFriends(userName)
             .enqueue(object : Callback<ArrayList<FriendData>>{
                 override fun onResponse(
                     call: Call<ArrayList<FriendData>>,

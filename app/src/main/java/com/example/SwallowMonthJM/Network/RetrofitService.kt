@@ -203,8 +203,8 @@ interface RetrofitService {
     ):Call<FriendShip>
 
     // 내 친구 리스트
-    @POST("relation/myFriends/")
-    fun getMyFriends(
+    @POST("relation/friends/")
+    fun getFriends(
         @Field("userName")userName : String
     ):Call<ArrayList<FriendData>>
 

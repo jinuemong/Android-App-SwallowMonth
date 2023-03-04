@@ -76,7 +76,7 @@ class FragmentUserUI : Fragment() {
 
         binding.myFriend.setOnClickListener {
             val userName = mainActivity.viewModel.myProfile.userName
-            mainActivity.onFragmentChange(TotalFriendFragment(userName))
+            mainActivity.onFragmentChange(TotalFriendFragment.newInstance(userName))
         }
 
     }
