@@ -212,6 +212,13 @@ interface RetrofitService {
         @Field("userName")userName : String
     ):Call<ArrayList<Profile>>
 
+    //친구 확인
+    @POST("relation/checkFriendShip/")
+    fun checkFriendShip(
+        @Field("userName")userName: String,
+        @Field("targetUser")targetUser : Int,
+    ):Call<FriendData>
+
     //랜덤 유저 얻기
     @POST("relation/randomProfile/")
     fun getRandomProfile(

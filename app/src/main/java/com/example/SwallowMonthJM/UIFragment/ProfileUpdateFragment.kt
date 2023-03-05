@@ -38,6 +38,7 @@ class ProfileUpdateFragment : Fragment() {
                 mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this,callback)
     }
 
 

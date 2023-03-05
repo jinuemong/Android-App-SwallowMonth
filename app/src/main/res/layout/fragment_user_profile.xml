@@ -100,6 +100,7 @@
                     android:textSize="@dimen/item_height_mid_text_16_size" />
 
                 <TextView
+                    android:visibility="visible"
                     android:id="@+id/add_friend"
                     style="@style/ButtonText_big"
                     android:layout_width="match_parent"
@@ -108,6 +109,28 @@
                     android:drawableLeft="@drawable/baseline_person_add_alt_1_24"
                     android:padding="@dimen/main_margin"
                     android:text="Add"
+                    android:textSize="@dimen/item_height_mid_text_16_size" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/send_data"
+                    style="@style/ButtonText_big"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/item_mid_50_height"
+                    android:layout_margin="@dimen/main_margin"
+                    android:drawableLeft="@drawable/ic_iconmonstr_refresh_7"
+                    android:padding="@dimen/main_margin"
+                    android:text="cancel add friend"
+                    android:textSize="@dimen/item_height_mid_text_16_size" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/is_friend"
+                    style="@style/ButtonText_big"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/item_mid_50_height"
+                    android:layout_margin="@dimen/main_margin"
+                    android:drawableLeft="@drawable/ic_iconmonstr_check_mark_3"
+                    android:padding="@dimen/main_margin"
+                    android:text="Frined"
                     android:textSize="@dimen/item_height_mid_text_16_size" />
             </LinearLayout>
         </LinearLayout>

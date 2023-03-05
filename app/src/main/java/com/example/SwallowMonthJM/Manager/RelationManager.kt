@@ -10,7 +10,21 @@ class RelationManager(
     private val masterApp:MasterApplication
 ) {
 
-    fun addFriendRelation(name : String,paramFunc:(FriendShip?,message:String?)->Unit){
+    fun makeNewFriendRelation(userName:String,otherUser:Int,targetUser: String
+                              ,paramFunc: (FriendShip?, message: String?) -> Unit){
+        // make friend ship - user - alarm
+        addFriendRelation("$userName make FriendShip!",paramFunc={ friendShip, message ->
+            if (message!=null){
+                addFUser(friendShip!!.frId,userName,otherUser, paramFunc = { _,message1->
+                    if (message1==null){paramFunc(null,"error")}
+                })
+                sendAlarm(targetUser,"FriendShip",friendShip.frId, paramFunc = {_,message2->
+                    if (message2==null){paramFunc(null,"error")}
+                })
+            }else{paramFunc(null,"error")}
+        })
+    }
+    private fun addFriendRelation(name : String, paramFunc:(FriendShip?, message:String?)->Unit){
         masterApp.service.addFriendShip(name)
             .enqueue(object : Callback<FriendShip>{
                 override fun onResponse(call: Call<FriendShip>, response: Response<FriendShip>) {
@@ -28,6 +42,22 @@ class RelationManager(
             })
     }
 
+    fun checkFriend(userName:String, targetUser: Int,paramFunc: (FriendData?, message: String?) -> Unit){
+        masterApp.service.checkFriendShip(userName,targetUser)
+            .enqueue(object : Callback<FriendData>{
+                override fun onResponse(call: Call<FriendData>, response: Response<FriendData>) {
+                    if (response.isSuccessful){
+                        paramFunc(response.body(),null)
+                    }else{
+                        paramFunc(null,response.errorBody()!!.string())
+                    }
+                }
+                override fun onFailure(call: Call<FriendData>, t: Throwable) {
+                    paramFunc(null,"error")
+                }
+
+            })
+    }
     fun addFUser(frId:Int,userId:String,otherUser:Int,paramFunc: (FUser?, message: String?) -> Unit){
         masterApp.service.addFUser(frId,userId,otherUser)
             .enqueue(object :  Callback<FUser>{
@@ -162,4 +192,6 @@ class RelationManager(
 
             })
     }
+
+
 }
