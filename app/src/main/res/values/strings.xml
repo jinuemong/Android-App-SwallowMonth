@@ -69,4 +69,6 @@
     <string name="view_all_friends">View all friends</string>
     <string name="my_friends">My Friends</string>
     <string name="change">Change</string>
+    <string name="message_list">Message List</string>
+    <string name="alarm">Alarm</string>
 </resources>

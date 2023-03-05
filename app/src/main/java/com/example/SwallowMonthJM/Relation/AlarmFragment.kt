@@ -1,0 +1,45 @@
+package com.example.SwallowMonthJM.Relation
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.R
+import com.example.SwallowMonthJM.databinding.FragmentAlarmBinding
+
+
+class AlarmFragment : Fragment() {
+
+    private var userName: String? = null
+    private lateinit var mainActivity: MainActivity
+    private var _binding : FragmentAlarmBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            userName = it.getString("username")
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAlarmBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun newInstance(username: String) =
+            AlarmFragment().apply {
+                arguments = Bundle().apply {
+                    putString("username", username)
+                }
+            }
+    }
+}

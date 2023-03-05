@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_type4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Relation.MessageRoomFragment">
+    <TextView
+        android:layout_margin="@dimen/main_margin"
+        android:id="@+id/message_name"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/item_height_big_text_size"
+        android:textColor="@color/color_type1"
+        android:textStyle="bold"
+        tools:text="message room name " />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:backgroundTint="@color/color_type3"
+        android:background="@drawable/round_border"
+        android:layout_margin="@dimen/main_margin"
+        android:padding="@dimen/main_margin"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_big_100">
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/item_mid_40_height"
+            android:layout_height="@dimen/item_mid_40_height"
+            android:background="@drawable/circle_border"
+            android:backgroundTint="@color/color_type3"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@color/color_type4"
+            android:layout_margin="@dimen/main_margin_10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/back_button"
+            android:id="@+id/user_image"
+            android:layout_width="@dimen/item_height_big_70"
+            android:layout_height="@dimen/item_height_big_70" />
+
+        <LinearLayout
+            android:layout_margin="@dimen/main_margin_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/user_image"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:lines="1"
+                android:id="@+id/user_name"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/item_height_big_21_text_size"
+                android:textStyle="bold"
+                tools:text="username" />
+
+            <TextView
+                android:id="@+id/user_comment"
+                style="@style/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/item_height_mid_text_16_size"
+                tools:text="user comment" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_box"
+        android:layout_margin="@dimen/main_margin"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+
+    <LinearLayout
+        android:background="@drawable/round_border"
+        android:backgroundTint="@color/color_type3"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_big_70">
+        <EditText
+            android:id="@+id/type_message"
+            android:layout_width="@dimen/item_we_300"
+            android:layout_margin="@dimen/main_margin"
+            android:layout_height="@dimen/item_mid_50_height"/>
+        <TextView
+
+            android:id="@+id/send_button"
+            android:layout_marginStart="@dimen/main_margin_10"
+            android:textSize="@dimen/item_height_big_21_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextView1"
+            android:text="send"/>
+    </LinearLayout>
+</LinearLayout>
