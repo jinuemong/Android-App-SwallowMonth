@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/item_height_double_big"
+        android:layout_height="@dimen/item_height_double_big"
+        android:background="@drawable/round_border"
+        android:backgroundTint="@color/color_type4">
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_margin="@dimen/main_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_baseline_close_24"
+            android:layout_width="@dimen/item_height_big_text_size_35"
+            android:layout_height="@dimen/item_height_big_text_size_35"
+            app:tint="@color/color_type1" />
+        <TextView
+            android:gravity="center"
+            android:textSize="@dimen/item_height_mid_text_size"
+            style="@style/TextView1"
+            tools:text="message box text "
+            android:id="@+id/text"
+            android:layout_marginTop="@dimen/item_height_big_70"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:lines="3"
+            android:layout_width="@dimen/item_height_big_180"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/commit_button"
+            android:layout_margin="@dimen/main_margin_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/commit"
+            style="@style/ButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

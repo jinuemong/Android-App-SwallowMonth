@@ -57,6 +57,7 @@ class UserProfileFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         //프로필 갱신
         if (profileId!=-1){
             UserManager(mainActivity.application as MasterApplication,mainActivity)
