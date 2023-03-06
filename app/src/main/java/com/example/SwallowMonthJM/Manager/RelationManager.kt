@@ -16,12 +16,9 @@ class RelationManager(
         // make friend ship - user - alarm
         addFriendRelation("$userName make FriendShip!",paramFunc={ friendShip, message ->
             if (message==null){
-                addFUser(friendShip!!.frId,userName,otherUser, paramFunc = { _,message1->
-                    if (message1==null){paramFunc(null,"error")}
-                })
-                sendAlarm(targetUser,"FriendShip",friendShip.frId, paramFunc = {_,message2->
-                    if (message2==null){paramFunc(null,"error")}
-                })
+                addFUser(friendShip!!.frId,userName,otherUser, paramFunc = { _,_-> })
+                sendAlarm(targetUser,"FriendShip",friendShip.frId, paramFunc = {_,_-> })
+                paramFunc(friendShip,null)
             }else{paramFunc(null,"error")}
         })
     }
@@ -33,6 +30,7 @@ class RelationManager(
                         paramFunc(response.body(),null)
                     }else{
                         paramFunc(null, response.errorBody()!!.string())
+
                     }
                 }
 
@@ -45,15 +43,15 @@ class RelationManager(
 
     fun checkFriend(userName:String, targetUser: Int,paramFunc: (FriendData?, message: String?) -> Unit){
         masterApp.service.checkFriendShip(userName,targetUser)
-            .enqueue(object : Callback<ArrayList<FriendData>>{
-                override fun onResponse(call: Call<ArrayList<FriendData>>, response: Response<ArrayList<FriendData>>) {
+            .enqueue(object : Callback<FriendData>{
+                override fun onResponse(call: Call<FriendData>, response: Response<FriendData>) {
                     if (response.isSuccessful){
-                        paramFunc(response.body()!![0],null)
+                        paramFunc(response.body()!!,null)
                     }else{
                         paramFunc(null,"error:"+response.errorBody()!!.string())
                     }
                 }
-                override fun onFailure(call: Call<ArrayList<FriendData>>, t: Throwable) {
+                override fun onFailure(call: Call<FriendData>, t: Throwable) {
                     Log.d("testseswtestes",t.toString())
 
                     paramFunc(null,"error")

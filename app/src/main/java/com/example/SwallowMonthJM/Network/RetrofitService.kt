@@ -202,7 +202,7 @@ interface RetrofitService {
 
 
     //친구 관계 삭제 시 친구 리스트 자동 삭제
-    @DELETE("relation/friendShips/{frId}")
+    @DELETE("relation/friendShips/{frId}/")
     fun delFriendShip(
         @Path("frId") frId: Int,
     ):Call<FriendShip>
@@ -220,7 +220,7 @@ interface RetrofitService {
     fun checkFriendShip(
         @Field("userName")userName: String,
         @Field("targetUser")targetUser : Int,
-    ):Call<ArrayList<FriendData>>
+    ):Call<FriendData>
 
     //랜덤 유저 얻기
     @POST("relation/randomProfile/")
@@ -230,13 +230,13 @@ interface RetrofitService {
     ):Call<ArrayList<Profile>>
 
     //내 알림 리스트 얻기
-    @GET("user/alarms/")
+    @GET("relation/alarms/")
     fun getAlarmList(
         @Query(value = "search", encoded = true) userName: String
     ): Call<ArrayList<Alarm>>
 
     // 알림 보내기
-    @POST("user/alarms/")
+    @POST("relation/alarms/")
     @FormUrlEncoded
     fun addAlarm(
         @Field("userId")userName: String,
@@ -244,7 +244,7 @@ interface RetrofitService {
         @Field("typeId")typeId : Int,
     ): Call<Alarm>
 
-    @DELETE("user/alarms/{alarmId}/")
+    @DELETE("relation/alarms/{alarmId}/")
     fun delAlarm(
         @Path("alarmId")alarmId:Int,
     ): Call<Alarm>
