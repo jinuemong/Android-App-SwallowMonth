@@ -14,14 +14,13 @@ class MasterApplication:Application(
 
 ) {
     lateinit var service:RetrofitService
-    private val baseUrl = "https://f6d7-211-177-27-146.jp.ngrok.io"
+    val baseUrl = "https://f6d7-211-177-27-146.jp.ngrok.io"
     override fun onCreate() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)
         createRetrofit()
     }
     fun createRetrofit(){
-
         val header = Interceptor{
             val original = it.request()
             if (checkIsLogin()){

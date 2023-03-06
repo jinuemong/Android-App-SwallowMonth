@@ -26,13 +26,13 @@ interface RetrofitService {
     ): Call<User>
 
     //비밀번호 수정
-    @PATCH("user/current/")
+//    @PATCH("user/current/")
 
 
     // 유저 얻기
     @GET("user/profile/{profileId}/")
     fun getProfile(
-        @Field("profileId") profileId : Int
+        @Path("profileId") profileId : Int
     ): Call<Profile>
 
     // 유저 조회
@@ -186,13 +186,14 @@ interface RetrofitService {
 
     // add FriendShip
     @POST("relation/friendShips/")
+    @FormUrlEncoded
     fun addFriendShip(
         @Field("name") name : String,
     ):Call<FriendShip>
 
     //add FUser
-    @FormUrlEncoded
     @POST("relation/fusers/")
+    @FormUrlEncoded
     fun addFUser(
         @Field("frId") frId:Int,
         @Field("userId") userId:String,
@@ -208,19 +209,22 @@ interface RetrofitService {
 
     // 내 친구 리스트
     @POST("relation/friends/")
+    @FormUrlEncoded
     fun getFriends(
         @Field("userName")userName : String
     ):Call<ArrayList<Profile>>
 
     //친구 확인
     @POST("relation/checkFriendShip/")
+    @FormUrlEncoded
     fun checkFriendShip(
         @Field("userName")userName: String,
         @Field("targetUser")targetUser : Int,
-    ):Call<FriendData>
+    ):Call<ArrayList<FriendData>>
 
     //랜덤 유저 얻기
     @POST("relation/randomProfile/")
+    @FormUrlEncoded
     fun getRandomProfile(
         @Field("profileId")profileId : Int,
     ):Call<ArrayList<Profile>>
@@ -232,8 +236,8 @@ interface RetrofitService {
     ): Call<ArrayList<Alarm>>
 
     // 알림 보내기
-    @FormUrlEncoded
     @POST("user/alarms/")
+    @FormUrlEncoded
     fun addAlarm(
         @Field("userId")userName: String,
         @Field("type")type:String,

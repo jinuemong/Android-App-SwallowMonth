@@ -63,13 +63,15 @@ class FragmentUserUI : Fragment() {
                 .load(this.userImage)
                 .into(binding.userImage)
             binding.userName.text = this.userName
-            binding.userComment.text = this.userComment
+            if (this.userComment!="") {
+                binding.userComment.text = this.userComment
+            }
 
             // 추천 유저
             RelationManager(mainActivity.application as MasterApplication)
                 .getRandomProfileList(this.profileId, paramFunc = {data,_->
                     if (data!=null){
-                        val adapter = MiniProfileAdapter(mainActivity,data)
+                        val adapter = MiniProfileAdapter(mainActivity,data,)
                         binding.recommendUser.adapter =adapter.apply {
                             setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
                                 override fun onItemClick(item: Profile) {
@@ -77,6 +79,8 @@ class FragmentUserUI : Fragment() {
                                 }
                             })
                         }
+                    }else{
+                        binding.notRecommend.visibility = View.VISIBLE
                     }
                 })
         }

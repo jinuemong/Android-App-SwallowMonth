@@ -5,5 +5,5 @@ import java.io.Serializable
 class FriendShip (
     val frId : Int,
     val name : String,
-    val fUser : ArrayList<FUser>,
+    val fUserPost : ArrayList<FUser>,
 ): Serializable

@@ -3,25 +3,23 @@ package com.example.SwallowMonthJM.DetailView
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import com.example.SwallowMonthJM.Manager.UserManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.MiniProfileAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
-import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Relation.MessageRoomFragment
 import com.example.SwallowMonthJM.Relation.TotalFriendFragment
 import com.example.SwallowMonthJM.Unit.MessageBox
 import com.example.SwallowMonthJM.databinding.FragmentUserProfileBinding
-import org.mozilla.javascript.tools.jsc.Main
 
 
 class UserProfileFragment() : Fragment() {
@@ -70,7 +68,9 @@ class UserProfileFragment() : Fragment() {
                 .getUserProfile(profileId, paramFun = { data, _->
                     if (data!=null){
                         binding.userName.text = data.userName
-                        binding.userComment.text = data.userComment
+                        if (data.userComment!="") {
+                            binding.userComment.text = data.userComment
+                        }
                         Glide.with(mainActivity)
                             .load(data.userImage)
                             .into(binding.userImage)
@@ -79,6 +79,7 @@ class UserProfileFragment() : Fragment() {
 
                         setFriendList()
                         setUpListener()
+                        setFriendShip()
                     }
                 })
         }
@@ -114,6 +115,10 @@ class UserProfileFragment() : Fragment() {
                             }
                         })
                     }
+                }else{
+                    binding.totalFriend.text = "0"
+                    binding.notFriends.visibility = View.VISIBLE
+                    binding.moreFriend.visibility = View.INVISIBLE
                 }
             })
     }
@@ -134,7 +139,9 @@ class UserProfileFragment() : Fragment() {
             //친구 상태 확인 1: not , 2 : post add Friend ,3: friend
             relationManager
                 .checkFriend(myProfile.userName,profileId, paramFunc = { friendData,message->
-                    if (message!=null){
+                    if (message==null){
+                        Log.d("testseswtestes",friendData.toString())
+                        Log.d("testseswtestes",friendData?.friendData.toString())
                         if (friendData==null){ //no Friend
                             isMainView()
                             // 메시지 기능
@@ -160,14 +167,14 @@ class UserProfileFragment() : Fragment() {
                                     })
                             }
                         }else{
-                            if(friendData.friendData.fUser.size==1){ //친구 요청만 감
+                            if(friendData.friendData.fUserPost.size==1){ //친구 요청만 감
                                 isAddFriendStatus()
                                 //친구 취소
                                 binding.sendData.setOnClickListener {
                                     delFriendShip(friendData.friendData.frId)
                                 }
 
-                            }else if (friendData.friendData.fUser.size==2){ //친구 상태
+                            }else if (friendData.friendData.fUserPost.size==2){ //친구 상태
                                 isFriend()
                                 //친구 취소
                                 binding.isFriend.setOnClickListener {

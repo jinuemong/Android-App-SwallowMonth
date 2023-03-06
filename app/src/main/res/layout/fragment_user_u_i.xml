@@ -26,6 +26,7 @@
                 android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:background="@drawable/circle_border"
                     android:src="@drawable/ic_iconmonstr_user_male_thin"
                     android:padding="@dimen/main_margin"
                     android:id="@+id/user_image"
@@ -81,15 +82,16 @@
         </LinearLayout>
 
         <TextView
-            android:gravity="center"
+            android:background="@color/color_type4"
+            android:layout_gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/item_height_big_21_text_size"
             android:id="@+id/user_comment"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
             android:padding="@dimen/main_margin_10"
-            tools:text="user comment" />
+            android:text="@string/no_user_comment" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -178,7 +180,7 @@
         <TextView
             android:background="@drawable/round_border"
             android:padding="@dimen/main_margin"
-            android:layout_margin="@dimen/main_margin_10"
+            android:layout_marginStart="@dimen/item_mid_height_20dp"
             android:textSize="@dimen/item_mid_height_20dp"
             android:textStyle="bold"
             android:text="Recommended Users"
@@ -193,9 +195,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/not_recommend"
+            android:visibility="invisible"
+            android:textSize="@dimen/item_height_mid_text_size"
+            android:gravity="center"
+            style="@style/TextView1"
+            android:text="@string/no_recommend_user"
+            android:layout_marginBottom="@dimen/item_mid_height_20dp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_mid_40_height"/>
+            android:layout_height="@dimen/item_mid_50_height"/>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

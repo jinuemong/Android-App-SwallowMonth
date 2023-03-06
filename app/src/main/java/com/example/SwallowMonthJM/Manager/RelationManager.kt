@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.Manager
 
+import android.util.Log
 import com.example.SwallowMonthJM.Model.*
 import com.example.SwallowMonthJM.Network.MasterApplication
 import retrofit2.Call
@@ -14,7 +15,7 @@ class RelationManager(
                               ,paramFunc: (FriendShip?, message: String?) -> Unit){
         // make friend ship - user - alarm
         addFriendRelation("$userName make FriendShip!",paramFunc={ friendShip, message ->
-            if (message!=null){
+            if (message==null){
                 addFUser(friendShip!!.frId,userName,otherUser, paramFunc = { _,message1->
                     if (message1==null){paramFunc(null,"error")}
                 })
@@ -44,16 +45,19 @@ class RelationManager(
 
     fun checkFriend(userName:String, targetUser: Int,paramFunc: (FriendData?, message: String?) -> Unit){
         masterApp.service.checkFriendShip(userName,targetUser)
-            .enqueue(object : Callback<FriendData>{
-                override fun onResponse(call: Call<FriendData>, response: Response<FriendData>) {
+            .enqueue(object : Callback<ArrayList<FriendData>>{
+                override fun onResponse(call: Call<ArrayList<FriendData>>, response: Response<ArrayList<FriendData>>) {
                     if (response.isSuccessful){
-                        paramFunc(response.body(),null)
+                        paramFunc(response.body()!![0],null)
                     }else{
-                        paramFunc(null,response.errorBody()!!.string())
+                        paramFunc(null,"error:"+response.errorBody()!!.string())
                     }
                 }
-                override fun onFailure(call: Call<FriendData>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<FriendData>>, t: Throwable) {
+                    Log.d("testseswtestes",t.toString())
+
                     paramFunc(null,"error")
+
                 }
 
             })

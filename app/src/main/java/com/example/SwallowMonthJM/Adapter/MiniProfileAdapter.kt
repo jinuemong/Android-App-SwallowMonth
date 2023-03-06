@@ -7,11 +7,13 @@ import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.FriendData
 import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.databinding.ItemUserProfileBinding
 
 class MiniProfileAdapter(
     private val mainActivity: MainActivity,
-    private val dataList : ArrayList<Profile>
+    private val dataList : ArrayList<Profile>,
 ) : RecyclerView.Adapter<MiniProfileAdapter.MiniProfileViewHolder>(){
     private lateinit var binding : ItemUserProfileBinding
 
@@ -29,7 +31,7 @@ class MiniProfileAdapter(
                 binding.userName.text = item.userName
                 binding.userComment.text = item.userComment
                 Glide.with(mainActivity)
-                    .load(item.userImage)
+                    .load(getPhotoUrl(item.userImage,(mainActivity.application as MasterApplication).baseUrl))
                     .into(binding.userImage)
 
                 binding.root.setOnClickListener {
