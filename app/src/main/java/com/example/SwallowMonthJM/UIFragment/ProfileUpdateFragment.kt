@@ -32,7 +32,7 @@ class ProfileUpdateFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
-        userManager = UserManager(mainActivity.application as MasterApplication, mainActivity)
+        userManager = UserManager(mainActivity.masterApp, mainActivity)
         callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 mainActivity.onFragmentGoBack(this@ProfileUpdateFragment)
@@ -135,7 +135,7 @@ class ProfileUpdateFragment : Fragment() {
 
                 userManager.setUserProfile(up,imageUri, paramFun = { newProfile,erMessage->
                     if (newProfile != null && erMessage=="") {
-                        UserManager((mainActivity.application as MasterApplication),mainActivity)
+                        UserManager((mainActivity.masterApp),mainActivity)
                             .getUserProfile(newProfile.profileId, paramFun = { profile,message->
                                 if (profile!=null) {
                                     mainActivity.viewModel.setProfile(profile)

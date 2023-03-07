@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.AlarmManager
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentAlarmBinding
 
@@ -35,6 +36,19 @@ class AlarmFragment : Fragment() {
     ): View {
         _binding = FragmentAlarmBinding.inflate(inflater,container,false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        userName?.let {
+            AlarmManager(mainActivity.masterApp)
+                .getMyAlarmList(it, paramFunc = { data,_->
+                    if (data!=null){
+
+                    }
+                })
+        }
     }
 
     companion object {

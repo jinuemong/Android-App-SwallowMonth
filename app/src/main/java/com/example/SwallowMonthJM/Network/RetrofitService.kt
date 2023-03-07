@@ -272,4 +272,11 @@ interface RetrofitService {
     fun getMessageList(
         @Query(value = "frId")frId:Int,
     ):Call<ArrayList<Message>>
+
+    //채팅 방 리스트 받기
+    @POST("relation/messageList/")
+    @FormUrlEncoded
+    fun getMessageRoomList(
+        @Field("userName")userName: String
+    ):Call<ArrayList<FriendData>>
 }

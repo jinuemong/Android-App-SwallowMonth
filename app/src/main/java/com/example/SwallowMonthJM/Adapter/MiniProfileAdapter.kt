@@ -31,7 +31,7 @@ class MiniProfileAdapter(
                 binding.userName.text = item.userName
                 binding.userComment.text = item.userComment
                 Glide.with(mainActivity)
-                    .load(getPhotoUrl(item.userImage,(mainActivity.application as MasterApplication).baseUrl))
+                    .load(getPhotoUrl(item.userImage,(mainActivity.masterApp).baseUrl))
                     .into(binding.userImage)
 
                 binding.root.setOnClickListener {

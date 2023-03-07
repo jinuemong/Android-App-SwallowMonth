@@ -29,6 +29,7 @@ import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.UserManager
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Relation.AlarmFragment
 import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -36,6 +37,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    lateinit var masterApp: MasterApplication
     val viewModel: MainViewModel by viewModels()
     val addViewModel: AddTaskRoutineViewModel by viewModels()
     val multiPartViewModel : MultiPartViewModel by viewModels()
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         frManger = this@MainActivity.supportFragmentManager
-
+        masterApp = this@MainActivity.application as MasterApplication
         // user profile 세팅
         userName = intent.getStringExtra("username").toString()
 
@@ -112,7 +114,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        UserManager((this@MainActivity.application as MasterApplication),this@MainActivity)
+        UserManager(masterApp,this@MainActivity)
             .getUserProfileWithUserName(userName, paramFun = { profile,_->
                 if (profile!=null) {
                     viewModel.myProfile = profile
@@ -134,7 +136,7 @@ class MainActivity : AppCompatActivity() {
         val date = Calendar.getInstance().time
         val dateMonth: Int = SimpleDateFormat("MM", Locale.KOREA).format(date).toInt()
         viewModel.apply {
-            monthDataManager = MonthDataManager(application as MasterApplication)
+            monthDataManager = MonthDataManager(masterApp)
             todayMonth = dateMonth
             setCurrentData(date,this@MainActivity)
         }
@@ -150,6 +152,9 @@ class MainActivity : AppCompatActivity() {
             onFragmentChange(AddTodayTaskFragment())
         }
 
+        binding.alarmView.setOnClickListener {
+            onFragmentChange(AlarmFragment.newInstance(userName))
+        }
     }
 
     private fun initFragmentAdapter() {

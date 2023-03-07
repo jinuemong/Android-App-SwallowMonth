@@ -43,7 +43,7 @@ class UserProfileFragment() : Fragment() {
 
         }
         requireActivity().onBackPressedDispatcher.addCallback(this,callback)
-        relationManager = RelationManager(mainActivity.application as MasterApplication)
+        relationManager = RelationManager(mainActivity.masterApp)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +71,7 @@ class UserProfileFragment() : Fragment() {
 
         //프로필 갱신
         if (profileId!=-1){
-            UserManager(mainActivity.application as MasterApplication,mainActivity)
+            UserManager(mainActivity.masterApp,mainActivity)
                 .getUserProfile(profileId, paramFun = { data, _->
                     if (data!=null){
                         binding.userName.text = data.userName
@@ -201,7 +201,7 @@ class UserProfileFragment() : Fragment() {
         }
         //친구 추가 기능 -> 친구 추가 상태로 바뀜
         binding.addFriend.setOnClickListener {
-            RelationManager(mainActivity.application as MasterApplication)
+            RelationManager(mainActivity.masterApp)
                 .makeNewFriendRelation(myProfile.userName,profileId,profileName
                     , paramFunc = { data,message->
                         if (data!=null) {

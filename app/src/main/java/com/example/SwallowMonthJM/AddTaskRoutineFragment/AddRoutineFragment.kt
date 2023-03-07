@@ -36,7 +36,7 @@ class AddRoutineFragment : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
         mainActivity.addViewModel.addType = "routine"
-        monthDataManager = MonthDataManager((mainActivity.application as MasterApplication))
+        monthDataManager = MonthDataManager((mainActivity.masterApp))
 
         fm = (activity as MainActivity).supportFragmentManager
         callback = object : OnBackPressedCallback(true){

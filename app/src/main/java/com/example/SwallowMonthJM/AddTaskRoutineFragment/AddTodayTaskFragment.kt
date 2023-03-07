@@ -33,7 +33,7 @@ class AddTodayTaskFragment : Fragment() {
         super.onAttach(context)
         mainActivity = context as MainActivity
         mainActivity.addViewModel.addType = "task"
-        monthDataManager = MonthDataManager((mainActivity.application as MasterApplication))
+        monthDataManager = MonthDataManager((mainActivity.masterApp))
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MessageManager
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentMessageListBinding
 
@@ -38,6 +39,8 @@ class MessageListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        MessageManager(mainActivity.masterApp)
 
     }
 

@@ -20,10 +20,10 @@ class RoutineViewModel(
         }
     }
     private val mainView = mainActivity.viewModel
-    private val routineManager = RoutineManager(mainActivity.application as MasterApplication)
+    private val routineManager = RoutineManager(mainActivity.masterApp)
 
     var routineLivData = MutableLiveData<ArrayList<Routine>>()
-    private val monthManager = MonthDataManager(mainActivity.application as MasterApplication)
+    private val monthManager = MonthDataManager(mainActivity.masterApp)
 
     var currentRoutineArr = ArrayList<Routine>()
     init {

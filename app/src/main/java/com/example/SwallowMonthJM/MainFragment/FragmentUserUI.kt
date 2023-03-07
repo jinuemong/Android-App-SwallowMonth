@@ -68,7 +68,7 @@ class FragmentUserUI : Fragment() {
             }
 
             // 추천 유저
-            RelationManager(mainActivity.application as MasterApplication)
+            RelationManager(mainActivity.masterApp)
                 .getRandomProfileList(this.profileId, paramFunc = {data,_->
                     if (data!=null){
                         val adapter = MiniProfileAdapter(mainActivity,data,)

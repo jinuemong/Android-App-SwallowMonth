@@ -39,7 +39,7 @@ class AddTaskFragment : Fragment() {
         mainActivity = context as MainActivity
         mainActivity.addViewModel.addType = "task"
         fm = (activity as MainActivity).supportFragmentManager
-        monthDataManager = MonthDataManager((mainActivity.application as MasterApplication))
+        monthDataManager = MonthDataManager((mainActivity.masterApp))
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -20,8 +20,8 @@ class TaskViewModel(
         }
     }
     private val mainView = mainActivity.viewModel
-    private val taskManager = TaskManager(mainActivity.application as MasterApplication)
-    private val monthManager = MonthDataManager(mainActivity.application as MasterApplication)
+    private val taskManager = TaskManager(mainActivity.masterApp)
+    private val monthManager = MonthDataManager(mainActivity.masterApp)
     var taskLiveData = MutableLiveData<ArrayList<Task>>()
     var currentTaskArr = ArrayList<Task>()
     init {

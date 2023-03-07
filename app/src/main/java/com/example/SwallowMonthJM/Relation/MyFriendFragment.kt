@@ -41,7 +41,7 @@ class MyFriendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        RelationManager(mainActivity.application as MasterApplication)
+        RelationManager(mainActivity.masterApp)
             .getFriendList(mainActivity.viewModel.myProfile.userName, paramFunc = { data,message->
                 if (message==null){
                     val adapterData = if (data==null || data.size==0) arrayListOf() else data

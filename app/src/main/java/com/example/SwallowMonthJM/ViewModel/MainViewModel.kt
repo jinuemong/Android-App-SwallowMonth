@@ -122,7 +122,7 @@ class MainViewModel : ViewModel(){
                     monthData = mData!![0]
 
                     //routine 데이터 설정
-                    val routineManager = RoutineManager(mainActivity.application as MasterApplication)
+                    val routineManager = RoutineManager(mainActivity.masterApp)
                     routineManager.getRoutineList(mainActivity.userName,monthData.keyDate, paramFun = {
                         if(it!=null) {
                             mainActivity.routineViewModel.currentRoutineArr = it
@@ -133,7 +133,7 @@ class MainViewModel : ViewModel(){
                     })
 
                     //task 데이터 설정
-                    val taskManager = TaskManager(mainActivity.application as MasterApplication)
+                    val taskManager = TaskManager(mainActivity.masterApp)
                     taskManager.getTaskList(mainActivity.userName, monthData.monthId!!, paramFun = {
                         if (it != null) {
                             mainActivity.taskViewModel.currentTaskArr = it
