@@ -248,4 +248,28 @@ interface RetrofitService {
     fun delAlarm(
         @Path("alarmId")alarmId:Int,
     ): Call<Alarm>
+
+
+    //메시지
+
+    //생성
+    @POST("relation/messages/")
+    @FormUrlEncoded
+    fun postMessage(
+        @Field("frId")frId: Int,
+        @Field("userId")userId : String,
+        @Field("text")text : String,
+    ):Call<Message>
+
+    // 삭제
+    @DELETE("relation/messages/{messageId}/")
+    fun deleteMessage(
+        @Path("messageId")messageId:Int,
+    ):Call<Message>
+
+    //메시지 리스트 받기
+    @GET("relation/messages/")
+    fun getMessageList(
+        @Query(value = "frId")frId:Int,
+    ):Call<ArrayList<Message>>
 }

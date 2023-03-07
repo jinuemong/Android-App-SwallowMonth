@@ -17,7 +17,8 @@ class RelationManager(
         addFriendRelation("$userName make FriendShip!",paramFunc={ friendShip, message ->
             if (message==null){
                 addFUser(friendShip!!.frId,userName,otherUser, paramFunc = { _,_-> })
-                sendAlarm(targetUser,"FriendShip",friendShip.frId, paramFunc = {_,_-> })
+                AlarmManager(masterApp).sendAlarm(targetUser,"FriendShip",friendShip.frId,
+                    paramFunc = {_,_-> })
                 paramFunc(friendShip,null)
             }else{paramFunc(null,"error")}
         })
@@ -60,7 +61,7 @@ class RelationManager(
 
             })
     }
-    fun addFUser(frId:Int,userId:String,otherUser:Int,paramFunc: (FUser?, message: String?) -> Unit){
+    private fun addFUser(frId:Int, userId:String, otherUser:Int, paramFunc: (FUser?, message: String?) -> Unit){
         masterApp.service.addFUser(frId,userId,otherUser)
             .enqueue(object :  Callback<FUser>{
                 override fun onResponse(call: Call<FUser>, response: Response<FUser>) {
@@ -138,62 +139,6 @@ class RelationManager(
             })
     }
 
-    fun getMyAlarmList(userName: String,paramFunc: (ArrayList<Alarm>?, message: String?) -> Unit){
-        masterApp.service.getAlarmList(userName)
-            .enqueue((object :Callback<ArrayList<Alarm>>{
-                override fun onResponse(
-                    call: Call<ArrayList<Alarm>>,
-                    response: Response<ArrayList<Alarm>>
-                ) {
-                    if(response.isSuccessful){
-                        paramFunc(response.body(),null)
-                    }else{
-                        paramFunc(null, response.errorBody()!!.string())
-                    }
-                }
-
-                override fun onFailure(call: Call<ArrayList<Alarm>>, t: Throwable) {
-                    paramFunc(null,"error")
-                }
-
-            }))
-    }
-
-    fun sendAlarm(targetUser : String, type : String, typeId: Int,paramFunc: (Alarm?, message: String?) -> Unit){
-        masterApp.service.addAlarm(targetUser,type,typeId)
-            .enqueue(object : Callback<Alarm>{
-                override fun onResponse(call: Call<Alarm>, response: Response<Alarm>) {
-                    if (response.isSuccessful){
-                        paramFunc(response.body(),null)
-                    }else{
-                        paramFunc(null,response.errorBody()!!.string())
-                    }
-                }
-
-                override fun onFailure(call: Call<Alarm>, t: Throwable) {
-                    paramFunc(null,"error")
-                }
-
-            })
-    }
-
-    fun delAlarm(alarmId:Int,paramFunc: (Alarm?, message: String?) -> Unit){
-        masterApp.service.delAlarm(alarmId)
-            .enqueue(object : Callback<Alarm>{
-                override fun onResponse(call: Call<Alarm>, response: Response<Alarm>) {
-                    if (response.isSuccessful){
-                        paramFunc(response.body(),null)
-                    }else{
-                        paramFunc(null,response.errorBody()!!.string())
-                    }
-                }
-
-                override fun onFailure(call: Call<Alarm>, t: Throwable) {
-                    paramFunc(null,"error")
-                }
-
-            })
-    }
 
 
 }

@@ -74,4 +74,5 @@
     <string name="no_user_comment">No User Comment</string>
     <string name="no_recommend_user">No Recommend User !</string>
     <string name="this_user_has_no_friends">This user has no friends..</string>
+    <string name="task">task</string>
 </resources>
