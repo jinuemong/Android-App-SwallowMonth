@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_big_180"
+            android:layout_height="@dimen/item_height_big_200"
             android:orientation="horizontal"
             android:padding="@dimen/fab_margin_12dp">
 
@@ -34,6 +34,7 @@
                     android:layout_height="@dimen/item_height_big_100"/>
 
                 <View
+                    android:layout_margin="@dimen/main_margin"
                     style="@style/LineView1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />
@@ -71,12 +72,12 @@
                     android:textSize="@dimen/item_height_big_21_text_size" />
 
                 <TextView
-                    android:id="@+id/logout"
+                    android:id="@+id/message"
                     style="@style/ButtonText_big"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/item_mid_50_height"
                     android:layout_margin="@dimen/main_margin"
-                    android:text="@string/logout_profile"
+                    android:text="@string/message"
                     android:textSize="@dimen/item_height_big_21_text_size" />
             </LinearLayout>
         </LinearLayout>
@@ -89,7 +90,7 @@
             android:id="@+id/user_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_margin="@dimen/item_mid_height_20dp"
             android:padding="@dimen/main_margin_10"
             android:text="@string/no_user_comment" />
 
@@ -100,21 +101,7 @@
             android:background="@drawable/round_border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/change_pass"
-                android:textStyle="bold"
-                android:textSize="@dimen/item_height_mid_text_size"
-                android:layout_margin="@dimen/main_margin"
-                android:text="change password"
-                android:drawablePadding="@dimen/main_margin"
-                android:drawableLeft="@drawable/ic_iconmonstr_refresh_7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <View
-                android:layout_margin="@dimen/main_margin"
-                style="@style/LineView1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
+
             <TextView
                 android:textSize="@dimen/item_height_mid_text_size"
                 android:id="@+id/user_ranking"
@@ -175,6 +162,31 @@
                 style="@style/LineView1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
+            <TextView
+                android:id="@+id/change_pass"
+                android:textStyle="bold"
+                android:textSize="@dimen/item_height_mid_text_size"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/change_password"
+                android:drawablePadding="@dimen/main_margin"
+                android:drawableLeft="@drawable/ic_iconmonstr_refresh_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_margin="@dimen/main_margin"
+                style="@style/LineView1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <TextView
+                android:textSize="@dimen/item_height_mid_text_size"
+                android:id="@+id/logout"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/main_margin"
+                android:text="@string/logout_profile"
+                android:drawablePadding="@dimen/main_margin"
+                android:drawableLeft="@drawable/baseline_logout_24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <TextView

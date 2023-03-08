@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.Manager
 
+import com.example.SwallowMonthJM.Model.FriendData
 import com.example.SwallowMonthJM.Model.Message
 import com.example.SwallowMonthJM.Network.MasterApplication
 import retrofit2.Call
@@ -47,6 +48,8 @@ class MessageManager(
             })
     }
 
+
+    // 해당 유저와의 메시지 리스트
     fun getMessageList(frId: Int,paramFunc: (ArrayList<Message>?, errMessage: String?) -> Unit){
         masterApp.service.getMessageList(frId)
             .enqueue(object : Callback<ArrayList<Message>>{
@@ -68,5 +71,25 @@ class MessageManager(
             })
     }
 
+    // 메시지 룸 리스트 받기
+    fun getMessageRoomList(userName:String,paramFunc:(ArrayList<FriendData>?,message:String?)->Unit){
+        masterApp.service.getMessageRoomList(userName)
+            .enqueue(object : Callback<ArrayList<FriendData>>{
+                override fun onResponse(
+                    call: Call<ArrayList<FriendData>>,
+                    response: Response<ArrayList<FriendData>>
+                ) {
+                    if (response.isSuccessful){
+                        paramFunc(response.body(),null)
+                    }else{
+                        paramFunc(null,response.errorBody()!!.string())
+                    }
+                }
 
+                override fun onFailure(call: Call<ArrayList<FriendData>>, t: Throwable) {
+                    paramFunc(null,"error")
+                }
+
+            })
+    }
 }

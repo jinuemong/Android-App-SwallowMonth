@@ -2,10 +2,12 @@ package com.example.SwallowMonthJM.Relation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.SwallowMonthJM.Adapter.MessageRoomAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.MessageManager
 import com.example.SwallowMonthJM.R
@@ -28,7 +30,6 @@ class MessageListFragment : Fragment() {
             profileId = it.getInt("profileId")
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,11 +40,22 @@ class MessageListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         MessageManager(mainActivity.masterApp)
-
+            .getMessageRoomList(mainActivity.viewModel.myProfile.userName, paramFunc = { data,message->
+                if (data!=null){
+                    val adapter = MessageRoomAdapter(mainActivity,data)
+                    binding.messageList.adapter = adapter.apply {
+                        setOnItemClickListener(object : MessageRoomAdapter.OnItemClickListener{
+                            override fun onItemClick(frId:Int) {
+                                mainActivity.onFragmentChange(MessageRoomFragment.newInstance(frId))
+                            }
+                        })
+                    }
+                }else{
+                    Log.d("error : messageListFragment",message.toString())
+                }
+            })
     }
-
     companion object {
 
         @JvmStatic

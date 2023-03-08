@@ -3,6 +3,7 @@
     <dimen name="fab_margin_12dp">150dp</dimen>
     <dimen name="item_height_big">1500dp</dimen>
     <dimen name="item_height_big_180">2250dp</dimen>
+    <dimen name="item_height_big_200">2500dp</dimen>
     <dimen name="item_height_big_150">1875dp</dimen>
     <dimen name="item_height_big_100">1250dp</dimen>
     <dimen name="item_height_big_80">1000dp</dimen>

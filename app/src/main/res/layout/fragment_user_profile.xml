@@ -43,7 +43,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height_big_180"
+            android:layout_height="@dimen/item_height_big_200"
             android:orientation="horizontal"
             android:padding="@dimen/fab_margin_12dp">
 
@@ -63,6 +63,7 @@
                     android:src="@drawable/ic_iconmonstr_user_male_thin" />
 
                 <View
+                    android:layout_margin="@dimen/main_margin"
                     style="@style/LineView1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />

@@ -79,6 +79,24 @@ class RelationManager(
             })
     }
 
+    fun getFriendShip(frId: Int,paramFunc: (FriendShip?, message: String?) -> Unit){
+        masterApp.service.getFriendShip(frId)
+            .enqueue(object : Callback<FriendShip>{
+                override fun onResponse(call: Call<FriendShip>, response: Response<FriendShip>) {
+                    if (response.isSuccessful){
+                        paramFunc(response.body(),null)
+                    }else{
+                        paramFunc(null,response.errorBody()!!.string())
+                    }
+                }
+
+                override fun onFailure(call: Call<FriendShip>, t: Throwable) {
+                    paramFunc(null,"error")
+                }
+
+            })
+    }
+
     fun delFriendShip(frId : Int, paramFunc: (FriendShip?, message: String?) -> Unit){
         masterApp.service.delFriendShip(frId)
             .enqueue(object : Callback<FriendShip>{

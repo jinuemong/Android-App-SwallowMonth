@@ -200,6 +200,11 @@ interface RetrofitService {
         @Field("otherUser") otherUser:Int,
     ):Call<FUser>
 
+    // 친구 관계 얻기
+    @GET("relation/friendShips/{frId}/")
+    fun getFriendShip(
+        @Path("frId") frId: Int,
+    ):Call<FriendShip>
 
     //친구 관계 삭제 시 친구 리스트 자동 삭제
     @DELETE("relation/friendShips/{frId}/")

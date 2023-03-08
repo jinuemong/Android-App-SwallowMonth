@@ -17,6 +17,8 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Relation.MessageListFragment
+import com.example.SwallowMonthJM.Relation.MessageRoomFragment
 import com.example.SwallowMonthJM.Relation.TotalFriendFragment
 import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
@@ -100,6 +102,12 @@ class FragmentUserUI : Fragment() {
         binding.myFriend.setOnClickListener {
             val userName = mainActivity.viewModel.myProfile.userName
             mainActivity.onFragmentChange(TotalFriendFragment.newInstance(userName))
+        }
+
+        binding.message.setOnClickListener {
+            mainActivity.onFragmentChange(MessageListFragment.newInstance(
+                mainActivity.viewModel.myProfile.profileId
+            ))
         }
 
     }
