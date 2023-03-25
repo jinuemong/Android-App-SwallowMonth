@@ -5,6 +5,7 @@ class Alarm(
     val userId : String,
     val type : String,
     val typeId : Int,
+    val fromUserId : String,
     val isRead : Boolean,
     val createTime : String,
 ): java.io.Serializable

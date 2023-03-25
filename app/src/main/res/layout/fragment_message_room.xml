@@ -77,6 +77,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_message_my"
         android:id="@+id/chat_box"
         android:layout_margin="@dimen/main_margin"
         android:layout_width="match_parent"

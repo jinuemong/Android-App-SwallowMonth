@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import com.example.SwallowMonthJM.Adapter.AlarmListAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.AlarmManager
 import com.example.SwallowMonthJM.R
@@ -18,10 +20,17 @@ class AlarmFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private var _binding : FragmentAlarmBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+
+        onBackPressedCallback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                mainActivity.onFragmentGoBack(this@AlarmFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +54,20 @@ class AlarmFragment : Fragment() {
             AlarmManager(mainActivity.masterApp)
                 .getMyAlarmList(it, paramFunc = { data,_->
                     if (data!=null){
-
+                        AlarmListAdapter(mainActivity,data)
                     }
                 })
         }
+
+
+        setUpListener()
     }
 
+    private fun setUpListener(){
+        binding.backButton.setOnClickListener {
+            mainActivity.onFragmentGoBack(this@AlarmFragment)
+        }
+    }
     companion object {
 
         @JvmStatic

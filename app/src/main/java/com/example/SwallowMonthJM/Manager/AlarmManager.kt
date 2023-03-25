@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.Manager
 
 import com.example.SwallowMonthJM.Model.Alarm
+import com.example.SwallowMonthJM.Model.AlarmForGet
 import com.example.SwallowMonthJM.Network.MasterApplication
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,12 +12,12 @@ class AlarmManager(
 
 ) {
 
-    fun getMyAlarmList(userName: String,paramFunc: (ArrayList<Alarm>?, message: String?) -> Unit){
+    fun getMyAlarmList(userName: String,paramFunc: (ArrayList<AlarmForGet>?, message: String?) -> Unit){
         masterApp.service.getAlarmList(userName)
-            .enqueue((object : Callback<ArrayList<Alarm>> {
+            .enqueue((object : Callback<ArrayList<AlarmForGet>> {
                 override fun onResponse(
-                    call: Call<ArrayList<Alarm>>,
-                    response: Response<ArrayList<Alarm>>
+                    call: Call<ArrayList<AlarmForGet>>,
+                    response: Response<ArrayList<AlarmForGet>>
                 ) {
                     if(response.isSuccessful){
                         paramFunc(response.body(),null)
@@ -25,7 +26,7 @@ class AlarmManager(
                     }
                 }
 
-                override fun onFailure(call: Call<ArrayList<Alarm>>, t: Throwable) {
+                override fun onFailure(call: Call<ArrayList<AlarmForGet>>, t: Throwable) {
                     paramFunc(null,"error")
                 }
 

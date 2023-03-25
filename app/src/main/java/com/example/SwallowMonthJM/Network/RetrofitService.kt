@@ -237,8 +237,8 @@ interface RetrofitService {
     //내 알림 리스트 얻기
     @GET("relation/alarms/")
     fun getAlarmList(
-        @Query(value = "search", encoded = true) userName: String
-    ): Call<ArrayList<Alarm>>
+        @Query("userName") userName: String,
+    ): Call<ArrayList<AlarmForGet>>
 
     // 알림 보내기
     @POST("relation/alarms/")
