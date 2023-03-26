@@ -33,8 +33,9 @@ class AlarmManager(
             }))
     }
 
-    fun sendAlarm(targetUser : String, type : String, typeId: Int,paramFunc: (Alarm?, message: String?) -> Unit){
-        masterApp.service.addAlarm(targetUser,type,typeId)
+    fun sendAlarm(userName:String,targetUser : String, type : String,
+                  typeId: Int,paramFunc: (Alarm?, message: String?) -> Unit){
+        masterApp.service.addAlarm(targetUser,type,typeId,userName)
             .enqueue(object : Callback<Alarm> {
                 override fun onResponse(call: Call<Alarm>, response: Response<Alarm>) {
                     if (response.isSuccessful){

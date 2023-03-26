@@ -54,7 +54,8 @@ class AlarmFragment : Fragment() {
             AlarmManager(mainActivity.masterApp)
                 .getMyAlarmList(it, paramFunc = { data,_->
                     if (data!=null){
-                        AlarmListAdapter(mainActivity,data)
+                        binding.alarmList.adapter = AlarmListAdapter(mainActivity,data)
+
                     }
                 })
         }

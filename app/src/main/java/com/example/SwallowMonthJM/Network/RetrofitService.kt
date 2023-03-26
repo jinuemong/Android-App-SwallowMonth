@@ -38,7 +38,7 @@ interface RetrofitService {
     // 유저 조회
     @GET("user/profile/")
     fun searchProfile(
-        @Query("userName") userName : String
+        @Query("search") userName : String
     ): Call<ArrayList<Profile>>
 
     // profile 수정
@@ -225,7 +225,7 @@ interface RetrofitService {
     fun checkFriendShip(
         @Field("userName")userName: String,
         @Field("targetUser")targetUser : Int,
-    ):Call<FriendData>
+    ):Call<CheckRelation>
 
     //랜덤 유저 얻기
     @POST("relation/randomProfile/")
@@ -247,6 +247,7 @@ interface RetrofitService {
         @Field("userId")userName: String,
         @Field("type")type:String,
         @Field("typeId")typeId : Int,
+        @Field("fromUserId")fromUserId:String,
     ): Call<Alarm>
 
     @DELETE("relation/alarms/{alarmId}/")

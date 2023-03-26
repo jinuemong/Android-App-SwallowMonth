@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Alarm
 import com.example.SwallowMonthJM.Model.AlarmForGet
+import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.Unit.getTimeText
 import com.example.SwallowMonthJM.databinding.ItemAlarmBinding
 
@@ -25,10 +26,10 @@ class AlarmListAdapter(
                 val item  = itemSet[absoluteAdapterPosition]
                 binding.timeText.text = getTimeText(item.alarm.createTime)
                 Glide.with(mainActivity)
-                    .load(item.profile.userImage)
+                    .load(getPhotoUrl(item.profile.userImage,(mainActivity.masterApp).baseUrl))
                     .into(binding.userImage)
                 if (item.alarm.type =="FriendShip"){
-                    binding.alarmText.text = "new friend request from a ${item.profile.userName}}"
+                    binding.alarmText.text = "new friend request from ${item.profile.userName}"
                 }
 
             }

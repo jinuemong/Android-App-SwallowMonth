@@ -143,18 +143,22 @@ class UserProfileFragment() : Fragment() {
         } else {
             //친구 상태 확인 1: not , 2 : post add Friend ,3: friend
             relationManager
-                .checkFriend(myProfile.userName,profileId, paramFunc = { friendData,message->
-                    if (message==null){
-                        if (friendData?.friendData==null){ //no Friend
-                            isMainView()
-                        }else{
-                            if(friendData.friendData.fUserPost.size==1){ //친구 요청만 감
-                                isAddFriendStatus(friendData.friendData.frId)
-
-                            }else if (friendData.friendData.fUserPost.size==2){ //친구 상태
-                                isFriend(friendData)
-                            }
+                .checkFriend(myProfile.userName,profileId, paramFunc = { checkFriend,err->
+                    if (checkFriend!=null){
+                        Log.d("checkFriendData",checkFriend.type.toString()+","+checkFriend.frId)
+                        when(checkFriend.type){
+                            1->{ // 친구
+                                isFriend(checkFriend.frId)
+                            }2->{ //요청 보냄
+                                isAddFriendStatus(checkFriend.frId)
+                            }3->{ //요청 받음
+                                isGetFriendStatus(checkFriend.frId)
+                            }4->{ //아무런 관계 없음
+                                isMainView()
+                            }else->{}
                         }
+                    }else{
+                        Log.d("checkFriendData",err.toString())
                     }
                 })
         }
@@ -168,7 +172,23 @@ class UserProfileFragment() : Fragment() {
         binding.isFriend.visibility = View.GONE
     }
 
-    //친구 추가 보낸 상태
+    //친구 요청 받은 상태 type 3
+    @SuppressLint("SetTextI18n")
+    private fun isGetFriendStatus(frId: Int){
+        binding.addFriend.visibility = View.GONE
+        binding.sendMessage.visibility = View.GONE
+        binding.sendData.visibility = View.VISIBLE
+        binding.isFriend.visibility = View.GONE
+        //친구 수락
+        binding.sendData.apply {
+            text = "Accept friend"
+            setOnClickListener {
+                acceptFriend(frId)
+            }
+        }
+    }
+
+    //친구 추가 보낸 상태 type 2
     private fun isAddFriendStatus(frId:Int){
         binding.addFriend.visibility = View.GONE
         binding.sendMessage.visibility = View.GONE
@@ -181,7 +201,7 @@ class UserProfileFragment() : Fragment() {
         }
     }
 
-    //기본 상태
+    //기본 상태 type 4
     private fun isMainView() {
         binding.sendMessage.visibility = View.VISIBLE
         binding.addFriend.visibility = View.VISIBLE
@@ -203,20 +223,18 @@ class UserProfileFragment() : Fragment() {
         binding.addFriend.setOnClickListener {
             RelationManager(mainActivity.masterApp)
                 .makeNewFriendRelation(myProfile.userName,profileId,profileName
-                    , paramFunc = { data,message->
+                    , paramFunc = { data,_->
                         if (data!=null) {
-                            Log.d("sdlfjsdofjsdof",data.toString())
                             isAddFriendStatus(data.frId)
                         }else{
-                            Log.d("sdlfjsdofjsdof",message.toString())
 
                         }
                     })
         }
     }
 
-    //친구 상태
-    private fun isFriend(friendData:FriendData){
+    //친구 상태 type 1
+    private fun isFriend(frId: Int){
         binding.sendMessage.visibility = View.VISIBLE
         binding.addFriend.visibility = View.GONE
         binding.sendData.visibility = View.GONE
@@ -232,7 +250,7 @@ class UserProfileFragment() : Fragment() {
                 setOnclickListener(object :MessageBox.OnItemClickListener{
                     override fun onItemClick() {
                         messageBox.dismiss()
-                        delFriendShip(friendData.friendData.frId)
+                        delFriendShip(frId)
                     }
                 })
             }
@@ -241,7 +259,7 @@ class UserProfileFragment() : Fragment() {
         //메시지
         binding.sendMessage.setOnClickListener {
             mainActivity.onFragmentChange(
-                MessageRoomFragment.newInstance(friendData.friendData.frId)
+                MessageRoomFragment.newInstance(frId)
             )
         }
     }
@@ -253,5 +271,13 @@ class UserProfileFragment() : Fragment() {
                     isMainView()
                 }
             })
+    }
+    private fun acceptFriend(frId: Int){
+        relationManager.addFUser(frId,myProfile.userName,profileId
+            , paramFunc = { _,message->
+            if (message==null){
+                isFriend(frId)
+            }
+        })
     }
 }

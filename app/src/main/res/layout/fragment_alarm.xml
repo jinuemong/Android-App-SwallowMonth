@@ -43,8 +43,8 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alarm_list"
         android:layout_margin="@dimen/main_margin_10"
-        android:id="@+id/message_list"
         android:orientation="vertical"
         tools:listitem="@layout/item_alarm"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

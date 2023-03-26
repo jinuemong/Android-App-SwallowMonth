@@ -17,7 +17,7 @@ class RelationManager(
         addFriendRelation("$userName make FriendShip!",paramFunc={ friendShip, message ->
             if (message==null){
                 addFUser(friendShip!!.frId,userName,otherUser, paramFunc = { _,_-> })
-                AlarmManager(masterApp).sendAlarm(targetUser,"FriendShip",friendShip.frId,
+                AlarmManager(masterApp).sendAlarm(userName,targetUser,"FriendShip",friendShip.frId,
                     paramFunc = {_,_-> })
                 paramFunc(friendShip,null)
             }else{paramFunc(null,"error")}
@@ -42,26 +42,24 @@ class RelationManager(
             })
     }
 
-    fun checkFriend(userName:String, targetUser: Int,paramFunc: (FriendData?, message: String?) -> Unit){
+    fun checkFriend(userName:String, targetUser: Int,paramFunc: (CheckRelation?, message: String?) -> Unit){
         masterApp.service.checkFriendShip(userName,targetUser)
-            .enqueue(object : Callback<FriendData>{
-                override fun onResponse(call: Call<FriendData>, response: Response<FriendData>) {
+            .enqueue(object : Callback<CheckRelation>{
+                override fun onResponse(call: Call<CheckRelation>, response: Response<CheckRelation>) {
                     if (response.isSuccessful){
                         paramFunc(response.body()!!,null)
                     }else{
                         paramFunc(null,"error:"+response.errorBody()!!.string())
                     }
                 }
-                override fun onFailure(call: Call<FriendData>, t: Throwable) {
-                    Log.d("testseswtestes",t.toString())
-
+                override fun onFailure(call: Call<CheckRelation>, t: Throwable) {
                     paramFunc(null,"error")
 
                 }
 
             })
     }
-    private fun addFUser(frId:Int, userId:String, otherUser:Int, paramFunc: (FUser?, message: String?) -> Unit){
+    fun addFUser(frId:Int, userId:String, otherUser:Int, paramFunc: (FUser?, message: String?) -> Unit){
         masterApp.service.addFUser(frId,userId,otherUser)
             .enqueue(object :  Callback<FUser>{
                 override fun onResponse(call: Call<FUser>, response: Response<FUser>) {

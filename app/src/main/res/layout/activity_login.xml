@@ -31,7 +31,6 @@
     </LinearLayout>
 
     <EditText
-        android:text="superuser"
         android:textStyle="bold"
         android:id="@+id/user_name_input"
         android:layout_width="@dimen/item_we_300"
@@ -41,7 +40,6 @@
         android:textSize="@dimen/item_height_big_21_text_size" />
 
     <EditText
-        android:text="1234"
         android:textStyle="bold"
         android:id="@+id/user_password_input"
         android:layout_width="@dimen/item_we_300"
