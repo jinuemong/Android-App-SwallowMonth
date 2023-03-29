@@ -46,15 +46,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/fab_margin_12dp"
                     android:gravity="center"
-                    android:textSize="@dimen/item_height_big_text_size"
+                    android:textSize="@dimen/item_height_big_21_text_size"
                     android:textStyle="bold"
-                    tools:text="xxxx.x" />
+                    tools:text="xxxx년 xx월" />
 
                 <Button
                     android:id="@+id/task_list_calendar"
                     style="@style/TextView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="@color/color_type2"
                     android:drawableLeft="@drawable/ic_iconmonstr_calendar_6"
                     android:padding="@dimen/main_margin"

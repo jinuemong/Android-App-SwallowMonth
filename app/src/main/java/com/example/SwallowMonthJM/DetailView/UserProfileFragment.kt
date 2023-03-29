@@ -18,6 +18,7 @@ import com.example.SwallowMonthJM.Model.FriendData
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Network.MasterApplication
 import com.example.SwallowMonthJM.Relation.MessageRoomFragment
+import com.example.SwallowMonthJM.Relation.MyFriendFragment
 import com.example.SwallowMonthJM.Relation.TotalFriendFragment
 import com.example.SwallowMonthJM.Unit.MessageBox
 import com.example.SwallowMonthJM.databinding.FragmentUserProfileBinding
@@ -131,7 +132,11 @@ class UserProfileFragment() : Fragment() {
 
     private fun setUpListener(){
         binding.moreFriend.setOnClickListener {
-            mainActivity.onFragmentChange(TotalFriendFragment.newInstance(profileName))
+            if(profileName==myProfile.userName){
+                mainActivity.onFragmentChange(MyFriendFragment())
+            }else {
+                mainActivity.onFragmentChange(TotalFriendFragment.newInstance(profileName))
+            }
         }
     }
 
@@ -141,7 +146,7 @@ class UserProfileFragment() : Fragment() {
         if (myProfile.profileId == profileId) {
             isMyView()
         } else {
-            //친구 상태 확인 1: not , 2 : post add Friend ,3: friend
+            //친구 상태 확인
             relationManager
                 .checkFriend(myProfile.userName,profileId, paramFunc = { checkFriend,err->
                     if (checkFriend!=null){
@@ -241,7 +246,7 @@ class UserProfileFragment() : Fragment() {
         binding.isFriend.visibility = View.VISIBLE
 
         //친구 취소
-        binding.sendData.setOnClickListener {
+        binding.isFriend.setOnClickListener {
             val messageBox = MessageBox.newInstance("All relationships " +
                     "including messages, " +
                     "are deleted to the user where they are deleted?")

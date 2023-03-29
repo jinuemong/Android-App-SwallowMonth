@@ -50,6 +50,27 @@ class UserManager(
 
             })
     }
+
+    fun searchUserProfiles(param : String, paramFun: (ArrayList<Profile>?, message: String?) -> Unit){
+        materApp.service.searchProfile(param)
+            .enqueue(object : Callback<ArrayList<Profile>>{
+                override fun onResponse(
+                    call: Call<ArrayList<Profile>>,
+                    response: Response<ArrayList<Profile>>
+                ) {
+                    if (response.isSuccessful){
+                        paramFun(response.body(),null)
+                    }else{
+                        paramFun(null,response.errorBody()!!.string())
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Profile>>, t: Throwable) {
+                    paramFun(null,"error")
+                }
+
+            })
+    }
     fun setUserProfile(profile: Profile, imageUri: Uri?, paramFun: (Profile?, String) -> Unit){
         mainActivity.multiPartViewModel
             .updateProfile(profile,imageUri,mainActivity, paramFunc = { reProfile,message->

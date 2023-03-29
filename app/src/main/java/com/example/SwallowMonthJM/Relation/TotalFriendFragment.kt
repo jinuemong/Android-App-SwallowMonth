@@ -48,7 +48,7 @@ class TotalFriendFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.text.text = "$username Friend List'"
+        binding.text.text = "$username Friend List"
 
         username?.let {
             RelationManager(mainActivity.masterApp)
@@ -84,7 +84,7 @@ class TotalFriendFragment() : Fragment() {
 
         @JvmStatic
         fun newInstance(userName : String) =
-            MyFriendFragment().apply {
+            TotalFriendFragment().apply {
                 arguments = Bundle().apply {
                     putString("userName", userName)
                 }

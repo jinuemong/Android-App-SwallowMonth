@@ -19,6 +19,13 @@ class AlarmListAdapter(
     private lateinit var binding: ItemAlarmBinding
     private var itemSet = dataSet
 
+    private var onItemClickListener:OnItemClickListener? =null
+    interface OnItemClickListener{
+        fun itemClick(type: String, profileId : Int)
+    }
+    fun setUpListener(listener: OnItemClickListener){
+        this.onItemClickListener = listener
+    }
     inner class ViewHolder(val binding : ItemAlarmBinding)
         :RecyclerView.ViewHolder(binding.root){
             @SuppressLint("SetTextI18n")
@@ -31,6 +38,7 @@ class AlarmListAdapter(
                 if (item.alarm.type =="FriendShip"){
                     binding.alarmText.text = "new friend request from ${item.profile.userName}"
                 }
+                onItemClickListener?.itemClick(item.alarm.type,item.profile.profileId)
 
             }
         }

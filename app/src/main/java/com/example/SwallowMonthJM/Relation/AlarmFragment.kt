@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.example.SwallowMonthJM.Adapter.AlarmListAdapter
+import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.AlarmManager
+import com.example.SwallowMonthJM.Model.Alarm
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentAlarmBinding
 
@@ -55,7 +57,18 @@ class AlarmFragment : Fragment() {
                 .getMyAlarmList(it, paramFunc = { data,_->
                     if (data!=null){
                         binding.alarmList.adapter = AlarmListAdapter(mainActivity,data)
+                            .apply {
+                                setUpListener(object :AlarmListAdapter.OnItemClickListener{
+                                    override fun itemClick(type: String, profileId : Int) {
+                                        if(type=="FriendShip"){
+                                            // 친구 요청한 프로필로 이동
+                                            mainActivity.onFragmentChange(
+                                                UserProfileFragment.newInstance(profileId))
+                                        }
+                                    }
 
+                                })
+                            }
                     }
                 })
         }
