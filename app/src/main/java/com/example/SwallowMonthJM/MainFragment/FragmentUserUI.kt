@@ -10,19 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.MiniProfileAdapter
-import com.example.SwallowMonthJM.DetailView.FriendListFragment
 import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.LoginActivity
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Relation.MessageListFragment
-import com.example.SwallowMonthJM.Relation.MessageRoomFragment
 import com.example.SwallowMonthJM.Relation.MyFriendFragment
-import com.example.SwallowMonthJM.Relation.TotalFriendFragment
 import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.UIFragment.SearchUserFragment
+import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
 
 
@@ -64,7 +61,7 @@ class FragmentUserUI : Fragment() {
     private fun initView(){
         mainActivity.viewModel.myProfile.apply {
             Glide.with(mainActivity)
-                .load(this.userImage)
+                .load(getPhotoUrl(userImage,mainActivity.masterApp.baseUrl))
                 .into(binding.userImage)
             binding.userName.text = this.userName
             if (this.userComment!="") {

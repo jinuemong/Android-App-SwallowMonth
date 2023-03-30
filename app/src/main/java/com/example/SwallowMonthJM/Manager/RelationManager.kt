@@ -1,6 +1,5 @@
 package com.example.SwallowMonthJM.Manager
 
-import android.util.Log
 import com.example.SwallowMonthJM.Model.*
 import com.example.SwallowMonthJM.Server.MasterApplication
 import retrofit2.Call

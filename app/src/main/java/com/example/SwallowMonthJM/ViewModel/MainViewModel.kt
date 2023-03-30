@@ -12,7 +12,6 @@ import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.DayData
 import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Server.MasterApplication
 import java.text.SimpleDateFormat
 import java.util.*
 

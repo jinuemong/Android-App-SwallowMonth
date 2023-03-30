@@ -3,7 +3,6 @@ package com.example.SwallowMonthJM
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -35,6 +34,8 @@ import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import de.hdodenhof.circleimageview.CircleImageView
+import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.*
 class MainActivity : AppCompatActivity() {
@@ -83,7 +84,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         frManger = this@MainActivity.supportFragmentManager
+        // 레트로핏 생성 //
         masterApp = this@MainActivity.application as MasterApplication
+        masterApp.createRetrofit(this@MainActivity)
+
         // user profile 세팅
         userName = intent.getStringExtra("username").toString()
 
@@ -110,6 +114,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         this.onBackPressedDispatcher.addCallback(this,callback)
+
 
         //뷰 초기화
         initView()
@@ -204,22 +209,14 @@ class MainActivity : AppCompatActivity() {
         frManger.beginTransaction().remove(fragment).commit()
         frManger.popBackStack()
     }
-    fun setImage(view:ImageView,url:String){
-        try {
-            Glide.with(this@MainActivity)
-                .load(url)
-                .into(view)
-        }catch (e:Exception){
-            Glide.with(this@MainActivity)
-                .load(getPhotoUrl(url,masterApp.baseUrl))
-                .into(view)
-        }
-    }
+
     fun setProfile(profile: Profile){
         binding.apply {
             mainTopName.text = profile.userName
             mainTopComment.text = profile.userComment
-            setImage(mainTopImage,profile.userImage)
+            Glide.with(this@MainActivity)
+                .load(getPhotoUrl(profile.userImage,masterApp.baseUrl))
+                .into(mainTopImage)
 
         }
     }

@@ -7,7 +7,6 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.TaskManager
 import com.example.SwallowMonthJM.Model.Task
-import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Unit.SampleTask
 import com.example.SwallowMonthJM.Unit.levelPoint
 

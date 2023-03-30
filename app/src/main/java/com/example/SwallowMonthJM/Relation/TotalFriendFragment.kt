@@ -13,7 +13,6 @@ import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.databinding.FragmentTotalFriendBinding
 
 // other 유저 친구 목록

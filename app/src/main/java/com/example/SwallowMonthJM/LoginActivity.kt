@@ -7,15 +7,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.example.SwallowMonthJM.Model.AuthUser
 import com.example.SwallowMonthJM.Model.GetUser
-import com.example.SwallowMonthJM.Model.User
+import com.example.SwallowMonthJM.Model.Token
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Unit.errorConvert
 import com.example.SwallowMonthJM.databinding.ActivityLoginBinding
@@ -92,12 +90,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(){
-
-        (application as MasterApplication).service.loginUser(
+        val masterApp = (application as MasterApplication)
+        masterApp.createRetrofit(this@LoginActivity)
+        masterApp.service.loginUser(
             getUserName(),getUserPass()
         ).enqueue(object :Callback<GetUser>{
             override fun onResponse(call: Call<GetUser>, response: Response<GetUser>) {
-                (application as MasterApplication).createRetrofit()
                 if (response.isSuccessful && response.body()!=null){
 
                     //로그인 성공
@@ -105,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
 
                     //토큰 가져오기
                     val token = authUser.token
-                    saveUserToken(token.access,this@LoginActivity)
+                    saveUserToken(token,this@LoginActivity)
 
                     //자동 로그인 확인
                     checkSharedLogin()
@@ -130,10 +128,11 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun saveUserToken(token:String,activity: Activity){
+    private fun saveUserToken(token: Token, activity: Activity){
         val sp = activity.getSharedPreferences("login_sp", Context.MODE_PRIVATE)
         val editor = sp.edit()
-        editor.putString("login_sp",token)
+        editor.putString("accessToken", token.access)
+        editor.putString("refreshToken", token.refresh)
         editor.apply()
     }
     private fun getUserName() : String{

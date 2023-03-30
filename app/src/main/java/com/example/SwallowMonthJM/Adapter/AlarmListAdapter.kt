@@ -38,7 +38,9 @@ class AlarmListAdapter(
                 if (item.alarm.type =="FriendShip"){
                     binding.alarmText.text = "new friend request from ${item.profile.userName}"
                 }
-                onItemClickListener?.itemClick(item.alarm.type,item.profile.profileId)
+                binding.root.setOnClickListener {
+                    onItemClickListener?.itemClick(item.alarm.type,item.profile.profileId)
+                }
 
             }
         }
