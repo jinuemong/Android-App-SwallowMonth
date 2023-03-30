@@ -13,7 +13,7 @@ import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.databinding.FragmentTotalFriendBinding
 
 // other 유저 친구 목록
@@ -47,6 +47,7 @@ class TotalFriendFragment() : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.animation = mainActivity.aniList[2]
 
         binding.text.text = "$username Friend List"
 

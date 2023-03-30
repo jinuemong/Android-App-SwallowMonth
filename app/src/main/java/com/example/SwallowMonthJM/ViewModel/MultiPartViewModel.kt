@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

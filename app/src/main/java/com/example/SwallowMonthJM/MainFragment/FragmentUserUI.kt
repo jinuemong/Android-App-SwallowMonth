@@ -16,7 +16,7 @@ import com.example.SwallowMonthJM.LoginActivity
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Relation.MessageListFragment
 import com.example.SwallowMonthJM.Relation.MessageRoomFragment
 import com.example.SwallowMonthJM.Relation.MyFriendFragment

@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Network
+package com.example.SwallowMonthJM.Server
 
 import com.example.SwallowMonthJM.Model.*
 import okhttp3.MultipartBody
@@ -15,7 +15,7 @@ interface RetrofitService {
     fun loginUser(
         @Field("userName") userName: String,
         @Field("password") password: String
-    ): Call<User>
+    ): Call<GetUser>
 
     // 가입
     @POST("user/register/")
@@ -23,7 +23,7 @@ interface RetrofitService {
     fun registerUser(
         @Field("userName") userName: String,
         @Field("password") password: String
-    ): Call<User>
+    ): Call<GetUser>
 
     //비밀번호 수정
 //    @PATCH("user/current/")
@@ -35,12 +35,12 @@ interface RetrofitService {
         @Path("profileId") profileId : Int
     ): Call<Profile>
 
-    // 유저 조회
-    @GET("user/profile/")
+    //유저 검색
+    @FormUrlEncoded
+    @POST("user/search/profile/")
     fun searchProfile(
-        @Query("search") userName : String
-    ): Call<ArrayList<Profile>>
-
+        @Field("search") search : String
+    ) : Call<ArrayList<Profile>>
     // profile 수정
     @Multipart
     @POST("user/update/profile/")

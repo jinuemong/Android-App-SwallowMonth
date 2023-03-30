@@ -40,6 +40,7 @@ class MessageListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.animation = mainActivity.aniList[2]
         MessageManager(mainActivity.masterApp)
             .getMessageRoomList(mainActivity.viewModel.myProfile.userName, paramFunc = { data,message->
                 if (data!=null){

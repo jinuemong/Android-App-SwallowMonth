@@ -3,7 +3,7 @@ package com.example.SwallowMonthJM.Manager
 import android.net.Uri
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.ViewModel.MultiPartViewModel
 import retrofit2.Call
 import retrofit2.Callback

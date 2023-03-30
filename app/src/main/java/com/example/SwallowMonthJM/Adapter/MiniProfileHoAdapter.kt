@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.databinding.ItemSearchUserBinding
 
 class MiniProfileHoAdapter(
@@ -29,7 +30,7 @@ class MiniProfileHoAdapter(
                 binding.userComment.text =item.userComment
                 binding.userName.text = item.userName
                 Glide.with(mainActivity)
-                    .load(item.userImage)
+                    .load(getPhotoUrl(item.userImage,mainActivity.masterApp.baseUrl))
                     .into(binding.userImage)
 
                 binding.root.setOnClickListener {

@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentProfileUpdateBinding
 import com.example.SwallowMonthJM.Manager.UserManager

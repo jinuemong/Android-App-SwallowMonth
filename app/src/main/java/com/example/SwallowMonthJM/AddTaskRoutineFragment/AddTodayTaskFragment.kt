@@ -15,7 +15,7 @@ import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.Task
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentAddTodayTaskBinding
 

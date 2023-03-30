@@ -12,7 +12,7 @@ import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentMyFriendBinding
 
@@ -40,6 +40,7 @@ class MyFriendFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.animation = mainActivity.aniList[2]
 
         RelationManager(mainActivity.masterApp)
             .getFriendList(mainActivity.viewModel.myProfile.userName, paramFunc = { data,message->

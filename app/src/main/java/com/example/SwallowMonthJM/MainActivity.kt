@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -28,8 +29,9 @@ import com.example.SwallowMonthJM.MainFragment.FragmentUserUI
 import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.UserManager
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Relation.AlarmFragment
+import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -202,15 +204,23 @@ class MainActivity : AppCompatActivity() {
         frManger.beginTransaction().remove(fragment).commit()
         frManger.popBackStack()
     }
-
+    fun setImage(view:ImageView,url:String){
+        try {
+            Glide.with(this@MainActivity)
+                .load(url)
+                .into(view)
+        }catch (e:Exception){
+            Glide.with(this@MainActivity)
+                .load(getPhotoUrl(url,masterApp.baseUrl))
+                .into(view)
+        }
+    }
     fun setProfile(profile: Profile){
         binding.apply {
             mainTopName.text = profile.userName
             mainTopComment.text = profile.userComment
-            Glide.with(this@MainActivity)
-                .load(profile.userImage)
-                .into(mainTopImage)
-            Log.d("setsetsesetset",profile.userImage)
+            setImage(mainTopImage,profile.userImage)
+
         }
     }
 }

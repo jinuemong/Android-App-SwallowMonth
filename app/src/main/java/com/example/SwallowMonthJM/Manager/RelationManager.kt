@@ -2,7 +2,7 @@ package com.example.SwallowMonthJM.Manager
 
 import android.util.Log
 import com.example.SwallowMonthJM.Model.*
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

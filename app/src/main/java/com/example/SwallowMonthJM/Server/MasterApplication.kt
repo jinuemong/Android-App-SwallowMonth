@@ -1,4 +1,4 @@
-package com.example.SwallowMonthJM.Network
+package com.example.SwallowMonthJM.Server
 
 import android.app.Application
 import android.content.Context

@@ -7,13 +7,16 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.example.SwallowMonthJM.Model.AuthUser
+import com.example.SwallowMonthJM.Model.GetUser
 import com.example.SwallowMonthJM.Model.User
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Unit.errorConvert
 import com.example.SwallowMonthJM.databinding.ActivityLoginBinding
 import retrofit2.Call
@@ -92,18 +95,17 @@ class LoginActivity : AppCompatActivity() {
 
         (application as MasterApplication).service.loginUser(
             getUserName(),getUserPass()
-        ).enqueue(object :Callback<User>{
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        ).enqueue(object :Callback<GetUser>{
+            override fun onResponse(call: Call<GetUser>, response: Response<GetUser>) {
                 (application as MasterApplication).createRetrofit()
                 if (response.isSuccessful && response.body()!=null){
 
                     //로그인 성공
-                    val user = response.body()
+                    val authUser = response.body()!!.user
+
                     //토큰 가져오기
-                    val token = user!!.token
-                    if (token!=null){
-                        saveUserToken(token,this@LoginActivity)
-                    }
+                    val token = authUser.token
+                    saveUserToken(token.access,this@LoginActivity)
 
                     //자동 로그인 확인
                     checkSharedLogin()
@@ -119,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<GetUser>, t: Throwable) {
                 Toast.makeText(this@LoginActivity,"Network error",Toast.LENGTH_SHORT)
                     .show()
             }

@@ -2,7 +2,7 @@ package com.example.SwallowMonthJM.Manager
 
 import com.example.SwallowMonthJM.Model.FriendData
 import com.example.SwallowMonthJM.Model.Message
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

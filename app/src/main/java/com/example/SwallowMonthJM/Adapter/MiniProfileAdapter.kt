@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.FriendData
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Network.MasterApplication
+import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.databinding.ItemUserProfileBinding
 
