@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
@@ -16,6 +18,7 @@ import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentProfileUpdateBinding
 import com.example.SwallowMonthJM.Manager.UserManager
 import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 class ProfileUpdateFragment : Fragment() {
@@ -50,10 +53,11 @@ class ProfileUpdateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mainActivity.viewModel.myProfile.apply {
             updateProfile = this
             Glide.with(mainActivity)
-                .load(userImage)
+                .load(getPhotoUrl(userImage,mainActivity.masterApp.baseUrl))
                 .into(binding.userImage)
 
             binding.insertId.setText(userName)

@@ -14,11 +14,11 @@ fun getTimeText(createTime: String): String {
     return if (timeString != null) {
         val calDate = (today - timeString)
         if ((calDate / (60 * 60 * 24 * 1000)) >= 1) { //1일 이상
-            (calDate / (60 * 60 * 24 * 1000)).toInt().toString() + " 일 전"
+            (calDate / (60 * 60 * 24 * 1000)).toInt().toString() + " day ago"
         } else if ((calDate / (60 * 60 * 1000)) >= 1) { //1시간 이상
-            (calDate / (60 * 60 * 1000)).toInt().toString() + " 시간 전"
+            (calDate / (60 * 60 * 1000)).toInt().toString() + " hour ago"
         } else if ((calDate / (60 * 1000)) >= 1) { //분 단위
-            (calDate / (60 * 1000)).toInt().toString() + " 분 전"
+            (calDate / (60 * 1000)).toInt().toString() + " minute age"
         } else {
             "몇초 전"
         }

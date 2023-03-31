@@ -14,15 +14,15 @@ class AuthInterceptor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response = chain.proceed(request)
-
         if (response.code==401){// 코드로 토큰 재인증 여부 확인
             return runBlocking {
+                Log.d("test 123123123 1",response.body.toString())
                 when(val token = getUpdateToken()){
                     is Resource.Success ->{
                         val sp = context.getSharedPreferences("login_sp",Context.MODE_PRIVATE)
                         val editor = sp.edit()
-                        val accessToken = token.value!!
-
+                        val accessToken = token.value!!.access
+                        Log.d("test 123123123 2",accessToken.toString())
                         editor.putString("accessToken",accessToken)
                         editor.apply()
 
@@ -41,10 +41,10 @@ class AuthInterceptor(
         return response //정상 값 반환
     }
 
-    private suspend fun getUpdateToken() : Resource<String?> {
+    private suspend fun getUpdateToken() : Resource<Token?> {
         val refreshToken = context.getSharedPreferences("login_sp",Context.MODE_PRIVATE)
             .getString("refreshToken","").toString()
-
+        Log.d("sdljdl",refreshToken)
         //safeApiCall을 통한 api 요청
         // refresh token이 비었을 경우에는 null 전송을 통해서 에러 반환을 받음
         return safeApiCall { tokenApi.patchToken(refreshToken) }
