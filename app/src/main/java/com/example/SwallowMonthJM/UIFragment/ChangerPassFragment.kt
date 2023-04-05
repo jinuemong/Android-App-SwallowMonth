@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.UIFragment
 
 import android.content.Context
 import android.os.Bundle
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import android.widget.Toast
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.FragmentChangerPassBinding
-
+import com.example.SwallowMonthJM.Manager.UserManager
 
 class ChangerPassFragment : Fragment() {
 
@@ -67,8 +68,18 @@ class ChangerPassFragment : Fragment() {
         return binding.pw2.text.toString()
     }
 
+    private fun getUserName() : String{
+        return mainActivity.viewModel.myProfile.userName
+    }
+
 
     private fun changePass(){
-
+        UserManager(mainActivity.masterApp,mainActivity)
+            .updateUserPassword(getUserName(),getUserPass1(), paramFun = { _, message ->
+                if (message!=null){
+                    Toast.makeText(mainActivity,message,Toast.LENGTH_LONG).show()
+                }
+                mainActivity.onFragmentGoBack(this@ChangerPassFragment)
+            })
     }
 }

@@ -62,6 +62,11 @@ class MainViewModel : ViewModel(){
         currentDayPosition.value = 1
     }
 
+    //오늘 데이터인지 확인
+    fun checkToday(position:Int) : Boolean{
+        return (todayKeyDate == monthData.keyDate && position==todayDayPosition)
+    }
+
     //현재 뷰 년도 초기화
     private fun setCurrentYear(year:Int){
         currentYear.value = year
@@ -169,5 +174,6 @@ class MainViewModel : ViewModel(){
         }
         setCurrentDayPosition(currentDate.currentIndex -currentDate.prevTail ) //view 날짜
     }
+
 
 }

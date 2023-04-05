@@ -60,7 +60,7 @@ class RoutineSlider(
                     it.dayIndex == dPosition
                 }
 
-                if (dayRoutine != null) {
+                if (dayRoutine != null ) {
                     mainActivity.routineViewModel.doneRoutineData(routine, dayRoutine)
                 }
             }else{

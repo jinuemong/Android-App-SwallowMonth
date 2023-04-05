@@ -26,7 +26,13 @@ interface RetrofitService {
     ): Call<GetUser>
 
     //비밀번호 수정
-//    @PATCH("user/current/")
+    @PATCH("user/current/")
+    @FormUrlEncoded
+    fun updatePassword(
+        @Field("userName") userName: String,
+        @Field("password") password: String
+    ):Call<User>
+
 
 
     // 유저 얻기

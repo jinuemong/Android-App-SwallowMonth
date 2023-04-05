@@ -3,6 +3,8 @@ package com.example.SwallowMonthJM.AddTaskRoutineFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.SwallowMonthJM.Calendar.CalendarAdapterAddTask
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.FragmentRoutineBinding
 
@@ -20,7 +23,6 @@ import com.example.SwallowMonthJM.databinding.FragmentRoutineBinding
 class RoutineSupportFragment : Fragment() {
     private var _binding:FragmentRoutineBinding? = null
     private val binding get() = _binding!!
-    private lateinit var calendarAdapter: CalendarAdapterAddTask
     private lateinit var mainActivity: MainActivity
 
     override fun onAttach(context: Context) {
@@ -70,6 +72,20 @@ class RoutineSupportFragment : Fragment() {
     }
 
     private fun setUpListener(){
+        binding.routineEditText.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.routineEditText.setBackgroundColor(0)
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                TODO("Not yet implemented")
+            }
+
+        })
         binding.routineEditText.setOnKeyListener { _, keyCode, event ->
             var handled=false
 
@@ -85,11 +101,12 @@ class RoutineSupportFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun addTypeData(text:String){
         if (text!="") {
             mainActivity.addViewModel.text = text
             binding.routineBox.routineText.text=text
-            binding.routineEditText.setText("")
+            binding.routineEditText.setBackgroundColor(R.color.gray)
         }
         //바 내리기
         val imm =

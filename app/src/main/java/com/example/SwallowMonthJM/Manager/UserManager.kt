@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM.Manager
 import android.net.Uri
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Model.User
 import com.example.SwallowMonthJM.Server.MasterApplication
 import retrofit2.Call
 import retrofit2.Callback
@@ -75,5 +76,23 @@ class UserManager(
             .updateProfile(profile,imageUri,mainActivity, paramFunc = { reProfile,message->
                 paramFun(reProfile,message) //update profile, message
         })
+    }
+
+    fun updateUserPassword(userName: String, password:String,paramFun: (User?, message: String?) -> Unit){
+        materApp.service.updatePassword(userName,password)
+            .enqueue(object : Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful){
+                        paramFun(response.body(),null)
+                    }else{
+                        paramFun(null, response.errorBody()!!.string())
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    paramFun(null,"error: $t")
+                }
+
+            })
     }
 }

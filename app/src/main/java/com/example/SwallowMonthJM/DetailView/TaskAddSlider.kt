@@ -1,9 +1,13 @@
 package com.example.SwallowMonthJM.DetailView
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.databinding.SlideLayoutAddTaskBinding
 
 class TaskAddSlider(
@@ -16,6 +20,18 @@ class TaskAddSlider(
 
 
     fun setUpListener(){
+        editTypingView.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                editTypingView.setBackgroundColor(0)
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
         //버튼 리스너
         editTypingView.setOnKeyListener { v, keyCode, event ->
             var handled = false
@@ -32,10 +48,11 @@ class TaskAddSlider(
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun addTypeData(){
         if (editTypingView.text!=null && editTypingView.text.toString()!="") {
             addData(editTypingView.text.toString())
-            editTypingView.setText("")
+            editTypingView.setBackgroundColor(R.color.gray)
         }
         //바 내리기
         val imm =

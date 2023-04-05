@@ -259,12 +259,13 @@ class UserProfileFragment() : Fragment() {
             }
         }
 
-        //메시지
-        binding.sendMessage.setOnClickListener {
-            mainActivity.onFragmentChange(
-                MessageRoomFragment.newInstance(frId)
-            )
-        }
+        // 기능 제외
+//        //메시지
+//        binding.sendMessage.setOnClickListener {
+//            mainActivity.onFragmentChange(
+//                MessageRoomFragment.newInstance(frId)
+//            )
+//        }
     }
 
     private fun delFriendShip(frId :Int){

@@ -17,6 +17,7 @@ import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Relation.MessageListFragment
 import com.example.SwallowMonthJM.Relation.MyFriendFragment
+import com.example.SwallowMonthJM.UIFragment.ChangerPassFragment
 import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.UIFragment.SearchUserFragment
 import com.example.SwallowMonthJM.Unit.getPhotoUrl
@@ -110,6 +111,10 @@ class FragmentUserUI : Fragment() {
 
         binding.findPeople.setOnClickListener {
             mainActivity.onFragmentChange(SearchUserFragment())
+        }
+
+        binding.changePass.setOnClickListener {
+            mainActivity.onFragmentChange(ChangerPassFragment())
         }
 
     }

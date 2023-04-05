@@ -42,8 +42,9 @@ class TaskSlider(
 
     private fun setUpListener() {
 
+
         completeButton.setOnClickListener {
-            if (!task.isDone) {
+            if (!task.isDone && mainActivity.viewModel.checkToday(task.dayIndex)) {
 
                 val state = slideFrame.panelState
                 if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
@@ -97,7 +98,7 @@ class TaskSlider(
             override fun onStartTrackingTouch(p0: SeekBar?) {}
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                if (!task.isDone) {
+                if (!task.isDone && mainActivity.viewModel.checkToday(task.dayIndex)) {
                     mainActivity.taskViewModel.setPerTask(task, seekVar.progress)
                     if (seekVar.progress == 100) {
 
