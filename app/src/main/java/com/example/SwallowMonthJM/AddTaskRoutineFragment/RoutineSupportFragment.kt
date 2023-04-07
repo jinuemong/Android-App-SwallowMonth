@@ -72,20 +72,6 @@ class RoutineSupportFragment : Fragment() {
     }
 
     private fun setUpListener(){
-        binding.routineEditText.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.routineEditText.setBackgroundColor(0)
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("Not yet implemented")
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                TODO("Not yet implemented")
-            }
-
-        })
         binding.routineEditText.setOnKeyListener { _, keyCode, event ->
             var handled=false
 

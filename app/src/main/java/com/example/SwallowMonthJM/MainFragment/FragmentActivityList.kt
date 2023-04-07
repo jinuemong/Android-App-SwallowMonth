@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM.MainFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,12 +24,18 @@ import com.google.android.material.tabs.TabLayoutMediator
 // home
 
 class FragmentActivityList : Fragment() {
+
     private var _binding : FragmentTaskListBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPageAdapter: FragmentAdapter
     private lateinit var calendarListAdapter: CalendarListAdapter
+    lateinit var activityListViewPager: ViewPager2
+
+    private lateinit var taskFragment : TaskFragment
+    private lateinit var doneFragment : DoneFragment
+
     private var tabText = arrayOf(
         "Todo","Done"
     )
@@ -55,9 +62,13 @@ class FragmentActivityList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activityListViewPager = binding.taskListViewPager
+        taskFragment  = TaskFragment()
+        doneFragment = DoneFragment()
+
         initView()
 
-        //page 선택
+        //page 선택 시 애니메이션
         mainActivity.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -81,6 +92,7 @@ class FragmentActivityList : Fragment() {
         mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
             binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         })
+
     }
 
     override fun onResume() {
@@ -94,10 +106,10 @@ class FragmentActivityList : Fragment() {
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         initTopData()
 
-
         initRecyclerView()
         initPager()
         binding.totalTask.text = getActivityNum()
+
         initAni()
         setUpListener()
     }
@@ -156,8 +168,8 @@ class FragmentActivityList : Fragment() {
     private fun initPager(){
         fragmentPageAdapter = FragmentAdapter(mainActivity)
         fragmentPageAdapter.apply {
-            addFragment(TaskFragment(binding.slideFrame,binding.slideLayout))
-            addFragment(DoneFragment(binding.slideFrame,binding.slideLayout))
+            addFragment(taskFragment)
+            addFragment(doneFragment)
         }
 
         binding.taskListViewPager.apply {
@@ -166,6 +178,12 @@ class FragmentActivityList : Fragment() {
                 ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+
+                    if(position==0){
+                        taskFragment = TaskFragment()
+                    }else if (position==1){
+                        doneFragment = DoneFragment()
+                    }
                 }
             })
         }

@@ -8,39 +8,12 @@
     android:orientation="vertical"
     tools:context=".MainFragment.FragmentStatistics">
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/slide_frame"
+    <FrameLayout
+        android:id="@+id/container_in_statistics"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        app:umanoDragView="@id/slide_layout"
-        app:umanoOverlay="true"
-        app:umanoPanelHeight="0dp">
-        <FrameLayout
-            android:id="@+id/container_in_statistics"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/main_margin"
-            android:background="@drawable/round_border"
-            android:backgroundTint="@color/color_type4"/>
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/main_margin"
+        android:background="@drawable/round_border"
+        android:backgroundTint="@color/color_type4" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/slide_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include
-                android:id="@+id/slide_task"
-                layout="@layout/slide_layout_task_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/slide_routine"
-                layout="@layout/slide_layout_routine_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </LinearLayout>

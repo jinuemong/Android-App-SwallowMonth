@@ -1,7 +1,10 @@
 package com.example.SwallowMonthJM.AddTaskRoutineFragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -145,11 +148,12 @@ class AddTodayTaskFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun addTypeData() {
         binding.addTodayEdit.apply {
             if (this.text != null && this.text.toString() != "") {
                 mainActivity.addViewModel.text = this.text.toString()
-                this.setText("")
+                this.setBackgroundColor(R.color.gray)
             }
         }
         //바 내리기

@@ -26,12 +26,11 @@ class TodayTaskListAdapter(
     dataSet: ArrayList<DayData>,
     customCalendar: CustomCalendar,
     private val routineList: ArrayList<Routine>,
-    private val slideFrame: SlidingUpPanelLayout,
-    private val slideLayout: View,
 ) : RecyclerView.Adapter<TodayTaskListAdapter.TodayTaskListHolder>() {
     private lateinit var binding: ItemTodayTaskBinding
-    private var taskSlider: View = slideLayout.findViewById(R.id.slide_task)
-    private var routineSlider: View = slideLayout.findViewById(R.id.slide_routine)
+
+    private var taskSlider: View = mainActivity.slideLayout.findViewById(R.id.slide_task)
+    private var routineSlider: View = mainActivity.slideLayout.findViewById(R.id.slide_routine)
 
     private var calendarData = customCalendar
     private var startIndex = calendarData.prevTail
@@ -66,23 +65,12 @@ class TodayTaskListAdapter(
                             routineSlider.apply {
                                 visibility = View.VISIBLE
                                 if (routine != null) {
-                                    RoutineSlider(
-                                        this,
-                                        slideFrame,
-                                        mainActivity,
-                                        dayPosition,
-                                        routine
-                                    )
-                                        .apply { initSlide() }
+                                    RoutineSlider(this, mainActivity.slideFrame, mainActivity,
+                                        dayPosition, routine
+                                    ).apply { initSlide() }
 
-                                    val state = slideFrame.panelState
-                                    if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
+                                    mainActivity.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
 
-                                    }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                                    }
                                 }
                             }
                         }
@@ -104,17 +92,10 @@ class TodayTaskListAdapter(
 
                                 visibility = View.VISIBLE
                                 if (task != null) {
-                                    TaskSlider(this, slideFrame, mainActivity, task)
+                                    TaskSlider(this, mainActivity.slideFrame, mainActivity, task)
                                         .apply { initSlide() }
 
-                                    val state = slideFrame.panelState
-                                    if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                                    }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                                    }
+                                    mainActivity.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
                                 }
                             }
                         }

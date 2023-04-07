@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_we_300"
+    android:layout_height="wrap_content"
     tools:context=".AddTaskRoutineFragment.SelectCalendarFragment">
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/calendar_view_pager"

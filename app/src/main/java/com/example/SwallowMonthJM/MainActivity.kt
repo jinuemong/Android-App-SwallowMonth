@@ -34,6 +34,7 @@ import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
@@ -41,6 +42,10 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var masterApp: MasterApplication
+
+    lateinit var slideFrame : SlidingUpPanelLayout
+    lateinit var slideLayout: View
+
     val viewModel: MainViewModel by viewModels()
     val addViewModel: AddTaskRoutineViewModel by viewModels()
     val multiPartViewModel : MultiPartViewModel by viewModels()
@@ -91,6 +96,10 @@ class MainActivity : AppCompatActivity() {
         // user profile 세팅
         userName = intent.getStringExtra("username").toString()
 
+
+        //슬라이딩 뷰
+        slideFrame = binding.mainFrame
+        slideLayout = binding.slideLayout
 
         //애니메이션 설정
         aniList = arrayOf(

@@ -69,8 +69,9 @@ class AddTaskFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
         mainActivity.addViewModel.reset()
+        binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+        _binding = null
     }
 
     private fun initView() {
@@ -79,15 +80,7 @@ class AddTaskFragment : Fragment() {
                 setOnItemClickListener(object : IconAdapter.OnItemClickListener {
                     override fun onItemClick(iconIndex: Int) {
                         mainActivity.addViewModel.iconType = iconIndex
-
-                        val state = binding.slideFrame.panelState
-                        if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                            binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                        }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                            binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-                        }
-
+                        binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
                     }
                 })
             }
@@ -100,15 +93,7 @@ class AddTaskFragment : Fragment() {
             TaskAddSlider(this, mainActivity, addData = { text ->
                 mainActivity.addViewModel.text = text
 
-                val state = binding.slideFrame.panelState
-                if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                }
-
+                binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
             }).apply {
                 setUpListener()
             }
@@ -122,16 +107,7 @@ class AddTaskFragment : Fragment() {
 
         binding.addTaskCommit.setOnClickListener {
             if (mainActivity.addViewModel.getTextData() == "") {
-
-                val state = binding.slideFrame.panelState
-                if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                    binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                }
-
+                binding.slideFrame.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
             }
             val data = mainActivity.addViewModel.getTaskData()
             if (data != null) {

@@ -137,8 +137,8 @@ class AddRoutineFragment : Fragment() {
 
     private fun initFragmentAdapter(){
         fragmentPagerAdapter= FragmentAdapter(mainActivity)
-        fragmentPagerAdapter.addFragment(SelectCalendarFragment())
         fragmentPagerAdapter.addFragment(RoutineSupportFragment())
+        fragmentPagerAdapter.addFragment(SelectCalendarFragment())
     }
 
     private fun initViewPager(){
@@ -149,6 +149,7 @@ class AddRoutineFragment : Fragment() {
                 super.onPageSelected(position)
             }
         })
+        binding.addRoutineViewpager.isUserInputEnabled = false
     }
 
     private fun initTabLayout(){

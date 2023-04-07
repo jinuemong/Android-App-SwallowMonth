@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.ViewModel
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -64,7 +65,7 @@ class MainViewModel : ViewModel(){
 
     //오늘 데이터인지 확인
     fun checkToday(position:Int) : Boolean{
-        return (todayKeyDate == monthData.keyDate && position==todayDayPosition)
+        return (todayKeyDate == monthData.keyDate && position==todayCalPosition)
     }
 
     //현재 뷰 년도 초기화

@@ -63,7 +63,7 @@ class CalendarMonthFragment() : Fragment() {
 
         //상단 데이터 적용
         val dateTime: String = SimpleDateFormat(
-            "yyyy년 MM월", Locale.KOREA
+            "yyyy.MM", Locale.KOREA
         ).format(date.time)
 
         binding.fragCalenderYYYYXX.text = dateTime

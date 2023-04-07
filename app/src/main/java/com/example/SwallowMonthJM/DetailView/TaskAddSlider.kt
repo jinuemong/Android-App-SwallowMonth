@@ -20,18 +20,6 @@ class TaskAddSlider(
 
 
     fun setUpListener(){
-        editTypingView.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                editTypingView.setBackgroundColor(0)
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-        })
         //버튼 리스너
         editTypingView.setOnKeyListener { v, keyCode, event ->
             var handled = false

@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.TaskFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,21 +20,24 @@ import com.example.SwallowMonthJM.databinding.FragmentDoneBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
-class DoneFragment(
-    private val slideFrame : SlidingUpPanelLayout,
-    private val slideLayout: View
-) : Fragment() {
+class DoneFragment() : Fragment() {
     private var _binding: FragmentDoneBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
-    private lateinit var taskListAdapter:TaskListAdapter
-    private lateinit var routineListAdapter:TodayRoutineAdapter
-    private var taskSlider :View  = slideLayout.findViewById(R.id.slide_task)
-    private var routineSlider : View = slideLayout.findViewById(R.id.slide_routine)
+    var taskListAdapter:TaskListAdapter? = null
+    var routineListAdapter:TodayRoutineAdapter? = null
+    private lateinit var slideFrame : SlidingUpPanelLayout
+    private lateinit var slideLayout : View
+    private lateinit var taskSlider :View
+    private lateinit var routineSlider : View
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        slideFrame = mainActivity.slideFrame
+        slideLayout = mainActivity.slideLayout
+        taskSlider =  slideLayout.findViewById(R.id.slide_task)
+        routineSlider =  slideLayout.findViewById(R.id.slide_routine)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +52,6 @@ class DoneFragment(
     }
     override fun onResume() {
         super.onResume()
-        initView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,8 +61,10 @@ class DoneFragment(
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
-    private fun initView(){
+    fun initView(){
+        Log.d("initViewDone","")
 
         //루틴 어댑터 초기화
         initRoutineAdapter()
@@ -68,21 +73,22 @@ class DoneFragment(
 
         //루틴 데이터 변화 관찰
         mainActivity.routineViewModel.routineLivData.observe(mainActivity, Observer {
-            routineListAdapter.setData(it)
+            routineListAdapter?.setData(it)
         })
 
         //task 데이터 변화 관찰
         mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
-            taskListAdapter.setData(it)
+            taskListAdapter?.setData(it)
         })
 
         // 날짜 데이터 변경 시 적용
         mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
+            Log.d("changeDayPositionDone",dayIndex.toString())
             //현재 날짜 인덱스의 task 갱신
-            taskListAdapter.setDayDate(dayIndex)
+            taskListAdapter?.setDayDate(dayIndex)
 
             //루틴 리싸이클러의 현재 날짜 인덱스 변경
-            routineListAdapter.setDayDate(dayIndex)
+            routineListAdapter?.setDayDate(dayIndex)
         })
 
     }
@@ -101,15 +107,8 @@ class DoneFragment(
                         visibility = View.VISIBLE
                         TaskSlider(this,slideFrame,mainActivity,task)
                             .apply { initSlide() }
+                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
 
-                        val state = slideFrame.panelState
-                        if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                        }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                        }
                     }
                 }
             })
@@ -132,16 +131,7 @@ class DoneFragment(
                         visibility = View.VISIBLE
                         RoutineSlider(this,slideFrame,mainActivity,dayPosition,routine)
                             .apply { initSlide() }
-
-                        val state = slideFrame.panelState
-                        if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                        }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                            slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                        }
-
+                        slideFrame.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
                     }
                 }
             })

@@ -43,8 +43,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/add_task"
                     android:textColor="@color/color_type1"
-                    android:textStyle="bold"
                     android:textSize="@dimen/item_height_big_text_size_35"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -53,10 +53,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/main_margin_10"
                 android:id="@+id/frag_add_left"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height_big_80"
+                android:layout_marginTop="@dimen/main_margin_10"
                 android:background="@drawable/round_border"
                 android:gravity="center"
                 android:paddingStart="@dimen/fab_margin"
@@ -71,45 +71,51 @@
                     tools:listitem="@layout/item_icon" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/frag_add_right"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:orientation="vertical"
-                android:padding="@dimen/main_margin">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.appbar.AppBarLayout
+                <LinearLayout
+                    android:id="@+id/frag_add_right"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/item_mid_50_height"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:orientation="vertical"
                     android:padding="@dimen/main_margin">
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/add_task_tab_layout"
+                    <com.google.android.material.appbar.AppBarLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/item_mid_50_height"
+                        android:padding="@dimen/main_margin">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/add_task_tab_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </com.google.android.material.appbar.AppBarLayout>
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/add_task_viewpager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-                </com.google.android.material.appbar.AppBarLayout>
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/add_task_viewpager"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/add_task_commit"
-                    android:text="commit"
-                    android:layout_margin="@dimen/fab_margin_12dp"
-                    android:layout_gravity="center"
-                    style="@style/ButtonText_big"
-                    android:layout_width="@dimen/item_we_300"
-                    android:layout_height="@dimen/item_height_big_70"/>
-            </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/add_task_commit"
+                        style="@style/ButtonText_big"
+                        android:layout_width="@dimen/item_we_300"
+                        android:layout_height="@dimen/item_height_big_70"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/fab_margin"
+                        android:layout_marginBottom="@dimen/item_height_big_100"
+                        android:text="commit" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
-    <!-- sldie 레이아웃 -->
-    <include
-        android:id="@+id/slide_layout"
-        layout="@layout/slide_layout_add_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</com.sothree.slidinguppanel.SlidingUpPanelLayout>
+        <!-- sldie 레이아웃 -->
+        <include
+            android:id="@+id/slide_layout"
+            layout="@layout/slide_layout_add_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </FrameLayout>

@@ -18,10 +18,7 @@ import com.example.SwallowMonthJM.databinding.StatisticsViewBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
-class OneStatisticsFragment(
-    private val slideFrame : SlidingUpPanelLayout,
-    private val slideLayout: View,
-) : Fragment() {
+class OneStatisticsFragment() : Fragment() {
     private var _binding : StatisticsViewBinding?=null
     private val binding  get() = _binding!!
     lateinit var mainActivity: MainActivity
@@ -111,7 +108,6 @@ class OneStatisticsFragment(
             mainActivity.viewModel.dayLiveData.value!!,
             mainActivity.viewModel.currentDate,
             mainActivity.routineViewModel.routineLivData.value!!,
-            slideFrame, slideLayout
         )
 
     }

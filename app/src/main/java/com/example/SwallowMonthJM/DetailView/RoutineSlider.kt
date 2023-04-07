@@ -47,14 +47,7 @@ class RoutineSlider(
 
             if (dPosition==todayPosition) {
 
-                val state = slideFrame.panelState
-                if (state ==  SlidingUpPanelLayout.PanelState.COLLAPSED){
-                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                }else if (state == SlidingUpPanelLayout.PanelState.EXPANDED){
-                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                }
+                slideFrame.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
 
                 val dayRoutine = routine.dayRoutinePost.find {
                     it.dayIndex == dPosition

@@ -45,31 +45,13 @@ class TaskSlider(
 
         completeButton.setOnClickListener {
             if (!task.isDone && mainActivity.viewModel.checkToday(task.dayIndex)) {
-
-                val state = slideFrame.panelState
-                if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-                } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                    slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-                }
-
+                slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
                 mainActivity.taskViewModel.doneTaskData(task)
             }
         }
 
         delButton.setOnClickListener {
-
-            val state = slideFrame.panelState
-            if (state == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                slideFrame.panelState = SlidingUpPanelLayout.PanelState.ANCHORED
-
-            } else if (state == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
-            }
-
+            slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             mainActivity.taskViewModel.delTaskData(task)
         }
 
@@ -101,9 +83,7 @@ class TaskSlider(
                 if (!task.isDone && mainActivity.viewModel.checkToday(task.dayIndex)) {
                     mainActivity.taskViewModel.setPerTask(task, seekVar.progress)
                     if (seekVar.progress == 100) {
-
                         slideFrame.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-
                         mainActivity.taskViewModel.doneTaskData(task)
                     }
                 }

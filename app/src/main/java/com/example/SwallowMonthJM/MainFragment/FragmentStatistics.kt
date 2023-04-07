@@ -42,7 +42,7 @@ class FragmentStatistics : Fragment() {
     private fun initView(){
         mainActivity.frManger.beginTransaction()
             .replace(R.id.container_in_statistics,
-                OneStatisticsFragment(binding.slideFrame,binding.slideLayout)
+                OneStatisticsFragment()
             )
             .addToBackStack(null)
             .commit()
