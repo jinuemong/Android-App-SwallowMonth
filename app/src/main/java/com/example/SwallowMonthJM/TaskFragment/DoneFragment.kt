@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.example.SwallowMonthJM.Adapter.DoneListAdapter
 import com.example.SwallowMonthJM.Adapter.TaskListAdapter
 import com.example.SwallowMonthJM.Adapter.TodayRoutineAdapter
 import com.example.SwallowMonthJM.MainActivity
@@ -24,7 +25,7 @@ class DoneFragment() : Fragment() {
     private var _binding: FragmentDoneBinding?=null
     private val binding get() = _binding!!
     lateinit var mainActivity: MainActivity
-    var taskListAdapter:TaskListAdapter? = null
+    var doneListAdapter:DoneListAdapter? = null
     var routineListAdapter:TodayRoutineAdapter? = null
     private lateinit var slideFrame : SlidingUpPanelLayout
     private lateinit var slideLayout : View
@@ -58,11 +59,6 @@ class DoneFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-
-    }
     fun initView(){
         Log.d("initViewDone","")
 
@@ -78,14 +74,14 @@ class DoneFragment() : Fragment() {
 
         //task 데이터 변화 관찰
         mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
-            taskListAdapter?.setData(it)
+            doneListAdapter?.setData(it)
         })
 
         // 날짜 데이터 변경 시 적용
         mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex->
             Log.d("changeDayPositionDone",dayIndex.toString())
             //현재 날짜 인덱스의 task 갱신
-            taskListAdapter?.setDayDate(dayIndex)
+            doneListAdapter?.setDayDate(dayIndex)
 
             //루틴 리싸이클러의 현재 날짜 인덱스 변경
             routineListAdapter?.setDayDate(dayIndex)
@@ -96,11 +92,11 @@ class DoneFragment() : Fragment() {
     private fun initTaskAdapter(){
         // task 뷰 init
         // 어댑터 생성
-        taskListAdapter = TaskListAdapter(mainActivity,mainActivity.taskViewModel.taskLiveData.value!!,
-            mainActivity.viewModel.currentDayPosition.value!!,true)
+        doneListAdapter = DoneListAdapter(mainActivity,mainActivity.taskViewModel.taskLiveData.value!!,
+            mainActivity.viewModel.currentDayPosition.value!!)
         // 어댑터 내부 클릭 이벤트 적용
         .apply {
-            setOnItemClickListener(object :TaskListAdapter.OnItemClickListener{
+            setOnItemClickListener(object :DoneListAdapter.OnItemClickListener{
                 override fun onItemClick(task: Task) {
                     routineSlider.visibility = View.GONE
                     taskSlider.apply {
@@ -114,7 +110,7 @@ class DoneFragment() : Fragment() {
             })
         }
         //어댑터 부착
-        binding.taskDoneView.adapter  =taskListAdapter
+        binding.taskDoneView.adapter  =doneListAdapter
     }
 
     private fun initRoutineAdapter(){

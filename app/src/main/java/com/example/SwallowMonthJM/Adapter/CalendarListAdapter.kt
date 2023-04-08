@@ -26,6 +26,12 @@ class CalendarListAdapter(
     //데이터 자르기
     private var dataList = dataSet.subList(startIndex,endIndex)
 
+    init {
+        if (selectedPosition !in 0 until itemCount ||
+                selectedPosition!=mainActivity.viewModel.currentDayPosition.value!!) {
+            selectedPosition = 0
+        }
+    }
     private lateinit var binding: ItemCalendarHorizontalBinding
     private var onItemClickListener: OnItemClickListener?=null
 

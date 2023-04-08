@@ -11,13 +11,14 @@ import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.Unit.calendarIcon
 import com.example.SwallowMonthJM.databinding.ItemTaskBinding
 
+
 // main 첫번째 탭 : task list 세로 뷰
 
-class TaskListAdapter(
+class DoneListAdapter(
     private val mainActivity: MainActivity,
     private val dataSet : ArrayList<Task>,
     dPosition:Int,
-) : RecyclerView.Adapter<TaskListAdapter.TaskListItemHolder>(){
+) : RecyclerView.Adapter<DoneListAdapter.DoneListItemHolder>(){
     private lateinit var binding : ItemTaskBinding
     private var itemList = dataSet
     private var onItemClickListener: OnItemClickListener?=null
@@ -32,40 +33,41 @@ class TaskListAdapter(
         this.onItemClickListener = listener
     }
 
-    inner class TaskListItemHolder(val binding: ItemTaskBinding)
+    inner class DoneListItemHolder(val binding: ItemTaskBinding)
         : RecyclerView.ViewHolder(binding.root){
-            @SuppressLint("SetTextI18n")
-            fun bind(){
-                val item = itemList[absoluteAdapterPosition]
-                if(!item.isDone && item.dayIndex==dayPosition){
-                    val per = item.per
-                    binding.taskPer.progress = per
-                    binding.taskPerText.text = "$per%"
-                    binding.taskIcon.setImageResource(calendarIcon[item.iconType])
-                    binding.taskText.text = item.text
+        @SuppressLint("SetTextI18n")
+        fun bind(){
+            val item = itemList[absoluteAdapterPosition]
 
-                    binding.root.layoutParams.height = itemHeight
-                    binding.isView()
-                    if (onItemClickListener!=null) {
-                        binding.root.setOnClickListener {
-                            onItemClickListener?.onItemClick(item)
-                        }
+            if(item.isDone && item.dayIndex==dayPosition){
+                val per = item.per
+                binding.taskPer.progress = per
+                binding.taskPerText.text = "$per%"
+                binding.taskIcon.setImageResource(calendarIcon[item.iconType])
+                binding.taskText.text = item.text
+
+                binding.root.layoutParams.height = itemHeight
+                binding.isView()
+                if (onItemClickListener!=null) {
+                    binding.root.setOnClickListener {
+                        onItemClickListener?.onItemClick(item)
                     }
-
-                }else{
-                    binding.root.layoutParams.height = 0
-                    binding.isUnView()
                 }
+
+            }else{
+                binding.root.layoutParams.height = 0
+                binding.isUnView()
             }
         }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListItemHolder {
-        binding = ItemTaskBinding.inflate(LayoutInflater.from(mainActivity),parent,false)
-        itemHeight= binding.root.layoutParams.height
-        return TaskListItemHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TaskListItemHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoneListItemHolder {
+        binding = ItemTaskBinding.inflate(LayoutInflater.from(mainActivity),parent,false)
+        itemHeight= binding.root.layoutParams.height
+        return DoneListItemHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: DoneListItemHolder, position: Int) {
         holder.bind()
     }
 

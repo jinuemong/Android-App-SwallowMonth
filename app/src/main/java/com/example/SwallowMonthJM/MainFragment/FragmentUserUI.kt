@@ -3,6 +3,7 @@ package com.example.SwallowMonthJM.MainFragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,8 @@ class FragmentUserUI : Fragment() {
     }
 
     private fun initView(){
+        Log.d("initViewMain4","")
+
         mainActivity.viewModel.myProfile.apply {
             Glide.with(mainActivity)
                 .load(getPhotoUrl(userImage,mainActivity.masterApp.baseUrl))

@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.MainFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,9 @@ class FragmentRoutineList : Fragment() {
 
 
     private fun initView(){
+        Log.d("initViewMain2","")
+
+
         adapter = RoutineListAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!)
         //어댑터 넣고 클릭 리스너 적용
         binding.routineRecycler.adapter = adapter.apply {

@@ -32,6 +32,7 @@ class TaskFragment() : Fragment() {
     private lateinit var routineSlider: View
 
     override fun onAttach(context: Context) {
+//        Log.d("taskfragment","onAttach")
         super.onAttach(context)
         mainActivity = context as MainActivity
         slideFrame = mainActivity.slideFrame
@@ -57,12 +58,6 @@ class TaskFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onResume() {
         super.onResume()
 
@@ -104,8 +99,7 @@ class TaskFragment() : Fragment() {
         //어댑터 생성
         taskListAdapter = TaskListAdapter(
             mainActivity, mainActivity.taskViewModel.taskLiveData.value!!,
-            mainActivity.viewModel.currentDayPosition.value!!, false
-        )
+            mainActivity.viewModel.currentDayPosition.value!!)
             //어댑터 내부 클릭 이벤트 적용
             .apply {
                 setOnItemClickListener(object : TaskListAdapter.OnItemClickListener {

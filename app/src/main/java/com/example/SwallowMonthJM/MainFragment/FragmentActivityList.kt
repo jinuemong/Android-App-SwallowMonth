@@ -33,8 +33,6 @@ class FragmentActivityList : Fragment() {
     private lateinit var calendarListAdapter: CalendarListAdapter
     lateinit var activityListViewPager: ViewPager2
 
-    private lateinit var taskFragment : TaskFragment
-    private lateinit var doneFragment : DoneFragment
 
     private var tabText = arrayOf(
         "Todo","Done"
@@ -63,8 +61,6 @@ class FragmentActivityList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activityListViewPager = binding.taskListViewPager
-        taskFragment  = TaskFragment()
-        doneFragment = DoneFragment()
 
         initView()
 
@@ -102,6 +98,7 @@ class FragmentActivityList : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initView(){
+        Log.d("initViewMain1","")
         //상단 데이터 적용
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         initTopData()
@@ -149,6 +146,7 @@ class FragmentActivityList : Fragment() {
             mainActivity.viewModel.currentDate)
 
         //어댑터 연결
+
         binding.taskListHoCalendar.apply {
             setHasFixedSize(true)
             adapter = calendarListAdapter.apply {
@@ -161,29 +159,31 @@ class FragmentActivityList : Fragment() {
                     }
                 })
             }
-            smoothScrollToPosition(mainActivity.viewModel.currentDayPosition.value!!)
+            mainActivity.viewModel.currentDayPosition.value!!.apply {
+                if (this in 0 until calendarListAdapter.itemCount) {
+                    smoothScrollToPosition(this)
+                }else{
+                    smoothScrollToPosition(0)
+                }
+            }
         }
     }
 
     private fun initPager(){
         fragmentPageAdapter = FragmentAdapter(mainActivity)
+
         fragmentPageAdapter.apply {
-            addFragment(taskFragment)
-            addFragment(doneFragment)
+            addFragment(TaskFragment())
+            addFragment(DoneFragment())
         }
 
         binding.taskListViewPager.apply {
             adapter = fragmentPageAdapter
             registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
+                @SuppressLint("NotifyDataSetChanged")
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-
-                    if(position==0){
-                        taskFragment = TaskFragment()
-                    }else if (position==1){
-                        doneFragment = DoneFragment()
-                    }
                 }
             })
         }

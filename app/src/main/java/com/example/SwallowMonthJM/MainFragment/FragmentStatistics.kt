@@ -2,6 +2,7 @@ package com.example.SwallowMonthJM.MainFragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ class FragmentStatistics : Fragment() {
 
 
     private fun initView(){
+        Log.d("initViewMain3","")
         mainActivity.frManger.beginTransaction()
             .replace(R.id.container_in_statistics,
                 OneStatisticsFragment()
