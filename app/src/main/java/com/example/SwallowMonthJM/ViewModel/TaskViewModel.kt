@@ -22,9 +22,13 @@ class TaskViewModel(
     private val taskManager = TaskManager(mainActivity.masterApp)
     private val monthManager = MonthDataManager(mainActivity.masterApp)
     var taskLiveData = MutableLiveData<ArrayList<Task>>()
-    var currentTaskArr = ArrayList<Task>()
+    var taskArrayList = ArrayList<Task>()
+    var currentTaskList = MutableLiveData<ArrayList<Task>>() //현재 뷰 리스트
+    var currentDoneList = MutableLiveData<ArrayList<Task>>() //현재 완료 리스트
     init {
-        taskLiveData.value = currentTaskArr
+        taskLiveData.value = taskArrayList
+        currentTaskList.value = arrayListOf()
+        currentDoneList.value = arrayListOf()
     }
 
 
@@ -52,8 +56,8 @@ class TaskViewModel(
                     monthManager.setMonthData(id,this, paramFun = {})
                 }
             }
-            currentTaskArr.addAll(addData)
-            taskLiveData.postValue(currentTaskArr)
+            taskArrayList.addAll(addData)
+            taskLiveData.postValue(taskArrayList)
         }
         addData.clear()
     }
@@ -72,8 +76,8 @@ class TaskViewModel(
                 }
             }
         }
-        currentTaskArr.remove(task)
-        taskLiveData.value = currentTaskArr
+        taskArrayList.remove(task)
+        taskLiveData.value = taskArrayList
     }
 
     fun doneTaskData(task : Task){
@@ -93,7 +97,7 @@ class TaskViewModel(
                     })
                 }
             }
-            taskLiveData.value = currentTaskArr
+            taskLiveData.value = taskArrayList
         }
     }
 
@@ -102,7 +106,7 @@ class TaskViewModel(
         task.id?.let {
             taskManager.setTaskData(it,task, paramFun = {})
         }
-        taskLiveData.value = currentTaskArr
+        taskLiveData.value = taskArrayList
     }
 
     //task 하나의 per 구하기
@@ -111,7 +115,7 @@ class TaskViewModel(
         task.id?.let {
             taskManager.setTaskData(it,task, paramFun = {})
         }
-        taskLiveData.value = currentTaskArr
+        taskLiveData.value = taskArrayList
     }
 
 

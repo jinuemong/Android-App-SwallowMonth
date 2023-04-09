@@ -1,6 +1,5 @@
 package com.example.SwallowMonthJM.ViewModel
 
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,11 +21,12 @@ class MainViewModel : ViewModel(){
     lateinit var myProfile :Profile
     lateinit var monthDataManager:MonthDataManager
     private var _eventSetProfile = SingleLiveEvent<Any>()
-    val eventSetData : LiveData<Any> get() = _eventSetProfile
+    val eventSetProfile : LiveData<Any> get() = _eventSetProfile
     fun setProfile(newProfile: Profile){
         myProfile = newProfile
         _eventSetProfile.call()
     }
+
     //오늘 데이터 저장 ///////////////////
     lateinit var todayDate : Date
     lateinit var todayKeyDate:String
@@ -62,6 +62,7 @@ class MainViewModel : ViewModel(){
         currentMonth.value = 1
         currentDayPosition.value = 1
     }
+
 
     //오늘 데이터인지 확인
     fun checkToday(position:Int) : Boolean{
@@ -141,16 +142,16 @@ class MainViewModel : ViewModel(){
                     val taskManager = TaskManager(mainActivity.masterApp)
                     taskManager.getTaskList(mainActivity.userName, monthData.monthId!!, paramFun = {
                         if (it != null) {
-                            mainActivity.taskViewModel.currentTaskArr = it
+                            mainActivity.taskViewModel.taskArrayList = it
                         } else {
-                            mainActivity.taskViewModel.currentTaskArr = ArrayList()
+                            mainActivity.taskViewModel.taskArrayList = ArrayList()
                         }
-                        mainActivity.taskViewModel.taskLiveData.value = mainActivity.taskViewModel.currentTaskArr
+                        mainActivity.taskViewModel.taskLiveData.value = mainActivity.taskViewModel.taskArrayList
                     })
                 }else{
                     mainActivity.taskViewModel.apply {
-                        currentTaskArr.clear()
-                        taskLiveData.value = currentTaskArr
+                        taskArrayList.clear()
+                        taskLiveData.value = taskArrayList
                     }
                     mainActivity.routineViewModel.apply {
                         currentRoutineArr.clear()

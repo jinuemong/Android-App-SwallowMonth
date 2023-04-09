@@ -39,7 +39,7 @@ class MessageRoomFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.animation = mainActivity.aniList[2]
+        view.startAnimation(mainActivity.aniList[2])
         if (frId!=-1) {
             MessageManager(mainActivity.masterApp)
                 .getMessageList(frId, paramFunc = {data,message->

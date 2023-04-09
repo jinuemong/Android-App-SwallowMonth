@@ -41,7 +41,6 @@ class FragmentStatistics : Fragment() {
 
 
     private fun initView(){
-        Log.d("initViewMain3","")
         mainActivity.frManger.beginTransaction()
             .replace(R.id.container_in_statistics,
                 OneStatisticsFragment()

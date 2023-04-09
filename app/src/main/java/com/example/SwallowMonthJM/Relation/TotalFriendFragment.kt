@@ -46,7 +46,7 @@ class TotalFriendFragment() : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.animation = mainActivity.aniList[2]
+        view.startAnimation(mainActivity.aniList[2])
 
         binding.text.text = "$username Friend List"
 

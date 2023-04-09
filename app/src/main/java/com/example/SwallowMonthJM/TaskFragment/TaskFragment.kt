@@ -16,6 +16,7 @@ import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.R
 import com.example.SwallowMonthJM.DetailView.RoutineSlider
 import com.example.SwallowMonthJM.DetailView.TaskSlider
+import com.example.SwallowMonthJM.MainFragment.FragmentActivityList
 import com.example.SwallowMonthJM.databinding.FragmentTaskBinding
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
@@ -32,7 +33,7 @@ class TaskFragment() : Fragment() {
     private lateinit var routineSlider: View
 
     override fun onAttach(context: Context) {
-//        Log.d("taskfragment","onAttach")
+        Log.d("taskfragment","onAttach")
         super.onAttach(context)
         mainActivity = context as MainActivity
         slideFrame = mainActivity.slideFrame
@@ -64,11 +65,11 @@ class TaskFragment() : Fragment() {
     }
 
     fun initView() {
-        Log.d("initViewTask","")
         //루틴 어댑터 초기화
         initRoutineAdapter()
         //task 어댑터 초기화
         initTaskAdapter()
+
 
 
         //루틴 데이터 변화 관찰
@@ -77,13 +78,12 @@ class TaskFragment() : Fragment() {
         })
 
         //task 데이터 변화 관찰
-        mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
+        mainActivity.taskViewModel.currentTaskList.observe(mainActivity, Observer {
             taskListAdapter?.setData(it)
         })
 
         // 날짜 데이터 변경 시 적용
         mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer { dayIndex ->
-            Log.d("changeDayPositionTask",dayIndex.toString())
             //현재 날짜 인덱스의 task 갱신
             taskListAdapter?.setDayDate(dayIndex)
 
@@ -91,15 +91,14 @@ class TaskFragment() : Fragment() {
             routineListAdapter?.setDayDate(dayIndex)
         })
 
-
     }
 
     private fun initTaskAdapter() {
         //task 뷰 init
         //어댑터 생성
         taskListAdapter = TaskListAdapter(
-            mainActivity, mainActivity.taskViewModel.taskLiveData.value!!,
-            mainActivity.viewModel.currentDayPosition.value!!)
+            mainActivity, mainActivity.taskViewModel.currentTaskList.value!!,
+            mainActivity.viewModel.currentDayPosition.value!!,false)
             //어댑터 내부 클릭 이벤트 적용
             .apply {
                 setOnItemClickListener(object : TaskListAdapter.OnItemClickListener {

@@ -3,7 +3,6 @@ package com.example.SwallowMonthJM.MainFragment
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.example.SwallowMonthJM.Adapter.CalendarListAdapter
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.DayData
+import com.example.SwallowMonthJM.Model.Task
 import com.example.SwallowMonthJM.TaskFragment.DoneFragment
 import com.example.SwallowMonthJM.TaskFragment.TaskFragment
 import com.example.SwallowMonthJM.Unit.MonthPickerDialog
@@ -31,7 +31,6 @@ class FragmentActivityList : Fragment() {
     private lateinit var fm : FragmentManager
     private lateinit var fragmentPageAdapter: FragmentAdapter
     private lateinit var calendarListAdapter: CalendarListAdapter
-    lateinit var activityListViewPager: ViewPager2
 
 
     private var tabText = arrayOf(
@@ -60,7 +59,6 @@ class FragmentActivityList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activityListViewPager = binding.taskListViewPager
 
         initView()
 
@@ -70,12 +68,13 @@ class FragmentActivityList : Fragment() {
                 super.onPageSelected(position)
                 if(position==0){
                     initAni()
+
                 }
             }
 
         })
 
-        //데이터 변화 관찰
+        //현재 데이터 관찰
         mainActivity.taskViewModel.taskLiveData.observe(mainActivity, Observer {
             binding.totalTask.text = getActivityNum()
             initTopData()
@@ -85,8 +84,17 @@ class FragmentActivityList : Fragment() {
             initTopData()
         })
 
+        //달 관찰
         mainActivity.viewModel.dayLiveData.observe(mainActivity, Observer {
             binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
+            binding.totalTask.text = getActivityNum()
+            initTopData()
+        })
+
+        //일 관찰
+        mainActivity.viewModel.currentDayPosition.observe(mainActivity, Observer {
+            binding.totalTask.text = getActivityNum()
+
         })
 
     }
@@ -96,9 +104,16 @@ class FragmentActivityList : Fragment() {
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        mainActivity.taskViewModel.apply {
+            currentDoneList.value = arrayListOf()
+            currentTaskList.value = arrayListOf()
+        }
+    }
     @SuppressLint("SetTextI18n")
     private fun initView(){
-        Log.d("initViewMain1","")
         //상단 데이터 적용
         binding.taskListCalendar.text = mainActivity.viewModel.currentDate.keyDate
         initTopData()
@@ -133,6 +148,8 @@ class FragmentActivityList : Fragment() {
             dig.setOnClickedListener(object : MonthPickerDialog.ButtonClickListener{
                 override fun onClicked(year: Int, month: Int) {
                     changeCalendar(year,month)
+                    mainActivity.viewModel.setCurrentDayPosition(0)
+                    calendarListAdapter.selectedPosition = 0
                 }
             })
         }
@@ -152,10 +169,10 @@ class FragmentActivityList : Fragment() {
             adapter = calendarListAdapter.apply {
                 setOnItemClickListener(object : CalendarListAdapter.OnItemClickListener {
                     override fun onItemClick(item: DayData, position: Int) {
-                        mainActivity.viewModel.setCurrentDayPosition(position)
-                        binding.totalTask.text = getActivityNum()
                         binding.bottomInTaskList.animation = mainActivity.aniList[1]
                         binding.bottomInTaskList.animation.start()
+                        mainActivity.viewModel.setCurrentDayPosition(position)
+                        binding.totalTask.text = getActivityNum()
                     }
                 })
             }
@@ -186,12 +203,15 @@ class FragmentActivityList : Fragment() {
                     super.onPageSelected(position)
                 }
             })
+            offscreenPageLimit = 2
         }
 
         TabLayoutMediator(binding.tabInTaskList,binding.taskListViewPager)
         { tab,position->
             tab.text = tabText[position]
         }.attach()
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -208,12 +228,24 @@ class FragmentActivityList : Fragment() {
     fun getActivityNum() : String{
         //task + routine 수
         val dayIndex = mainActivity.viewModel.currentDayPosition.value
-        val totalTask = mainActivity.taskViewModel.taskLiveData.value!!.count {
-            it.dayIndex==dayIndex
+
+        val totalTaskList = ArrayList<Task>()
+        val doneTaskList = ArrayList<Task>()
+
+        for (task in mainActivity.taskViewModel.taskLiveData.value!!){
+            if (dayIndex==task.dayIndex) {
+                if (task.isDone) {
+                    doneTaskList.add(task)
+                } else {
+                    totalTaskList.add(task)
+                }
+            }
         }
-        val doneTask = mainActivity.taskViewModel.taskLiveData.value!!.count{
-            it.dayIndex==dayIndex && it.isDone
+        mainActivity.taskViewModel.apply {
+            currentDoneList.value = doneTaskList
+            currentTaskList.value = totalTaskList
         }
+
         var totalRoutine = 0
         var clearRoutine = 0
         for (routine in mainActivity.routineViewModel.routineLivData.value!!){
@@ -226,7 +258,8 @@ class FragmentActivityList : Fragment() {
             }
 
         }
-        return "${totalTask+totalRoutine-doneTask-clearRoutine} / ${totalTask+totalRoutine}"
+        return "${totalTaskList.size+doneTaskList.size+totalRoutine-doneTaskList.size-clearRoutine} " +
+                "/ ${totalTaskList.size+doneTaskList.size+totalRoutine}"
     }
 }
 

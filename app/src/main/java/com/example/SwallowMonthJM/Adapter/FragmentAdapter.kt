@@ -1,10 +1,11 @@
 package com.example.SwallowMonthJM.Adapter
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 //MainActivity 의 fragment adapter
-class FragmentAdapter(fa:FragmentActivity):FragmentStateAdapter(fa) {
+open class FragmentAdapter(fa:FragmentActivity):FragmentStateAdapter(fa) {
     var fragments : ArrayList<Fragment> = ArrayList()
     override fun getItemCount(): Int =fragments.size
 
@@ -14,4 +15,6 @@ class FragmentAdapter(fa:FragmentActivity):FragmentStateAdapter(fa) {
         fragments.add(fragment)
         notifyItemInserted(fragments.size-1)
     }
+
+
 }

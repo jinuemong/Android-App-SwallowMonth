@@ -62,6 +62,7 @@ class UserProfileFragment() : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.startAnimation(mainActivity.aniList[1])
 
         isMainView()
         binding.backButton.setOnClickListener {

@@ -1,8 +1,13 @@
 package com.example.SwallowMonthJM.Server.TokenManager
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import com.example.SwallowMonthJM.LoginActivity
+import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Token
+import com.example.SwallowMonthJM.Unit.MessageBox
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -32,6 +37,18 @@ class AuthInterceptor(
                         return@runBlocking chain.proceed(newRequest.build())
                     }
                     else ->{ // refresh 토큰이 만료 된 경우 -> 로그아웃
+                        val messageBox = MessageBox.newInstance("Your authorization has expired. Log out")
+                        messageBox.show((context as MainActivity).frManger,null)
+                        messageBox.apply {
+                            setOnclickListener(object : MessageBox.OnItemClickListener{
+                                override fun onItemClick() {
+                                    messageBox.dismiss()
+                                    val intent = Intent(context, LoginActivity::class.java)
+                                    intent.putExtra("logout",true)
+                                    startActivity(intent)
+                                }
+                            })
+                        }
                         return@runBlocking response
                     }
                 }

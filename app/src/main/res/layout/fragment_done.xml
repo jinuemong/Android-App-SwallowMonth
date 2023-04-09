@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/main_margin"
+    android:id="@+id/done_frame"
     tools:context=".TaskFragment.DoneFragment">
 
         <LinearLayout
@@ -16,14 +17,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/routine_done_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_routine" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/task_done_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_task" />
         </LinearLayout>

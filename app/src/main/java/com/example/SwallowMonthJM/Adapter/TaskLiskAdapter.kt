@@ -17,9 +17,10 @@ class TaskListAdapter(
     private val mainActivity: MainActivity,
     private val dataSet : ArrayList<Task>,
     dPosition:Int,
+    private val isDone : Boolean,
 ) : RecyclerView.Adapter<TaskListAdapter.TaskListItemHolder>(){
     private lateinit var binding : ItemTaskBinding
-    private var itemList = dataSet
+    private var itemList  = dataSet
     private var onItemClickListener: OnItemClickListener?=null
     private var itemHeight = 0
     private var dayPosition =dPosition
@@ -37,7 +38,8 @@ class TaskListAdapter(
             @SuppressLint("SetTextI18n")
             fun bind(){
                 val item = itemList[absoluteAdapterPosition]
-                if(!item.isDone && item.dayIndex==dayPosition){
+
+                if(item.isDone==isDone){
                     val per = item.per
                     binding.taskPer.progress = per
                     binding.taskPerText.text = "$per%"
@@ -52,9 +54,6 @@ class TaskListAdapter(
                         }
                     }
 
-                }else{
-                    binding.root.layoutParams.height = 0
-                    binding.isUnView()
                 }
             }
         }

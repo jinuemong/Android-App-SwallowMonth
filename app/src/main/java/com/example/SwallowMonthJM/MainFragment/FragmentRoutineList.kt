@@ -46,7 +46,6 @@ class FragmentRoutineList : Fragment() {
 
 
     private fun initView(){
-        Log.d("initViewMain2","")
 
 
         adapter = RoutineListAdapter(mainActivity,mainActivity.routineViewModel.routineLivData.value!!)

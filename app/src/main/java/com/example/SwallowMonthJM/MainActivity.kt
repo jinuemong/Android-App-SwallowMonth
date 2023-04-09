@@ -194,6 +194,7 @@ class MainActivity : AppCompatActivity() {
         })
         //스크롤 막기
         viewPager.isUserInputEnabled = false
+        viewPager.offscreenPageLimit = 4
     }
 
     private fun initTabLayout() {
