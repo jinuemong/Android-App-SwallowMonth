@@ -1,6 +1,7 @@
 package com.example.SwallowMonthJM.Manager
 
 import com.example.SwallowMonthJM.Model.MonthData
+import com.example.SwallowMonthJM.Model.RecordData
 import com.example.SwallowMonthJM.Server.MasterApplication
 import retrofit2.Call
 import retrofit2.Callback
@@ -101,6 +102,28 @@ class MonthDataManager(
 
                 override fun onFailure(call: Call<MonthData>, t: Throwable) {
                     paramFun(null)
+                }
+
+            })
+    }
+
+    //레코드 데이터 얻기
+    fun getUserRecordData(userName:String,paramFun: (ArrayList<RecordData>?,String?) -> Unit){
+        materApp.service.getRecordDataList(userName)
+            .enqueue(object : Callback<ArrayList<RecordData>>{
+                override fun onResponse(
+                    call: Call<ArrayList<RecordData>>,
+                    response: Response<ArrayList<RecordData>>
+                ) {
+                    if (response.isSuccessful){
+                        paramFun(response.body(),null)
+                    }else{
+                        paramFun(null,response.errorBody()!!.string())
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<RecordData>>, t: Throwable) {
+                    paramFun(null,"err : $t")
                 }
 
             })

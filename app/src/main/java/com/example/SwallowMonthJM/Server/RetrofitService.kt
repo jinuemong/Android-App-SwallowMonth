@@ -291,4 +291,11 @@ interface RetrofitService {
     fun getMessageRoomList(
         @Field("userName")userName: String
     ):Call<ArrayList<FriendData>>
+
+    // 레코드
+    @GET("month/recordDatas/")
+    fun getRecordDataList(
+        @Query(value = "userId", encoded = true) userId :String
+    ): Call<ArrayList<RecordData>>
+
 }
