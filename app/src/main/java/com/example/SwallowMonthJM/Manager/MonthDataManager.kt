@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.Manager
 
+import android.icu.text.AlphabeticIndex.Record
 import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.RecordData
 import com.example.SwallowMonthJM.Server.MasterApplication
@@ -124,6 +125,28 @@ class MonthDataManager(
 
                 override fun onFailure(call: Call<ArrayList<RecordData>>, t: Throwable) {
                     paramFun(null,"err : $t")
+                }
+
+            })
+    }
+
+    // 랭킹 데이터 얻기
+    fun getRankingData(keyDate:String,paramFun: (ArrayList<RecordData>?, String?) -> Unit){
+        materApp.service.getRankingDataList(keyDate)
+            .enqueue(object : Callback<ArrayList<RecordData>>{
+                override fun onResponse(
+                    call: Call<ArrayList<RecordData>>,
+                    response: Response<ArrayList<RecordData>>
+                ) {
+                    if (response.isSuccessful){
+                        paramFun(response.body(),null)
+                    }else{
+                        paramFun(null, response.errorBody()!!.string())
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<RecordData>>, t: Throwable) {
+                    paramFun(null,"err: $t")
                 }
 
             })

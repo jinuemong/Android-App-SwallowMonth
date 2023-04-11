@@ -76,4 +76,5 @@
     <string name="this_user_has_no_friends">This user has no friends..</string>
     <string name="task">task</string>
     <string name="change_password">change password</string>
+    <string name="monthly_top_3">Monthly Top 3</string>
 </resources>

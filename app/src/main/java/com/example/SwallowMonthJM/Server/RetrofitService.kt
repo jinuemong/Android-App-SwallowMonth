@@ -298,4 +298,11 @@ interface RetrofitService {
         @Query(value = "userId", encoded = true) userId :String
     ): Call<ArrayList<RecordData>>
 
+    // 랭킹
+    @GET("month/rankingDatas/")
+    fun getRankingDataList(
+        @Query(value = "keyDate", encoded = true) keyDate :String
+    ): Call<ArrayList<RecordData>>
+
+
 }

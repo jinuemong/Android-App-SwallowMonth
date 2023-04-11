@@ -20,6 +20,7 @@ import com.example.SwallowMonthJM.Relation.MyFriendFragment
 import com.example.SwallowMonthJM.UIFragment.ChangerPassFragment
 import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
 import com.example.SwallowMonthJM.UIFragment.SearchUserFragment
+import com.example.SwallowMonthJM.UIFragment.UserRankingFragment
 import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
 
@@ -118,6 +119,11 @@ class FragmentUserUI : Fragment() {
             mainActivity.onFragmentChange(ChangerPassFragment())
         }
 
+        binding.userRanking.setOnClickListener {
+            mainActivity.onFragmentChange(UserRankingFragment.newInstance(
+                mainActivity.viewModel.myProfile.userName
+            ))
+        }
     }
 
 }

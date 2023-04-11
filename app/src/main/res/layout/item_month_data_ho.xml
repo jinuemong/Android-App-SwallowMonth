@@ -2,36 +2,21 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/item_height_double_big"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/main_margin"
-    android:padding="@dimen/main_margin_10"
     app:cardCornerRadius="@dimen/fab_margin_12dp"
     app:cardElevation="@dimen/main_margin"
     app:contentPadding="@dimen/main_margin">
 
     <LinearLayout
+        android:background="@color/color_type4"
+        android:id="@+id/linear"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="@dimen/main_margin_10">
-
-        <TextView
-            android:id="@+id/subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/main_margin_10"
-            android:textSize="@dimen/item_height_mid_text_size"
-            android:textStyle="bold"
-            tools:text="jinwoo's Record Card" />
-
-        <LinearLayout
-            android:layout_marginTop="@dimen/main_margin"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
             <TextView
                 android:backgroundTint="@color/color_type3"
                 android:padding="@dimen/main_margin"
@@ -41,32 +26,44 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/main_margin_10"
-                android:textSize="@dimen/item_height_mid_text_size"
+                android:textSize="@dimen/item_height_big_21_text_size"
                 android:textStyle="bold"
                 tools:text=" 1 " />
-            <View
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"/>
-            <TextView
-                android:id="@+id/key_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/item_height_mid_text_16_size"
-                tools:text="2022.04" />
+        <LinearLayout
+            android:layout_marginStart="@dimen/main_margin_10"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:id="@+id/user_name"
+            tools:text="@string/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/total_point_ment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/item_height_big_21_text_size"
+            android:textStyle="bold"
+            tools:text="350 point ! " />
         </LinearLayout>
-
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/item_height_big_150"
-            android:layout_height="@dimen/item_height_big_150"
+            android:layout_width="@dimen/item_height_big_70"
+            android:layout_height="@dimen/item_height_big_70"
             android:layout_gravity="center_horizontal">
-
             <ProgressBar
                 android:id="@+id/task_list_per"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/fab_margin_12dp"
+                android:layout_margin="@dimen/main_margin_10"
                 android:indeterminate="false"
                 android:max="100"
                 android:progressDrawable="@drawable/circle_progressbar"
@@ -78,27 +75,16 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textColor="@color/strong_color"
-                android:textSize="@dimen/item_height_big_21_text_size"
+                android:textSize="@dimen/item_height_small_up_text_size"
                 android:textStyle="bold"
                 tools:text="100%" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/total_point_ment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/main_margin"
-            android:textSize="@dimen/item_height_big_21_text_size"
-            android:textStyle="bold"
-            tools:text="350 point ! " />
-
         <TextView
             android:layout_marginEnd="@dimen/main_margin_10"
             android:id="@+id/total_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="bottom"
             android:textSize="@dimen/item_height_mid_text_16_size"
             tools:text="5/12" />
     </LinearLayout>
