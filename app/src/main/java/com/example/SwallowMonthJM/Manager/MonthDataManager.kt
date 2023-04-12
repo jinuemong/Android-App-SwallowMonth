@@ -1,6 +1,5 @@
 package com.example.SwallowMonthJM.Manager
 
-import android.icu.text.AlphabeticIndex.Record
 import com.example.SwallowMonthJM.Model.MonthData
 import com.example.SwallowMonthJM.Model.RecordData
 import com.example.SwallowMonthJM.Server.MasterApplication

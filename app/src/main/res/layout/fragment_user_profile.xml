@@ -152,6 +152,52 @@
             android:textStyle="bold"
             android:text="@string/no_user_comment"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/main_margin_10"
+            android:text="User Records"
+            android:textSize="@dimen/item_height_big_21_text_size"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/total_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_margin_10"
+            android:layout_marginBottom="@dimen/main_margin_10"
+            android:textSize="@dimen/item_height_mid_text_size"
+            tools:text="total 100" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/record_list"
+            android:layout_margin="@dimen/main_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:spanCount="1"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_month_data" />
+        <Button
+            android:id="@+id/more_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/main_margin_10"
+            android:backgroundTint="@color/color_type2"
+            android:padding="@dimen/main_margin_10"
+            android:src="@drawable/round_border"
+            android:text="@string/view_all_records" />
+        <TextView
+            android:id="@+id/not_records"
+            android:visibility="invisible"
+            android:textSize="@dimen/item_height_mid_text_size"
+            android:gravity="center"
+            style="@style/TextView1"
+            android:text="@string/this_user_has_no_records"
+            android:layout_marginBottom="@dimen/item_mid_height_20dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_mid_50_height"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM.MainFragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,17 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.MiniProfileAdapter
+import com.example.SwallowMonthJM.Adapter.RecordAdapter
 import com.example.SwallowMonthJM.DetailView.UserProfileFragment
 import com.example.SwallowMonthJM.LoginActivity
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
+import com.example.SwallowMonthJM.Model.RecordData
 import com.example.SwallowMonthJM.Relation.MessageListFragment
 import com.example.SwallowMonthJM.Relation.MyFriendFragment
-import com.example.SwallowMonthJM.UIFragment.ChangerPassFragment
-import com.example.SwallowMonthJM.UIFragment.ProfileUpdateFragment
-import com.example.SwallowMonthJM.UIFragment.SearchUserFragment
-import com.example.SwallowMonthJM.UIFragment.UserRankingFragment
+import com.example.SwallowMonthJM.UIFragment.*
 import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
 
@@ -29,11 +30,14 @@ import com.example.SwallowMonthJM.databinding.FragmentUserUIBinding
 class FragmentUserUI : Fragment() {
     private var _binding : FragmentUserUIBinding?=null
     private val binding get() = _binding!!
+    private lateinit var monthDataManager: MonthDataManager
 
     lateinit var mainActivity: MainActivity
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
+        monthDataManager = MonthDataManager(mainActivity.masterApp)
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +75,12 @@ class FragmentUserUI : Fragment() {
                 binding.userComment.text = this.userComment
             }
 
+            setRecordList(this.userName)
+
             // 추천 유저
             RelationManager(mainActivity.masterApp)
                 .getRandomProfileList(this.profileId, paramFunc = {data,_->
-                    if (data!=null){
+                    if (data!=null && data.size>0){
                         val adapter = MiniProfileAdapter(mainActivity,data,)
                         binding.recommendUser.adapter =adapter.apply {
                             setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
@@ -124,6 +130,28 @@ class FragmentUserUI : Fragment() {
                 mainActivity.viewModel.myProfile.userName
             ))
         }
+
+        binding.myAchievement.setOnClickListener {
+            mainActivity.onFragmentChange(RecordFragment.newInstance(mainActivity.userName))
+        }
+
+        binding.moreRecord.setOnClickListener {
+            mainActivity.onFragmentChange(RecordFragment.newInstance(mainActivity.userName))
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setRecordList(profileName : String){
+        monthDataManager.getUserRecordData(profileName, paramFun = {data,_->
+            if (data!=null && data.size>0){
+                val dataSet = if (data.size>5) data.subList(0,5) else data
+                val adapter = RecordAdapter(mainActivity, dataSet as ArrayList<RecordData>)
+                binding.recordList.adapter = adapter
+            }else{
+                binding.notRecords.visibility = View.VISIBLE
+                binding.moreRecord.visibility = View.INVISIBLE
+            }
+        })
     }
 
 }

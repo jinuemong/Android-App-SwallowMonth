@@ -42,7 +42,7 @@ class SearchUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        view.startAnimation(mainActivity.aniList[2])
         adapter = MiniProfileHoAdapter(mainActivity)
         binding.searchRecycler.adapter = adapter.apply {
             setOnItemClickListener(object :MiniProfileHoAdapter.OnItemClickListener{

@@ -112,12 +112,12 @@ class RelationManager(
             })
     }
 
-    fun getFriendList(userName: String, paramFunc: (ArrayList<Profile>?, message: String?) -> Unit){
-        masterApp.service.getFriends(userName)
-            .enqueue(object : Callback<ArrayList<Profile>>{
+    fun getFriendListR(userName: String, num:Int, paramFunc: (FriendList?, message: String?) -> Unit){
+        masterApp.service.getFriends(userName,num)
+            .enqueue(object : Callback<FriendList>{
                 override fun onResponse(
-                    call: Call<ArrayList<Profile>>,
-                    response: Response<ArrayList<Profile>>
+                    call: Call<FriendList>,
+                    response: Response<FriendList>
                 ) {
                     if(response.isSuccessful){
                         paramFunc(response.body(),null)
@@ -126,7 +126,7 @@ class RelationManager(
                     }
                 }
 
-                override fun onFailure(call: Call<ArrayList<Profile>>, t: Throwable) {
+                override fun onFailure(call: Call<FriendList>, t: Throwable) {
                     paramFunc(null,"error")
                 }
 

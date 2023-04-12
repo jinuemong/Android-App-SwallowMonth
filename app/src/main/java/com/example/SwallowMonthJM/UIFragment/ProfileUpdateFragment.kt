@@ -53,7 +53,7 @@ class ProfileUpdateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        view.startAnimation(mainActivity.aniList[2])
         mainActivity.viewModel.myProfile.apply {
             updateProfile = this
             Glide.with(mainActivity)

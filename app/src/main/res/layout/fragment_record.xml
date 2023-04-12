@@ -1,14 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/main_margin_10"
+    android:orientation="vertical"
     tools:context=".UIFragment.RecordFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/main_margin_10">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/item_mid_height_30"
+            android:layout_height="@dimen/item_mid_height_30"
+            android:layout_marginStart="@dimen/main_margin_10"
+            android:layout_marginTop="@dimen/main_margin_10"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Record"
+            android:textColor="@color/normal_color"
+            android:textSize="@dimen/item_height_mid_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/main_margin_10"
+        android:background="@drawable/round_border"
+        android:backgroundTint="@color/color_type4"
+        android:padding="@dimen/item_mid_height_20dp">
+        <TextView
+            android:id="@+id/not_records_ment"
+            android:textStyle="bold"
+            android:textSize="@dimen/item_height_big_21_text_size"
+            android:layout_marginTop="@dimen/item_mid_height_20dp"
+            android:padding="@dimen/item_mid_50_height"
+            android:text="@string/you_has_no_records"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/record_list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/main_margin_10"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:spanCount="1"
+            tools:listitem="@layout/item_month_data" />
+    </FrameLayout>
+</LinearLayout>

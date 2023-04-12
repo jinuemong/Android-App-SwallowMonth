@@ -34,6 +34,7 @@ class ChangerPassFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.startAnimation(mainActivity.aniList[2])
 
         binding.backButton.setOnClickListener {
             mainActivity.onFragmentGoBack(this@ChangerPassFragment)

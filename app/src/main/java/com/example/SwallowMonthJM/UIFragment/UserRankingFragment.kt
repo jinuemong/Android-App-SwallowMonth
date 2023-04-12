@@ -18,6 +18,7 @@ import org.mozilla.javascript.tools.jsc.Main
 
 class UserRankingFragment : Fragment() {
     private var myName = ""
+    private var currentKeyDate = ""
     private var _binding : FragmentUserRankingBinding? = null
     private val binding get() = _binding!!
     private var adapter : RankingAdapter? = null
@@ -54,7 +55,14 @@ class UserRankingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.startAnimation(mainActivity.aniList[2])
 
+        adapter = RankingAdapter(mainActivity, arrayListOf(),myName)
+        binding.rankingRecycler.adapter = adapter
+
+        //이번달 랭킹 갱신
+        currentKeyDate = mainActivity.viewModel.todayKeyDate
+        setRankingData(currentKeyDate)
 
         setUpListener()
     }
@@ -78,28 +86,51 @@ class UserRankingFragment : Fragment() {
             }
         }
 
-
         binding.backButton.setOnClickListener {
             mainActivity.onFragmentGoBack(this@UserRankingFragment)
         }
+
+        //다음 달로 이동
+        binding.frontMonth.setOnClickListener {
+            currentKeyDate = getKeyDate(+1)
+            setRankingData(currentKeyDate)
+        }
+
+        //이전 달로 이동
+        binding.backMonth.setOnClickListener {
+            currentKeyDate = getKeyDate(-1)
+            setRankingData(currentKeyDate)
+        }
     }
 
+    // 랭킹 데이터 갱신
     private fun setRankingData(keyDate : String){
         MonthDataManager(mainActivity.masterApp)
-            .getRankingData(keyDate, paramFun ={ data,message->
-                if (data!=null){
-                    binding.noDataBox.visibility = View.GONE
-                    binding.dataBox.visibility = View.VISIBLE
+            .getRankingData(keyDate, paramFun ={ data,_->
+                binding.keyDate.text = currentKeyDate
+                if (data!=null && data.size>0){
+                    setData()
                     val ranker = if (data.size>=3){data.subList(0,3)} else data
                     setTopRanker(ranker)
-                    adapter = 
+                    adapter?.setData(data)
+                    binding.rankingRecycler.adapter = adapter
                 }else{
-                    binding.dataBox.visibility = View.GONE
-                    binding.noDataBox.visibility = View.VISIBLE
+                    setNotData()
                 }
             })
     }
 
+    private fun setNotData(){
+        binding.dataBox.visibility = View.GONE
+        binding.noDataBox.visibility = View.VISIBLE
+    }
+
+    private fun setData(){
+        binding.noDataBox.visibility = View.GONE
+        binding.dataBox.visibility = View.VISIBLE
+    }
+
+    //상단 랭커 갱신
     @SuppressLint("SetTextI18n")
     private fun setTopRanker(rankerList : MutableList<RecordData>){
         var i = 0
@@ -123,8 +154,25 @@ class UserRankingFragment : Fragment() {
 
     }
 
-    private fun getKeyDate(plus : Int){
-
+    // key data 변환
+    private fun getKeyDate(plus : Int) : String{
+        return if (currentKeyDate!=""){
+            val current =  currentKeyDate.split(".")
+            val month = current[1].toInt()+plus
+            if (month>12){ //다음 년도
+                "${current[0].toInt()+1}.1"
+            }else if (month<1) { //이전 년도
+                "${current[0].toInt() - 1}.12"
+            }else{
+                if (month<10){
+                    "${current[0]}.0$month"
+                }else {
+                    "${current[0]}.$month"
+                }
+            }
+        }else {
+            currentKeyDate
+        }
     }
 
 }

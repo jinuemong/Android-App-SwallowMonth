@@ -46,5 +46,11 @@ class RankingAdapter (
         holder.hold()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(newData : ArrayList<RecordData>){
+        itemList = newData
+        notifyDataSetChanged()
+
+    }
 
 }

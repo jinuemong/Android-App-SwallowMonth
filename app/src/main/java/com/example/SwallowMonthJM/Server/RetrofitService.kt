@@ -222,8 +222,9 @@ interface RetrofitService {
     @POST("relation/friends/")
     @FormUrlEncoded
     fun getFriends(
-        @Field("userName")userName : String
-    ):Call<ArrayList<Profile>>
+        @Field("userName")userName : String,
+        @Field("num") number : Int
+    ):Call<FriendList>
 
     //친구 확인
     @POST("relation/checkFriendShip/")
@@ -295,13 +296,13 @@ interface RetrofitService {
     // 레코드
     @GET("month/recordDatas/")
     fun getRecordDataList(
-        @Query(value = "userId", encoded = true) userId :String
+        @Query(value = "search", encoded = true) userId :String,
     ): Call<ArrayList<RecordData>>
 
     // 랭킹
     @GET("month/rankingDatas/")
     fun getRankingDataList(
-        @Query(value = "keyDate", encoded = true) keyDate :String
+        @Query(value = "search", encoded = true) keyDate :String
     ): Call<ArrayList<RecordData>>
 
 

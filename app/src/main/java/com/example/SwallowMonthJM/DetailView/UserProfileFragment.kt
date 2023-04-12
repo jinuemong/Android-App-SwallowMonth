@@ -12,12 +12,15 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.MiniProfileAdapter
+import com.example.SwallowMonthJM.Adapter.RecordAdapter
 import com.example.SwallowMonthJM.MainActivity
+import com.example.SwallowMonthJM.Manager.MonthDataManager
 import com.example.SwallowMonthJM.Manager.RelationManager
 import com.example.SwallowMonthJM.Model.Profile
-import com.example.SwallowMonthJM.Relation.MessageRoomFragment
+import com.example.SwallowMonthJM.Model.RecordData
 import com.example.SwallowMonthJM.Relation.MyFriendFragment
 import com.example.SwallowMonthJM.Relation.TotalFriendFragment
+import com.example.SwallowMonthJM.UIFragment.RecordFragment
 import com.example.SwallowMonthJM.Unit.MessageBox
 import com.example.SwallowMonthJM.databinding.FragmentUserProfileBinding
 
@@ -25,6 +28,7 @@ import com.example.SwallowMonthJM.databinding.FragmentUserProfileBinding
 class UserProfileFragment() : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var relationManager: RelationManager
+    private lateinit var monthDataManager: MonthDataManager
     private lateinit var callback: OnBackPressedCallback
     private var _binding : FragmentUserProfileBinding?=null
     private val binding get() = _binding!!
@@ -43,6 +47,7 @@ class UserProfileFragment() : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this,callback)
         relationManager = RelationManager(mainActivity.masterApp)
+        monthDataManager = MonthDataManager(mainActivity.masterApp)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,6 +91,7 @@ class UserProfileFragment() : Fragment() {
                         profileName = data.userName
 
                         setFriendList()
+                        setRecordList()
                         setUpListener()
                         setFriendShip()
                     }
@@ -107,12 +113,10 @@ class UserProfileFragment() : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setFriendList(){
         // max 10
-        relationManager.getFriendList(profileName, paramFunc ={ data,_->
-                if (data!=null){
-                    binding.totalFriend.text = "total ${data.size}"
-                    //데이터 수 지정
-                    if (data.size>=10) data.subList(0,10)
-                    val adapter = MiniProfileAdapter(mainActivity,data)
+        relationManager.getFriendListR(profileName,10, paramFunc ={ data, _->
+                if (data!=null && data.count>0){
+                    binding.totalFriend.text = "total ${data.count}"
+                    val adapter = MiniProfileAdapter(mainActivity,data.friends)
                     binding.friendList.adapter = adapter.apply {
                         setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
                             override fun onItemClick(item: Profile) {
@@ -129,6 +133,22 @@ class UserProfileFragment() : Fragment() {
             })
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun setRecordList(){
+        monthDataManager.getUserRecordData(profileName, paramFun = {data,_->
+            if (data!=null && data.size>0){
+                val dataSet = if (data.size>5) data.subList(0,5) else data
+                val adapter = RecordAdapter(mainActivity, dataSet as ArrayList<RecordData>)
+                binding.totalRecord.text = "total ${data.size}"
+                binding.recordList.adapter = adapter
+            }else{
+                binding.totalRecord.text = "0"
+                binding.notRecords.visibility = View.VISIBLE
+                binding.moreRecord.visibility = View.INVISIBLE
+            }
+        })
+    }
+
     private fun setUpListener(){
         binding.moreFriend.setOnClickListener {
             if(profileName==myProfile.userName){
@@ -136,6 +156,9 @@ class UserProfileFragment() : Fragment() {
             }else {
                 mainActivity.onFragmentChange(TotalFriendFragment.newInstance(profileName))
             }
+        }
+        binding.moreRecord.setOnClickListener{
+            mainActivity.onFragmentChange(RecordFragment.newInstance(profileName))
         }
     }
 
@@ -230,8 +253,6 @@ class UserProfileFragment() : Fragment() {
                     , paramFunc = { data,_->
                         if (data!=null) {
                             isAddFriendStatus(data.frId)
-                        }else{
-
                         }
                     })
         }

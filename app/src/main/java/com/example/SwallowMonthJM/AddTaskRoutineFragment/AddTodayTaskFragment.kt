@@ -80,7 +80,7 @@ class AddTodayTaskFragment : Fragment() {
             }
         }
 
-        binding.addTodayEdit.setOnKeyListener { v, keyCode, event ->
+        binding.addTodayEdit.setOnKeyListener { _, keyCode, event ->
             var handled = false
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 addTypeData()

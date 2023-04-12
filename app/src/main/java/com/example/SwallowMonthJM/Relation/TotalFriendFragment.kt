@@ -52,9 +52,9 @@ class TotalFriendFragment() : Fragment() {
 
         username?.let {
             RelationManager(mainActivity.masterApp)
-                .getFriendList(it, paramFunc = { data, message->
+                .getFriendListR(it,-1, paramFunc = { data, message->
                     if (message==null){
-                        val adapterData = if (data==null || data.size==0) arrayListOf() else data
+                        val adapterData = if (data==null || data.count==0) arrayListOf() else data.friends
                         val adapter = MiniProfileAdapter(mainActivity,adapterData)
                         binding.friendList.adapter = adapter.apply {
                             setOnItemClickListener(object : MiniProfileAdapter.OnItemClickListener{
