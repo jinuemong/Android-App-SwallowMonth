@@ -1,8 +1,14 @@
 package com.example.SwallowMonthJM
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -11,6 +17,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
@@ -82,6 +89,8 @@ class MainActivity : AppCompatActivity() {
         R.drawable.ic_iconmonstr_user_male_thin
     )
     lateinit var aniList: Array<Animation>
+    @RequiresApi(Build.VERSION_CODES.S)
+    @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = FragmentFactory()
         super.onCreate(savedInstanceState)
@@ -127,6 +136,27 @@ class MainActivity : AppCompatActivity() {
 
         //뷰 초기화
         initView()
+
+        //알림 등록
+        val pendingIntent = Intent(this@MainActivity, AlarmBroadCastReceiver::class.java)
+            .let {intent->
+                PendingIntent.getBroadcast(this@MainActivity,0,intent,PendingIntent.FLAG_IMMUTABLE)
+            }
+
+
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY,2)
+            set(Calendar.MINUTE,33)
+        }
+
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+        //
     }
 
     private fun initView() {
