@@ -21,7 +21,9 @@
             android:id="@+id/main_top_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/main_margin"
+            android:layout_marginStart="@dimen/main_margin"
+            android:layout_marginEnd="@dimen/main_margin"
+            android:layout_marginTop="@dimen/item_mid_height_20dp"
             android:layout_weight="1"
             android:padding="@dimen/main_margin">
 
@@ -109,8 +111,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/add_today_task"
-                android:layout_width="@dimen/item_height_big_80"
-                android:layout_height="@dimen/item_height_big_80"
+                android:layout_width="@dimen/item_height_big_70"
+                android:layout_height="@dimen/item_height_big_70"
                 android:layout_marginBottom="@dimen/main_margin"
                 android:elevation="20dp"
                 android:src="@drawable/ic_baseline_add_circle_24"

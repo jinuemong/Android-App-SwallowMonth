@@ -8,12 +8,10 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -42,8 +40,6 @@ import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import de.hdodenhof.circleimageview.CircleImageView
-import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.*
 class MainActivity : AppCompatActivity() {
@@ -89,6 +85,11 @@ class MainActivity : AppCompatActivity() {
         R.drawable.ic_iconmonstr_user_male_thin
     )
     lateinit var aniList: Array<Animation>
+
+    companion object{
+        const val REQUEST_CODE_1 = 100
+        const val REQUEST_CODE_2 = 101
+    }
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,25 +138,50 @@ class MainActivity : AppCompatActivity() {
         //뷰 초기화
         initView()
 
-        //알림 등록
-        val pendingIntent = Intent(this@MainActivity, AlarmBroadCastReceiver::class.java)
+//        알림 등록 : reset Activity
+        val resetIntent = Intent(this@MainActivity,
+            MainActivity::class.java)
             .let {intent->
-                PendingIntent.getBroadcast(this@MainActivity,0,intent,PendingIntent.FLAG_IMMUTABLE)
+                intent.putExtra("username",userName)
+                PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
+            }
+
+        // 알림 등록 : 앱 실행
+        val broadIntent = Intent(this@MainActivity,AlarmBroadCastReceiver::class.java)
+            .let {intent->
+                intent.putExtra("code", REQUEST_CODE_1)
+                intent.putExtra("username",userName)
+                PendingIntent.getBroadcast(this@MainActivity,REQUEST_CODE_1,intent,PendingIntent.FLAG_IMMUTABLE)
             }
 
 
         val calendar = Calendar.getInstance().apply {
+            timeZone = TimeZone.getDefault()
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY,2)
-            set(Calendar.MINUTE,33)
+//            set(Calendar.DAY_OF_MONTH,1)
+            set(Calendar.HOUR_OF_DAY,22)
+            set(Calendar.MINUTE,28)
+            set(Calendar.SECOND,0)
+            set(Calendar.MILLISECOND,0)
+            set(Calendar.DATE,get(Calendar.DAY_OF_MONTH))
         }
 
+
+        // 정시에 데이터 초기화 * 액티비티 재실행
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.setExactAndAllowWhileIdle(
+        alarmManager.set(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
-            pendingIntent
+            resetIntent
         )
+        alarmManager.set(
+            AlarmManager.RTC_WAKEUP,
+            AlarmManager.INTERVAL_DAY,
+            broadIntent
+        )
+
+
+
         //
     }
 
