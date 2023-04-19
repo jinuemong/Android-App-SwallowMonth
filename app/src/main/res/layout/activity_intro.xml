@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,10 +27,10 @@
         android:text="@string/manage_your_month_periodically" />
 
     <ImageView
-        android:layout_margin="@dimen/fab_margin"
         android:id="@+id/main_intro"
-        android:layout_width="@dimen/item_we_300"
-        android:layout_height="@dimen/item_we_300"
+        android:layout_width="@dimen/item_height_double_big"
+        android:layout_height="@dimen/item_height_double_big"
+        android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/main_icon" />
 
     <LinearLayout

@@ -129,6 +129,30 @@ class MonthDataManager(
             })
     }
 
+    //최근 데이터 얻기
+    fun getRecentlyData(userName:String,paramFun: (RecordData?) -> Unit){
+        materApp.service.getRecentlyData(userName,"")
+            .enqueue(object :Callback<ArrayList<RecordData>>{
+                override fun onResponse(
+                    call: Call<ArrayList<RecordData>>,
+                    response: Response<ArrayList<RecordData>>
+                ) {
+                    if (response.isSuccessful){
+                        response.body()?.let {
+                            if (it.size>0){
+                                paramFun(it[0])
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<RecordData>>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+    }
+
     // 랭킹 데이터 얻기
     fun getRankingData(keyDate:String,paramFun: (ArrayList<RecordData>?, String?) -> Unit){
         materApp.service.getRankingDataList(keyDate)

@@ -8,6 +8,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -26,6 +27,7 @@ import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTodayTaskFragment
+import com.example.SwallowMonthJM.DetailView.RecentlyMonthFragment
 import com.example.SwallowMonthJM.MainFragment.FragmentRoutineList
 import com.example.SwallowMonthJM.MainFragment.FragmentStatistics
 import com.example.SwallowMonthJM.MainFragment.FragmentActivityList
@@ -35,16 +37,21 @@ import com.example.SwallowMonthJM.Manager.UserManager
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Relation.AlarmFragment
+import com.example.SwallowMonthJM.Unit.MessageBox
 import com.example.SwallowMonthJM.Unit.getPhotoUrl
 import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var masterApp: MasterApplication
+    private lateinit var alarmManager: AlarmManager
+
 
     lateinit var slideFrame : SlidingUpPanelLayout
     lateinit var slideLayout: View
@@ -67,6 +74,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentPageAdapter: FragmentAdapter
     lateinit var viewPager: ViewPager2
     lateinit var userName:String
+    lateinit var nextFrag : String
     //click tab
     val tintColor = ColorStateList(
         arrayOf(
@@ -93,6 +101,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         supportFragmentManager.fragmentFactory = FragmentFactory()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -105,8 +114,11 @@ class MainActivity : AppCompatActivity() {
 
         // user profile 세팅
         userName = intent.getStringExtra("username").toString()
-
-
+        if (userName=="null"){
+            startActivity(Intent(this@MainActivity,LoginActivity::class.java))
+        }
+        nextFrag = intent.getStringExtra("fragment").toString()
+        Log.d("nextFrag",nextFrag)
         //슬라이딩 뷰
         slideFrame = binding.mainFrame
         slideLayout = binding.slideLayout
@@ -135,54 +147,12 @@ class MainActivity : AppCompatActivity() {
         this.onBackPressedDispatcher.addCallback(this,callback)
 
 
-        //뷰 초기화
+        //뷰 초기화®
         initView()
 
-//        알림 등록 : reset Activity
-        val resetIntent = Intent(this@MainActivity,
-            MainActivity::class.java)
-            .let {intent->
-                intent.putExtra("username",userName)
-                PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
-            }
-
-        // 알림 등록 : 앱 실행
-        val broadIntent = Intent(this@MainActivity,AlarmBroadCastReceiver::class.java)
-            .let {intent->
-                intent.putExtra("code", REQUEST_CODE_1)
-                intent.putExtra("username",userName)
-                PendingIntent.getBroadcast(this@MainActivity,REQUEST_CODE_1,intent,PendingIntent.FLAG_IMMUTABLE)
-            }
-
-
-        val calendar = Calendar.getInstance().apply {
-            timeZone = TimeZone.getDefault()
-            timeInMillis = System.currentTimeMillis()
-//            set(Calendar.DAY_OF_MONTH,1)
-            set(Calendar.HOUR_OF_DAY,22)
-            set(Calendar.MINUTE,28)
-            set(Calendar.SECOND,0)
-            set(Calendar.MILLISECOND,0)
-            set(Calendar.DATE,get(Calendar.DAY_OF_MONTH))
-        }
-
-
-        // 정시에 데이터 초기화 * 액티비티 재실행
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        alarmManager.set(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            resetIntent
-        )
-        alarmManager.set(
-            AlarmManager.RTC_WAKEUP,
-            AlarmManager.INTERVAL_DAY,
-            broadIntent
-        )
-
-
-
-        //
+//
+//        setAlarm(resetDayIntent(),resetMonthIntent())
+//        setAlarm(dayBroadIntent(),monthBroadIntent())
     }
 
     private fun initView() {
@@ -201,6 +171,13 @@ class MainActivity : AppCompatActivity() {
                 initViewPager()
                 initTabLayout()
                 setUpListener()
+
+                // 만약 month DATA 갱신 -> 최근 업적 보여줌
+                if (nextFrag=="recently"){
+                    val recentlyBox = RecentlyMonthFragment()
+                    Log.d("reset recently",recentlyBox.toString())
+                    recentlyBox.show(frManger,null)
+                }
             })
     }
 
@@ -286,5 +263,78 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+//    private fun setAlarm(dayIntent:PendingIntent,monthIntent: PendingIntent){
+//
+//        val calendar = Calendar.getInstance().apply {
+//            timeInMillis = System.currentTimeMillis()
+//            set(Calendar.HOUR_OF_DAY,18)
+//            set(Calendar.MINUTE,33)
+//            set(Calendar.SECOND,0)
+//            set(Calendar.MILLISECOND,0)
+//
+//        }
+//        val day = calendar.get(Calendar.DAY_OF_MONTH)
+//        val intent =
+//            if (day==19){
+//                monthIntent
+//            }else{
+//                dayIntent
+//            }
+//        if (calendar.time<Date()){// 설정한 시간에 따라서 알람이 안될 수도 있음
+//            calendar.add(Calendar.MINUTE,1)
+//        }
+//        alarmManager.setRepeating(
+//            AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis,
+//            AlarmManager.INTERVAL_DAY,
+//            intent
+//        )
+//
+//    }
+
+
+
+//    //데이 엑티비티 리셋
+//    private fun resetDayIntent() : PendingIntent{
+//        return Intent(this@MainActivity,
+//            MainActivity::class.java)
+//            .let {intent->
+//                intent.putExtra("username",userName)
+//                intent.putExtra("fragment","not")
+//                PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
+//            }
+//    }
+//
+//    //month 액티비티 리셋
+//    private fun resetMonthIntent() : PendingIntent{
+//        return Intent(this@MainActivity,
+//        MainActivity::class.java)
+//            .let { intent->
+//                intent.putExtra("username",userName)
+//                intent.putExtra("fragment","recently")
+//                PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
+//            }
+//    }
+//
+//    //앱 실행 알림
+//    private fun dayBroadIntent() : PendingIntent{
+//        return Intent(this@MainActivity,AlarmBroadCastReceiver::class.java)
+//            .let {intent->
+//                intent.putExtra("code", REQUEST_CODE_1)
+//                intent.putExtra("username",userName)
+//                PendingIntent.getBroadcast(this@MainActivity,REQUEST_CODE_1,intent,PendingIntent.FLAG_IMMUTABLE)
+//            }
+//    }
+//
+//    private fun monthBroadIntent() : PendingIntent{
+//        return Intent(this@MainActivity,AlarmBroadCastReceiver::class.java)
+//            .let { intent ->
+//                intent.putExtra("code", REQUEST_CODE_2)
+//                intent.putExtra("username", userName)
+//                PendingIntent.getBroadcast(this@MainActivity,REQUEST_CODE_2,intent,PendingIntent.FLAG_IMMUTABLE)
+//            }
+//    }
+
 }
 

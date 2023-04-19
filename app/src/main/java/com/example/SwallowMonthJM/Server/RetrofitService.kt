@@ -296,7 +296,14 @@ interface RetrofitService {
     // 레코드
     @GET("month/recordDatas/")
     fun getRecordDataList(
-        @Query(value = "search", encoded = true) userId :String,
+        @Query(value = "userName", encoded = true) userName :String,
+    ): Call<ArrayList<RecordData>>
+
+    //최근 레코드 구하기 (1)
+    @GET("month/recordDatas/")
+    fun getRecentlyData(
+        @Query(value = "userName", encoded = true) userName :String,
+        @Query(value = "keyDate", encoded = true) keyDate :String,
     ): Call<ArrayList<RecordData>>
 
     // 랭킹

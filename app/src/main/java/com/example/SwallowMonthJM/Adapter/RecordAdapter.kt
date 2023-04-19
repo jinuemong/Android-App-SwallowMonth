@@ -26,6 +26,7 @@ class RecordAdapter(
                 binding.subject.text = "${item.userId}'s Record Card"
                 binding.totalActivity.text = "${item.clearNum} / ${item.activityNum}"
                 binding.totalPointMent.text = "${item.totalPoint} point !"
+                binding.userRanking.text = item.ranking.toString()
             }
         }
 
