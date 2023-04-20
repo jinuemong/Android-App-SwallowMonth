@@ -1,8 +1,9 @@
 package com.example.SwallowMonthJM
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.app.AlarmManager
-import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -23,6 +24,7 @@ import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import androidx.work.*
 import com.bumptech.glide.Glide
 import com.example.SwallowMonthJM.Adapter.FragmentAdapter
 import com.example.SwallowMonthJM.AddTaskRoutineFragment.AddTaskFragment
@@ -37,21 +39,20 @@ import com.example.SwallowMonthJM.Manager.UserManager
 import com.example.SwallowMonthJM.Model.Profile
 import com.example.SwallowMonthJM.Server.MasterApplication
 import com.example.SwallowMonthJM.Relation.AlarmFragment
-import com.example.SwallowMonthJM.Unit.MessageBox
 import com.example.SwallowMonthJM.Unit.getPhotoUrl
+import com.example.SwallowMonthJM.Unit.getTimeUsingInWorkRequest
 import com.example.SwallowMonthJM.ViewModel.*
 import com.example.SwallowMonthJM.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var masterApp: MasterApplication
     private lateinit var alarmManager: AlarmManager
-
 
     lateinit var slideFrame : SlidingUpPanelLayout
     lateinit var slideLayout: View
@@ -74,7 +75,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentPageAdapter: FragmentAdapter
     lateinit var viewPager: ViewPager2
     lateinit var userName:String
-    lateinit var nextFrag : String
     //click tab
     val tintColor = ColorStateList(
         arrayOf(
@@ -117,8 +117,7 @@ class MainActivity : AppCompatActivity() {
         if (userName=="null"){
             startActivity(Intent(this@MainActivity,LoginActivity::class.java))
         }
-        nextFrag = intent.getStringExtra("fragment").toString()
-        Log.d("nextFrag",nextFrag)
+
         //슬라이딩 뷰
         slideFrame = binding.mainFrame
         slideLayout = binding.slideLayout
@@ -149,12 +148,11 @@ class MainActivity : AppCompatActivity() {
 
         //뷰 초기화®
         initView()
+        initWorkManager()
 
-//
-//        setAlarm(resetDayIntent(),resetMonthIntent())
-//        setAlarm(dayBroadIntent(),monthBroadIntent())
     }
 
+    @SuppressLint("CommitPrefEdits")
     private fun initView() {
         UserManager(masterApp,this@MainActivity)
             .getUserProfileWithUserName(userName, paramFun = { profile,_->
@@ -173,10 +171,13 @@ class MainActivity : AppCompatActivity() {
                 setUpListener()
 
                 // 만약 month DATA 갱신 -> 최근 업적 보여줌
-                if (nextFrag=="recently"){
+                val nextFrag = getSharedPreferences("fragment",Context.MODE_PRIVATE)
+
+                if (nextFrag.getString("fragment","")=="recently"){
                     val recentlyBox = RecentlyMonthFragment()
-                    Log.d("reset recently",recentlyBox.toString())
                     recentlyBox.show(frManger,null)
+                    Log.d("reset recently",recentlyBox.toString())
+                    nextFrag.edit().putString("fragment","").apply() //뷰 보여주고 다시 안뜨게 하기
                 }
             })
     }
@@ -264,77 +265,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun setAlarm(dayIntent:PendingIntent,monthIntent: PendingIntent){
-//
-//        val calendar = Calendar.getInstance().apply {
-//            timeInMillis = System.currentTimeMillis()
-//            set(Calendar.HOUR_OF_DAY,18)
-//            set(Calendar.MINUTE,33)
-//            set(Calendar.SECOND,0)
-//            set(Calendar.MILLISECOND,0)
-//
-//        }
-//        val day = calendar.get(Calendar.DAY_OF_MONTH)
-//        val intent =
-//            if (day==19){
-//                monthIntent
-//            }else{
-//                dayIntent
-//            }
-//        if (calendar.time<Date()){// 설정한 시간에 따라서 알람이 안될 수도 있음
-//            calendar.add(Calendar.MINUTE,1)
-//        }
-//        alarmManager.setRepeating(
-//            AlarmManager.RTC_WAKEUP,
-//            calendar.timeInMillis,
-//            AlarmManager.INTERVAL_DAY,
-//            intent
-//        )
-//
-//    }
+    private fun initWorkManager(){
+        // One time work requeset -> scheduledWorker 호출
+        // 자기 자신 호출 -> 무한 반복
+        val dailyWorkRequest = OneTimeWorkRequestBuilder<ScheduledWorker>()
+            .setInitialDelay(getTimeUsingInWorkRequest(),TimeUnit.MILLISECONDS)
+            .addTag("notify_day_by_day")
+            .build()
 
 
+        WorkManager.getInstance(applicationContext)
+            .enqueue(dailyWorkRequest)
 
-//    //데이 엑티비티 리셋
-//    private fun resetDayIntent() : PendingIntent{
-//        return Intent(this@MainActivity,
-//            MainActivity::class.java)
-//            .let {intent->
-//                intent.putExtra("username",userName)
-//                intent.putExtra("fragment","not")
-//                PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
-//            }
-//    }
-//
-//    //month 액티비티 리셋
-//    private fun resetMonthIntent() : PendingIntent{
-//        return Intent(this@MainActivity,
-//        MainActivity::class.java)
-//            .let { intent->
-//                intent.putExtra("username",userName)
-//                intent.putExtra("fragment","recently")
-//                PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_IMMUTABLE)
-//            }
-//    }
-//
-//    //앱 실행 알림
-//    private fun dayBroadIntent() : PendingIntent{
-//        return Intent(this@MainActivity,AlarmBroadCastReceiver::class.java)
-//            .let {intent->
-//                intent.putExtra("code", REQUEST_CODE_1)
-//                intent.putExtra("username",userName)
-//                PendingIntent.getBroadcast(this@MainActivity,REQUEST_CODE_1,intent,PendingIntent.FLAG_IMMUTABLE)
-//            }
-//    }
-//
-//    private fun monthBroadIntent() : PendingIntent{
-//        return Intent(this@MainActivity,AlarmBroadCastReceiver::class.java)
-//            .let { intent ->
-//                intent.putExtra("code", REQUEST_CODE_2)
-//                intent.putExtra("username", userName)
-//                PendingIntent.getBroadcast(this@MainActivity,REQUEST_CODE_2,intent,PendingIntent.FLAG_IMMUTABLE)
-//            }
-//    }
+        WorkManager.getInstance(applicationContext)
+            .getWorkInfoByIdLiveData(dailyWorkRequest.id)
+            .observe(this@MainActivity){
+                if(it.state.isFinished){ //종료 시 새로 등록
+                    // 리셋 시도
+                    try {
+                        startActivity(Intent(applicationContext,LoginActivity::class.java))
+                    }catch (_:Exception){
+                    }
+                }
+            }
+    }
 
 }
 

@@ -9,7 +9,7 @@ import java.util.*
 class CustomCalendar(
     private val mainActivity: MainActivity,
     date: Date,
-    private val currentDay:Int,
+    val currentDay:Int,
     private val currentMonth:Int,
     private val dateMonth:Int,
 

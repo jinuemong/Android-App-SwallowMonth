@@ -1,5 +1,6 @@
 package com.example.SwallowMonthJM
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -13,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.work.OneTimeWorkRequestBuilder
 import org.mozilla.javascript.tools.jsc.Main
 import java.time.LocalDateTime
 import java.util.Calendar
@@ -22,6 +24,7 @@ import java.util.Calendar
 
 class AlarmBroadCastReceiver : BroadcastReceiver() {
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver", "CommitPrefEdits")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onReceive(p0: Context?, p1: Intent?) {
         // 알람을 받는 곳
@@ -30,13 +33,11 @@ class AlarmBroadCastReceiver : BroadcastReceiver() {
                 MainActivity.REQUEST_CODE_1->{ // main 리셋
                     Toast.makeText(p0, "init current Data", Toast.LENGTH_SHORT).show()
                     Log.d("initCurrentData", LocalDateTime.now().toString())
-                    val code = MainActivity.REQUEST_CODE_1
-                    // 메인으로 이동하는 인텐트 생성
-                    val intent = Intent(p0, MainActivity::class.java).apply {
-                        putExtra("username", p1.extras?.get("username").toString())
-                    }
 
-                    // 늦은 인텐트로 전환
+                    val code = MainActivity.REQUEST_CODE_1
+
+                    // 인텐트 생성
+                    val intent = Intent(p0, LoginActivity::class.java)
                     val pendingIntent = PendingIntent.getActivity(p0, 0, intent, 0)
                     // 알림 생성 - 메시지 전달
                     val builder = NotificationCompat.Builder(p0, "my_channel")
@@ -49,6 +50,7 @@ class AlarmBroadCastReceiver : BroadcastReceiver() {
                     NotificationManagerCompat.from(p0).apply {
                         notify(code, builder.build())
                     }
+                    //채널 등록
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val channel = NotificationChannel(
                             "my_channel", "Notification",
@@ -65,14 +67,12 @@ class AlarmBroadCastReceiver : BroadcastReceiver() {
                     Toast.makeText(p0, "initMonthData", Toast.LENGTH_SHORT).show()
                     Log.d("initMonthData", LocalDateTime.now().toString())
                     val code = MainActivity.REQUEST_CODE_2
-                    // 메인으로 이동하는 인텐트 생성
-                    val intent = Intent(p0, MainActivity::class.java).apply {
-                        putExtra("username", p1.extras?.get("username").toString())
-                        putExtra("fragment","recently")
-                    }
-
-                    // 늦은 인텐트로 전환
+                    // 인텐트 생성
+                    val intent = Intent(p0, LoginActivity::class.java)
+                    val sr = p0.getSharedPreferences("fragment",Context.MODE_PRIVATE)
+                    sr.edit().putString("fragment","recently").apply()
                     val pendingIntent = PendingIntent.getActivity(p0, 0, intent, 0)
+
                     // 알림 생성 - 메시지 전달
                     val builder = NotificationCompat.Builder(p0, "my_channel_2")
                         .setSmallIcon(android.R.drawable.ic_dialog_info)
@@ -96,6 +96,7 @@ class AlarmBroadCastReceiver : BroadcastReceiver() {
                         notificationManager.createNotificationChannel(channel)
                     }
                 }
+
             }
         }
     }

@@ -1,13 +1,10 @@
 package com.example.SwallowMonthJM.Server.TokenManager
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.SwallowMonthJM.LoginActivity
-import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Model.Token
-import com.example.SwallowMonthJM.Unit.MessageBox
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -15,6 +12,7 @@ import okhttp3.Response
 class AuthInterceptor(
     private val context: Context,
     private val tokenApi: TokenRefreshApi,
+    private val obtainApi: TokenObtainApi,
 ):Interceptor,BaseRepository(){
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -27,27 +25,37 @@ class AuthInterceptor(
                         val sp = context.getSharedPreferences("login_sp",Context.MODE_PRIVATE)
                         val editor = sp.edit()
                         val accessToken = token.value!!.access
-                        Log.d("test 123123123 2",accessToken.toString())
+                        val refreshToken = token.value.refresh
+                        Log.d("test 123123123 2",accessToken)
                         editor.putString("accessToken",accessToken)
+                        editor.putString("refreshToken",refreshToken)
                         editor.apply()
 
-                        // 기존 토큰 지우고 새로운 rsponse 반환
+                        // 기존 토큰 지우고 새로운 response 반환
                         val newRequest = chain.request().newBuilder().removeHeader("Authorization")
                         newRequest.addHeader("Authorization","Bearer $accessToken")
                         return@runBlocking chain.proceed(newRequest.build())
                     }
-                    else ->{ // refresh 토큰이 만료 된 경우 -> 로그아웃
-                        val messageBox = MessageBox.newInstance("Your authorization has expired. Log out")
-                        messageBox.show((context as MainActivity).frManger,null)
-                        messageBox.apply {
-                            setOnclickListener(object : MessageBox.OnItemClickListener{
-                                override fun onItemClick() {
-                                    messageBox.dismiss()
-                                    val intent = Intent(context, LoginActivity::class.java)
-                                    intent.putExtra("logout",true)
-                                    startActivity(intent)
-                                }
-                            })
+                    else ->{ // refresh 토큰이 만료 된 경우 -> 새로운 토큰 발급
+                        when (val newToken = newToken()) {
+                            is Resource.Success-> {
+                                val sp = context.getSharedPreferences("login_sp", Context.MODE_PRIVATE)
+                                val editor = sp.edit()
+                                val accessToken = newToken.value!!.access
+                                val refreshToken = newToken.value.refresh
+                                editor.putString("accessToken", accessToken)
+                                editor.putString("refreshToken", refreshToken)
+                                editor.apply()
+                                // 기존 토큰 지우고 새로운 response 반환
+                                val newRequest = chain.request().newBuilder().removeHeader("Authorization")
+                                newRequest.addHeader("Authorization", "Bearer $accessToken")
+                                return@runBlocking chain.proceed(newRequest.build())
+                            }
+                            else-> { //모든 케이스 실패 -> 로그아웃
+                                val intent = Intent(context,LoginActivity::class.java)
+                                intent.putExtra("logout",true)
+                                context.startActivity(intent)
+                            }
                         }
                         return@runBlocking response
                     }
@@ -61,10 +69,14 @@ class AuthInterceptor(
     private suspend fun getUpdateToken() : Resource<Token?> {
         val refreshToken = context.getSharedPreferences("login_sp",Context.MODE_PRIVATE)
             .getString("refreshToken","").toString()
-        Log.d("sdljdl",refreshToken)
         //safeApiCall을 통한 api 요청
         // refresh token이 비었을 경우에는 null 전송을 통해서 에러 반환을 받음
         return safeApiCall { tokenApi.patchToken(refreshToken) }
+    }
+
+    private suspend fun newToken() : Resource<Token?>{
+        // 완전히 새로운 토큰 반환
+        return safeApiCall { obtainApi.getToken() }
     }
 
 }

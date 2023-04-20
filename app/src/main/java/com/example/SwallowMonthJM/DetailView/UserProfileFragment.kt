@@ -21,7 +21,6 @@ import com.example.SwallowMonthJM.Model.RecordData
 import com.example.SwallowMonthJM.Relation.MyFriendFragment
 import com.example.SwallowMonthJM.Relation.TotalFriendFragment
 import com.example.SwallowMonthJM.UIFragment.RecordFragment
-import com.example.SwallowMonthJM.Unit.MessageBox
 import com.example.SwallowMonthJM.databinding.FragmentUserProfileBinding
 
 
@@ -236,10 +235,10 @@ class UserProfileFragment() : Fragment() {
         binding.isFriend.visibility = View.GONE
         // 메시지 기능
         binding.sendMessage.setOnClickListener {
-            val messageBox = MessageBox.newInstance("Only friend can send message.")
+            val messageBox = MessageBoxFragment.newInstance("Only friend can send message.")
             messageBox.show(mainActivity.frManger,null)
             messageBox.apply {
-                setOnclickListener(object :MessageBox.OnItemClickListener{
+                setOnclickListener(object : MessageBoxFragment.OnItemClickListener{
                     override fun onItemClick() {
                         messageBox.dismiss()
                     }
@@ -267,12 +266,12 @@ class UserProfileFragment() : Fragment() {
 
         //친구 취소
         binding.isFriend.setOnClickListener {
-            val messageBox = MessageBox.newInstance("All relationships " +
+            val messageBox = MessageBoxFragment.newInstance("All relationships " +
                     "including messages, " +
                     "are deleted to the user where they are deleted?")
             messageBox.show(mainActivity.frManger,null)
             messageBox.apply {
-                setOnclickListener(object :MessageBox.OnItemClickListener{
+                setOnclickListener(object : MessageBoxFragment.OnItemClickListener{
                     override fun onItemClick() {
                         messageBox.dismiss()
                         delFriendShip(frId)

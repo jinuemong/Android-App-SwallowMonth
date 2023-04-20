@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import com.example.SwallowMonthJM.Server.TokenManager.AuthInterceptor
+import com.example.SwallowMonthJM.Server.TokenManager.TokenObtainApi
 import com.example.SwallowMonthJM.Server.TokenManager.TokenRefreshApi
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
@@ -65,6 +66,18 @@ class MasterApplication:Application(
             .create(TokenRefreshApi::class.java)
     }
 
+    // 새로운 토큰 발급을 위한 빌더 생성
+    private fun obtainTokenApi() : TokenObtainApi{
+        val client = OkHttpClient.Builder().build()
+        return Retrofit.Builder()
+            .baseUrl("$baseUrl/")
+            .client(client)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(TokenObtainApi::class.java)
+    }
+
     private fun getRetrofitClient(header:Interceptor) : OkHttpClient{
         return OkHttpClient.Builder()
             .addInterceptor {chain->
@@ -73,7 +86,7 @@ class MasterApplication:Application(
                 }.build())
             }.also {client->
                 client.addInterceptor(header)
-                client.addInterceptor(AuthInterceptor(activity,buildTokenApi()))
+                client.addInterceptor(AuthInterceptor(activity,buildTokenApi(),obtainTokenApi()))
 
                 //로그 기록 인터셉터 등록
                 val logInterceptor = HttpLoggingInterceptor()

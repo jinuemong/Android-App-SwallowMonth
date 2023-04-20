@@ -4,10 +4,11 @@
     android:layout_gravity="center"
     android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/round_border"
-    android:padding="@dimen/item_mid_height_20dp"
+    android:layout_margin="@dimen/fab_margin"
+    android:background="#00ffffff"
+    android:padding="@dimen/item_mid_height_30"
     android:clickable="true"
     android:focusable="true"
     tools:context=".DetailView.RecentlyMonthFragment">
@@ -30,18 +31,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:gravity="center"
             android:textStyle="bold"
             android:layout_margin="@dimen/main_margin"
             android:background="@drawable/round_border"
             android:padding="@dimen/main_margin_10"
-            android:text="View Records"
+            android:text="Records"
             android:id="@+id/commit_button"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <TextView
+
             android:textStyle="bold"
-            android:text="View Home"
+            android:text="Home"
             android:layout_margin="@dimen/main_margin"
             android:background="@drawable/round_border"
             android:padding="@dimen/main_margin_10"

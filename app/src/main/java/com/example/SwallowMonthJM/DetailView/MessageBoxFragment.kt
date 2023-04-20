@@ -1,14 +1,13 @@
-package com.example.SwallowMonthJM.Unit
+package com.example.SwallowMonthJM.DetailView
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.fragment.app.DialogFragment
 import com.example.SwallowMonthJM.databinding.MessaegBoxBinding
 
-class MessageBox: DialogFragment() {
+class MessageBoxFragment: DialogFragment() {
     private var message : String? = null
     private var onItemClickListener : OnItemClickListener? = null
     interface OnItemClickListener{
@@ -42,7 +41,7 @@ class MessageBox: DialogFragment() {
         }
 
         binding.closeButton.setOnClickListener {
-            this@MessageBox.dismissNow()
+            this@MessageBoxFragment.dismissNow()
         }
 
         binding.commitButton.setOnClickListener {
@@ -56,7 +55,7 @@ class MessageBox: DialogFragment() {
     companion object{
 
         fun newInstance(message: String) =
-            MessageBox().apply {
+            MessageBoxFragment().apply {
                 arguments = Bundle().apply {
                     putString("message",message)
                 }

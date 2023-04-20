@@ -10,10 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import com.example.SwallowMonthJM.Adapter.RecordAdapter
 import com.example.SwallowMonthJM.MainActivity
 import com.example.SwallowMonthJM.Manager.MonthDataManager
-import com.example.SwallowMonthJM.R
-import com.example.SwallowMonthJM.Unit.MessageBox
 import com.example.SwallowMonthJM.databinding.FragmentRecordBinding
-import org.mozilla.javascript.tools.jsc.Main
 
 class RecordFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
