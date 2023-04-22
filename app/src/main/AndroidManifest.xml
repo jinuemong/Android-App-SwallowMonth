@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.SwallowMonthJM">
+    package="com.jinuemong.SwallowMonthJM">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <application
-        android:name=".Server.MasterApplication"
+        android:name="com.jinuemong.SwallowMonthJM.Server.MasterApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwallowMonthJM"
         tools:targetApi="31">
-        <receiver android:name=".AlarmBroadCastReceiver"
+        <receiver android:name="com.jinuemong.SwallowMonthJM.AlarmBroadCastReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -29,7 +29,8 @@
             </intent-filter>
         </receiver>
         <activity
-            android:name=".IntroActivity"
+            android:screenOrientation="portrait"
+            android:name="com.jinuemong.SwallowMonthJM.IntroActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,13 +39,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InsertActivity"
+            android:screenOrientation="portrait"
+            android:name="com.jinuemong.SwallowMonthJM.InsertActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:name="com.jinuemong.SwallowMonthJM.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:name="com.jinuemong.SwallowMonthJM.MainActivity"
             android:exported="false">
         </activity>
     </application>
