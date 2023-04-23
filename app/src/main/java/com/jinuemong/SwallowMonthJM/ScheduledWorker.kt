@@ -27,7 +27,6 @@ class ScheduledWorker(context: Context, params:WorkerParameters)
         return Intent(applicationContext,AlarmBroadCastReceiver::class.java)
             .let {intent->
                 intent.putExtra("code", REQUEST_CODE_1)
-//                PendingIntent.getBroadcast(applicationContext,REQUEST_CODE_1,intent,PendingIntent.FLAG_IMMUTABLE)
             }
     }
 
@@ -35,7 +34,6 @@ class ScheduledWorker(context: Context, params:WorkerParameters)
          return Intent(applicationContext,AlarmBroadCastReceiver::class.java)
             .let { intent ->
                 intent.putExtra("code", REQUEST_CODE_2)
-//                PendingIntent.getBroadcast(applicationContext,REQUEST_CODE_2,intent,PendingIntent.FLAG_IMMUTABLE)
             }
     }
 }

@@ -34,7 +34,7 @@ class AlarmBroadCastReceiver : BroadcastReceiver() {
 
                     // 인텐트 생성
                     val intent = Intent(p0, LoginActivity::class.java)
-                    val pendingIntent = PendingIntent.getActivity(p0, 0, intent, 0)
+                    val pendingIntent = PendingIntent.getActivity(p0, 0, intent, PendingIntent.FLAG_IMMUTABLE)
                     // 알림 생성 - 메시지 전달
                     val builder = NotificationCompat.Builder(p0, "my_channel")
                         .setSmallIcon(android.R.drawable.ic_dialog_info)
@@ -67,7 +67,7 @@ class AlarmBroadCastReceiver : BroadcastReceiver() {
                     val intent = Intent(p0, LoginActivity::class.java)
                     val sr = p0.getSharedPreferences("fragment",Context.MODE_PRIVATE)
                     sr.edit().putString("fragment","recently").apply()
-                    val pendingIntent = PendingIntent.getActivity(p0, 0, intent, 0)
+                    val pendingIntent = PendingIntent.getActivity(p0, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
                     // 알림 생성 - 메시지 전달
                     val builder = NotificationCompat.Builder(p0, "my_channel_2")

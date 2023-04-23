@@ -18,7 +18,7 @@ class MasterApplication:Application(
 
 ) {
     lateinit var service:RetrofitService
-    val baseUrl = "https://259d-14-51-88-88.ngrok-free.app"
+    val baseUrl = "https://port-0-swallowmonth-distribution-17xqnr2algrugrat.sel3.cloudtype.app"
     private lateinit var activity: Activity
     override fun onCreate() {
         super.onCreate()
