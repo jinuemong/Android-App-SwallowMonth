@@ -25,6 +25,7 @@ class AuthInterceptor(
                         val sp = context.getSharedPreferences("login_sp",Context.MODE_PRIVATE)
                         val editor = sp.edit()
                         val accessToken = token.value!!.access
+
                         val refreshToken = token.value.refresh
                         Log.d("test 123123123 2",accessToken)
                         editor.putString("accessToken",accessToken)
