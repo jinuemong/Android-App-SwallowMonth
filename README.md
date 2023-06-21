@@ -24,4 +24,5 @@
 
    - Android, Kotlin, Python, Django
    
-### Personnel 
+#### [배포] : 플레이스토어
+https://play.google.com/store/apps/details?id=com.jinuemong.SwallowMonthJM
