@@ -21,7 +21,7 @@ https://www.notion.so/Jinwoo-Kim-ba88c2c3e87a4a16b5ed402bf501dea4?p=2c657fc65716
 ### Additional Function
  
 ### Period
-   - 2022.11 ~ 
+   - 2022.10 - 2023.04
    
 ### Environment
 
