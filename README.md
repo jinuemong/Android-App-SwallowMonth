@@ -2,6 +2,9 @@
 # Android Project 
 ------------------
 
+### Project Information
+https://www.notion.so/Jinwoo-Kim-ba88c2c3e87a4a16b5ed402bf501dea4?p=2c657fc6571648408a0d8d57a610b754&pm=c
+
 ### Project Name
    - Swallow a Month
    
